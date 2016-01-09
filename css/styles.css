@@ -1,0 +1,16 @@
+body {
+	font-family: Lato, monospace;
+	padding: 2em;
+	width: 40em;
+	margin: 2em auto;
+	background-image: url(../images/wendigo.png);
+	background-repeat: repeat;
+	color: white;
+	text-shadow: 1px 1px rgb(110, 110, 110);
+	opacity: 0.9;
+}
+
+a {
+		color: rgb(230, 230, 230);
+		text-underline-position: alphabetic;
+}
