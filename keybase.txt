@@ -1,0 +1,54 @@
+==================================================================
+https://keybase.io/wendigo
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://wendigo.pl
+  * I am wendigo (https://keybase.io/wendigo) on keybase.
+  * I have a public key ASAoY6S-GygyDcxXRFmXdtIYMmSvrunNUHdGywrdawdNDAo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "01202863a4be1b28320dcc5744599776d2183264afaee9cd507746cb0add6b074d0c0a",
+            "host": "keybase.io",
+            "kid": "01202863a4be1b28320dcc5744599776d2183264afaee9cd507746cb0add6b074d0c0a",
+            "uid": "b0a7f99a247ff258fb4ca11ed1bfbb19",
+            "username": "wendigo"
+        },
+        "service": {
+            "hostname": "wendigo.pl",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.14"
+    },
+    "ctime": 1459703793,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1459703686,
+        "hash": "b20586d37c8068278938bd6c918d7f0de21fb7cb7c5dff42f298c65c9105cdf96ffe694a42839a7c822fcc0411b45a60475f003626b4906681c3bfe43e643c62",
+        "seqno": 427843
+    },
+    "prev": "ed2d8af46a5a91d18593e3fbe84ba037d55160d6185840517ef45d997cb5fe96",
+    "seqno": 7,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+g6Rib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgKGOkvhsoMg3MV0RZl3bSGDJkr67pzVB3RssK3WsHTQwKp3BheWxvYWTFAvF7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwMjg2M2E0YmUxYjI4MzIwZGNjNTc0NDU5OTc3NmQyMTgzMjY0YWZhZWU5Y2Q1MDc3NDZjYjBhZGQ2YjA3NGQwYzBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwMjg2M2E0YmUxYjI4MzIwZGNjNTc0NDU5OTc3NmQyMTgzMjY0YWZhZWU5Y2Q1MDc3NDZjYjBhZGQ2YjA3NGQwYzBhIiwidWlkIjoiYjBhN2Y5OWEyNDdmZjI1OGZiNGNhMTFlZDFiZmJiMTkiLCJ1c2VybmFtZSI6IndlbmRpZ28ifSwic2VydmljZSI6eyJob3N0bmFtZSI6IndlbmRpZ28ucGwiLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC4xNCJ9LCJjdGltZSI6MTQ1OTcwMzc5MywiZXhwaXJlX2luIjo1MDQ1NzYwMDAsIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNDU5NzAzNjg2LCJoYXNoIjoiYjIwNTg2ZDM3YzgwNjgyNzg5MzhiZDZjOTE4ZDdmMGRlMjFmYjdjYjdjNWRmZjQyZjI5OGM2NWM5MTA1Y2RmOTZmZmU2OTRhNDI4MzlhN2M4MjJmY2MwNDExYjQ1YTYwNDc1ZjAwMzYyNmI0OTA2NjgxYzNiZmU0M2U2NDNjNjIiLCJzZXFubyI6NDI3ODQzfSwicHJldiI6ImVkMmQ4YWY0NmE1YTkxZDE4NTkzZTNmYmU4NGJhMDM3ZDU1MTYwZDYxODU4NDA1MTdlZjQ1ZDk5N2NiNWZlOTYiLCJzZXFubyI6NywidGFnIjoic2lnbmF0dXJlIn2jc2lnxECq+5zDVDTUTW6Os1fGHrpEQ29hO2ZPTB2pi4QQGumaG6oq0B4WIlFgm3ceeqhIHPTW+wZyw8TKQ2xYx2vhyuQNqHNpZ190eXBlIKN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/wendigo
+
+==================================================================
