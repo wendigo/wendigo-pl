@@ -5,20 +5,45 @@
     <title>Mateusz “Serafin” Gajewski</title>
     <meta name="description" content="Mateusz 'Serafin' Gajewski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/normalize.css" rel="stylesheet" media="all">
 	  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,700italic,400italic,900,900italic,300italic,300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   	<!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
     <style type="text/css">
+      html, body {
+        display: block;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+
       body {
         font-family: Lato, monospace;
-        padding: 2em;
-        width: 40em;
-        margin: 2em auto;
-        background-image: url(../images/26116786663_da490fecd5_k.jpg);
-        background-size: cover;
+        margin: 0;
         color: white;
         text-shadow: 1px 1px rgb(110, 110, 110);
-        opacity: 1.0;
+        display: block;
+      }
+
+      div.body {
+        width: 40em;
+        margin: 0 auto;
+      }
+
+      header[role="banner"] {
+        margin-top: 6em;
+      }
+
+      .colorful {
+        background:
+        	-webkit-linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
+        	-webkit-linear-gradient(315deg, hsla(225, 95%, 50%, 1) 10%, hsla(225, 95%, 50%, 0) 80%),
+        	-webkit-linear-gradient(225deg, hsla(140, 90%, 50%, 1) 10%, hsla(140, 90%, 50%, 0) 80%),
+        	-webkit-linear-gradient(135deg, hsla(35, 95%, 55%, 1) 100%, hsla(35, 95%, 55%, 0) 70%);
+        background:
+        	linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
+        	linear-gradient(135deg, hsla(225, 95%, 50%, 1) 10%, hsla(225, 95%, 50%, 0) 80%),
+        	linear-gradient(225deg, hsla(140, 90%, 50%, 1) 10%, hsla(140, 90%, 50%, 0) 80%),
+        	linear-gradient(315deg, hsla(35, 95%, 55%, 1) 100%, hsla(35, 95%, 55%, 0) 70%);
       }
 
       a {
@@ -27,7 +52,8 @@
       }
     </style>
 </head>
-<body>
+<body class="colorful">
+  <div class="body">
     <header role="banner">
 
         <h1>Hello there, stranger!</h1>
@@ -69,5 +95,6 @@
           <small>Background image in courtesy of <a href="https://www.flickr.com/photos/nasamarshall/26116786663/">NASA's Marshall Space Flight Center</a></small>
         </p>
     </footer>
+  </div>
 </body>
 </html>
