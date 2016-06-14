@@ -1,0 +1,13 @@
+=== macOS ===
+
+Just run Chrome with:
+
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+    --user-data-dir=/tmp/chrome \
+    --no-proxy-server \
+    --enable-quic \
+    --origin-to-force-quic-on=serafin.tech:443 'https://serafin.tech/'
+
+You should then see in the inspector window that connection is established over QUIC:
+
+https://serafin.tech/quic.jpg
