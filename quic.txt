@@ -6,7 +6,7 @@ Just run Chrome with:
     --user-data-dir=/tmp/chrome \
     --no-proxy-server \
     --enable-quic \
-    --origin-to-force-quic-on=serafin.tech:443 'https://serafin.tech/'
+    --quic-host-whitelist="serafin.tech" "serafin.tech"
 
 You should then see in the inspector window that connection is established over QUIC:
 
