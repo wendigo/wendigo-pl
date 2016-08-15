@@ -6,6 +6,7 @@
     <meta name="description" content="Mateusz “Serafin” Gajewski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css'>
     <style type="text/css">
       html, body {
         display: block;
@@ -17,13 +18,14 @@
       }
 
       body {
-        font-family: Lato, monospace;
+        font-family: Hack, monospace;
         text-shadow: 1px 1px rgb(110, 110, 110);
+        font-size: 14px;
         color: white;
       }
 
       div.body {
-        max-width: 36em;
+        max-width: 42em;
         padding: 1em;
       }
 
@@ -42,17 +44,28 @@
       }
 
       .colorful {
-        background:
-        	-webkit-linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
-        	-webkit-linear-gradient(315deg, hsla(225, 95%, 50%, 1) 10%, hsla(225, 95%, 50%, 0) 80%),
-        	-webkit-linear-gradient(225deg, hsla(140, 90%, 50%, 1) 10%, hsla(140, 90%, 50%, 0) 80%),
-        	-webkit-linear-gradient(135deg, hsla(35, 95%, 55%, 1) 100%, hsla(35, 95%, 55%, 0) 70%);
-        background:
-        	linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
-        	linear-gradient(135deg, hsla(225, 95%, 50%, 1) 10%, hsla(225, 95%, 50%, 0) 80%),
-        	linear-gradient(225deg, hsla(140, 90%, 50%, 1) 10%, hsla(140, 90%, 50%, 0) 80%),
-        	linear-gradient(315deg, hsla(35, 95%, 55%, 1) 100%, hsla(35, 95%, 55%, 0) 70%);
-          background-size: cover;
+        background: linear-gradient(320deg, #007d99, #029d83, #027b0c);
+        background-size: 600% 600%;
+
+        -webkit-animation: AnimationName 29s ease infinite;
+        -moz-animation: AnimationName 29s ease infinite;
+        animation: AnimationName 29s ease infinite;
+      }
+
+      @-webkit-keyframes AnimationName {
+          0%{background-position:0% 65%}
+          50%{background-position:100% 36%}
+          100%{background-position:0% 65%}
+      }
+      @-moz-keyframes AnimationName {
+          0%{background-position:0% 65%}
+          50%{background-position:100% 36%}
+          100%{background-position:0% 65%}
+      }
+      @keyframes AnimationName {
+          0%{background-position:0% 65%}
+          50%{background-position:100% 36%}
+          100%{background-position:0% 65%}
       }
 
       a {
@@ -68,55 +81,6 @@
         margin-top: 1em;
         margin-bottom: 0.2em;
       }
-
-      @font-face {
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 300;
-        src: local('Lato Light'), local('Lato-Light'), url(https://fonts.gstatic.com/s/lato/v11/IY9HZVvI1cMoAHxvl0w9LVKPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
-        unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-      }
-      /* latin */
-      @font-face {
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 300;
-        src: local('Lato Light'), local('Lato-Light'), url(https://fonts.gstatic.com/s/lato/v11/22JRxvfANxSmnAhzbFH8PgLUuEpTyoUstqEm5AMlJo4.woff2) format('woff2');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-      }
-      /* latin-ext */
-      @font-face {
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/8qcEw_nrk_5HEcCpYdJu8BTbgVql8nDJpwnrE27mub0.woff2) format('woff2');
-        unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-      }
-      /* latin */
-      @font-face {
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/MDadn8DQ_3oT6kvnUq_2r_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-      }
-      /* latin-ext */
-      @font-face {
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 700;
-        src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v11/rZPI2gHXi8zxUjnybc2ZQFKPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
-        unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-      }
-      /* latin */
-      @font-face {
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 700;
-        src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v11/MgNNr5y1C_tIEuLEmicLmwLUuEpTyoUstqEm5AMlJo4.woff2) format('woff2');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-      }
-
     </style>
 </head>
 <body class="colorful">
@@ -157,6 +121,7 @@
         <footer role="contentinfo">
             <p>
               <small>Served with HTTP/2 &amp; letsencrypt over TCP, QUIC is also available for Chrome 52+</time></small><br />
+	      <small>My GPG public key: 4B34188C</small>
             </p>
         </footer>
       </div>
