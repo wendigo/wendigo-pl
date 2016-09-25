@@ -26,6 +26,10 @@
         text-shadow: 1px 1px rgb(110, 110, 110);
         font-size: 14px;
         color: white;
+
+        background: #e96443; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #e96443 , #904e95); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #e96443 , #904e95); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       }
 
       div.body {
@@ -47,34 +51,9 @@
          min-height: min-content;
       }
 
-      .colorful {
-        background: linear-gradient(320deg, #007d99, #029d83, #027b0c);
-        background-size: 600% 600%;
-
-        -webkit-animation: AnimationName 29s ease infinite;
-        -moz-animation: AnimationName 29s ease infinite;
-        animation: AnimationName 29s ease infinite;
-      }
-
-      @-webkit-keyframes AnimationName {
-          0%{background-position:0% 65%}
-          50%{background-position:100% 36%}
-          100%{background-position:0% 65%}
-      }
-      @-moz-keyframes AnimationName {
-          0%{background-position:0% 65%}
-          50%{background-position:100% 36%}
-          100%{background-position:0% 65%}
-      }
-      @keyframes AnimationName {
-          0%{background-position:0% 65%}
-          50%{background-position:100% 36%}
-          100%{background-position:0% 65%}
-      }
-
       a {
-          color: rgb(230, 230, 230);
-          text-underline-position: alphabetic;
+          color: rgb(180, 180, 180);
+          text-decoration: none;
       }
 
       aside p, h3 {
