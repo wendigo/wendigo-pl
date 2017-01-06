@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html amp lang="en">
 <head itemscope itemtype="http://schema.org/WebSite">
     <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <link rel="canonical" href="https://serafin.tech/index.html" itemprop="url" />
     <title itemprop='name'>Mateusz Gajewski - multidextrous software engineer, architect and lead.</title>
     <meta name="description" content="Mateusz Gajewski - multidextrous software engineer, architect and lead." itemprop="description">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <link rel="canonical" href="https://serafin.tech/" itemprop="url">
     <link rel="amphtml" href="https://serafin.tech/index.amp.html">
-    <style type="text/css" amp-boilerplate>
+    <style type="text/css" amp-custom>
       html, body {
         display: block;
         height: 100%;
@@ -85,6 +87,7 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
       }
     </style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script type="application/ld+json">
       {
         "@context": "http://schema.org",
@@ -135,7 +138,7 @@
               <h3>Want to contact me?</h3>
               <p>Just prefix domain name with contact.</p>
               <h3>Want to hire me?</h3>
-              <p>My current resume is <a target="_blank" href="/mateusz-gajewski-resume.pdf" onclick="javascript:ga('send', 'event', 'resume', 'download')">available to download</a> (updated: 25.09.2016, <a target="_blank" href="mateusz-gajewski-resume.pdf.gpg">GPG sign</a>).</p>
+              <p>My current resume is <a target="_blank" href="/mateusz-gajewski-resume.pdf" id="resume">available to download</a> (updated: 25.09.2016, <a target="_blank" href="mateusz-gajewski-resume.pdf.gpg">GPG sign</a>).</p>
           </aside>
         </div>
         <footer role="contentinfo">
@@ -146,11 +149,29 @@
         </footer>
       </div>
     </div>
-    <script>
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-79494186-1', 'auto');
-      ga('send', 'pageview');
-    </script>
-    <script async src='analytics.js'></script>
+    <amp-analytics type="googleanalytics">
+      <script type="application/json">
+      {
+        "vars": {
+          "account": "UA-79494186-1"
+        },
+        "triggers": {
+          "trackPageview": {
+            "on": "visible",
+            "request": "pageview"
+          },
+          "trackAnchorClicks": {
+            "on": "click",
+            "selector": "a#resume",
+            "request": "event",
+            "vars": {
+              "eventCategory": "resume",
+              "eventAction": "download"
+            }
+          }
+        }
+      }
+      </script>
+  </amp-analytics>
 </body>
 </html>
