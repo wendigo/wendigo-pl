@@ -6,12 +6,13 @@
 		display: grid;
 		grid-template-columns: 2fr 10fr 2fr;
 		grid-template-rows: 1fr 5em auto 18em 1fr 5em;
-		grid-template-areas: "space-l space-header space-r"
-		"space-l header space-r"
-		"space-l main space-r"
-		"space-l aside space-r"
-		"space-l space space-r"
-		"space-l footer space-r";
+		grid-template-areas:
+												". . ."
+												". header ."
+												". main ."
+												". aside ."
+												". . ."
+												". footer .";
 
 		min-height: 100%;
 		line-height: 1.8em;
