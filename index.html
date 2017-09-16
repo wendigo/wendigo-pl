@@ -13,23 +13,27 @@
     <meta property="og:image" content="http://serafin.tech/avatar.jpg" />
     <meta name="application-name" content="Mateusz 'Serafin' Gajewski"/>
     <meta name="msapplication-TileColor" content="#0E2B5E"/>
-    
+
     <style type="text/css">
     @media all {
-      html, body {
-        display: block;
-        height: 100%;
-        width: 100%;
-        margin: 0;
+      .site {
+        display: grid;
+        grid-template-columns: 1fr 10fr 1fr;
+        grid-template-rows: 1fr 4em auto 15em 1fr;
+        grid-template-areas: "space-l space-header space-r"
+        "space-l header space-r"
+        "space-l main space-r"
+        "space-l aside space-r"
+        "space-l footer space-r";
+
+        min-height: 100%;
         line-height: 1.8em;
         background: url(images/blurred.jpg) no-repeat center center fixed;
         background-size: cover;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
-      }
 
-      body {
         font-family: 'Merriweather Sans', sans-serif;
         text-shadow: 1px 1px rgb(110, 110, 110);
         font-size: 1.05em;
@@ -37,43 +41,35 @@
         min-height: 100%;
       }
 
-      div.body {
-        max-width: 70%;
-        padding: 1em;
+      body, html {
+        margin: 0px;
+        height: 100%;
       }
 
-      .flex {
-        min-height: 100%;
-        padding: 0;
-        margin: 0;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        flex: 1;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+      main {
+        grid-area: main;
+      }
+
+      header {
+        grid-area: header;
+      }
+
+      aside {
+        grid-area: aside;
+      }
+
+      footer {
+        grid-area: footer;
       }
 
       a {
-          color: rgb(210, 210, 210);
-          text-decoration: none;
-          background-color: rgba(165, 165, 165, 0.25);
+        color: rgb(210, 210, 210);
+        text-decoration: none;
+        background-color: rgba(165, 165, 165, 0.25);
       }
 
       a:hover {
         background-color: rgba(165, 165, 165, 0.7);
-      }
-
-      aside p, h3 {
-        margin: 0;
-      }
-
-      aside h3 {
-        margin-top: 1em;
-        margin-bottom: 0.2em;
       }
 
       /* latin-ext */
@@ -113,53 +109,33 @@
       </script>
 </head>
 <body>
-  <div class="flex">
-    <div class="body">
-      <header role="banner">
-          <h1>Hello there, stranger!</h1>
-          <nav role="navigation">
-          </nav>
+  <div class="site">
+      <header>
+         <h1>Hello there, stranger!</h1>
       </header>
-      <div class="wrap">
-          <main role="main">
-              <section>
-                  <header>
-                      <p>My name is Mateusz “Serafin” Gajewski and I'm <a target="_blank" href="https://pl.linkedin.com/in/mateuszgajewski">quite experienced software engineer &amp; solutions architect</a> harnessing endless possibilities coming from the usage of modern <a target="_blank" href="https://github.com/wendigo?tab=stars">open source</a> solutions.</p>
-                  </header>
-
-                  <article id="whoami">
-                    <p>For over a decade I've been professionaly creating software in <a target="_blank" href="https://en.wikipedia.org/wiki/Java_virtual_machine">JVM</a> languages, <a target="_blank" href="https://en.wikipedia.org/wiki/Perl">Perl</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/PHP">PHP</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> and <a target="_blank" href="https://en.wikipedia.org/wiki/JavaScript">Javascript</a>. Nowadays I'm focused mainly on <a target="_blank" href="https://en.wikipedia.org/wiki/Front_and_back_ends">backend</a> computations on top of the <a target="_blank" href="https://en.wikipedia.org/wiki/Java_virtual_machine">JVM</a> (both Java and Kotlin) and <a target="_blank" href="https://en.wikipedia.org/wiki/Go_(programming_language)">Golang</a>. I like also to experiment with modern browser <a target="_blank" href="https://en.wikipedia.org/wiki/User_interface">UI</a> approaches (like <a target="_blank" href="https://facebook.github.io/react/">react.js</a> &amp; <a target="_blank" href="http://es6-features.org/#Constants">ECMAScript 6</a>).</p>
-                    <p>In the long term I would like to master <a target="_blank" href="https://clojure.org/">Clojure</a> and <a target="_blank" href="https://rust-lang.org/">Rust</a> :)</p>
-                  </article>
-                  <article id="whatido">
-                    <p>My main area of research and professional interests include <a target="_blank" href="https://en.wikipedia.org/wiki/Distributed_computing">distributed computing</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/Data_processing">large scale data processing</a> and cluster scheduling.  I really enjoy building <a target="_blank" href="https://en.wikipedia.org/wiki/Scalability">scalable</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/Fault_tolerance">fault tolerant</a>, distributed systems with technologies like: <a target="_blank" href="http://spark.apache.org">Apache Spark</a>, <a target="_blank" href="http://kafka.apache.org">Apache Kafka</a>, <a target="_blank" href="http://mesos.apache.org">Apache Mesos</a> and <a target="_blank" href="http://cassandra.apache.org">Apache Cassandra</a>.</p>
-                  </article>
-                  <article id="findme">
-                    <p>You can find me on <a target="_blank" href="http://github.com/wendigo">Github</a>, <a target="_blank" href="http://last.fm/user/serafpl">Last.fm</a>, <a target="_blank" href="http://twitter.com/wendigo">Twitter</a>, <a target="_blank" href="https://speakerdeck.com/wendigo">Speakerdeck</a> and <a target="_blank" href="https://keybase.io/wendigo">Keybase</a>.</p>
-                  </article>
-              </section>
-
-          </main>
-          <aside role="complementary">
-              <h3>Want to contact me?</h3>
+        <main>
+            <p>My name is Mateusz “Serafin” Gajewski and I'm <a target="_blank" href="https://pl.linkedin.com/in/mateuszgajewski">quite experienced software engineer &amp; solutions architect</a> harnessing endless possibilities coming from the usage of modern <a target="_blank" href="https://github.com/wendigo?tab=stars">open source</a> solutions.</p>
+            <p>For over a decade I've been professionaly creating software in <a target="_blank" href="https://en.wikipedia.org/wiki/Java_virtual_machine">JVM</a> languages, <a target="_blank" href="https://en.wikipedia.org/wiki/Perl">Perl</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/PHP">PHP</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> and <a target="_blank" href="https://en.wikipedia.org/wiki/JavaScript">Javascript</a>. Nowadays I'm focused mainly on <a target="_blank" href="https://en.wikipedia.org/wiki/Front_and_back_ends">backend</a> computations on top of the <a target="_blank" href="https://en.wikipedia.org/wiki/Java_virtual_machine">JVM</a> (both Java and Kotlin) and <a target="_blank" href="https://en.wikipedia.org/wiki/Go_(programming_language)">Golang</a>. I like also to experiment with modern browser <a target="_blank" href="https://en.wikipedia.org/wiki/User_interface">UI</a> approaches (like <a target="_blank" href="https://facebook.github.io/react/">react.js</a> &amp; <a target="_blank" href="http://es6-features.org/#Constants">ECMAScript 6</a>).</p>
+            <p>In the long term I would like to master <a target="_blank" href="https://clojure.org/">Clojure</a> and <a target="_blank" href="https://rust-lang.org/">Rust</a> :)</p>
+            <p>My main area of research and professional interests include <a target="_blank" href="https://en.wikipedia.org/wiki/Distributed_computing">distributed computing</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/Data_processing">large scale data processing</a> and cluster scheduling.  I really enjoy building <a target="_blank" href="https://en.wikipedia.org/wiki/Scalability">scalable</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/Fault_tolerance">fault tolerant</a>, distributed systems with technologies like: <a target="_blank" href="http://spark.apache.org">Apache Spark</a>, <a target="_blank" href="http://kafka.apache.org">Apache Kafka</a>, <a target="_blank" href="http://mesos.apache.org">Apache Mesos</a> and <a target="_blank" href="http://cassandra.apache.org">Apache Cassandra</a>.</p>
+            <p>You can find me on <a target="_blank" href="http://github.com/wendigo">Github</a>, <a target="_blank" href="http://last.fm/user/serafpl">Last.fm</a>, <a target="_blank" href="http://twitter.com/wendigo">Twitter</a>, <a target="_blank" href="https://speakerdeck.com/wendigo">Speakerdeck</a> and <a target="_blank" href="https://keybase.io/wendigo">Keybase</a>.</p>
+        </main>
+        <aside>
+          <h3>Want to contact me?</h3>
               <p>Just prefix domain name with contact.</p>
               <h3>Want to hire me?</h3>
               <p>My current resume is <a target="_blank" href="https://serafin.tech/mateusz-gajewski-resume.pdf" onclick="javascript:ga('send', 'event', 'resume', 'download')">available to download</a> (updated: 16.05.2017, <a target="_blank" href="mateusz-gajewski-resume.pdf.gpg">GPG sign</a>).</p>
-          </aside>
-        </div>
-        <footer role="contentinfo">
-            <p>
-              <small>Served with HTTP/2 &amp; letsencrypt over TCP, QUIC is also available for Chrome 52+</time></small><br />
-	      <small>My public GPG key: <a target="_blank" href="https://keybase.io/wendigo/key.asc">4B34188C</a></small>
-            </p>
+        </aside>
+        <footer>
+          <small>Served with HTTP/2 &amp; letsencrypt over TCP, QUIC is also available for Chrome 52+</time></small>.
+          <small>My public GPG key: <a target="_blank" href="https://keybase.io/wendigo/key.asc">4B34188C</a></small>
         </footer>
-      </div>
     </div>
     <script>
         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
         ga('create', 'UA-79494186-1', 'auto');
         ga('send', 'pageview');
-      </script>
-      <script async src='analytics.js'></script>
+    </script>
+    <script async src='analytics.js'></script>
 </body>
 </html>
