@@ -1,16 +1,86 @@
-body {
-	font-family: Lato, monospace;
-	padding: 2em;
-	width: 40em;
-	margin: 2em auto;
-	background-image: url(../images/9686457096_a15711f598_h.jpg);
-	background-size: cover;
-	color: white;
-	text-shadow: 1px 1px rgb(110, 110, 110);
-	opacity: 0.9;
-}
+@media all {
+	body {
+		min-width: 550px;
+	}
+	.site {
+		display: grid;
+		grid-template-columns: 2fr 10fr 2fr;
+		grid-template-rows: 1fr 5em auto 18em 1fr 5em;
+		grid-template-areas: "space-l space-header space-r"
+		"space-l header space-r"
+		"space-l main space-r"
+		"space-l aside space-r"
+		"space-l space space-r"
+		"space-l footer space-r";
 
-a {
-		color: rgb(230, 230, 230);
-		text-underline-position: alphabetic;
+		min-height: 100%;
+		line-height: 1.8em;
+		background: url(images/blurred.jpg) no-repeat center center fixed;
+		background-size: cover;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+
+		font-family: 'Merriweather Sans', sans-serif;
+		text-shadow: 1px 1px rgb(110, 110, 110);
+		font-size: 1.05em;
+		color: white;
+		min-height: 100%;
+	}
+
+	body, html {
+		margin: 0px;
+		height: 100%;
+	}
+
+	main {
+		grid-area: main;
+	}
+
+	header {
+		grid-area: header;
+		line-height: 200%;
+	}
+
+	aside {
+		grid-area: aside;
+	}
+
+	footer {
+		grid-area: footer;
+		color: rgb(110, 110, 110);
+		text-align: center;
+		margin-bottom: 1em;
+	}
+
+	footer a {
+		color: rgb(130, 130, 130);
+	}
+
+	a {
+		color: rgb(210, 210, 210);
+		text-decoration: none;
+		background-color: rgba(165, 165, 165, 0.25);
+	}
+
+	a:hover {
+		background-color: rgba(165, 165, 165, 0.7);
+	}
+
+	/* latin-ext */
+	@font-face {
+		font-family: 'Merriweather Sans';
+		font-style: normal;
+		font-weight: 300;
+		src: local('Merriweather Sans Light'), local('MerriweatherSans-Light'), url(font.woff2) format('woff2');
+		unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+	}
+	/* latin */
+	@font-face {
+		font-family: 'Merriweather Sans';
+		font-style: normal;
+		font-weight: 300;
+		src: local('Merriweather Sans Light'), local('MerriweatherSans-Light'), url(font-base.woff2) format('woff2');
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+	}
 }
