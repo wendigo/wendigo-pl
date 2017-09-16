@@ -48,7 +48,7 @@
 
 	footer {
 		grid-area: footer;
-		color: rgb(110, 110, 110);
+		color: rgb(170, 170, 170);
 		text-align: center;
 		margin-bottom: 1em;
 	}
