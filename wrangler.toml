@@ -1,0 +1,11 @@
+account_id = "764f49066c0c120617aff1d59be3b9e2"
+name = "wendigo-pl-static"
+type = "webpack"
+route = "https://wendigo.pl/*"
+workers_dev = false
+zone_id = "35d0248254eab30b6100cf9fd9ec733f"
+
+[site]
+bucket = "public"
+entry-point = "workers-site"
+route = "https://wendigo.pl/*"

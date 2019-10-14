@@ -1,0 +1,31 @@
+name: generate pages
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+      with:
+        submodules: true
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2.2.2
+      with:
+        hugo-version: '0.58.3'
+        extended: true
+    - name: Install Wrangler
+      run: npm i @cloudflare/wrangler@1.4.0-rc.7 -g
+    - name: Build
+      run: hugo --gc --minify --cleanDestinationDir
+    - name: Deploy with wrangler
+      run: wrangler whoami && wrangler build && wrangler publish
+      env:
+        CF_API_KEY: ${{ secrets.CF_API_KEY }}
+        CF_EMAIL: ${{ secrets.CF_EMAIL }}
