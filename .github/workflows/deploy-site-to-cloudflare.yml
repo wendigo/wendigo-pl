@@ -3,22 +3,17 @@ name: generate pages
 on:
   push:
     branches:
-    - master
+      - master
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-      with:
-        submodules: true
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '10.x'
-    - name: Install Wrangler
-      run: npm i @cloudflare/wrangler@1.4.0-rc.7 -g
-    - name: Deploy with wrangler
-      run: wrangler whoami && wrangler build && wrangler publish
-      env:
-        CF_API_KEY: ${{ secrets.CF_API_KEY }}
-        CF_EMAIL: ${{ secrets.CF_EMAIL }}
+      - uses: actions/checkout@master
+        with:
+          submodules: true
+      - name: Publish
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_KEY }}
+          command: deploy

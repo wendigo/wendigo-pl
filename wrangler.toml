@@ -1,11 +1,11 @@
-account_id = "764f49066c0c120617aff1d59be3b9e2"
 name = "wendigo-pl-static"
-type = "webpack"
-route = "https://wendigo.pl/*"
+compatibility_date = "2022-07-12"
+account_id = "764f49066c0c120617aff1d59be3b9e2"
 workers_dev = false
-zone_id = "35d0248254eab30b6100cf9fd9ec733f"
+route = { pattern = "wendigo.pl/*", zone_name = "wendigo.pl" }
 
-[site]
-bucket = "public"
-entry-point = "workers-site"
-route = "https://wendigo.pl/*"
+kv_namespaces = [
+  { binding = "__STATIC_CONTENT", id = "6eed8e72bf444a18b486115b65c952ed" }
+]
+
+assets = { directory = "./public" }
