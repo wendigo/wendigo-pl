@@ -1,0 +1,2138 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="list.html">
+      
+      
+        <link rel="next" href="aggregate.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>List of functions by topic - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              List of functions by topic
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../functions.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Functions and operators
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions by topic
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aggregate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ai.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="array.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bitwise.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bitwise
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="color.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Color
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="comparison.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conditional.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conditional
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conversion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conversion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datetime.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="timezone.time(p) with time zone (Python parameter)">Date and time</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="decimal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Decimal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="geospatial.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Geospatial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hyperloglog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hyper<wbr>Log<wbr>Log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ipaddress.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IP Address
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="json.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    JSON
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lambda.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lambda
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logical.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logical
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Machine learning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="math.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="cosine_similarity.x (Python parameter)">Math</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="qdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quantile digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="regexp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Regular expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="session.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Session
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="setdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Set Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="string.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    String
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="teradata.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Teradata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    T-<wbr>Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="url.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    URL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uuid.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UUID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="window.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Window
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="list-of-functions-by-topic">List of functions by topic<a class="headerlink" href="#list-of-functions-by-topic" title="Link to this heading">#</a></h1>
+<h2 id="aggregate">Aggregate<a class="headerlink" href="#aggregate" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="aggregate.html"><span class="doc">Aggregate functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="aggregate.html#any_value" title="any_value (Python function) — Returns an arbitrary non-null value x, if one exists. x can be any valid expression. This allows you to return values from columns that are not directly part of the aggregation, including expressions using these columns, in a query."><code class="xref py py-func docutils literal notranslate"><span class="pre">any_value()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#approx_distinct" title="approx_distinct (Python function) — Returns the approximate number of distinct input values. This function provides an approximation of count(DISTINCT x). Zero is returned if all input values are null."><code class="xref py py-func docutils literal notranslate"><span class="pre">approx_distinct()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#approx_most_frequent" title="approx_most_frequent (Python function) — Computes the top frequent values up to buckets elements approximately. Approximate estimation of the function enables us to pick up the frequent values with less memory. Larger capacity improves the accuracy of underlying algorithm with sacrificing the memory capacity. The returned value is a map containing the top elements with corresponding estimated frequency."><code class="xref py py-func docutils literal notranslate"><span class="pre">approx_most_frequent()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#approx_percentile" title="approx_percentile (Python function) — Returns the approximate percentile for all input values of x at the given percentage. The value of percentage must be between zero and one and must be constant for all input rows."><code class="xref py py-func docutils literal notranslate"><span class="pre">approx_percentile()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">approx_set()</span></code></p></li>
+<li><p><a class="reference internal" href="aggregate.html#arbitrary" title="arbitrary (Python function) — Returns an arbitrary non-null value of x, if one exists. Identical to any_value()."><code class="xref py py-func docutils literal notranslate"><span class="pre">arbitrary()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#array_agg" title="array_agg (Python function) — Returns an array created from the input x elements."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_agg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#avg" title="avg (Python function) — Returns the average (arithmetic mean) of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">avg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#bitwise_and_agg" title="bitwise_and_agg (Python function) — Returns the bitwise AND of all input non-NULL values in 2's complement representation. If all records inside the group are NULL, or if the group is empty, the function returns NULL."><code class="xref py py-func docutils literal notranslate"><span class="pre">bitwise_and_agg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#bitwise_or_agg" title="bitwise_or_agg (Python function) — Returns the bitwise OR of all input non-NULL values in 2's complement representation. If all records inside the group are NULL, or if the group is empty, the function returns NULL."><code class="xref py py-func docutils literal notranslate"><span class="pre">bitwise_or_agg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#bool_and" title="bool_and (Python function) — Returns TRUE if every input value is TRUE, otherwise FALSE."><code class="xref py py-func docutils literal notranslate"><span class="pre">bool_and()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#bool_or" title="bool_or (Python function) — Returns TRUE if any input value is TRUE, otherwise FALSE."><code class="xref py py-func docutils literal notranslate"><span class="pre">bool_or()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#checksum" title="checksum (Python function) — Returns an order-insensitive checksum of the given values."><code class="xref py py-func docutils literal notranslate"><span class="pre">checksum()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#corr" title="corr (Python function) — Returns correlation coefficient of input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">corr()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#count" title="count (Python function) — Returns the number of input rows."><code class="xref py py-func docutils literal notranslate"><span class="pre">count()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#count_if" title="count_if (Python function) — Returns the number of TRUE input values. This function is equivalent to count(CASE WHEN x THEN 1 END)."><code class="xref py py-func docutils literal notranslate"><span class="pre">count_if()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#covar_pop" title="covar_pop (Python function) — Returns the population covariance of input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">covar_pop()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#covar_samp" title="covar_samp (Python function) — Returns the sample covariance of input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">covar_samp()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#every" title="every (Python function) — This is an alias for bool_and()."><code class="xref py py-func docutils literal notranslate"><span class="pre">every()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#geometric_mean" title="geometric_mean (Python function) — Returns the geometric mean of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometric_mean()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#histogram" title="histogram (Python function) — Returns a map containing the count of the number of times each input value occurs."><code class="xref py py-func docutils literal notranslate"><span class="pre">histogram()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#kurtosis" title="kurtosis (Python function) — Returns the excess kurtosis of all input values. Unbiased estimate using the following expression:"><code class="xref py py-func docutils literal notranslate"><span class="pre">kurtosis()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#map_agg" title="map_agg (Python function) — Returns a map created from the input key / value pairs."><code class="xref py py-func docutils literal notranslate"><span class="pre">map_agg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#map_union" title="map_union (Python function) — Returns the union of all the input maps. If a key is found in multiple input maps, that key's value in the resulting map comes from an arbitrary input map."><code class="xref py py-func docutils literal notranslate"><span class="pre">map_union()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#max" title="max (Python function) — Returns the maximum value of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">max()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#max_by" title="max_by (Python function) — Returns the value of x associated with the maximum value of y over all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">max_by()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">merge()</span></code></p></li>
+<li><p><a class="reference internal" href="aggregate.html#min" title="min (Python function) — Returns the minimum value of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">min()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#min_by" title="min_by (Python function) — Returns the value of x associated with the minimum value of y over all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">min_by()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#multimap_agg" title="multimap_agg (Python function) — Returns a multimap created from the input key / value pairs. Each key can be associated with multiple values."><code class="xref py py-func docutils literal notranslate"><span class="pre">multimap_agg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#numeric_histogram" title="numeric_histogram (Python function) — Computes an approximate histogram with up to buckets number of buckets for all values with a per-item weight of weight. The algorithm is based loosely on:"><code class="xref py py-func docutils literal notranslate"><span class="pre">numeric_histogram()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">qdigest_agg()</span></code></p></li>
+<li><p><a class="reference internal" href="aggregate.html#regr_intercept" title="regr_intercept (Python function) — Returns linear regression intercept of input values. y is the dependent value. x is the independent value."><code class="xref py py-func docutils literal notranslate"><span class="pre">regr_intercept()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#regr_slope" title="regr_slope (Python function) — Returns linear regression slope of input values. y is the dependent value. x is the independent value."><code class="xref py py-func docutils literal notranslate"><span class="pre">regr_slope()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#skewness" title="skewness (Python function) — Returns the Fisher’s moment coefficient of skewness of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">skewness()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#sum" title="sum (Python function) — Returns the sum of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">sum()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#stddev" title="stddev (Python function) — This is an alias for stddev_samp()."><code class="xref py py-func docutils literal notranslate"><span class="pre">stddev()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#stddev_pop" title="stddev_pop (Python function) — Returns the population standard deviation of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">stddev_pop()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#stddev_samp" title="stddev_samp (Python function) — Returns the sample standard deviation of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">stddev_samp()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tdigest_agg()</span></code></p></li>
+<li><p><a class="reference internal" href="aggregate.html#variance" title="variance (Python function) — This is an alias for var_samp()."><code class="xref py py-func docutils literal notranslate"><span class="pre">variance()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#var_pop" title="var_pop (Python function) — Returns the population variance of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">var_pop()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#var_samp" title="var_samp (Python function) — Returns the sample variance of all input values."><code class="xref py py-func docutils literal notranslate"><span class="pre">var_samp()</span></code></a></p></li>
+</ul>
+<h2 id="array">Array<a class="headerlink" href="#array" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="array.html"><span class="doc">Array functions and operators</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="array.html#all_match" title="all_match (Python function) — Returns whether all elements of an array match the given predicate. Returns true if all the elements match the predicate (a special case is when the array is empty); false if one or more elements don't match; NULL if the predicate function returns NULL for one or more elements and true for all other elements."><code class="xref py py-func docutils literal notranslate"><span class="pre">all_match()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#any_match" title="any_match (Python function) — Returns whether any elements of an array match the given predicate. Returns true if one or more elements match the predicate; false if none of the elements matches (a special case is when the array is empty); NULL if the predicate function returns NULL for one or more elements and false for all other elements."><code class="xref py py-func docutils literal notranslate"><span class="pre">any_match()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_distinct" title="array_distinct (Python function) — Remove duplicate values from the array x."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_distinct()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_except" title="array_except (Python function) — Returns an array of elements in x but not in y, without duplicates."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_except()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_intersect" title="array_intersect (Python function) — Returns an array of the elements in the intersection of x and y, without duplicates."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_intersect()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_join" title="array_join (Python function) — Concatenates the elements of the given array using the delimiter. Null elements are omitted in the result."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_join()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_max" title="array_max (Python function) — Returns the maximum value of input array."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_max()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_min" title="array_min (Python function) — Returns the minimum value of input array."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_min()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_position" title="array_position (Python function) — Returns the position of the first occurrence of the element in array x (or 0 if not found)."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_position()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_remove" title="array_remove (Python function) — Remove all elements that equal element from array x."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_remove()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_sort" title="array_sort (Python function) — Sorts and returns the array x. The elements of x must be orderable. Null elements will be placed at the end of the returned array."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_sort()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#array_union" title="array_union (Python function) — Returns an array of the elements in the union of x and y, without duplicates."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_union()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#arrays_overlap" title="arrays_overlap (Python function) — Tests if arrays x and y have any non-null elements in common. Returns null if there are no non-null elements in common but either array contains null."><code class="xref py py-func docutils literal notranslate"><span class="pre">arrays_overlap()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#cardinality" title="cardinality (Python function) — Returns the cardinality (size) of the array x."><code class="xref py py-func docutils literal notranslate"><span class="pre">cardinality()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#combinations" title="combinations (Python function) — Returns n-element sub-groups of input array. If the input array has no duplicates, combinations returns n-element subsets."><code class="xref py py-func docutils literal notranslate"><span class="pre">combinations()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">concat()</span></code></p></li>
+<li><p><a class="reference internal" href="array.html#contains" title="contains (Python function) — Returns true if the array x contains the element."><code class="xref py py-func docutils literal notranslate"><span class="pre">contains()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#element_at" title="element_at (Python function) — Returns element of array at given index. If index &gt; 0, this function provides the same functionality as the SQL-standard subscript operator ([]), except that the function returns NULL when accessing an index larger than array length, whereas the subscript operator would fail in such a case. If index &lt; 0, element_at accesses elements from the last to the first."><code class="xref py py-func docutils literal notranslate"><span class="pre">element_at()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#filter" title="filter (Python function) — Constructs an array from those elements of array for which function returns true:"><code class="xref py py-func docutils literal notranslate"><span class="pre">filter()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#flatten" title="flatten (Python function) — Flattens an array(array(T)) to an array(T) by concatenating the contained arrays."><code class="xref py py-func docutils literal notranslate"><span class="pre">flatten()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#ngrams" title="ngrams (Python function) — Returns n-grams (sub-sequences of adjacent n elements) for the array. The order of the n-grams in the result is unspecified."><code class="xref py py-func docutils literal notranslate"><span class="pre">ngrams()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#none_match" title="none_match (Python function) — Returns whether no elements of an array match the given predicate. Returns true if none of the elements matches the predicate (a special case is when the array is empty); false if one or more elements match; NULL if the predicate function returns NULL for one or more elements and false for all other elements."><code class="xref py py-func docutils literal notranslate"><span class="pre">none_match()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#reduce" title="reduce (Python function) — Returns a single value reduced from array. inputFunction will be invoked for each element in array in order. In addition to taking the element, inputFunction takes the current state, initially initialState, and returns the new state. outputFunction will be invoked to turn the final state into the result value. It may be the identity function (i -&gt; i)."><code class="xref py py-func docutils literal notranslate"><span class="pre">reduce()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#repeat" title="repeat (Python function) — Repeat element for count times."><code class="xref py py-func docutils literal notranslate"><span class="pre">repeat()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reverse()</span></code></p></li>
+<li><p><a class="reference internal" href="array.html#sequence" title="sequence (Python function) — Generate a sequence of integers from start to stop, incrementing by 1 if start is less than or equal to stop, otherwise -1."><code class="xref py py-func docutils literal notranslate"><span class="pre">sequence()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#shuffle" title="shuffle (Python function) — Generate a random permutation of the given array x."><code class="xref py py-func docutils literal notranslate"><span class="pre">shuffle()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#slice" title="slice (Python function) — Subsets array x starting from index start (or starting from the end if start is negative) with a length of length."><code class="xref py py-func docutils literal notranslate"><span class="pre">slice()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#transform" title="transform (Python function) — Returns an array that is the result of applying function to each element of array:"><code class="xref py py-func docutils literal notranslate"><span class="pre">transform()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#trim_array" title="trim_array (Python function) — Remove n elements from the end of array:"><code class="xref py py-func docutils literal notranslate"><span class="pre">trim_array()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#zip" title="zip (Python function) — Merges the given arrays, element-wise, into a single array of rows. The M-th element of the N-th argument will be the N-th field of the M-th output element. If the arguments have an uneven length, missing values are filled with NULL."><code class="xref py py-func docutils literal notranslate"><span class="pre">zip()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#zip_with" title="zip_with (Python function) — Merges the two given arrays, element-wise, into a single array using function. If one array is shorter, nulls are appended at the end to match the length of the longer array, before applying function."><code class="xref py py-func docutils literal notranslate"><span class="pre">zip_with()</span></code></a></p></li>
+</ul>
+<h2 id="binary">Binary<a class="headerlink" href="#binary" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="binary.html"><span class="doc">Binary functions and operators</span></a></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">concat()</span></code></p></li>
+<li><p><a class="reference internal" href="binary.html#crc32" title="crc32 (Python function) — Computes the CRC-32 of binary. For general purpose hashing, use xxhash64(), as it is much faster and produces a better quality hash."><code class="xref py py-func docutils literal notranslate"><span class="pre">crc32()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#from_base32" title="from_base32 (Python function) — Decodes binary data from the base32 encoded string."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_base32()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#from_base64" title="from_base64 (Python function) — Decodes binary data from the base64 encoded string."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_base64()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#from_base64url" title="from_base64url (Python function) — Decodes binary data from the base64 encoded string using the URL safe alphabet."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_base64url()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#from_big_endian_32" title="from_big_endian_32 (Python function) — Decodes the 32-bit two's complement big-endian binary. The input must be exactly 4 bytes."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_big_endian_32()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#from_big_endian_64" title="from_big_endian_64 (Python function) — Decodes the 64-bit two's complement big-endian binary. The input must be exactly 8 bytes."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_big_endian_64()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#from_hex" title="from_hex (Python function) — Decodes binary data from the hex encoded string."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_hex()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#from_ieee754_32" title="from_ieee754_32 (Python function) — Decodes the 32-bit big-endian binary in IEEE 754 single-precision floating-point format. The input must be exactly 4 bytes."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_ieee754_32()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#from_ieee754_64" title="from_ieee754_64 (Python function) — Decodes the 64-bit big-endian binary in IEEE 754 double-precision floating-point format. The input must be exactly 8 bytes."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_ieee754_64()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#hmac_md5" title="hmac_md5 (Python function) — Computes HMAC with MD5 of binary with the given key."><code class="xref py py-func docutils literal notranslate"><span class="pre">hmac_md5()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#hmac_sha1" title="hmac_sha1 (Python function) — Computes HMAC with SHA1 of binary with the given key."><code class="xref py py-func docutils literal notranslate"><span class="pre">hmac_sha1()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#hmac_sha256" title="hmac_sha256 (Python function) — Computes HMAC with SHA256 of binary with the given key."><code class="xref py py-func docutils literal notranslate"><span class="pre">hmac_sha256()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#hmac_sha512" title="hmac_sha512 (Python function) — Computes HMAC with SHA512 of binary with the given key."><code class="xref py py-func docutils literal notranslate"><span class="pre">hmac_sha512()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">length()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lpad()</span></code></p></li>
+<li><p><a class="reference internal" href="binary.html#md5" title="md5 (Python function) — Computes the MD5 hash of binary."><code class="xref py py-func docutils literal notranslate"><span class="pre">md5()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#murmur3" title="murmur3 (Python function) — Computes the 128-bit MurmurHash3 hash of binary."><code class="xref py py-func docutils literal notranslate"><span class="pre">murmur3()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reverse()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rpad()</span></code></p></li>
+<li><p><a class="reference internal" href="binary.html#sha1" title="sha1 (Python function) — Computes the SHA1 hash of binary."><code class="xref py py-func docutils literal notranslate"><span class="pre">sha1()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#sha256" title="sha256 (Python function) — Computes the SHA256 hash of binary."><code class="xref py py-func docutils literal notranslate"><span class="pre">sha256()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#sha512" title="sha512 (Python function) — Computes the SHA512 hash of binary."><code class="xref py py-func docutils literal notranslate"><span class="pre">sha512()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#spooky_hash_v2_32" title="spooky_hash_v2_32 (Python function) — Computes the 32-bit SpookyHashV2 hash of binary."><code class="xref py py-func docutils literal notranslate"><span class="pre">spooky_hash_v2_32()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#spooky_hash_v2_64" title="spooky_hash_v2_64 (Python function) — Computes the 64-bit SpookyHashV2 hash of binary."><code class="xref py py-func docutils literal notranslate"><span class="pre">spooky_hash_v2_64()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">substr()</span></code></p></li>
+<li><p><a class="reference internal" href="binary.html#to_base32" title="to_base32 (Python function) — Encodes binary into a base32 string representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_base32()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#to_base64" title="to_base64 (Python function) — Encodes binary into a base64 string representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_base64()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#to_base64url" title="to_base64url (Python function) — Encodes binary into a base64 string representation using the URL safe alphabet."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_base64url()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#to_big_endian_32" title="to_big_endian_32 (Python function) — Encodes integer into a 32-bit two's complement big-endian format."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_big_endian_32()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#to_big_endian_64" title="to_big_endian_64 (Python function) — Encodes bigint into a 64-bit two's complement big-endian format."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_big_endian_64()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#to_hex" title="to_hex (Python function) — Encodes binary into a hex string representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_hex()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#to_ieee754_32" title="to_ieee754_32 (Python function) — Encodes real into a 32-bit big-endian binary according to IEEE 754 single-precision floating-point format."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_ieee754_32()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#to_ieee754_64" title="to_ieee754_64 (Python function) — Encodes double into a 64-bit big-endian binary according to IEEE 754 double-precision floating-point format."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_ieee754_64()</span></code></a></p></li>
+<li><p><a class="reference internal" href="binary.html#xxhash64" title="xxhash64 (Python function) — Computes the xxHash64 hash of binary."><code class="xref py py-func docutils literal notranslate"><span class="pre">xxhash64()</span></code></a></p></li>
+</ul>
+<h2 id="bitwise">Bitwise<a class="headerlink" href="#bitwise" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="bitwise.html"><span class="doc">Bitwise functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="bitwise.html#bit_count" title="bit_count (Python function) — Count the number of bits set in x (treated as bits-bit signed integer) in 2's complement representation:"><code class="xref py py-func docutils literal notranslate"><span class="pre">bit_count()</span></code></a></p></li>
+<li><p><a class="reference internal" href="bitwise.html#bitwise_and" title="bitwise_and (Python function) — Returns the bitwise AND of x and y in 2's complement representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">bitwise_and()</span></code></a></p></li>
+<li><p><a class="reference internal" href="bitwise.html#bitwise_left_shift" title="bitwise_left_shift (Python function) — Returns the left shifted value of value."><code class="xref py py-func docutils literal notranslate"><span class="pre">bitwise_left_shift()</span></code></a></p></li>
+<li><p><a class="reference internal" href="bitwise.html#bitwise_not" title="bitwise_not (Python function) — Returns the bitwise NOT of x in 2's complement representation (NOT x = -x - 1):"><code class="xref py py-func docutils literal notranslate"><span class="pre">bitwise_not()</span></code></a></p></li>
+<li><p><a class="reference internal" href="bitwise.html#bitwise_or" title="bitwise_or (Python function) — Returns the bitwise OR of x and y in 2's complement representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">bitwise_or()</span></code></a></p></li>
+<li><p><a class="reference internal" href="bitwise.html#bitwise_right_shift" title="bitwise_right_shift (Python function) — Returns the logical right shifted value of value."><code class="xref py py-func docutils literal notranslate"><span class="pre">bitwise_right_shift()</span></code></a></p></li>
+<li><p><a class="reference internal" href="bitwise.html#bitwise_right_shift_arithmetic" title="bitwise_right_shift_arithmetic (Python function) — Returns the arithmetic right shifted value of value."><code class="xref py py-func docutils literal notranslate"><span class="pre">bitwise_right_shift_arithmetic()</span></code></a></p></li>
+<li><p><a class="reference internal" href="bitwise.html#bitwise_xor" title="bitwise_xor (Python function) — Returns the bitwise XOR of x and y in 2's complement representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">bitwise_xor()</span></code></a></p></li>
+</ul>
+<h2 id="color">Color<a class="headerlink" href="#color" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="color.html"><span class="doc">Color functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="color.html#bar" title="bar (Python function) — Renders a single bar in an ANSI bar chart using a default low_color of red and a high_color of green.  For example, if x of 25% and width of 40 are passed to this function. A 10-character red bar will be drawn followed by 30 spaces to create a bar of 40 characters."><code class="xref py py-func docutils literal notranslate"><span class="pre">bar()</span></code></a></p></li>
+<li><p><a class="reference internal" href="color.html#color" title="color (Python function) — Returns a color capturing a decoded RGB value from a 4-character string of the format &quot;#000&quot;.  The input string should be varchar containing a CSS-style short rgb string or one of black, red, green, yellow, blue, magenta, cyan, white."><code class="xref py py-func docutils literal notranslate"><span class="pre">color()</span></code></a></p></li>
+<li><p><a class="reference internal" href="color.html#render" title="render (Python function) — Renders value x using the specific color using ANSI color codes. x can be either a double, bigint, or varchar."><code class="xref py py-func docutils literal notranslate"><span class="pre">render()</span></code></a></p></li>
+<li><p><a class="reference internal" href="color.html#rgb" title="rgb (Python function) — Returns a color value capturing the RGB value of three component color values supplied as int parameters ranging from 0 to 255: red, green, blue."><code class="xref py py-func docutils literal notranslate"><span class="pre">rgb()</span></code></a></p></li>
+</ul>
+<h2 id="comparison">Comparison<a class="headerlink" href="#comparison" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="comparison.html"><span class="doc">Comparison functions and operators</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="comparison.html#greatest" title="greatest (Python function) — Returns the largest of the provided values."><code class="xref py py-func docutils literal notranslate"><span class="pre">greatest()</span></code></a></p></li>
+<li><p><a class="reference internal" href="comparison.html#least" title="least (Python function) — Returns the smallest of the provided values."><code class="xref py py-func docutils literal notranslate"><span class="pre">least()</span></code></a></p></li>
+</ul>
+<h2 id="conditional">Conditional<a class="headerlink" href="#conditional" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="conditional.html"><span class="doc">Conditional expressions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="conditional.html#case-expression"><span class="std std-ref">case</span></a></p></li>
+<li><p><a class="reference internal" href="conditional.html#coalesce-function"><span class="std std-ref">coalesce</span></a></p></li>
+<li><p><a class="reference internal" href="conditional.html#if-expression"><span class="std std-ref">if</span></a></p></li>
+<li><p><a class="reference internal" href="conditional.html#nullif-function"><span class="std std-ref">nullif</span></a></p></li>
+<li><p><a class="reference internal" href="conditional.html#try-function"><span class="std std-ref">try</span></a></p></li>
+</ul>
+<h2 id="conversion">Conversion<a class="headerlink" href="#conversion" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="conversion.html"><span class="doc">Conversion functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="conversion.html#cast" title="cast (Python function) — Explicitly cast a value as a type. This can be used to cast a varchar to a numeric value type and vice versa."><code class="xref py py-func docutils literal notranslate"><span class="pre">cast()</span></code></a></p></li>
+<li><p><a class="reference internal" href="conversion.html#format" title="format (Python function) — Returns a formatted string using the specified format string and arguments:"><code class="xref py py-func docutils literal notranslate"><span class="pre">format()</span></code></a></p></li>
+<li><p><a class="reference internal" href="conversion.html#try_cast" title="try_cast (Python function) — Like cast(), but returns null if the cast fails."><code class="xref py py-func docutils literal notranslate"><span class="pre">try_cast()</span></code></a></p></li>
+<li><p><a class="reference internal" href="conversion.html#typeof" title="typeof (Python function) — Returns the name of the type of the provided expression:"><code class="xref py py-func docutils literal notranslate"><span class="pre">typeof()</span></code></a></p></li>
+</ul>
+<h2 id="date-and-time">Date and time<a class="headerlink" href="#date-and-time" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="datetime.html"><span class="doc">Date and time functions and operators</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="datetime.html#at-time-zone-operator"><span class="std std-ref">AT TIME ZONE</span></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#current_date" title="current_date (Python data) — Returns the current date as of the start of the query."><code class="xref py py-data docutils literal notranslate"><span class="pre">current_date</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#current_time" title="current_time (Python data) — Returns the current time with time zone as of the start of the query."><code class="xref py py-data docutils literal notranslate"><span class="pre">current_time</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#current_timestamp" title="current_timestamp (Python data) — Returns the current timestamp with time zone as of the start of the query, with 3 digits of subsecond precision,"><code class="xref py py-data docutils literal notranslate"><span class="pre">current_timestamp</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#localtime" title="localtime (Python data) — Returns the current time as of the start of the query."><code class="xref py py-data docutils literal notranslate"><span class="pre">localtime</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#localtimestamp" title="localtimestamp (Python data) — Returns the current timestamp as of the start of the query, with 3 digits of subsecond precision."><code class="xref py py-data docutils literal notranslate"><span class="pre">localtimestamp</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#current_timezone" title="current_timezone (Python function) — Returns the current time zone in the format defined by IANA (e.g., America/Los_Angeles) or as fixed offset from UTC (e.g., +08:35)"><code class="xref py py-func docutils literal notranslate"><span class="pre">current_timezone()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#date" title="date (Python function) — This is an alias for CAST(x AS date)."><code class="xref py py-func docutils literal notranslate"><span class="pre">date()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#date_add" title="date_add (Python function) — Adds an interval value of type unit to timestamp. Subtraction can be performed by using a negative value:"><code class="xref py py-func docutils literal notranslate"><span class="pre">date_add()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#date_diff" title="date_diff (Python function) — Returns timestamp2 - timestamp1 expressed in terms of unit:"><code class="xref py py-func docutils literal notranslate"><span class="pre">date_diff()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#date_format" title="date_format (Python function) — Formats timestamp as a string using format:"><code class="xref py py-func docutils literal notranslate"><span class="pre">date_format()</span></code></a></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">date_parse()</span></code></p></li>
+<li><p><a class="reference internal" href="datetime.html#date_trunc" title="date_trunc (Python function) — Returns x truncated to unit:"><code class="xref py py-func docutils literal notranslate"><span class="pre">date_trunc()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#format_datetime" title="format_datetime (Python function) — Formats timestamp as a string using format."><code class="xref py py-func docutils literal notranslate"><span class="pre">format_datetime()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#from_iso8601_date" title="from_iso8601_date (Python function) — Parses the ISO 8601 formatted date string into a date. The date can be a calendar date, a week date using ISO week numbering, or year and day of year combined:"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_iso8601_date()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#from_iso8601_timestamp" title="from_iso8601_timestamp (Python function) — Parses the ISO 8601 formatted date string, optionally with time and time zone, into a timestamp(3) with time zone. The time defaults to 00:00:00.000, and the time zone defaults to the session time zone:"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_iso8601_timestamp()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#from_unixtime" title="from_unixtime (Python function) — Returns the UNIX timestamp unixtime as a timestamp with time zone. unixtime is the number of seconds since 1970-01-01 00:00:00 UTC."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_unixtime()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#from_unixtime_nanos" title="from_unixtime_nanos (Python function) — Returns the UNIX timestamp unixtime as a timestamp with time zone. unixtime is the number of nanoseconds since 1970-01-01 00:00:00.000000000 UTC:"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_unixtime_nanos()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#human_readable_seconds" title="human_readable_seconds (Python function) — Formats the double value of seconds into a human-readable string containing weeks, days, hours, minutes, and seconds:"><code class="xref py py-func docutils literal notranslate"><span class="pre">human_readable_seconds()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#last_day_of_month" title="last_day_of_month (Python function) — Returns the last day of the month."><code class="xref py py-func docutils literal notranslate"><span class="pre">last_day_of_month()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#now" title="now (Python function) — This is an alias for current_timestamp."><code class="xref py py-func docutils literal notranslate"><span class="pre">now()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#parse_duration" title="parse_duration (Python function) — Parses string of format value unit into an interval, where value is fractional number of unit values:"><code class="xref py py-func docutils literal notranslate"><span class="pre">parse_duration()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#timezone" title="timezone (Python function) — Returns the timezone identifier from a time(p) with time zone. The format of the returned identifier is identical to the format used in the input time:"><code class="xref py py-func docutils literal notranslate"><span class="pre">timezone()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#to_iso8601" title="to_iso8601 (Python function) — Formats x as an ISO 8601 string. x can be date, timestamp, or timestamp with time zone."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_iso8601()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#to_milliseconds" title="to_milliseconds (Python function) — Returns the day-to-second interval as milliseconds."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_milliseconds()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#to_unixtime" title="to_unixtime (Python function) — Returns timestamp as a UNIX timestamp."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_unixtime()</span></code></a></p></li>
+<li><p><a class="reference internal" href="datetime.html#with_timezone" title="with_timezone (Python function) — Returns the timestamp specified in timestamp with the time zone specified in zone with precision p:"><code class="xref py py-func docutils literal notranslate"><span class="pre">with_timezone()</span></code></a></p></li>
+</ul>
+<h2 id="geospatial">Geospatial<a class="headerlink" href="#geospatial" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="geospatial.html"><span class="doc">Geospatial functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="geospatial.html#bing_tile" title="bing_tile (Python function) — Creates a Bing tile object from XY coordinates and a zoom level. Zoom levels from 1 to 23 are supported."><code class="xref py py-func docutils literal notranslate"><span class="pre">bing_tile()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#bing_tile_at" title="bing_tile_at (Python function) — Returns a Bing tile at a given zoom level containing a point at a given latitude and longitude. Latitude must be within [-85.05112878, 85.05112878] range. Longitude must be within [-180, 180] range. Zoom levels from 1 to 23 are supported."><code class="xref py py-func docutils literal notranslate"><span class="pre">bing_tile_at()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#bing_tile_coordinates" title="bing_tile_coordinates (Python function) — Returns the XY coordinates of a given Bing tile."><code class="xref py py-func docutils literal notranslate"><span class="pre">bing_tile_coordinates()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#bing_tile_polygon" title="bing_tile_polygon (Python function) — Returns the polygon representation of a given Bing tile."><code class="xref py py-func docutils literal notranslate"><span class="pre">bing_tile_polygon()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#bing_tile_quadkey" title="bing_tile_quadkey (Python function) — Returns the quadkey of a given Bing tile."><code class="xref py py-func docutils literal notranslate"><span class="pre">bing_tile_quadkey()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#bing_tile_zoom_level" title="bing_tile_zoom_level (Python function) — Returns the zoom level of a given Bing tile."><code class="xref py py-func docutils literal notranslate"><span class="pre">bing_tile_zoom_level()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#bing_tiles_around" title="bing_tiles_around (Python function) — Returns a collection of Bing tiles that surround the point specified by the latitude and longitude arguments at a given zoom level."><code class="xref py py-func docutils literal notranslate"><span class="pre">bing_tiles_around()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#convex_hull_agg" title="convex_hull_agg (Python function) — Returns the minimum convex geometry that encloses all input geometries."><code class="xref py py-func docutils literal notranslate"><span class="pre">convex_hull_agg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#from_encoded_polyline" title="from_encoded_polyline (Python function) — Decodes a polyline to a linestring."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_encoded_polyline()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#from_geojson_geometry" title="from_geojson_geometry (Python function) — Returns the spherical geography type object from the GeoJSON representation stripping non geometry key/values. Feature and FeatureCollection are not supported."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_geojson_geometry()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#geometry_from_hadoop_shape" title="geometry_from_hadoop_shape (Python function) — Returns a geometry type object from Spatial Framework for Hadoop representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_from_hadoop_shape()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#geometry_invalid_reason" title="geometry_invalid_reason (Python function) — Returns the reason for why the input geometry is not valid. Returns NULL if the input is valid."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_invalid_reason()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#geometry_nearest_points" title="geometry_nearest_points (Python function) — Returns the points on each geometry nearest the other.  If either geometry is empty, return NULL.  Otherwise, return a row of two Points that have the minimum distance of any two points on the geometries.  The first Point will be from the first Geometry argument, the second from the second Geometry argument.  If there are multiple pairs with the minimum distance, one pair is chosen arbitrarily."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_nearest_points()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#geometry_to_bing_tiles" title="geometry_to_bing_tiles (Python function) — Returns the minimum set of Bing tiles that fully covers a given geometry at a given zoom level. Zoom levels from 1 to 23 are supported."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_to_bing_tiles()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#geometry_union" title="geometry_union (Python function) — Returns a geometry that represents the point set union of the input geometries. Performance of this function, in conjunction with array_agg() to first aggregate the input geometries, may be better than geometry_union_agg(), at the expense of higher memory utilization."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_union()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#geometry_union_agg" title="geometry_union_agg (Python function) — Returns a geometry that represents the point set union of all input geometries."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_union_agg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#great_circle_distance" title="great_circle_distance (Python function) — Returns the great-circle distance between two points on Earth's surface in kilometers."><code class="xref py py-func docutils literal notranslate"><span class="pre">great_circle_distance()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#line_interpolate_point" title="line_interpolate_point (Python function) — Returns a Point interpolated along a LineString at the fraction given. The fraction must be between 0 and 1, inclusive."><code class="xref py py-func docutils literal notranslate"><span class="pre">line_interpolate_point()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#line_locate_point" title="line_locate_point (Python function) — Returns a float between 0 and 1 representing the location of the closest point on the LineString to the given Point, as a fraction of total 2d line length."><code class="xref py py-func docutils literal notranslate"><span class="pre">line_locate_point()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#simplify_geometry" title="simplify_geometry (Python function) — Returns a &quot;simplified&quot; version of the input geometry using the Douglas-Peucker algorithm. Will avoid creating derived geometries (polygons in particular) that are invalid."><code class="xref py py-func docutils literal notranslate"><span class="pre">simplify_geometry()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Area" title="ST_Area (Python function) — Returns the 2D Euclidean area of a geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Area()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_AsBinary" title="ST_AsBinary (Python function) — Returns the WKB representation of the geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_AsBinary()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_AsText" title="ST_AsText (Python function) — Returns the WKT representation of the geometry. For empty geometries, ST_AsText(ST_LineFromText('LINESTRING EMPTY')) will produce 'MULTILINESTRING EMPTY' and ST_AsText(ST_Polygon('POLYGON EMPTY')) will produce 'MULTIPOLYGON EMPTY'."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_AsText()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Boundary" title="ST_Boundary (Python function) — Returns the closure of the combinatorial boundary of this geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Boundary()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Buffer" title="ST_Buffer (Python function) — Returns the geometry that represents all points whose distance from the specified geometry is less than or equal to the specified distance. If the points of the geometry are extremely close together (delta &lt; 1e-8), this might return an empty geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Buffer()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Centroid" title="ST_Centroid (Python function) — Returns the point value that is the mathematical centroid of a geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Centroid()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Contains" title="ST_Contains (Python function) — Returns true if and only if no points of the second geometry lie in the exterior of the first geometry, and at least one point of the interior of the first geometry lies in the interior of the second geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Contains()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_ConvexHull" title="ST_ConvexHull (Python function) — Returns the minimum convex geometry that encloses all input geometries."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_ConvexHull()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_CoordDim" title="ST_CoordDim (Python function) — Returns the coordinate dimension of the geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_CoordDim()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Crosses" title="ST_Crosses (Python function) — Returns true if the supplied geometries have some, but not all, interior points in common."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Crosses()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Difference" title="ST_Difference (Python function) — Returns the geometry value that represents the point set difference of the given geometries."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Difference()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Dimension" title="ST_Dimension (Python function) — Returns the inherent dimension of this geometry object, which must be less than or equal to the coordinate dimension."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Dimension()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Disjoint" title="ST_Disjoint (Python function) — Returns true if the give geometries do not spatially intersect -- if they do not share any space together."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Disjoint()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Distance" title="ST_Distance (Python function) — Returns the great-circle distance in meters between two SphericalGeography points."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Distance()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_EndPoint" title="ST_EndPoint (Python function) — Returns the last point of a LineString geometry as a Point. This is a shortcut for ST_PointN(geometry, ST_NumPoints(geometry))."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_EndPoint()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Envelope" title="ST_Envelope (Python function) — Returns the bounding rectangular polygon of a geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Envelope()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Equals" title="ST_Equals (Python function) — Returns true if the given geometries represent the same geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Equals()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_ExteriorRing" title="ST_ExteriorRing (Python function) — Returns a line string representing the exterior ring of the input polygon."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_ExteriorRing()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Geometries" title="ST_Geometries (Python function) — Returns an array of geometries in the specified collection. Returns a one-element array if the input geometry is not a multi-geometry. Returns NULL if input geometry is empty."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Geometries()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_GeometryFromText" title="ST_GeometryFromText (Python function) — Returns a geometry type object from WKT representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_GeometryFromText()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_GeometryN" title="ST_GeometryN (Python function) — Returns the geometry element at a given index (indices start at 1). If the geometry is a collection of geometries (e.g., GEOMETRYCOLLECTION or MULTI*), returns the geometry at a given index. If the given index is less than 1 or greater than the total number of elements in the collection, returns NULL. Use ST_NumGeometries() to find out the total number of elements. Singular geometries (e.g., POINT, LINESTRING, POLYGON), are treated as collections of one element. Empty geometries are treated as empty collections."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_GeometryN()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_GeometryType" title="ST_GeometryType (Python function) — Returns the type of the geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_GeometryType()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_GeomFromBinary" title="ST_GeomFromBinary (Python function) — Returns a geometry type object from WKB or EWKB representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_GeomFromBinary()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_InteriorRings" title="ST_InteriorRings (Python function) — Returns an array of all interior rings found in the input geometry, or an empty array if the polygon has no interior rings. Returns NULL if the input geometry is empty. The input geometry must be a polygon."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_InteriorRings()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_InteriorRingN" title="ST_InteriorRingN (Python function) — Returns the interior ring element at the specified index (indices start at 1). If the given index is less than 1 or greater than the total number of interior rings in the input geometry, returns NULL. The input geometry must be a polygon. Use ST_NumInteriorRing() to find out the total number of elements."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_InteriorRingN()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Intersects" title="ST_Intersects (Python function) — Returns true if the given geometries spatially intersect in two dimensions (share any portion of space) and false if they do not (they are disjoint)."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Intersects()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Intersection" title="ST_Intersection (Python function) — Returns the geometry value that represents the point set intersection of two geometries."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Intersection()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_IsClosed" title="ST_IsClosed (Python function) — Returns true if the linestring's start and end points are coincident."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_IsClosed()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_IsEmpty" title="ST_IsEmpty (Python function) — Returns true if this Geometry is an empty geometrycollection, polygon, point etc."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_IsEmpty()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_IsSimple" title="ST_IsSimple (Python function) — Returns true if this Geometry has no anomalous geometric points, such as self intersection or self tangency."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_IsSimple()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_IsRing" title="ST_IsRing (Python function) — Returns true if and only if the line is closed and simple."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_IsRing()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_IsValid" title="ST_IsValid (Python function) — Returns true if and only if the input geometry is well-formed. Use geometry_invalid_reason() to determine why the geometry is not well-formed."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_IsValid()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Length" title="ST_Length (Python function) — Returns the length of a linestring or multi-linestring using Euclidean measurement on a two-dimensional plane (based on spatial ref) in projected units."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Length()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_LineFromText" title="ST_LineFromText (Python function) — Returns a geometry type linestring object from WKT representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_LineFromText()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_LineString" title="ST_LineString (Python function) — Returns a LineString formed from an array of points. If there are fewer than two non-empty points in the input array, an empty LineString will be returned. Array elements must not be NULL or the same as the previous element. The returned geometry may not be simple, e.g. may self-intersect or may contain duplicate vertexes depending on the input."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_LineString()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_MultiPoint" title="ST_MultiPoint (Python function) — Returns a MultiPoint geometry object formed from the specified points. Returns NULL if input array is empty. Array elements must not be NULL or empty. The returned geometry may not be simple and may contain duplicate points if input array has duplicates."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_MultiPoint()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_NumGeometries" title="ST_NumGeometries (Python function) — Returns the number of geometries in the collection. If the geometry is a collection of geometries (e.g., GEOMETRYCOLLECTION or MULTI*), returns the number of geometries, for single geometries returns 1, for empty geometries returns 0."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_NumGeometries()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_NumInteriorRing" title="ST_NumInteriorRing (Python function) — Returns the cardinality of the collection of interior rings of a polygon."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_NumInteriorRing()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_NumPoints" title="ST_NumPoints (Python function) — Returns the number of points in a geometry. This is an extension to the SQL/MM ST_NumPoints function which only applies to point and linestring."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_NumPoints()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Overlaps" title="ST_Overlaps (Python function) — Returns true if the given geometries share space, are of the same dimension, but are not completely contained by each other."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Overlaps()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Point" title="ST_Point (Python function) — Returns a geometry type point object with the given coordinate values."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Point()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_PointN" title="ST_PointN (Python function) — Returns the vertex of a linestring at a given index (indices start at 1). If the given index is less than 1 or greater than the total number of elements in the collection, returns NULL. Use ST_NumPoints() to find out the total number of elements."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_PointN()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Points" title="ST_Points (Python function) — Returns an array of points in a linestring."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Points()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Polygon" title="ST_Polygon (Python function) — Returns a geometry type polygon object from WKT representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Polygon()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Relate" title="ST_Relate (Python function) — Returns true if first geometry is spatially related to second geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Relate()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_StartPoint" title="ST_StartPoint (Python function) — Returns the first point of a LineString geometry as a Point. This is a shortcut for ST_PointN(geometry, 1)."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_StartPoint()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_SymDifference" title="ST_SymDifference (Python function) — Returns the geometry value that represents the point set symmetric difference of two geometries."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_SymDifference()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Touches" title="ST_Touches (Python function) — Returns true if the given geometries have at least one point in common, but their interiors do not intersect."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Touches()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Union" title="ST_Union (Python function) — Returns a geometry that represents the point set union of the input geometries."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Union()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Within" title="ST_Within (Python function) — Returns true if first geometry is completely inside second geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Within()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_X" title="ST_X (Python function) — Returns the X coordinate of the point."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_X()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_XMax" title="ST_XMax (Python function) — Returns X maxima of a bounding box of a geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_XMax()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_XMin" title="ST_XMin (Python function) — Returns X minima of a bounding box of a geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_XMin()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_Y" title="ST_Y (Python function) — Returns the Y coordinate of the point."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Y()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_YMax" title="ST_YMax (Python function) — Returns Y maxima of a bounding box of a geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_YMax()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#ST_YMin" title="ST_YMin (Python function) — Returns Y minima of a bounding box of a geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_YMin()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#to_encoded_polyline" title="to_encoded_polyline (Python function) — Encodes a linestring or multipoint to a polyline."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_encoded_polyline()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#to_geojson_geometry" title="to_geojson_geometry (Python function) — Returns the GeoJSON encoded defined by the input spherical geography."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_geojson_geometry()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#to_geometry" title="to_geometry (Python function) — Converts a SphericalGeography object to a Geometry object."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_geometry()</span></code></a></p></li>
+<li><p><a class="reference internal" href="geospatial.html#to_spherical_geography" title="to_spherical_geography (Python function) — Converts a Geometry object to a SphericalGeography object on the sphere of the Earth's radius. This function is only applicable to POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON geometries defined in 2D space, or GEOMETRYCOLLECTION of such geometries. For each point of the input geometry, it verifies that point.x is within [-180.0, 180.0] and point.y is within [-90.0, 90.0], and uses them as (longitude, latitude) degrees to construct the shape of the SphericalGeography result."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_spherical_geography()</span></code></a></p></li>
+</ul>
+<h2 id="hyperloglog">HyperLogLog<a class="headerlink" href="#hyperloglog" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="hyperloglog.html"><span class="doc">HyperLogLog functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="hyperloglog.html#approx_set" title="approx_set (Python function) — Returns the HyperLogLog sketch of the input data set of x. This data sketch underlies approx_distinct() and can be stored and used later by calling cardinality()."><code class="xref py py-func docutils literal notranslate"><span class="pre">approx_set()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cardinality()</span></code></p></li>
+<li><p><a class="reference internal" href="hyperloglog.html#empty_approx_set" title="empty_approx_set (Python function) — Returns an empty HyperLogLog."><code class="xref py py-func docutils literal notranslate"><span class="pre">empty_approx_set()</span></code></a></p></li>
+<li><p><a class="reference internal" href="hyperloglog.html#merge" title="merge (Python function) — Returns the HyperLogLog of the aggregate union of the individual hll HyperLogLog structures."><code class="xref py py-func docutils literal notranslate"><span class="pre">merge()</span></code></a></p></li>
+</ul>
+<h2 id="json">JSON<a class="headerlink" href="#json" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="json.html"><span class="doc">JSON functions and operators</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="json.html#is_json_scalar" title="is_json_scalar (Python function) — Determine if json is a scalar (i.e. a JSON number, a JSON string, true, false or null):"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_json_scalar()</span></code></a></p></li>
+<li><p><a class="reference internal" href="json.html#json-array"><span class="std std-ref">json_array()</span></a></p></li>
+<li><p><a class="reference internal" href="json.html#json_array_contains" title="json_array_contains (Python function) — Determine if value exists in json (a string containing a JSON array):"><code class="xref py py-func docutils literal notranslate"><span class="pre">json_array_contains()</span></code></a></p></li>
+<li><p><a class="reference internal" href="json.html#json_array_get" title="json_array_get (Python function) — The semantics of this function are broken. If the extracted element is a string, it will be converted into an invalid JSON value that is not properly quoted (the value will not be surrounded by quotes and any interior quotes will not be escaped)."><code class="xref py py-func docutils literal notranslate"><span class="pre">json_array_get()</span></code></a></p></li>
+<li><p><a class="reference internal" href="json.html#json_array_length" title="json_array_length (Python function) — Returns the array length of json (a string containing a JSON array):"><code class="xref py py-func docutils literal notranslate"><span class="pre">json_array_length()</span></code></a></p></li>
+<li><p><a class="reference internal" href="json.html#json-exists"><span class="std std-ref">json_exists()</span></a></p></li>
+<li><p><a class="reference internal" href="json.html#json_extract" title="json_extract (Python function) — Evaluates the JSONPath-like expression json_path on json (a string containing JSON) and returns the result as a JSON string:"><code class="xref py py-func docutils literal notranslate"><span class="pre">json_extract()</span></code></a></p></li>
+<li><p><a class="reference internal" href="json.html#json_extract_scalar" title="json_extract_scalar (Python function) — Like json_extract(), but returns the result value as a string (as opposed to being encoded as JSON). The value referenced by json_path must be a scalar (boolean, number or string)."><code class="xref py py-func docutils literal notranslate"><span class="pre">json_extract_scalar()</span></code></a></p></li>
+<li><p><a class="reference internal" href="json.html#json_format" title="json_format (Python function) — Returns the JSON text serialized from the input JSON value. This is inverse function to json_parse()."><code class="xref py py-func docutils literal notranslate"><span class="pre">json_format()</span></code></a></p></li>
+<li><p><a class="reference internal" href="json.html#json_parse" title="json_parse (Python function) — Returns the JSON value deserialized from the input JSON text. This is inverse function to json_format():"><code class="xref py py-func docutils literal notranslate"><span class="pre">json_parse()</span></code></a></p></li>
+<li><p><a class="reference internal" href="json.html#json-object"><span class="std std-ref">json_object()</span></a></p></li>
+<li><p><a class="reference internal" href="json.html#json-query"><span class="std std-ref">json_query()</span></a></p></li>
+<li><p><a class="reference internal" href="json.html#json_size" title="json_size (Python function) — Like json_extract(), but returns the size of the value. For objects or arrays, the size is the number of members, and the size of a scalar value is zero."><code class="xref py py-func docutils literal notranslate"><span class="pre">json_size()</span></code></a></p></li>
+<li><p><a class="reference internal" href="json.html#json-value"><span class="std std-ref">json_value()</span></a></p></li>
+</ul>
+<h2 id="lambda">Lambda<a class="headerlink" href="#lambda" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="lambda.html"><span class="doc">Lambda expressions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="array.html#any_match" title="any_match (Python function) — Returns whether any elements of an array match the given predicate. Returns true if one or more elements match the predicate; false if none of the elements matches (a special case is when the array is empty); NULL if the predicate function returns NULL for one or more elements and false for all other elements."><code class="xref py py-func docutils literal notranslate"><span class="pre">any_match()</span></code></a></p></li>
+<li><p><a class="reference internal" href="aggregate.html#reduce_agg" title="reduce_agg (Python function) — Reduces all input values into a single value. inputFunction will be invoked for each non-null input value. In addition to taking the input value, inputFunction takes the current state, initially initialState, and returns the new state. combineFunction will be invoked to combine two states into a new state. The final state is returned:"><code class="xref py py-func docutils literal notranslate"><span class="pre">reduce_agg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="regexp.html#regexp_replace" title="regexp_replace (Python function) — Removes every instance of the substring matched by the regular expression pattern from string:"><code class="xref py py-func docutils literal notranslate"><span class="pre">regexp_replace()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#transform" title="transform (Python function) — Returns an array that is the result of applying function to each element of array:"><code class="xref py py-func docutils literal notranslate"><span class="pre">transform()</span></code></a></p></li>
+</ul>
+<h2 id="machine-learning">Machine learning<a class="headerlink" href="#machine-learning" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="ml.html"><span class="doc">Machine learning functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="ml.html#classify" title="classify (Python function) — Returns a label predicted by the given classifier SVM model."><code class="xref py py-func docutils literal notranslate"><span class="pre">classify()</span></code></a></p></li>
+<li><p><a class="reference internal" href="ml.html#features" title="features (Python function) — Returns the map representing the feature vector."><code class="xref py py-func docutils literal notranslate"><span class="pre">features()</span></code></a></p></li>
+<li><p><a class="reference internal" href="ml.html#learn_classifier" title="learn_classifier (Python function) — Returns an SVM-based classifier model, trained with the given label and feature data sets."><code class="xref py py-func docutils literal notranslate"><span class="pre">learn_classifier()</span></code></a></p></li>
+<li><p><a class="reference internal" href="ml.html#learn_libsvm_classifier" title="learn_libsvm_classifier (Python function) — Returns an SVM-based classifier model, trained with the given label and feature data sets. You can control the training process by libsvm parameters."><code class="xref py py-func docutils literal notranslate"><span class="pre">learn_libsvm_classifier()</span></code></a></p></li>
+<li><p><a class="reference internal" href="ml.html#learn_libsvm_regressor" title="learn_libsvm_regressor (Python function) — Returns an SVM-based regressor model, trained with the given target and feature data sets. You can control the training process by libsvm parameters."><code class="xref py py-func docutils literal notranslate"><span class="pre">learn_libsvm_regressor()</span></code></a></p></li>
+<li><p><a class="reference internal" href="ml.html#learn_regressor" title="learn_regressor (Python function) — Returns an SVM-based regressor model, trained with the given target and feature data sets."><code class="xref py py-func docutils literal notranslate"><span class="pre">learn_regressor()</span></code></a></p></li>
+<li><p><a class="reference internal" href="ml.html#regress" title="regress (Python function) — Returns a predicted target value by the given regressor SVM model."><code class="xref py py-func docutils literal notranslate"><span class="pre">regress()</span></code></a></p></li>
+</ul>
+<h2 id="map">Map<a class="headerlink" href="#map" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="map.html"><span class="doc">Map functions and operators</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="array.html#cardinality" title="cardinality (Python function) — Returns the cardinality (size) of the array x."><code class="xref py py-func docutils literal notranslate"><span class="pre">cardinality()</span></code></a></p></li>
+<li><p><a class="reference internal" href="array.html#element_at" title="element_at (Python function) — Returns element of array at given index. If index &gt; 0, this function provides the same functionality as the SQL-standard subscript operator ([]), except that the function returns NULL when accessing an index larger than array length, whereas the subscript operator would fail in such a case. If index &lt; 0, element_at accesses elements from the last to the first."><code class="xref py py-func docutils literal notranslate"><span class="pre">element_at()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#map" title="map (Python function) — Returns an empty map."><code class="xref py py-func docutils literal notranslate"><span class="pre">map()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#map_concat" title="map_concat (Python function) — Returns the union of all the given maps. If a key is found in multiple given maps, that key's value in the resulting map comes from the last one of those maps."><code class="xref py py-func docutils literal notranslate"><span class="pre">map_concat()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#map_entries" title="map_entries (Python function) — Returns an array of all entries in the given map."><code class="xref py py-func docutils literal notranslate"><span class="pre">map_entries()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#map_filter" title="map_filter (Python function) — Constructs a map from those entries of map for which function returns true:"><code class="xref py py-func docutils literal notranslate"><span class="pre">map_filter()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#map_from_entries" title="map_from_entries (Python function) — Returns a map created from the given array of entries."><code class="xref py py-func docutils literal notranslate"><span class="pre">map_from_entries()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#map_keys" title="map_keys (Python function) — Returns all the keys in the map x."><code class="xref py py-func docutils literal notranslate"><span class="pre">map_keys()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#map_values" title="map_values (Python function) — Returns all the values in the map x."><code class="xref py py-func docutils literal notranslate"><span class="pre">map_values()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#map_zip_with" title="map_zip_with (Python function) — Merges the two given maps into a single map by applying function to the pair of values with the same key. For keys only presented in one map, NULL will be passed as the value for the missing key."><code class="xref py py-func docutils literal notranslate"><span class="pre">map_zip_with()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#multimap_from_entries" title="multimap_from_entries (Python function) — Returns a multimap created from the given array of entries. Each key can be associated with multiple values."><code class="xref py py-func docutils literal notranslate"><span class="pre">multimap_from_entries()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#transform_keys" title="transform_keys (Python function) — Returns a map that applies function to each entry of map and transforms the keys:"><code class="xref py py-func docutils literal notranslate"><span class="pre">transform_keys()</span></code></a></p></li>
+<li><p><a class="reference internal" href="map.html#transform_values" title="transform_values (Python function) — Returns a map that applies function to each entry of map and transforms the values:"><code class="xref py py-func docutils literal notranslate"><span class="pre">transform_values()</span></code></a></p></li>
+</ul>
+<h2 id="math">Math<a class="headerlink" href="#math" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="math.html"><span class="doc">Mathematical functions and operators</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="math.html#abs" title="abs (Python function) — Returns the absolute value of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">abs()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#acos" title="acos (Python function) — Returns the arc cosine of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">acos()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#asin" title="asin (Python function) — Returns the arc sine of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">asin()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#atan" title="atan (Python function) — Returns the arc tangent of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">atan()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#beta_cdf" title="beta_cdf (Python function) — Compute the Beta cdf with given a, b parameters:  P(N &lt; v; a, b). The a, b parameters must be positive real numbers and value v must be a real value. The value v must lie on the interval [0, 1]."><code class="xref py py-func docutils literal notranslate"><span class="pre">beta_cdf()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#cbrt" title="cbrt (Python function) — Returns the cube root of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">cbrt()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#ceil" title="ceil (Python function) — This is an alias for ceiling()."><code class="xref py py-func docutils literal notranslate"><span class="pre">ceil()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#cos" title="cos (Python function) — Returns the cosine of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">cos()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#cosh" title="cosh (Python function) — Returns the hyperbolic cosine of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">cosh()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#cosine_distance" title="cosine_distance (Python function) — Calculates the cosine distance between two dense vectors:"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine_distance()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#cosine_similarity" title="cosine_similarity (Python function) — Calculates the cosine similarity of two sparse vectors:"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine_similarity()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#degrees" title="degrees (Python function) — Converts angle x in radians to degrees."><code class="xref py py-func docutils literal notranslate"><span class="pre">degrees()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#e" title="e (Python function) — Returns the constant Euler's number."><code class="xref py py-func docutils literal notranslate"><span class="pre">e()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#exp" title="exp (Python function) — Returns Euler's number raised to the power of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">exp()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#floor" title="floor (Python function) — Returns x rounded down to the nearest integer."><code class="xref py py-func docutils literal notranslate"><span class="pre">floor()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#from_base" title="from_base (Python function) — Returns the value of string interpreted as a base-radix number."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_base()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#infinity" title="infinity (Python function) — Returns the constant representing positive infinity."><code class="xref py py-func docutils literal notranslate"><span class="pre">infinity()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#inverse_beta_cdf" title="inverse_beta_cdf (Python function) — Compute the inverse of the Beta cdf with given a, b parameters for the cumulative probability (p): P(N &lt; n). The a, b parameters must be positive real values. The probability p must lie on the interval [0, 1]."><code class="xref py py-func docutils literal notranslate"><span class="pre">inverse_beta_cdf()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#inverse_normal_cdf" title="inverse_normal_cdf (Python function) — Compute the inverse of the Normal cdf with given mean and standard deviation (sd) for the cumulative probability (p): P(N &lt; n). The mean must be a real value and the standard deviation must be a real and positive value. The probability p must lie on the interval (0, 1)."><code class="xref py py-func docutils literal notranslate"><span class="pre">inverse_normal_cdf()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#is_finite" title="is_finite (Python function) — Determine if x is finite."><code class="xref py py-func docutils literal notranslate"><span class="pre">is_finite()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#is_nan" title="is_nan (Python function) — Determine if x is not-a-number."><code class="xref py py-func docutils literal notranslate"><span class="pre">is_nan()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#ln" title="ln (Python function) — Returns the natural logarithm of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">ln()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#log" title="log (Python function) — Returns the base b logarithm of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">log()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#log2" title="log2 (Python function) — Returns the base 2 logarithm of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">log2()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#log10" title="log10 (Python function) — Returns the base 10 logarithm of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">log10()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#mod" title="mod (Python function) — Returns the modulus (remainder) of n divided by m."><code class="xref py py-func docutils literal notranslate"><span class="pre">mod()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#nan" title="nan (Python function) — Returns the constant representing not-a-number."><code class="xref py py-func docutils literal notranslate"><span class="pre">nan()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#normal_cdf" title="normal_cdf (Python function) — Compute the Normal cdf with given mean and standard deviation (sd):  P(N &lt; v; mean, sd). The mean and value v must be real values and the standard deviation must be a real and positive value."><code class="xref py py-func docutils literal notranslate"><span class="pre">normal_cdf()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#pi" title="pi (Python function) — Returns the constant Pi."><code class="xref py py-func docutils literal notranslate"><span class="pre">pi()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#pow" title="pow (Python function) — This is an alias for power()."><code class="xref py py-func docutils literal notranslate"><span class="pre">pow()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#power" title="power (Python function) — Returns x raised to the power of p."><code class="xref py py-func docutils literal notranslate"><span class="pre">power()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#radians" title="radians (Python function) — Converts angle x in degrees to radians."><code class="xref py py-func docutils literal notranslate"><span class="pre">radians()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#rand" title="rand (Python function) — This is an alias for random()."><code class="xref py py-func docutils literal notranslate"><span class="pre">rand()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#random" title="random (Python function) — Returns a pseudo-random value in the range 0.0 &lt;= x &lt; 1.0."><code class="xref py py-func docutils literal notranslate"><span class="pre">random()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#round" title="round (Python function) — Returns x rounded to the nearest integer."><code class="xref py py-func docutils literal notranslate"><span class="pre">round()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#sign" title="sign (Python function) — Returns the signum function of x, that is:"><code class="xref py py-func docutils literal notranslate"><span class="pre">sign()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#sin" title="sin (Python function) — Returns the sine of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">sin()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#sinh" title="sinh (Python function) — Returns the hyperbolic sine of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">sinh()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#sqrt" title="sqrt (Python function) — Returns the square root of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">sqrt()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#tan" title="tan (Python function) — Returns the tangent of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">tan()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#tanh" title="tanh (Python function) — Returns the hyperbolic tangent of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">tanh()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#to_base" title="to_base (Python function) — Returns the base-radix representation of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_base()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#truncate" title="truncate (Python function) — Returns x rounded to integer by dropping digits after decimal point."><code class="xref py py-func docutils literal notranslate"><span class="pre">truncate()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#width_bucket" title="width_bucket (Python function) — Returns the bin number of x in an equi-width histogram with the specified bound1 and bound2 bounds and n number of buckets."><code class="xref py py-func docutils literal notranslate"><span class="pre">width_bucket()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#wilson_interval_lower" title="wilson_interval_lower (Python function) — Returns the lower bound of the Wilson score interval of a Bernoulli trial process at a confidence specified by the z-score z."><code class="xref py py-func docutils literal notranslate"><span class="pre">wilson_interval_lower()</span></code></a></p></li>
+<li><p><a class="reference internal" href="math.html#wilson_interval_upper" title="wilson_interval_upper (Python function) — Returns the upper bound of the Wilson score interval of a Bernoulli trial process at a confidence specified by the z-score z."><code class="xref py py-func docutils literal notranslate"><span class="pre">wilson_interval_upper()</span></code></a></p></li>
+</ul>
+<h2 id="quantile-digest">Quantile digest<a class="headerlink" href="#quantile-digest" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="qdigest.html"><span class="doc">Quantile digest functions</span></a></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">merge()</span></code></p></li>
+<li><p><a class="reference internal" href="qdigest.html#qdigest_agg" title="qdigest_agg (Python function) — Returns the qdigest which is composed of  all input values of x."><code class="xref py py-func docutils literal notranslate"><span class="pre">qdigest_agg()</span></code></a></p></li>
+<li><p><a class="reference internal" href="qdigest.html#value_at_quantile" title="value_at_quantile (Python function) — Returns the approximate percentile value from the quantile digest given the number quantile between 0 and 1."><code class="xref py py-func docutils literal notranslate"><span class="pre">value_at_quantile()</span></code></a></p></li>
+<li><p><a class="reference internal" href="qdigest.html#values_at_quantiles" title="values_at_quantiles (Python function) — Returns the approximate percentile values as an array given the input quantile digest and array of values between 0 and 1 which represent the quantiles to return."><code class="xref py py-func docutils literal notranslate"><span class="pre">values_at_quantiles()</span></code></a></p></li>
+</ul>
+<h2 id="regular-expression">Regular expression<a class="headerlink" href="#regular-expression" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="regexp.html"><span class="doc">Regular expression functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="regexp.html#regexp_count" title="regexp_count (Python function) — Returns the number of occurrence of pattern in string:"><code class="xref py py-func docutils literal notranslate"><span class="pre">regexp_count()</span></code></a></p></li>
+<li><p><a class="reference internal" href="regexp.html#regexp_extract" title="regexp_extract (Python function) — Returns the first substring matched by the regular expression pattern in string:"><code class="xref py py-func docutils literal notranslate"><span class="pre">regexp_extract()</span></code></a></p></li>
+<li><p><a class="reference internal" href="regexp.html#regexp_extract_all" title="regexp_extract_all (Python function) — Returns the substring(s) matched by the regular expression pattern in string:"><code class="xref py py-func docutils literal notranslate"><span class="pre">regexp_extract_all()</span></code></a></p></li>
+<li><p><a class="reference internal" href="regexp.html#regexp_like" title="regexp_like (Python function) — Evaluates the regular expression pattern and determines if it is contained within string."><code class="xref py py-func docutils literal notranslate"><span class="pre">regexp_like()</span></code></a></p></li>
+<li><p><a class="reference internal" href="regexp.html#regexp_position" title="regexp_position (Python function) — Returns the index of the first occurrence (counting from 1) of pattern in string. Returns -1 if not found:"><code class="xref py py-func docutils literal notranslate"><span class="pre">regexp_position()</span></code></a></p></li>
+<li><p><a class="reference internal" href="regexp.html#regexp_replace" title="regexp_replace (Python function) — Removes every instance of the substring matched by the regular expression pattern from string:"><code class="xref py py-func docutils literal notranslate"><span class="pre">regexp_replace()</span></code></a></p></li>
+<li><p><a class="reference internal" href="regexp.html#regexp_split" title="regexp_split (Python function) — Splits string using the regular expression pattern and returns an array. Trailing empty strings are preserved:"><code class="xref py py-func docutils literal notranslate"><span class="pre">regexp_split()</span></code></a></p></li>
+</ul>
+<h2 id="row-pattern-recognition-expressions">Row pattern recognition expressions<a class="headerlink" href="#row-pattern-recognition-expressions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../sql/match-recognize.html#classifier-function"><span class="std std-ref">classifier</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/match-recognize.html#logical-navigation-functions"><span class="std std-ref">first</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/match-recognize.html#logical-navigation-functions"><span class="std std-ref">last</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/match-recognize.html#match-number-function"><span class="std std-ref">match_number</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/match-recognize.html#physical-navigation-functions"><span class="std std-ref">next</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/match-recognize.html#permute-function"><span class="std std-ref">permute</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/match-recognize.html#physical-navigation-functions"><span class="std std-ref">prev</span></a></p></li>
+</ul>
+<h2 id="session">Session<a class="headerlink" href="#session" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="session.html"><span class="doc">Session information</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="session.html#current_catalog" title="current_catalog (Python data) — Returns a character string that represents the current catalog name."><code class="xref py py-data docutils literal notranslate"><span class="pre">current_catalog</span></code></a></p></li>
+<li><p><a class="reference internal" href="session.html#current_groups" title="current_groups (Python function) — Returns the list of groups for the current user running the query."><code class="xref py py-func docutils literal notranslate"><span class="pre">current_groups()</span></code></a></p></li>
+<li><p><a class="reference internal" href="session.html#current_schema" title="current_schema (Python data) — Returns a character string that represents the current unqualified schema name."><code class="xref py py-data docutils literal notranslate"><span class="pre">current_schema</span></code></a></p></li>
+<li><p><a class="reference internal" href="session.html#current_user" title="current_user (Python data) — Returns the current user running the query."><code class="xref py py-data docutils literal notranslate"><span class="pre">current_user</span></code></a></p></li>
+</ul>
+<h2 id="set-digest">Set Digest<a class="headerlink" href="#set-digest" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="setdigest.html"><span class="doc">Set Digest functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="setdigest.html#make_set_digest" title="make_set_digest (Python function) — Composes all input values of x into a setdigest."><code class="xref py py-func docutils literal notranslate"><span class="pre">make_set_digest()</span></code></a></p></li>
+<li><p><a class="reference internal" href="setdigest.html#merge_set_digest" title="merge_set_digest (Python function) — Returns the setdigest of the aggregate union of the individual setdigest Set Digest structures."><code class="xref py py-func docutils literal notranslate"><span class="pre">merge_set_digest()</span></code></a></p></li>
+<li><p><a class="reference internal" href="setdigest.html#setdigest-cardinality"><span class="std std-ref">cardinality()</span></a></p></li>
+<li><p><a class="reference internal" href="setdigest.html#intersection_cardinality" title="intersection_cardinality (Python function) — Returns the estimation for the cardinality of the intersection of the two set digests."><code class="xref py py-func docutils literal notranslate"><span class="pre">intersection_cardinality()</span></code></a></p></li>
+<li><p><a class="reference internal" href="setdigest.html#jaccard_index" title="jaccard_index (Python function) — Returns the estimation of Jaccard index for the two set digests."><code class="xref py py-func docutils literal notranslate"><span class="pre">jaccard_index()</span></code></a></p></li>
+<li><p><a class="reference internal" href="setdigest.html#hash_counts" title="hash_counts (Python function) — Returns a map containing the Murmur3Hash128 hashed values and the count of their occurences within the internal MinHash structure belonging to x."><code class="xref py py-func docutils literal notranslate"><span class="pre">hash_counts()</span></code></a></p></li>
+</ul>
+<h2 id="string">String<a class="headerlink" href="#string" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="string.html"><span class="doc">String functions and operators</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="string.html#chr" title="chr (Python function) — Returns the Unicode code point n as a single character string."><code class="xref py py-func docutils literal notranslate"><span class="pre">chr()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#codepoint" title="codepoint (Python function) — Returns the Unicode code point of the only character of string."><code class="xref py py-func docutils literal notranslate"><span class="pre">codepoint()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#concat" title="concat (Python function) — Returns the concatenation of string1, string2, ..., stringN. This function provides the same functionality as the SQL-standard concatenation operator (||)."><code class="xref py py-func docutils literal notranslate"><span class="pre">concat()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#concat_ws" title="concat_ws (Python function) — Returns the concatenation of string1, string2, ..., stringN using string0 as a separator. If string0 is null, then the return value is null. Any null values provided in the arguments after the separator are skipped."><code class="xref py py-func docutils literal notranslate"><span class="pre">concat_ws()</span></code></a></p></li>
+<li><p><a class="reference internal" href="conversion.html#format" title="format (Python function) — Returns a formatted string using the specified format string and arguments:"><code class="xref py py-func docutils literal notranslate"><span class="pre">format()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#from_utf8" title="from_utf8 (Python function) — Decodes a UTF-8 encoded string from binary. Invalid UTF-8 sequences are replaced with the Unicode replacement character U+FFFD."><code class="xref py py-func docutils literal notranslate"><span class="pre">from_utf8()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#hamming_distance" title="hamming_distance (Python function) — Returns the Hamming distance of string1 and string2, i.e. the number of positions at which the corresponding characters are different. Note that the two strings must have the same length."><code class="xref py py-func docutils literal notranslate"><span class="pre">hamming_distance()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#length" title="length (Python function) — Returns the length of string in characters."><code class="xref py py-func docutils literal notranslate"><span class="pre">length()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#levenshtein_distance" title="levenshtein_distance (Python function) — Returns the Levenshtein edit distance of string1 and string2, i.e. the minimum number of single-character edits (insertions, deletions or substitutions) needed to change string1 into string2."><code class="xref py py-func docutils literal notranslate"><span class="pre">levenshtein_distance()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#lower" title="lower (Python function) — Converts string to lowercase."><code class="xref py py-func docutils literal notranslate"><span class="pre">lower()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#lpad" title="lpad (Python function) — Left pads string to size characters with padstring. If size is less than the length of string, the result is truncated to size characters. size must not be negative and padstring must be non-empty."><code class="xref py py-func docutils literal notranslate"><span class="pre">lpad()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#ltrim" title="ltrim (Python function) — Removes leading whitespace from string."><code class="xref py py-func docutils literal notranslate"><span class="pre">ltrim()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#luhn_check" title="luhn_check (Python function) — Tests whether a string of digits is valid according to the Luhn algorithm."><code class="xref py py-func docutils literal notranslate"><span class="pre">luhn_check()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#normalize" title="normalize (Python function) — Transforms string with NFC normalization form."><code class="xref py py-func docutils literal notranslate"><span class="pre">normalize()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#position" title="position (Python function) — Returns the starting position of the first instance of substring in string. Positions start with 1. If not found, 0 is returned."><code class="xref py py-func docutils literal notranslate"><span class="pre">position()</span></code></a></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">randmom_string()</span></code>, catalog function of the <a class="reference internal" href="../connector/faker.html"><span class="doc std std-doc">Faker connector</span></a></p></li>
+<li><p><a class="reference internal" href="string.html#replace" title="replace (Python function) — Removes all instances of search from string."><code class="xref py py-func docutils literal notranslate"><span class="pre">replace()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#reverse" title="reverse (Python function) — Returns string with the characters in reverse order."><code class="xref py py-func docutils literal notranslate"><span class="pre">reverse()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#rpad" title="rpad (Python function) — Right pads string to size characters with padstring. If size is less than the length of string, the result is truncated to size characters. size must not be negative and padstring must be non-empty."><code class="xref py py-func docutils literal notranslate"><span class="pre">rpad()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#rtrim" title="rtrim (Python function) — Removes trailing whitespace from string."><code class="xref py py-func docutils literal notranslate"><span class="pre">rtrim()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#soundex" title="soundex (Python function) — It is typically used to evaluate the similarity of two expressions phonetically, that is how the string sounds when spoken:"><code class="xref py py-func docutils literal notranslate"><span class="pre">soundex()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#split" title="split (Python function) — Splits string on delimiter and returns an array."><code class="xref py py-func docutils literal notranslate"><span class="pre">split()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#split_part" title="split_part (Python function) — Splits string on delimiter and returns the field index. Field indexes start with 1. If the index is larger than the number of fields, then null is returned."><code class="xref py py-func docutils literal notranslate"><span class="pre">split_part()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#split_to_map" title="split_to_map (Python function) — Splits string by entryDelimiter and keyValueDelimiter and returns a map. entryDelimiter splits string into key-value pairs. keyValueDelimiter splits each pair into key and value."><code class="xref py py-func docutils literal notranslate"><span class="pre">split_to_map()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#split_to_multimap" title="split_to_multimap (Python function) — Splits string by entryDelimiter and keyValueDelimiter and returns a map containing an array of values for each unique key. entryDelimiter splits string into key-value pairs. keyValueDelimiter splits each pair into key and value. The values for each key will be in the same order as they appeared in string."><code class="xref py py-func docutils literal notranslate"><span class="pre">split_to_multimap()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#starts_with" title="starts_with (Python function) — Tests whether substring is a prefix of string."><code class="xref py py-func docutils literal notranslate"><span class="pre">starts_with()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#strpos" title="strpos (Python function) — Returns the starting position of the first instance of substring in string. Positions start with 1. If not found, 0 is returned."><code class="xref py py-func docutils literal notranslate"><span class="pre">strpos()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#substr" title="substr (Python function) — This is an alias for substring()."><code class="xref py py-func docutils literal notranslate"><span class="pre">substr()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#substring" title="substring (Python function) — Returns the rest of string from the starting position start. Positions start with 1. A negative starting position is interpreted as being relative to the end of the string."><code class="xref py py-func docutils literal notranslate"><span class="pre">substring()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#to_utf8" title="to_utf8 (Python function) — Encodes string into a UTF-8 varbinary representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#translate" title="translate (Python function) — Returns the source string translated by replacing characters found in the from string with the corresponding characters in the to string.  If the from string contains duplicates, only the first is used.  If the source character does not exist in the from string, the source character will be copied without translation.  If the index of the matching character in the from string is beyond the length of the to string, the source character will be omitted from the resulting string."><code class="xref py py-func docutils literal notranslate"><span class="pre">translate()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#trim" title="trim (Python function) — Removes any leading and/or trailing characters as specified up to and including string from source:"><code class="xref py py-func docutils literal notranslate"><span class="pre">trim()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#upper" title="upper (Python function) — Converts string to uppercase."><code class="xref py py-func docutils literal notranslate"><span class="pre">upper()</span></code></a></p></li>
+<li><p><a class="reference internal" href="string.html#word_stem" title="word_stem (Python function) — Returns the stem of word in the English language."><code class="xref py py-func docutils literal notranslate"><span class="pre">word_stem()</span></code></a></p></li>
+</ul>
+<h2 id="system">System<a class="headerlink" href="#system" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="system.html"><span class="doc">System information</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="system.html#version" title="version (Python function) — Returns the Trino version used on the cluster. Equivalent to the value of the node_version column in the system.runtime.nodes table."><code class="xref py py-func docutils literal notranslate"><span class="pre">version()</span></code></a></p></li>
+</ul>
+<h2 id="table">Table<a class="headerlink" href="#table" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="table.html"><span class="doc std std-doc">Table functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="table.html#exclude-columns-table-function"><span class="std std-ref">exclude_columns()</span></a></p></li>
+<li><p><a class="reference internal" href="table.html#sequence-table-function"><span class="std std-ref">sequence()</span></a></p></li>
+</ul>
+<h2 id="t-digest">T-Digest<a class="headerlink" href="#t-digest" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="tdigest.html"><span class="doc">T-Digest functions</span></a></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">merge()</span></code></p></li>
+<li><p><a class="reference internal" href="tdigest.html#tdigest_agg" title="tdigest_agg (Python function) — Composes all input values of x into a tdigest. x can be of any numeric type."><code class="xref py py-func docutils literal notranslate"><span class="pre">tdigest_agg()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value_at_quantile()</span></code></p></li>
+</ul>
+<h2 id="teradata">Teradata<a class="headerlink" href="#teradata" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="teradata.html"><span class="doc">Teradata functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="teradata.html#char2hexint" title="char2hexint (Python function) — Returns the hexadecimal representation of the UTF-16BE encoding of the string."><code class="xref py py-func docutils literal notranslate"><span class="pre">char2hexint()</span></code></a></p></li>
+<li><p><a class="reference internal" href="teradata.html#index" title="index (Python function) — Alias for strpos() function."><code class="xref py py-func docutils literal notranslate"><span class="pre">index()</span></code></a></p></li>
+<li><p><a class="reference internal" href="teradata.html#to_char" title="to_char (Python function) — Formats timestamp as a string using format."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_char()</span></code></a></p></li>
+<li><p><a class="reference internal" href="teradata.html#to_timestamp" title="to_timestamp (Python function) — Parses string into a TIMESTAMP using format."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_timestamp()</span></code></a></p></li>
+<li><p><a class="reference internal" href="teradata.html#to_date" title="to_date (Python function) — Parses string into a DATE using format."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_date()</span></code></a></p></li>
+</ul>
+<h2 id="url">URL<a class="headerlink" href="#url" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="url.html"><span class="doc">URL functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="url.html#url_decode" title="url_decode (Python function) — Unescapes the URL encoded value. This function is the inverse of url_encode()."><code class="xref py py-func docutils literal notranslate"><span class="pre">url_decode()</span></code></a></p></li>
+<li><p><a class="reference internal" href="url.html#url_encode" title="url_encode (Python function) — Escapes value by encoding it so that it can be safely included in URL query parameter names and values:"><code class="xref py py-func docutils literal notranslate"><span class="pre">url_encode()</span></code></a></p></li>
+<li><p><a class="reference internal" href="url.html#url_extract_fragment" title="url_extract_fragment (Python function) — Returns the fragment identifier from url."><code class="xref py py-func docutils literal notranslate"><span class="pre">url_extract_fragment()</span></code></a></p></li>
+<li><p><a class="reference internal" href="url.html#url_extract_host" title="url_extract_host (Python function) — Returns the host from url."><code class="xref py py-func docutils literal notranslate"><span class="pre">url_extract_host()</span></code></a></p></li>
+<li><p><a class="reference internal" href="url.html#url_extract_parameter" title="url_extract_parameter (Python function) — Returns the value of the first query string parameter named name from url. Parameter extraction is handled in the typical manner as specified by RFC 1866 Section 8.2.1."><code class="xref py py-func docutils literal notranslate"><span class="pre">url_extract_parameter()</span></code></a></p></li>
+<li><p><a class="reference internal" href="url.html#url_extract_path" title="url_extract_path (Python function) — Returns the path from url."><code class="xref py py-func docutils literal notranslate"><span class="pre">url_extract_path()</span></code></a></p></li>
+<li><p><a class="reference internal" href="url.html#url_extract_port" title="url_extract_port (Python function) — Returns the port number from url."><code class="xref py py-func docutils literal notranslate"><span class="pre">url_extract_port()</span></code></a></p></li>
+<li><p><a class="reference internal" href="url.html#url_extract_protocol" title="url_extract_protocol (Python function) — Returns the protocol from url:"><code class="xref py py-func docutils literal notranslate"><span class="pre">url_extract_protocol()</span></code></a></p></li>
+<li><p><a class="reference internal" href="url.html#url_extract_query" title="url_extract_query (Python function) — Returns the query string from url."><code class="xref py py-func docutils literal notranslate"><span class="pre">url_extract_query()</span></code></a></p></li>
+</ul>
+<h2 id="uuid">UUID<a class="headerlink" href="#uuid" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="uuid.html"><span class="doc">UUID functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="uuid.html#uuid" title="uuid (Python function) — Returns a pseudo randomly generated uuid-type (type 4)."><code class="xref py py-func docutils literal notranslate"><span class="pre">uuid()</span></code></a></p></li>
+</ul>
+<h2 id="window">Window<a class="headerlink" href="#window" title="Link to this heading">#</a></h2>
+<p>For more details, see <a class="reference internal" href="window.html"><span class="doc">Window functions</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="window.html#cume_dist" title="cume_dist (Python function) — Returns the cumulative distribution of a value in a group of values. The result is the number of rows preceding or peer with the row in the window ordering of the window partition divided by the total number of rows in the window partition. Thus, any tie values in the ordering will evaluate to the same distribution value. The window frame must not be specified."><code class="xref py py-func docutils literal notranslate"><span class="pre">cume_dist()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#dense_rank" title="dense_rank (Python function) — Returns the rank of a value in a group of values. This is similar to rank(), except that tie values do not produce gaps in the sequence. The window frame must not be specified."><code class="xref py py-func docutils literal notranslate"><span class="pre">dense_rank()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#first_value" title="first_value (Python function) — Returns the first value of the window."><code class="xref py py-func docutils literal notranslate"><span class="pre">first_value()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#lag" title="lag (Python function) — Returns the value at offset rows before the current row in the window partition. Offsets start at 0, which is the current row. The offset can be any scalar expression.  The default offset is 1. If the offset is null, an error is raised. If the offset refers to a row that is not within the partition, the default_value is returned, or if it is not specified null is returned. The lag() function requires that the window ordering be specified. Window frame must not be specified."><code class="xref py py-func docutils literal notranslate"><span class="pre">lag()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#last_value" title="last_value (Python function) — Returns the last value of the window."><code class="xref py py-func docutils literal notranslate"><span class="pre">last_value()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#lead" title="lead (Python function) — Returns the value at offset rows after the current row in the window partition. Offsets start at 0, which is the current row. The offset can be any scalar expression.  The default offset is 1. If the offset is null, an error is raised. If the offset refers to a row that is not within the partition, the default_value is returned, or if it is not specified null is returned. The lead() function requires that the window ordering be specified. Window frame must not be specified."><code class="xref py py-func docutils literal notranslate"><span class="pre">lead()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#nth_value" title="nth_value (Python function) — Returns the value at the specified offset from the beginning of the window. Offsets start at 1. The offset can be any scalar expression.  If the offset is null or greater than the number of values in the window, null is returned.  It is an error for the offset to be zero or negative."><code class="xref py py-func docutils literal notranslate"><span class="pre">nth_value()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#ntile" title="ntile (Python function) — Divides the rows for each window partition into n buckets ranging from 1 to at most n. Bucket values will differ by at most 1. If the number of rows in the partition does not divide evenly into the number of buckets, then the remainder values are distributed one per bucket, starting with the first bucket."><code class="xref py py-func docutils literal notranslate"><span class="pre">ntile()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#percent_rank" title="percent_rank (Python function) — Returns the percentage ranking of a value in group of values. The result is (r - 1) / (n - 1) where r is the rank() of the row and n is the total number of rows in the window partition. The window frame must not be specified."><code class="xref py py-func docutils literal notranslate"><span class="pre">percent_rank()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#rank" title="rank (Python function) — Returns the rank of a value in a group of values. The rank is one plus the number of rows preceding the row that are not peer with the row. Thus, tie values in the ordering will produce gaps in the sequence. The ranking is performed for each window partition. The window frame must not be specified."><code class="xref py py-func docutils literal notranslate"><span class="pre">rank()</span></code></a></p></li>
+<li><p><a class="reference internal" href="window.html#row_number" title="row_number (Python function) — Returns a unique, sequential number for each row, starting with one, according to the ordering of rows within the window partition. The window frame must not be specified."><code class="xref py py-func docutils literal notranslate"><span class="pre">row_number()</span></code></a></p></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="list.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: List of functions and operators">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                List of functions and operators
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="aggregate.html" class="md-footer__link md-footer__link--next" aria-label="Next: Aggregate functions">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Aggregate functions
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

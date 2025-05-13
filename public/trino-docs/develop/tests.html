@@ -1,0 +1,1519 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="spi-overview.html">
+      
+      
+        <link rel="next" href="connectors.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Test writing guidelines - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Test writing guidelines
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../develop.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_13" id="__nav_13_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Developer guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spi-overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SPI overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Test writing guidelines
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="example-http.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example HTTP connector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="example-jdbc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example JDBC connector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="insert.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supporting INSERT and CREATE TABLE AS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="supporting-merge.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supporting MERGE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="types.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Types
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="table-functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system-access-control.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System access control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="password-authenticator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Password authenticator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="certificate-authenticator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate authenticator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="header-authenticator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Header authenticator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="group-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Group provider
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="event-listener.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Event listener
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="client-protocol.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trino client REST API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="test-writing-guidelines">Test writing guidelines<a class="headerlink" href="#test-writing-guidelines" title="Link to this heading">#</a></h1>
+<p>The Trino project aims to provide high quality artifacts and features to all
+users. A suite of tests used for development, continuous integration builds,
+and releases is critical for achieving this goal.</p>
+<p>Trino acts as an integration layer for many different data sources with the help
+of different connector plugin, and includes support of other plugins as well.
+This results in the need testing many different use cases with a number of
+external systems. The Trino test suite limits the executed tests for any changes
+in pull requests as much as possible, while any merges to the master branch
+process all tests.</p>
+<p>The following requirements and guidelines help contributors to create tests with
+the following goals:</p>
+<ul class="simple">
+<li><p>Fast execution.</p></li>
+<li><p>Low requirements in terms of hardware, software, and compute power, and
+therefore low cost.</p></li>
+<li><p>Reliable execution and test results across multiple invocations.</p></li>
+<li><p>Complex enough to have enough coverage of the execution paths, while avoiding
+unnecessary complexity.</p></li>
+<li><p>Enable quick, iterative development on developer workstation.</p></li>
+</ul>
+<h2 id="conventions-and-recommendations">Conventions and recommendations<a class="headerlink" href="#conventions-and-recommendations" title="Link to this heading">#</a></h2>
+<p>The following section details conventions and recommendations to follow when
+creating new tests or refactoring existing test code. The preferred approaches
+The existing codebase is a mixture of newer test code that adheres to these
+guidelines and older legacy code. The legacy test code should not be used as
+example for new tests, rather follow the guidelines in this document.</p>
+<p>Also note that the guidelines are subject to change in a process of further
+refinement and improvements from practical experience.</p>
+<p>A number of requirements apply to all new tests, and any refactoring work of
+existing tests:</p>
+<ul class="simple">
+<li><p>All tests must use JUnit 5.</p></li>
+<li><p>All tests must use statically imported AssertJ assertions, typically from
+<code class="docutils literal notranslate"><span class="pre">org.assertj.core.api.Assertions</span></code>.</p></li>
+<li><p>Test class names must start with <code class="docutils literal notranslate"><span class="pre">Test</span></code>, for example <code class="docutils literal notranslate"><span class="pre">TestExample</span></code></p></li>
+<li><p>Test classes should be defined as package-private and final.</p></li>
+<li><p>Test method must start with <code class="docutils literal notranslate"><span class="pre">test</span></code>, for example <code class="docutils literal notranslate"><span class="pre">testExplain()</span></code></p></li>
+<li><p>Test methods should be defined as package-private.</p></li>
+<li><p>Tests must be written as unit tests, including tests that abstract production
+infrastructure with TestContainers, when possible. Product or other
+integration tests should be avoided. These tests typically rely on external
+infrastructure, use a full Trino runtime, and therefore are often slower and
+suffer from reliability issues.</p></li>
+<li><p>Tests must not be duplicated across unit and product tests, or different
+plugins and other integrations.</p></li>
+</ul>
+<h2 id="guidelines">Guidelines<a class="headerlink" href="#guidelines" title="Link to this heading">#</a></h2>
+<p>In addition to the requirements, a number of specific guidelines help with
+authoring new tests as well as refactoring existing tests.</p>
+<h3 id="focus-on-high-value-tests">Focus on high value tests<a class="headerlink" href="#focus-on-high-value-tests" title="Link to this heading">#</a></h3>
+<p>Testing in Trino is extremely expensive, and slows down all development as they
+take hours of compute time in a limited environment. For large expensive tests,
+consider the value the test brings to Trino, and ensure the value is justified
+by the cost. We effectively have a limited budget for testing, and CI tests
+queue on most days, often for many hours, which reduces the overall project
+velocity.</p>
+<h3 id="avoid-combinatorial-tests">Avoid combinatorial tests<a class="headerlink" href="#avoid-combinatorial-tests" title="Link to this heading">#</a></h3>
+<p>Prefer tests of items in isolation and test a few common combinations to verify
+integrations are functional. Do not implement tests for all possible
+combinations.</p>
+<h3 id="avoid-product-tests">Avoid product tests<a class="headerlink" href="#avoid-product-tests" title="Link to this heading">#</a></h3>
+<p>If you can create a unit test for a feature, use a unit test and avoid writing a
+product test. Over time the aim is to remove the majority of product tests, and
+avoiding new product tests helps to prevent the migration costs from growing.</p>
+<p>Only use product tests in the following cases:</p>
+<ul class="simple">
+<li><p>Minimal, high level integration testing that uses a full server. For example,
+this can verify that a plugin works correctly with the plugin classloader and
+classpath.</p></li>
+<li><p>When the test code needs to run in a specialized environment, such as a
+container with Kerberos configured. Only run the minimum set of tests
+necessary to verify this integration.</p></li>
+</ul>
+<h3 id="avoid-creating-testing-abstractions">Avoid creating testing abstractions<a class="headerlink" href="#avoid-creating-testing-abstractions" title="Link to this heading">#</a></h3>
+<p>The following approaches should be avoided because the existing build tools and
+frameworks provide sufficient capabilities:</p>
+<ul class="simple">
+<li><p>Creating custom dispatch frameworks for parallelizing test execution</p></li>
+<li><p>Creating test-specific assertion frameworks</p></li>
+<li><p>Creating custom parameterized test frameworks</p></li>
+</ul>
+<h3 id="avoid-data-providers-and-parametric-tests">Avoid data providers and parametric tests<a class="headerlink" href="#avoid-data-providers-and-parametric-tests" title="Link to this heading">#</a></h3>
+<p>Data providers and parametric tests add unnecessary complexity. Consider
+focusing on high value tests and avoiding combinatorial tests, and the
+following details:</p>
+<ul class="simple">
+<li><p>Most data providers are either trivially small, or generate massive
+combinatorial, indiscriminate, data sets for testing.</p></li>
+<li><p>Prefer to write explicit test cases for trivial cases like a boolean
+parameter.</p></li>
+<li><p>For small datasets, use a “for-each item in an inline list”.</p></li>
+<li><p>For larger datasets, consider using a type safe enum class.</p></li>
+<li><p>For large test datasets, discuss your use case with Trino maintainers to work
+on a solution or other guidance.</p></li>
+<li><p>Avoid multiple independent data providers in a test, including multiple nested
+for loops or multiple data provider parameters.</p></li>
+</ul>
+<h3 id="avoid-writing-stateful-test-classes">Avoid writing stateful test classes<a class="headerlink" href="#avoid-writing-stateful-test-classes" title="Link to this heading">#</a></h3>
+<p>Stateful tests can lead to issues from on one test leaking into other tests,
+especially when test runs are parallelized. As a result debugging and
+troubleshooting test failures and maintenance of the tests is more difficult. If
+possible these stateful test classes should be avoided.</p>
+<h3 id="do-not-try-to-manage-memory">Do not try to manage memory<a class="headerlink" href="#do-not-try-to-manage-memory" title="Link to this heading">#</a></h3>
+<p>JUnit and the JVM take care of test life cycle and memory management. Avoid
+manual steps such as nulling out fields in <code class="docutils literal notranslate"><span class="pre">&#64;After</span></code> methods to “free memory”. It
+is safe to assign memory intensive objects to final fields, as the class is
+automatically dereferenced after the test run.</p>
+<h3 id="use-simple-resource-initialization">Use simple resource initialization<a class="headerlink" href="#use-simple-resource-initialization" title="Link to this heading">#</a></h3>
+<p>Prefer resource initialization in constructors and tear them down in <code class="docutils literal notranslate"><span class="pre">&#64;After</span></code>
+methods if necessary. This approach, combined with not nulling fields, allows
+the fields to be final and behave like any <code class="docutils literal notranslate"><span class="pre">Closeable</span></code> class in normal Java code
+Consider using the Guava <code class="docutils literal notranslate"><span class="pre">Closer</span></code> class to simplify cleanup.</p>
+<h3 id="keep-test-setup-and-teardown-simple">Keep test setup and teardown simple<a class="headerlink" href="#keep-test-setup-and-teardown-simple" title="Link to this heading">#</a></h3>
+<p>Avoid the <code class="docutils literal notranslate"><span class="pre">&#64;Before</span></code>/<code class="docutils literal notranslate"><span class="pre">&#64;After</span></code> each test method style of setup and teardown.</p>
+<ul class="simple">
+<li><p>Prefer try-with-resources if natural</p></li>
+<li><p>If necessary, use a shared initialization or cleanup method that is explicitly
+called.</p></li>
+<li><p>If you have a test that benefits from &#64;Before/After methods, discuss the
+approach with the maintainers to develop a solution and improve guidance.</p></li>
+</ul>
+<h3 id="ensure-testability-of-new-plugin-and-connector-features">Ensure testability of new plugin and connector features<a class="headerlink" href="#ensure-testability-of-new-plugin-and-connector-features" title="Link to this heading">#</a></h3>
+<p>New plugin/connector features should be testable using one of the testing
+plugins (e.g., memory or null). There are existing features only tested in
+plugins in Hive, and over time we expect coverage using the testing plugins</p>
+<h3 id="keep-focus-on-plugin-and-connector-tests">Keep focus on plugin and connector tests<a class="headerlink" href="#keep-focus-on-plugin-and-connector-tests" title="Link to this heading">#</a></h3>
+<p>For plugins and specifically connector plugins, focus on the code unique to the
+plugin. Do not add tests for core engine features. Plugins should be focused on
+the correctness of the SPI implementation, and compatibility with external
+systems.</p>
+<h3 id="avoid-flaky-tests">Avoid flaky tests<a class="headerlink" href="#avoid-flaky-tests" title="Link to this heading">#</a></h3>
+<p>Flaky tests are test that are not reliable. Multiple runs of the same test
+result in inconsistent results. Typically the tests are successful, and then
+rarely fail. Reasons for flakiness include reliance on external, unstable
+systems, connections, and other hard to troubleshoot setups.</p>
+<p>Existing flaky tests using the legacy TestNG library can be marked with the
+<code class="docutils literal notranslate"><span class="pre">&#64;Flaky</span></code> annotation temporarily to improve CI reliability until a fix is
+implemented:</p>
+<ul class="simple">
+<li><p>Ideally the fix is to make the test reliable.</p></li>
+<li><p>Rewrite the test to not rely on flakey infrastructure, including the practice
+to avoid HDFS.</p></li>
+<li><p>If necessary, add explicit retries, but be cognizant of resource usage.</p></li>
+</ul>
+<p>After a certain time period, if the test hasn’t been fixed, it should be
+removed.</p>
+<p>New tests with the <code class="docutils literal notranslate"><span class="pre">&#64;Flaky</span></code> annotation can not be introduced, since new tests
+must use JUnit. Rewrite the test to be stable or avoid the test altogether.</p>
+<h3 id="avoid-disabling-tests">Avoid disabling tests<a class="headerlink" href="#avoid-disabling-tests" title="Link to this heading">#</a></h3>
+<p>Prefer to remove a test instead of disabling it. Test code is maintained and
+updated as the codebase changes, and inactive tests just waste time and effort.</p>
+<p>Disabled tests can be removed at any time.</p>
+<h3 id="avoid-using-assumptions-abort">Avoid using <code class="docutils literal notranslate"><span class="pre">Assumptions.abort()</span></code><a class="headerlink" href="#avoid-using-assumptions-abort" title="Link to this heading">#</a></h3>
+<p>The approach to use <code class="docutils literal notranslate"><span class="pre">Assumptions.abort()</span></code> to skip a test, especially deep in the
+call stack, makes it difficult to debug tests failures. The <code class="docutils literal notranslate"><span class="pre">abort()</span></code> works by
+throwing an exception, which can be caught by intervening code inadvertently,
+leading to misleading stack traces and test failures.</p>
+<h3 id="avoid-test-inheritance">Avoid test inheritance<a class="headerlink" href="#avoid-test-inheritance" title="Link to this heading">#</a></h3>
+<p>Inheritance of tests creates unnecessary complexity. Keep tests simple and use
+composition if necessary.</p>
+<h2 id="avoid-helper-assertions">Avoid helper assertions<a class="headerlink" href="#avoid-helper-assertions" title="Link to this heading">#</a></h2>
+<p>The required usage of AssertJ provides a rich set of assertions, that typically
+makes custom helper assertions unnecessary. Custom assertions often make tests
+harder to follow and debug.</p>
+<p>If you decide a helper assertion is needed, consider the following details:</p>
+<ul class="simple">
+<li><p>Start the name with <code class="docutils literal notranslate"><span class="pre">assert</span></code>, for example <code class="docutils literal notranslate"><span class="pre">assertSomeLogicWorks</span></code></p></li>
+<li><p>Prefer private and static</p></li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<p>The following examples showcase recommended and discourage practices.</p>
+<h3 id="concurrency-for-tests">Concurrency for tests<a class="headerlink" href="#concurrency-for-tests" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">PER_CLASS</span></code> for instances because <code class="docutils literal notranslate"><span class="pre">QueryAssertions</span></code> is too expensive to
+create per-method, and a allow parallel execution of tests with <code class="docutils literal notranslate"><span class="pre">CONCURRENT</span></code>:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@TestInstance</span><span class="p">(</span><span class="n">PER_CLASS</span><span class="p">)</span>
+<span class="nd">@Execution</span><span class="p">(</span><span class="n">CONCURRENT</span><span class="p">)</span>
+<span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TestJoin</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">QueryAssertions</span><span class="w"> </span><span class="n">assertions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QueryAssertions</span><span class="p">();</span>
+
+<span class="w">    </span><span class="nd">@AfterAll</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">teardown</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">assertions</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">testXXX</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">assertions</span><span class="p">.</span><span class="na">query</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">            ...</span>
+<span class="s">            &quot;&quot;&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">.</span><span class="na">matches</span><span class="p">(</span><span class="s">&quot;...&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="avoid-manual-lifecycle-management">Avoid manual lifecycle management<a class="headerlink" href="#avoid-manual-lifecycle-management" title="Link to this heading">#</a></h3>
+<p>Avoid managing the lifecycle of a Closeable like a connection with
+<code class="docutils literal notranslate"><span class="pre">&#64;BeforeEach</span></code>/<code class="docutils literal notranslate"><span class="pre">&#64;AfterEach</span></code> to reduce overhead:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@TestInstance</span><span class="p">(</span><span class="n">PER_METHOD</span><span class="p">)</span>
+<span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Test</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Connection</span><span class="w"> </span><span class="n">connection</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nd">@BeforeEach</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// WRONG: create this in the test method using try-with-resources</span>
+<span class="w">        </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newConnection</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@AfterEach</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">teardown</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">connection</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>Using a try with resources approach allows clean parallelization of tests and
+includes automatic memory management:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Test</span>
+<span class="p">{</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">testSomething</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newConnection</span><span class="p">();)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">...</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">testSomethingElse</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newConnection</span><span class="p">();)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">...</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h2 id="avoid-fake-abstractions">Avoid fake abstractions<a class="headerlink" href="#avoid-fake-abstractions" title="Link to this heading">#</a></h2>
+<p>Avoid using fake abstraction for tests.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@DataProvider</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;data&quot;</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">flag</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// WRONG: use separate test methods</span>
+<span class="w">    </span><span class="n">assertEqual</span><span class="p">(</span>
+<span class="w">        </span><span class="n">flag</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">...,</span>
+<span class="w">        </span><span class="n">flag</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">...);</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>Replace with simplified separate assertions:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">assertThat</span><span class="p">(...).</span><span class="na">isEqualTo</span><span class="p">(...);</span><span class="w"> </span><span class="c1">// case corresponding to flag == true</span>
+<span class="w">    </span><span class="n">assertThat</span><span class="p">(...).</span><span class="na">isEqualTo</span><span class="p">(...);</span><span class="w"> </span><span class="c1">// case corresponding to flag == false</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h2 id="avoid-custom-parallelization">Avoid custom parallelization<a class="headerlink" href="#avoid-custom-parallelization" title="Link to this heading">#</a></h2>
+<p>Do not develop a custom parallel test execution framework:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@Test</span><span class="p">(</span><span class="n">dataProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;parallelTests&quot;</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">testParallel</span><span class="p">(</span><span class="n">Runnable</span><span class="w"> </span><span class="n">runnable</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">parallelTestsSemaphore</span><span class="p">.</span><span class="na">acquire</span><span class="p">();</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">   </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">interrupt</span><span class="p">();</span>
+<span class="w">       </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">   </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">runnable</span><span class="p">.</span><span class="na">run</span><span class="p">();</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">   </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">parallelTestsSemaphore</span><span class="p">.</span><span class="na">release</span><span class="p">();</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@DataProvider</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;parallelTests&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">parallel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<span class="n">Object</span><span class="o">[][]</span><span class="w"> </span><span class="nf">parallelTests</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[][]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testCreateTable&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testCreateTable</span><span class="p">),</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testInsert&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testInsert</span><span class="p">),</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testDelete&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testDelete</span><span class="p">),</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testDeleteWithSubquery&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testDeleteWithSubquery</span><span class="p">),</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testUpdate&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testUpdate</span><span class="p">),</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testUpdateWithSubquery&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testUpdateWithSubquery</span><span class="p">),</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testMerge&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testMerge</span><span class="p">),</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testAnalyzeTable&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testAnalyzeTable</span><span class="p">),</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testExplainAnalyze&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testExplainAnalyze</span><span class="p">),</span>
+<span class="w">        </span><span class="n">parallelTest</span><span class="p">(</span><span class="s">&quot;testRequestTimeouts&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">testRequestTimeouts</span><span class="p">)</span>
+<span class="w">   </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>Leave parallelization to JUnit instead, and implement separate test methods
+instead.</p>
+<h2 id="avoid-parameterized-tests">Avoid parameterized tests<a class="headerlink" href="#avoid-parameterized-tests" title="Link to this heading">#</a></h2>
+<p>Do not create a custom parameterized test framework:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@Test</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">testTinyint</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">SqlDataTypeTest</span><span class="p">.</span><span class="na">create</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addRoundTrip</span><span class="p">(...)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addRoundTrip</span><span class="p">(...)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addRoundTrip</span><span class="p">(...)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">getQueryRunner</span><span class="p">(),</span><span class="w"> </span><span class="n">trinoCreateAsSelect</span><span class="p">(</span><span class="s">&quot;test_tinyint&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">getQueryRunner</span><span class="p">(),</span><span class="w"> </span><span class="n">trinoCreateAndInsert</span><span class="p">(</span><span class="s">&quot;test_tinyint&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addRoundTrip</span><span class="p">(...)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">getQueryRunner</span><span class="p">(),</span><span class="w"> </span><span class="n">clickhouseQuery</span><span class="p">(</span><span class="s">&quot;tpch.test_tinyint&quot;</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="spi-overview.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: SPI overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                SPI overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="connectors.html" class="md-footer__link md-footer__link--next" aria-label="Next: Connectors">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Connectors
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

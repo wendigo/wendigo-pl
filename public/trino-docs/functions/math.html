@@ -1,0 +1,2012 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="map.html">
+      
+      
+        <link rel="next" href="qdigest.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Mathematical functions and operators - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Mathematical functions and operators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../functions.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Functions and operators
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list-by-topic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions by topic
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aggregate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ai.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="array.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bitwise.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bitwise
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="color.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Color
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="comparison.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conditional.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conditional
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conversion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conversion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datetime.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="timezone.time(p) with time zone (Python parameter)">Date and time</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="decimal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Decimal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="geospatial.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Geospatial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hyperloglog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hyper<wbr>Log<wbr>Log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ipaddress.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IP Address
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="json.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    JSON
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lambda.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lambda
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logical.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logical
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Machine learning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="cosine_similarity.x (Python parameter)">Math</span>
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="qdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quantile digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="regexp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Regular expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="session.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Session
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="setdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Set Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="string.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    String
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="teradata.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Teradata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    T-<wbr>Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="url.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    URL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uuid.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UUID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="window.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Window
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="mathematical-functions-and-operators">Mathematical functions and operators<a class="headerlink" href="#mathematical-functions-and-operators" title="Link to this heading">#</a></h1>
+<h2 id="mathematical-operators"><span id="id1"></span>Mathematical operators<a class="headerlink" href="#mathematical-operators" title="Link to this heading">#</a></h2>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p>Addition</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p>Subtraction</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p>Multiplication</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<td><p>Division (integer division performs truncation)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%</span></code></p></td>
+<td><p>Modulus (remainder)</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="mathematical-functions">Mathematical functions<a class="headerlink" href="#mathematical-functions" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="abs">
+<span class="sig-name descname"><span class="pre">abs</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#abs" title="abs.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span><a class="headerlink" href="#abs" title="Link to this definition">#</a></dt>
+<dd><p>Returns the absolute value of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="cbrt">
+<span class="sig-name descname"><span class="pre">cbrt</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#cbrt" title="cbrt.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#cbrt" title="Link to this definition">#</a></dt>
+<dd><p>Returns the cube root of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ceil">
+<span class="sig-name descname"><span class="pre">ceil</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ceil" title="ceil.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span><a class="headerlink" href="#ceil" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <a class="reference internal" href="#ceiling" title="ceiling (Python function) — Returns x rounded up to the nearest integer."><code class="xref py py-func docutils literal notranslate"><span class="pre">ceiling()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ceiling">
+<span class="sig-name descname"><span class="pre">ceiling</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ceiling" title="ceiling.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span><a class="headerlink" href="#ceiling" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> rounded up to the nearest integer.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="degrees">
+<span class="sig-name descname"><span class="pre">degrees</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#degrees" title="degrees.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#degrees" title="Link to this definition">#</a></dt>
+<dd><p>Converts angle <code class="docutils literal notranslate"><span class="pre">x</span></code> in radians to degrees.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="e">
+<span class="sig-name descname"><span class="pre">e</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#e" title="Link to this definition">#</a></dt>
+<dd><p>Returns the constant Euler’s number.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="exp">
+<span class="sig-name descname"><span class="pre">exp</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#exp" title="exp.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#exp" title="Link to this definition">#</a></dt>
+<dd><p>Returns Euler’s number raised to the power of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="floor">
+<span class="sig-name descname"><span class="pre">floor</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#floor" title="floor.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span><a class="headerlink" href="#floor" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> rounded down to the nearest integer.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ln">
+<span class="sig-name descname"><span class="pre">ln</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ln" title="ln.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ln" title="Link to this definition">#</a></dt>
+<dd><p>Returns the natural logarithm of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="log">
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#log" title="log.b (Python parameter)"><span class="n"><span class="pre">b</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#log" title="log.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#log" title="Link to this definition">#</a></dt>
+<dd><p>Returns the base <code class="docutils literal notranslate"><span class="pre">b</span></code> logarithm of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="log2">
+<span class="sig-name descname"><span class="pre">log2</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#log2" title="log2.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#log2" title="Link to this definition">#</a></dt>
+<dd><p>Returns the base 2 logarithm of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="log10">
+<span class="sig-name descname"><span class="pre">log10</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#log10" title="log10.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#log10" title="Link to this definition">#</a></dt>
+<dd><p>Returns the base 10 logarithm of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="mod">
+<span class="sig-name descname"><span class="pre">mod</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#mod" title="mod.n (Python parameter)"><span class="n"><span class="pre">n</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#mod" title="mod.m (Python parameter)"><span class="n"><span class="pre">m</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span><a class="headerlink" href="#mod" title="Link to this definition">#</a></dt>
+<dd><p>Returns the modulus (remainder) of <code class="docutils literal notranslate"><span class="pre">n</span></code> divided by <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="pi">
+<span class="sig-name descname"><span class="pre">pi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#pi" title="Link to this definition">#</a></dt>
+<dd><p>Returns the constant Pi.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="pow">
+<span class="sig-name descname"><span class="pre">pow</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#pow" title="pow.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#pow" title="pow.p (Python parameter)"><span class="n"><span class="pre">p</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#pow" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <a class="reference internal" href="#power" title="power (Python function) — Returns x raised to the power of p."><code class="xref py py-func docutils literal notranslate"><span class="pre">power()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="power">
+<span class="sig-name descname"><span class="pre">power</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#power" title="power.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#power" title="power.p (Python parameter)"><span class="n"><span class="pre">p</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#power" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> raised to the power of <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="radians">
+<span class="sig-name descname"><span class="pre">radians</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#radians" title="radians.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#radians" title="Link to this definition">#</a></dt>
+<dd><p>Converts angle <code class="docutils literal notranslate"><span class="pre">x</span></code> in degrees to radians.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="round">
+<span class="sig-name descname"><span class="pre">round</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#round" title="round.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span><a class="headerlink" href="#round" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> rounded to the nearest integer.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">round</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#round" title="round.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">d</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> rounded to <code class="docutils literal notranslate"><span class="pre">d</span></code> decimal places.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="sign">
+<span class="sig-name descname"><span class="pre">sign</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sign" title="sign.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span><a class="headerlink" href="#sign" title="Link to this definition">#</a></dt>
+<dd><p>Returns the signum function of <code class="docutils literal notranslate"><span class="pre">x</span></code>, that is:</p>
+<ul class="simple">
+<li><p>0 if the argument is 0,</p></li>
+<li><p>1 if the argument is greater than 0,</p></li>
+<li><p>-1 if the argument is less than 0.</p></li>
+</ul>
+<p>For floating point arguments, the function additionally returns:</p>
+<ul class="simple">
+<li><p>-0 if the argument is -0,</p></li>
+<li><p>NaN if the argument is NaN,</p></li>
+<li><p>1 if the argument is +Infinity,</p></li>
+<li><p>-1 if the argument is -Infinity.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="sqrt">
+<span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sqrt" title="sqrt.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#sqrt" title="Link to this definition">#</a></dt>
+<dd><p>Returns the square root of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="truncate">
+<span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#truncate" title="truncate.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#truncate" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> rounded to integer by dropping digits after decimal point.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="width_bucket">
+<span class="sig-name descname"><span class="pre">width_bucket</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#width_bucket" title="width_bucket.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#width_bucket" title="width_bucket.bound1 (Python parameter)"><span class="n"><span class="pre">bound1</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#width_bucket" title="width_bucket.bound2 (Python parameter)"><span class="n"><span class="pre">bound2</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#width_bucket" title="width_bucket.n (Python parameter)"><span class="n"><span class="pre">n</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#width_bucket" title="Link to this definition">#</a></dt>
+<dd><p>Returns the bin number of <code class="docutils literal notranslate"><span class="pre">x</span></code> in an equi-width histogram with the
+specified <code class="docutils literal notranslate"><span class="pre">bound1</span></code> and <code class="docutils literal notranslate"><span class="pre">bound2</span></code> bounds and <code class="docutils literal notranslate"><span class="pre">n</span></code> number of buckets.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">width_bucket</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#width_bucket" title="width_bucket.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">bins</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span></dt>
+<dd><p>Returns the bin number of <code class="docutils literal notranslate"><span class="pre">x</span></code> according to the bins specified by the
+array <code class="docutils literal notranslate"><span class="pre">bins</span></code>. The <code class="docutils literal notranslate"><span class="pre">bins</span></code> parameter must be an array of doubles and is
+assumed to be in sorted ascending order.</p>
+</dd></dl>
+
+<h2 id="random-functions">Random functions<a class="headerlink" href="#random-functions" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="rand">
+<span class="sig-name descname"><span class="pre">rand</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#rand" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <a class="reference internal" href="#random" title="random (Python function) — Returns a pseudo-random value in the range 0.0 &lt;= x &lt; 1.0."><code class="xref py py-func docutils literal notranslate"><span class="pre">random()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="random">
+<span class="sig-name descname"><span class="pre">random</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#random" title="Link to this definition">#</a></dt>
+<dd><p>Returns a pseudo-random value in the range 0.0 &lt;= x &lt; 1.0.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">random</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">n</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span></dt>
+<dd><p>Returns a pseudo-random number between 0 and n (exclusive).</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">random</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">n</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span></dt>
+<dd><p>Returns a pseudo-random number between m and n (exclusive).</p>
+</dd></dl>
+
+<h2 id="trigonometric-functions">Trigonometric functions<a class="headerlink" href="#trigonometric-functions" title="Link to this heading">#</a></h2>
+<p>All trigonometric function arguments are expressed in radians.
+See unit conversion functions <a class="reference internal" href="#degrees" title="degrees (Python function) — Converts angle x in radians to degrees."><code class="xref py py-func docutils literal notranslate"><span class="pre">degrees()</span></code></a> and <a class="reference internal" href="#radians" title="radians (Python function) — Converts angle x in degrees to radians."><code class="xref py py-func docutils literal notranslate"><span class="pre">radians()</span></code></a>.</p>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="acos">
+<span class="sig-name descname"><span class="pre">acos</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#acos" title="acos.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#acos" title="Link to this definition">#</a></dt>
+<dd><p>Returns the arc cosine of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="asin">
+<span class="sig-name descname"><span class="pre">asin</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#asin" title="asin.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#asin" title="Link to this definition">#</a></dt>
+<dd><p>Returns the arc sine of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="atan">
+<span class="sig-name descname"><span class="pre">atan</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#atan" title="atan.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#atan" title="Link to this definition">#</a></dt>
+<dd><p>Returns the arc tangent of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="atan2">
+<span class="sig-name descname"><span class="pre">atan2</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#atan2" title="atan2.y (Python parameter)"><span class="n"><span class="pre">y</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#atan2" title="atan2.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#atan2" title="Link to this definition">#</a></dt>
+<dd><p>Returns the arc tangent of <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">/</span> <span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="cos">
+<span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#cos" title="cos.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#cos" title="Link to this definition">#</a></dt>
+<dd><p>Returns the cosine of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="cosh">
+<span class="sig-name descname"><span class="pre">cosh</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#cosh" title="cosh.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#cosh" title="Link to this definition">#</a></dt>
+<dd><p>Returns the hyperbolic cosine of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="sin">
+<span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sin" title="sin.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#sin" title="Link to this definition">#</a></dt>
+<dd><p>Returns the sine of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="sinh">
+<span class="sig-name descname"><span class="pre">sinh</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sinh" title="sinh.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#sinh" title="Link to this definition">#</a></dt>
+<dd><p>Returns the hyperbolic sine of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="tan">
+<span class="sig-name descname"><span class="pre">tan</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#tan" title="tan.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#tan" title="Link to this definition">#</a></dt>
+<dd><p>Returns the tangent of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="tanh">
+<span class="sig-name descname"><span class="pre">tanh</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#tanh" title="tanh.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#tanh" title="Link to this definition">#</a></dt>
+<dd><p>Returns the hyperbolic tangent of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<h2 id="geometric-functions">Geometric functions<a class="headerlink" href="#geometric-functions" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="cosine_distance">
+<span class="sig-name descname"><span class="pre">cosine_distance</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#cosine_distance" title="cosine_distance.array(double) (Python parameter)"><span class="n"><span class="pre">array(double)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#cosine_distance" title="cosine_distance.array(double) (Python parameter)"><span class="n"><span class="pre">array(double)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#cosine_distance" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the cosine distance between two dense vectors:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">cosine_distance</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">3</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">.</span><span class="mi">0</span><span class="p">]);</span>
+<span class="c1">-- 0.01613008990009257</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="cosine_similarity">
+<span class="sig-name descname"><span class="pre">cosine_similarity</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#cosine_similarity" title="cosine_similarity.array(double) (Python parameter)"><span class="n"><span class="pre">array(double)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#cosine_similarity" title="cosine_similarity.array(double) (Python parameter)"><span class="n"><span class="pre">array(double)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#cosine_similarity" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the cosine similarity of two dense vectors:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">cosine_similarity</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">3</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">.</span><span class="mi">0</span><span class="p">]);</span>
+<span class="c1">-- 0.9838699100999074</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">cosine_similarity</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#" title="cosine_similarity.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#" title="cosine_similarity.y (Python parameter)"><span class="n"><span class="pre">y</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span></dt>
+<dd><p>Calculates the cosine similarity of two sparse vectors:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">cosine_similarity</span><span class="p">(</span><span class="k">MAP</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">]),</span><span class="w"> </span><span class="k">MAP</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">]));</span>
+<span class="c1">-- 1.0</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<h2 id="floating-point-functions">Floating point functions<a class="headerlink" href="#floating-point-functions" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="infinity">
+<span class="sig-name descname"><span class="pre">infinity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#infinity" title="Link to this definition">#</a></dt>
+<dd><p>Returns the constant representing positive infinity.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="is_finite">
+<span class="sig-name descname"><span class="pre">is_finite</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#is_finite" title="is_finite.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#is_finite" title="Link to this definition">#</a></dt>
+<dd><p>Determine if <code class="docutils literal notranslate"><span class="pre">x</span></code> is finite.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="is_infinite">
+<span class="sig-name descname"><span class="pre">is_infinite</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#is_infinite" title="is_infinite.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#is_infinite" title="Link to this definition">#</a></dt>
+<dd><p>Determine if <code class="docutils literal notranslate"><span class="pre">x</span></code> is infinite.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="is_nan">
+<span class="sig-name descname"><span class="pre">is_nan</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#is_nan" title="is_nan.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#is_nan" title="Link to this definition">#</a></dt>
+<dd><p>Determine if <code class="docutils literal notranslate"><span class="pre">x</span></code> is not-a-number.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="nan">
+<span class="sig-name descname"><span class="pre">nan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#nan" title="Link to this definition">#</a></dt>
+<dd><p>Returns the constant representing not-a-number.</p>
+</dd></dl>
+
+<h2 id="base-conversion-functions">Base conversion functions<a class="headerlink" href="#base-conversion-functions" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="from_base">
+<span class="sig-name descname"><span class="pre">from_base</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_base" title="from_base.string (Python parameter)"><span class="n"><span class="pre">string</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_base" title="from_base.radix (Python parameter)"><span class="n"><span class="pre">radix</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#from_base" title="Link to this definition">#</a></dt>
+<dd><p>Returns the value of <code class="docutils literal notranslate"><span class="pre">string</span></code> interpreted as a base-<code class="docutils literal notranslate"><span class="pre">radix</span></code> number.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="to_base">
+<span class="sig-name descname"><span class="pre">to_base</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#to_base" title="to_base.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#to_base" title="to_base.radix (Python parameter)"><span class="n"><span class="pre">radix</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#to_base" title="Link to this definition">#</a></dt>
+<dd><p>Returns the base-<code class="docutils literal notranslate"><span class="pre">radix</span></code> representation of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<h2 id="statistical-functions">Statistical functions<a class="headerlink" href="#statistical-functions" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="t_pdf">
+<span class="sig-name descname"><span class="pre">t_pdf</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#t_pdf" title="t_pdf.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#t_pdf" title="t_pdf.df (Python parameter)"><span class="n"><span class="pre">df</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#t_pdf" title="Link to this definition">#</a></dt>
+<dd><p>Computes the Student’s t-distribution probability density function for given x and
+degrees of freedom (df). The x must be a real value and degrees of freedom must be
+an integer and positive value.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="wilson_interval_lower">
+<span class="sig-name descname"><span class="pre">wilson_interval_lower</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#wilson_interval_lower" title="wilson_interval_lower.successes (Python parameter)"><span class="n"><span class="pre">successes</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#wilson_interval_lower" title="wilson_interval_lower.trials (Python parameter)"><span class="n"><span class="pre">trials</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#wilson_interval_lower" title="wilson_interval_lower.z (Python parameter)"><span class="n"><span class="pre">z</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#wilson_interval_lower" title="Link to this definition">#</a></dt>
+<dd><p>Returns the lower bound of the Wilson score interval of a Bernoulli trial process
+at a confidence specified by the z-score <code class="docutils literal notranslate"><span class="pre">z</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="wilson_interval_upper">
+<span class="sig-name descname"><span class="pre">wilson_interval_upper</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#wilson_interval_upper" title="wilson_interval_upper.successes (Python parameter)"><span class="n"><span class="pre">successes</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#wilson_interval_upper" title="wilson_interval_upper.trials (Python parameter)"><span class="n"><span class="pre">trials</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#wilson_interval_upper" title="wilson_interval_upper.z (Python parameter)"><span class="n"><span class="pre">z</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#wilson_interval_upper" title="Link to this definition">#</a></dt>
+<dd><p>Returns the upper bound of the Wilson score interval of a Bernoulli trial process
+at a confidence specified by the z-score <code class="docutils literal notranslate"><span class="pre">z</span></code>.</p>
+</dd></dl>
+
+<h2 id="cumulative-distribution-functions">Cumulative distribution functions<a class="headerlink" href="#cumulative-distribution-functions" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="beta_cdf">
+<span class="sig-name descname"><span class="pre">beta_cdf</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#beta_cdf" title="beta_cdf.a (Python parameter)"><span class="n"><span class="pre">a</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#beta_cdf" title="beta_cdf.b (Python parameter)"><span class="n"><span class="pre">b</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#beta_cdf" title="beta_cdf.v (Python parameter)"><span class="n"><span class="pre">v</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#beta_cdf" title="Link to this definition">#</a></dt>
+<dd><p>Compute the Beta cdf with given a, b parameters:  P(N &lt; v; a, b).
+The a, b parameters must be positive real numbers and value v must be a real value.
+The value v must lie on the interval [0, 1].</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="inverse_beta_cdf">
+<span class="sig-name descname"><span class="pre">inverse_beta_cdf</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inverse_beta_cdf" title="inverse_beta_cdf.a (Python parameter)"><span class="n"><span class="pre">a</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inverse_beta_cdf" title="inverse_beta_cdf.b (Python parameter)"><span class="n"><span class="pre">b</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inverse_beta_cdf" title="inverse_beta_cdf.p (Python parameter)"><span class="n"><span class="pre">p</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#inverse_beta_cdf" title="Link to this definition">#</a></dt>
+<dd><p>Compute the inverse of the Beta cdf with given a, b parameters for the cumulative
+probability (p): P(N &lt; n). The a, b parameters must be positive real values.
+The probability p must lie on the interval [0, 1].</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="inverse_normal_cdf">
+<span class="sig-name descname"><span class="pre">inverse_normal_cdf</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inverse_normal_cdf" title="inverse_normal_cdf.mean (Python parameter)"><span class="n"><span class="pre">mean</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inverse_normal_cdf" title="inverse_normal_cdf.sd (Python parameter)"><span class="n"><span class="pre">sd</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inverse_normal_cdf" title="inverse_normal_cdf.p (Python parameter)"><span class="n"><span class="pre">p</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#inverse_normal_cdf" title="Link to this definition">#</a></dt>
+<dd><p>Compute the inverse of the Normal cdf with given mean and standard
+deviation (sd) for the cumulative probability (p): P(N &lt; n). The mean must be
+a real value and the standard deviation must be a real and positive value.
+The probability p must lie on the interval (0, 1).</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="normal_cdf">
+<span class="sig-name descname"><span class="pre">normal_cdf</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#normal_cdf" title="normal_cdf.mean (Python parameter)"><span class="n"><span class="pre">mean</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#normal_cdf" title="normal_cdf.sd (Python parameter)"><span class="n"><span class="pre">sd</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#normal_cdf" title="normal_cdf.v (Python parameter)"><span class="n"><span class="pre">v</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#normal_cdf" title="Link to this definition">#</a></dt>
+<dd><p>Compute the Normal cdf with given mean and standard deviation (sd):  P(N &lt; v; mean, sd).
+The mean and value v must be real values and the standard deviation must be a real
+and positive value.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="t_cdf">
+<span class="sig-name descname"><span class="pre">t_cdf</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#t_cdf" title="t_cdf.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#t_cdf" title="t_cdf.df (Python parameter)"><span class="n"><span class="pre">df</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#t_cdf" title="Link to this definition">#</a></dt>
+<dd><p>Compute the Student’s t-distribution cumulative density function for given x and degrees of freedom (df).
+The x must be a real value and degrees of freedom must be an integer and positive value.</p>
+</dd></dl>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="map.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Map functions and operators">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Map functions and operators
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="qdigest.html" class="md-footer__link md-footer__link--next" aria-label="Next: Quantile digest functions">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Quantile digest functions
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

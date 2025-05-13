@@ -1,0 +1,1184 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="sql-support.html">
+      
+      
+        <link rel="next" href="reserved.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Data types - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data types
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../language.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_11" id="__nav_11_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            SQL language
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sql-support.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data types
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reserved.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keywords and identifiers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="comments.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="data-types">Data types<a class="headerlink" href="#data-types" title="Link to this heading">#</a></h1>
+<p>Trino has a set of built-in data types, described below. Additional types can be
+<a class="reference internal" href="../develop/types.html"><span class="doc std std-doc">provided by plugins</span></a>.</p>
+<h2 id="trino-type-support-and-mapping"><span id="type-mapping-overview"></span>Trino type support and mapping<a class="headerlink" href="#trino-type-support-and-mapping" title="Link to this heading">#</a></h2>
+<p>Connectors to data sources are not required to support all Trino data types
+described on this page. If there are data types similar to Trino’s that are used
+on the data source, the connector may map the Trino and remote data types to
+each other as needed.</p>
+<p>Depending on the connector and the data source, type mapping may apply
+in either direction as follows:</p>
+<ul class="simple">
+<li><p><strong>Data source to Trino</strong> mapping applies to any operation where columns in the
+data source are read by Trino, such as a <a class="reference internal" href="../sql/select.html"><span class="doc">SELECT</span></a> statement, and the
+underlying source data type needs to be represented by a Trino data type.</p></li>
+<li><p><strong>Trino to data source</strong> mapping applies to any operation where the columns
+or expressions in Trino need to be translated into data types or expressions
+compatible with the underlying data source. For example,
+<a class="reference internal" href="../sql/create-table-as.html"><span class="doc">CREATE TABLE AS</span></a> statements specify Trino types that are then
+mapped to types on the remote data source. Predicates like <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> also use
+these mappings in order to ensure that the predicate is translated to valid
+syntax on the remote data source.</p></li>
+</ul>
+<p>Data type support and mappings vary depending on the connector. Refer to the
+<a class="reference internal" href="../connector.html"><span class="doc">connector documentation</span></a> for more information.</p>
+<h2 id="boolean"><span id="boolean-data-types"></span>Boolean<a class="headerlink" href="#boolean" title="Link to this heading">#</a></h2>
+<h3 id="id1"><code class="docutils literal notranslate"><span class="pre">BOOLEAN</span></code><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>This type captures boolean values <code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<h2 id="integer"><span id="integer-data-types"></span>Integer<a class="headerlink" href="#integer" title="Link to this heading">#</a></h2>
+<p>Integer numbers can be expressed as numeric literals in the following formats:</p>
+<ul class="simple">
+<li><p>Decimal integer. Examples are <code class="docutils literal notranslate"><span class="pre">-7</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, or <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></li>
+<li><p>Hexadecimal integer composed of <code class="docutils literal notranslate"><span class="pre">0X</span></code> or <code class="docutils literal notranslate"><span class="pre">0x</span></code> and the value. Examples are
+<code class="docutils literal notranslate"><span class="pre">0x0A</span></code> for decimal <code class="docutils literal notranslate"><span class="pre">10</span></code> or <code class="docutils literal notranslate"><span class="pre">0x11</span></code> for decimal <code class="docutils literal notranslate"><span class="pre">17</span></code>.</p></li>
+<li><p>Octal integer composed of <code class="docutils literal notranslate"><span class="pre">0O</span></code> or <code class="docutils literal notranslate"><span class="pre">0o</span></code> and the value. Examples are <code class="docutils literal notranslate"><span class="pre">0o40</span></code> for
+decimal <code class="docutils literal notranslate"><span class="pre">32</span></code> or <code class="docutils literal notranslate"><span class="pre">0o11</span></code> for decimal <code class="docutils literal notranslate"><span class="pre">9</span></code>.</p></li>
+<li><p>Binary integer composed of <code class="docutils literal notranslate"><span class="pre">0B</span></code> or <code class="docutils literal notranslate"><span class="pre">0b</span></code> and the value. Examples are <code class="docutils literal notranslate"><span class="pre">0b1001</span></code>
+for decimal <code class="docutils literal notranslate"><span class="pre">9</span></code> or <code class="docutils literal notranslate"><span class="pre">0b101010</span></code> for decimal `42``.</p></li>
+</ul>
+<p>Underscore characters are ignored within literal values, and can be used to
+increase readability. For example, decimal integer <code class="docutils literal notranslate"><span class="pre">123_456</span></code> is equivalent to
+<code class="docutils literal notranslate"><span class="pre">123456</span></code>. Preceding underscores, trailing underscores, and consecutive underscores
+are not permitted.</p>
+<p>Integers are supported by the following data types.</p>
+<h3 id="tinyint"><code class="docutils literal notranslate"><span class="pre">TINYINT</span></code><a class="headerlink" href="#tinyint" title="Link to this heading">#</a></h3>
+<p>A 8-bit signed two’s complement integer with a minimum value of
+<code class="docutils literal notranslate"><span class="pre">-2^7</span></code> or <code class="docutils literal notranslate"><span class="pre">-0x80</span></code> and a maximum value of <code class="docutils literal notranslate"><span class="pre">2^7</span> <span class="pre">-</span> <span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">0x7F</span></code>.</p>
+<h3 id="smallint"><code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code><a class="headerlink" href="#smallint" title="Link to this heading">#</a></h3>
+<p>A 16-bit signed two’s complement integer with a minimum value of
+<code class="docutils literal notranslate"><span class="pre">-2^15</span></code> or <code class="docutils literal notranslate"><span class="pre">-0x8000</span></code> and a maximum value of <code class="docutils literal notranslate"><span class="pre">2^15</span> <span class="pre">-</span> <span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">0x7FFF</span></code>.</p>
+<h3 id="integer-or-int"><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code> or <code class="docutils literal notranslate"><span class="pre">INT</span></code><a class="headerlink" href="#integer-or-int" title="Link to this heading">#</a></h3>
+<p>A 32-bit signed two’s complement integer with a minimum value of <code class="docutils literal notranslate"><span class="pre">-2^31</span></code> or
+<code class="docutils literal notranslate"><span class="pre">-0x80000000</span></code> and a maximum value of <code class="docutils literal notranslate"><span class="pre">2^31</span> <span class="pre">-</span> <span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">0x7FFFFFFF</span></code>.  The names
+<code class="docutils literal notranslate"><span class="pre">INTEGER</span></code> and <code class="docutils literal notranslate"><span class="pre">INT</span></code> can both be used for this type.</p>
+<h3 id="bigint"><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code><a class="headerlink" href="#bigint" title="Link to this heading">#</a></h3>
+<p>A 64-bit signed two’s complement integer with a minimum value of <code class="docutils literal notranslate"><span class="pre">-2^63</span></code> or
+<code class="docutils literal notranslate"><span class="pre">-0x8000000000000000</span></code> and a maximum value of <code class="docutils literal notranslate"><span class="pre">2^63</span> <span class="pre">-</span> <span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">0x7FFFFFFFFFFFFFFF</span></code>.</p>
+<h2 id="floating-point"><span id="floating-point-data-types"></span>Floating-point<a class="headerlink" href="#floating-point" title="Link to this heading">#</a></h2>
+<p>Floating-point, fixed-precision numbers can be expressed as numeric literal
+using scientific notation such as <code class="docutils literal notranslate"><span class="pre">1.03e1</span></code> and are cast as <code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code> data type.
+Underscore characters are ignored within literal values, and can be used to
+increase readability. For example, value <code class="docutils literal notranslate"><span class="pre">123_456.789e4</span></code> is equivalent to
+<code class="docutils literal notranslate"><span class="pre">123456.789e4</span></code>. Preceding underscores, trailing underscores, consecutive
+underscores, and underscores beside the comma (<code class="docutils literal notranslate"><span class="pre">.</span></code>) are not permitted.</p>
+<h3 id="real"><code class="docutils literal notranslate"><span class="pre">REAL</span></code><a class="headerlink" href="#real" title="Link to this heading">#</a></h3>
+<p>A real is a 32-bit inexact, variable-precision implementing the
+IEEE Standard 754 for Binary Floating-Point Arithmetic.</p>
+<p>Example literals: <code class="docutils literal notranslate"><span class="pre">REAL</span> <span class="pre">'10.3'</span></code>, <code class="docutils literal notranslate"><span class="pre">REAL</span> <span class="pre">'10.3e0'</span></code>, <code class="docutils literal notranslate"><span class="pre">REAL</span> <span class="pre">'1.03e1'</span></code></p>
+<h3 id="double"><code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code><a class="headerlink" href="#double" title="Link to this heading">#</a></h3>
+<p>A double is a 64-bit inexact, variable-precision implementing the
+IEEE Standard 754 for Binary Floating-Point Arithmetic.</p>
+<p>Example literals: <code class="docutils literal notranslate"><span class="pre">DOUBLE</span> <span class="pre">'10.3'</span></code>, <code class="docutils literal notranslate"><span class="pre">DOUBLE</span> <span class="pre">'1.03e1'</span></code>, <code class="docutils literal notranslate"><span class="pre">10.3e0</span></code>, <code class="docutils literal notranslate"><span class="pre">1.03e1</span></code></p>
+<h2 id="exact-numeric"><span id="exact-numeric-data-types"></span>Exact numeric<a class="headerlink" href="#exact-numeric" title="Link to this heading">#</a></h2>
+<p>Exact numeric values can be expressed as numeric literals such as <code class="docutils literal notranslate"><span class="pre">1.1</span></code>, and
+are supported by the <code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code> data type.</p>
+<p>Underscore characters are ignored within literal values, and can be used to
+increase readability. For example, decimal <code class="docutils literal notranslate"><span class="pre">123_456.789_123</span></code> is equivalent to
+<code class="docutils literal notranslate"><span class="pre">123456.789123</span></code>. Preceding underscores, trailing underscores, consecutive
+underscores, and underscores beside the comma (<code class="docutils literal notranslate"><span class="pre">.</span></code>) are not permitted.</p>
+<p>Leading zeros in literal values are permitted and ignored. For example,
+<code class="docutils literal notranslate"><span class="pre">000123.456</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">123.456</span></code>.</p>
+<h3 id="decimal"><code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code><a class="headerlink" href="#decimal" title="Link to this heading">#</a></h3>
+<p>A exact decimal number. Precision up to 38 digits is supported but performance
+is best up to 18 digits.</p>
+<p>The decimal type takes two literal parameters:</p>
+<ul class="simple">
+<li><p><strong>precision</strong> - total number of digits</p></li>
+<li><p><strong>scale</strong> - number of digits in fractional part. Scale is optional and defaults to 0.</p></li>
+</ul>
+<p>Example type definitions: <code class="docutils literal notranslate"><span class="pre">DECIMAL(10,3)</span></code>, <code class="docutils literal notranslate"><span class="pre">DECIMAL(20)</span></code></p>
+<p>Example literals: <code class="docutils literal notranslate"><span class="pre">DECIMAL</span> <span class="pre">'10.3'</span></code>, <code class="docutils literal notranslate"><span class="pre">DECIMAL</span> <span class="pre">'1234567890'</span></code>, <code class="docutils literal notranslate"><span class="pre">1.1</span></code></p>
+<h2 id="string"><span id="string-data-types"></span>String<a class="headerlink" href="#string" title="Link to this heading">#</a></h2>
+<h3 id="varchar"><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code><a class="headerlink" href="#varchar" title="Link to this heading">#</a></h3>
+<p>Variable length character data with an optional maximum length.</p>
+<p>Example type definitions: <code class="docutils literal notranslate"><span class="pre">varchar</span></code>, <code class="docutils literal notranslate"><span class="pre">varchar(20)</span></code></p>
+<p>SQL statements support simple literal, as well as Unicode usage:</p>
+<ul class="simple">
+<li><p>literal string : <code class="docutils literal notranslate"><span class="pre">'Hello</span> <span class="pre">winter</span> <span class="pre">!'</span></code></p></li>
+<li><p>Unicode string with default escape character: <code class="docutils literal notranslate"><span class="pre">U&amp;'Hello</span> <span class="pre">winter</span> <span class="pre">\2603</span> <span class="pre">!'</span></code></p></li>
+<li><p>Unicode string with custom escape character: <code class="docutils literal notranslate"><span class="pre">U&amp;'Hello</span> <span class="pre">winter</span> <span class="pre">#2603</span> <span class="pre">!'</span> <span class="pre">UESCAPE</span> <span class="pre">'#'</span></code></p></li>
+</ul>
+<p>A Unicode string is prefixed with <code class="docutils literal notranslate"><span class="pre">U&amp;</span></code> and requires an escape character
+before any Unicode character usage with 4 digits. In the examples above
+<code class="docutils literal notranslate"><span class="pre">\2603</span></code> and <code class="docutils literal notranslate"><span class="pre">#2603</span></code> represent a snowman character. Long Unicode codes
+with 6 digits require usage of the plus symbol before the code. For example,
+you need to use <code class="docutils literal notranslate"><span class="pre">\+01F600</span></code> for a grinning face emoji.</p>
+<p>Single quotes in string literals can be escaped by using another single quote:
+<code class="docutils literal notranslate"><span class="pre">'I</span> <span class="pre">am</span> <span class="pre">big,</span> <span class="pre">it''s</span> <span class="pre">the</span> <span class="pre">pictures</span> <span class="pre">that</span> <span class="pre">got</span> <span class="pre">small!'</span></code></p>
+<h3 id="char"><code class="docutils literal notranslate"><span class="pre">CHAR</span></code><a class="headerlink" href="#char" title="Link to this heading">#</a></h3>
+<p>Fixed length character data. A <code class="docutils literal notranslate"><span class="pre">CHAR</span></code> type without length specified has a
+default length of 1. A <code class="docutils literal notranslate"><span class="pre">CHAR(x)</span></code> value always has a fixed length of <code class="docutils literal notranslate"><span class="pre">x</span></code>
+characters. For example, casting <code class="docutils literal notranslate"><span class="pre">dog</span></code> to <code class="docutils literal notranslate"><span class="pre">CHAR(7)</span></code> adds four implicit trailing
+spaces.</p>
+<p>As with <code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code>, a single quote in a <code class="docutils literal notranslate"><span class="pre">CHAR</span></code> literal can be escaped with
+another single quote:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">CHAR</span><span class="w"> </span><span class="s1">&#39;All right, Mr. DeMille, I&#39;&#39;m ready for my close-up.&#39;</span>
+</code></pre></div>
+</div>
+<p>Example type definitions: <code class="docutils literal notranslate"><span class="pre">char</span></code>, <code class="docutils literal notranslate"><span class="pre">char(20)</span></code></p>
+<h3 id="varbinary"><code class="docutils literal notranslate"><span class="pre">VARBINARY</span></code><a class="headerlink" href="#varbinary" title="Link to this heading">#</a></h3>
+<p>Variable length binary data.</p>
+<p>SQL statements support usage of binary literal data with the prefix <code class="docutils literal notranslate"><span class="pre">X</span></code> or <code class="docutils literal notranslate"><span class="pre">x</span></code>.
+The binary data has to use hexadecimal format. For example, the binary form of
+<code class="docutils literal notranslate"><span class="pre">eh?</span></code> is <code class="docutils literal notranslate"><span class="pre">X'65683F'</span></code> as you can confirm with the following statement:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">from_utf8</span><span class="p">(</span><span class="n">x</span><span class="s1">&#39;65683F&#39;</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Binary literals ignore any whitespace characters. For example, the literal
+<code class="docutils literal notranslate"><span class="pre">X'FFFF</span> <span class="pre">0FFF</span>&#160; <span class="pre">3FFF</span> <span class="pre">FFFF'</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">X'FFFF0FFF3FFFFFFF'</span></code>.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Binary strings with length are not yet supported: <code class="docutils literal notranslate"><span class="pre">varbinary(n)</span></code></p>
+</div>
+<h3 id="json"><code class="docutils literal notranslate"><span class="pre">JSON</span></code><a class="headerlink" href="#json" title="Link to this heading">#</a></h3>
+<p>JSON value type, which can be a JSON object, a JSON array, a JSON number, a JSON string,
+<code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code> or <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p>
+<h2 id="date-and-time"><span id="date-time-data-types"></span>Date and time<a class="headerlink" href="#date-and-time" title="Link to this heading">#</a></h2>
+<p>See also <a class="reference internal" href="../functions/datetime.html"><span class="doc">Date and time functions and operators</span></a></p>
+<h3 id="date"><span id="date-data-type"></span><code class="docutils literal notranslate"><span class="pre">DATE</span></code><a class="headerlink" href="#date" title="Link to this heading">#</a></h3>
+<p>Calendar date (year, month, day).</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">DATE</span> <span class="pre">'2001-08-22'</span></code></p>
+<h3 id="time"><code class="docutils literal notranslate"><span class="pre">TIME</span></code><a class="headerlink" href="#time" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">TIME</span></code> is an alias for <code class="docutils literal notranslate"><span class="pre">TIME(3)</span></code> (millisecond precision).</p>
+<h3 id="time-p"><code class="docutils literal notranslate"><span class="pre">TIME(P)</span></code><a class="headerlink" href="#time-p" title="Link to this heading">#</a></h3>
+<p>Time of day (hour, minute, second) without a time zone with <code class="docutils literal notranslate"><span class="pre">P</span></code> digits of precision
+for the fraction of seconds. A precision of up to 12 (picoseconds) is supported.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">TIME</span> <span class="pre">'01:02:03.456'</span></code></p>
+<h3 id="time-with-time-zone"><span id="time-with-time-zone-data-type"></span><code class="docutils literal notranslate"><span class="pre">TIME</span> <span class="pre">WITH</span> <span class="pre">TIME</span> <span class="pre">ZONE</span></code><a class="headerlink" href="#time-with-time-zone" title="Link to this heading">#</a></h3>
+<p>Time of day (hour, minute, second, millisecond) with a time zone.
+Values of this type are rendered using the time zone from the value.
+Time zones are expressed as the numeric UTC offset value:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">TIME</span><span class="w"> </span><span class="s1">&#39;01:02:03.456 -08:00&#39;</span><span class="p">;</span>
+<span class="c1">-- 1:02:03.456-08:00</span>
+</code></pre></div>
+</div>
+<h3 id="timestamp"><span id="timestamp-data-type"></span><code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code><a class="headerlink" href="#timestamp" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code> is an alias for <code class="docutils literal notranslate"><span class="pre">TIMESTAMP(3)</span></code> (millisecond precision).</p>
+<h3 id="timestamp-p"><code class="docutils literal notranslate"><span class="pre">TIMESTAMP(P)</span></code><a class="headerlink" href="#timestamp-p" title="Link to this heading">#</a></h3>
+<p>Calendar date and time of day without a time zone with <code class="docutils literal notranslate"><span class="pre">P</span></code> digits of precision
+for the fraction of seconds. A precision of up to 12 (picoseconds) is supported.
+This type is effectively a combination of the <code class="docutils literal notranslate"><span class="pre">DATE</span></code> and <code class="docutils literal notranslate"><span class="pre">TIME(P)</span></code> types.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TIMESTAMP(P)</span> <span class="pre">WITHOUT</span> <span class="pre">TIME</span> <span class="pre">ZONE</span></code> is an equivalent name.</p>
+<p>Timestamp values can be constructed with the <code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code> literal
+expression. Alternatively, language constructs such as
+<code class="docutils literal notranslate"><span class="pre">localtimestamp(p)</span></code>, or a number of <a class="reference internal" href="../functions/datetime.html"><span class="doc">date and time functions and operators</span></a> can return timestamp values.</p>
+<p>Casting to lower precision causes the value to be rounded, and not
+truncated. Casting to higher precision appends zeros for the additional
+digits.</p>
+<p>The following examples illustrate the behavior:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-06-10 15:55:23&#39;</span><span class="p">;</span>
+<span class="c1">-- 2020-06-10 15:55:23</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-06-10 15:55:23.383345&#39;</span><span class="p">;</span>
+<span class="c1">-- 2020-06-10 15:55:23.383345</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">typeof</span><span class="p">(</span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-06-10 15:55:23.383345&#39;</span><span class="p">);</span>
+<span class="c1">-- timestamp(6)</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">cast</span><span class="p">(</span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-06-10 15:55:23.383345&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="w"> </span><span class="c1">-- 2020-06-10 15:55:23.4</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">cast</span><span class="p">(</span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-06-10 15:55:23.383345&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">(</span><span class="mi">12</span><span class="p">));</span>
+<span class="c1">-- 2020-06-10 15:55:23.383345000000</span>
+</code></pre></div>
+</div>
+<h3 id="timestamp-with-time-zone"><span id="timestamp-with-time-zone-data-type"></span><code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span> <span class="pre">WITH</span> <span class="pre">TIME</span> <span class="pre">ZONE</span></code><a class="headerlink" href="#timestamp-with-time-zone" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span> <span class="pre">WITH</span> <span class="pre">TIME</span> <span class="pre">ZONE</span></code> is an alias for <code class="docutils literal notranslate"><span class="pre">TIMESTAMP(3)</span> <span class="pre">WITH</span> <span class="pre">TIME</span> <span class="pre">ZONE</span></code>
+(millisecond precision).</p>
+<h3 id="timestamp-p-with-time-zone"><span id="timestamp-p-with-time-zone-data-type"></span><code class="docutils literal notranslate"><span class="pre">TIMESTAMP(P)</span> <span class="pre">WITH</span> <span class="pre">TIME</span> <span class="pre">ZONE</span></code><a class="headerlink" href="#timestamp-p-with-time-zone" title="Link to this heading">#</a></h3>
+<p>Instant in time that includes the date and time of day with <code class="docutils literal notranslate"><span class="pre">P</span></code> digits of
+precision for the fraction of seconds and with a time zone. Values of this type
+are rendered using the time zone from the value. Time zones can be expressed in
+the following ways:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UTC</span></code>, with <code class="docutils literal notranslate"><span class="pre">GMT</span></code>, <code class="docutils literal notranslate"><span class="pre">Z</span></code>, or <code class="docutils literal notranslate"><span class="pre">UT</span></code> usable as aliases for UTC.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+hh:mm</span></code> or <code class="docutils literal notranslate"><span class="pre">-hh:mm</span></code> with <code class="docutils literal notranslate"><span class="pre">hh:mm</span></code> as an hour and minute offset from UTC.
+Can be written with or without <code class="docutils literal notranslate"><span class="pre">UTC</span></code>, <code class="docutils literal notranslate"><span class="pre">GMT</span></code>, or <code class="docutils literal notranslate"><span class="pre">UT</span></code> as an alias for
+UTC.</p></li>
+<li><p>An <a class="reference external" href="https://www.iana.org/time-zones">IANA time zone name</a>.</p></li>
+</ul>
+<p>The following examples demonstrate some of these syntax options:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2001-08-22 03:04:05.321 UTC&#39;</span><span class="p">;</span>
+<span class="c1">-- 2001-08-22 03:04:05.321 UTC</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2001-08-22 03:04:05.321 -08:30&#39;</span><span class="p">;</span>
+<span class="c1">-- 2001-08-22 03:04:05.321 -08:30</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2001-08-22 03:04:05.321 GMT-08:30&#39;</span><span class="p">;</span>
+<span class="c1">-- 2001-08-22 03:04:05.321 -08:30</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2001-08-22 03:04:05.321 America/New_York&#39;</span><span class="p">;</span>
+<span class="c1">-- 2001-08-22 03:04:05.321 America/New_York</span>
+</code></pre></div>
+</div>
+<h3 id="interval-year-to-month"><code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">YEAR</span> <span class="pre">TO</span> <span class="pre">MONTH</span></code><a class="headerlink" href="#interval-year-to-month" title="Link to this heading">#</a></h3>
+<p>Span of years and months.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">'3'</span> <span class="pre">MONTH</span></code></p>
+<h3 id="interval-day-to-second"><code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">DAY</span> <span class="pre">TO</span> <span class="pre">SECOND</span></code><a class="headerlink" href="#interval-day-to-second" title="Link to this heading">#</a></h3>
+<p>Span of days, hours, minutes, seconds and milliseconds.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">'2'</span> <span class="pre">DAY</span></code></p>
+<h2 id="structural"><span id="structural-data-types"></span>Structural<a class="headerlink" href="#structural" title="Link to this heading">#</a></h2>
+<h3 id="array"><span id="array-type"></span><code class="docutils literal notranslate"><span class="pre">ARRAY</span></code><a class="headerlink" href="#array" title="Link to this heading">#</a></h3>
+<p>An array of the given component type.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">ARRAY[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code></p>
+<p>More information in <a class="reference internal" href="../functions/array.html"><span class="doc std std-doc">Array functions and operators</span></a>.</p>
+<h3 id="map"><span id="map-type"></span><code class="docutils literal notranslate"><span class="pre">MAP</span></code><a class="headerlink" href="#map" title="Link to this heading">#</a></h3>
+<p>A map between the given component types. A map is a collection of key-value
+pairs, where each key is associated with a single value.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">MAP(ARRAY['foo',</span> <span class="pre">'bar'],</span> <span class="pre">ARRAY[1,</span> <span class="pre">2])</span></code></p>
+<p>More information in <a class="reference internal" href="../functions/map.html"><span class="doc std std-doc">Map functions and operators</span></a>.</p>
+<h3 id="row"><span id="row-type"></span><code class="docutils literal notranslate"><span class="pre">ROW</span></code><a class="headerlink" href="#row" title="Link to this heading">#</a></h3>
+<p>A structure made up of fields that allows mixed types.
+The fields may be of any SQL type.</p>
+<p>By default, row fields are not named, but names can be assigned.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">CAST(ROW(1,</span> <span class="pre">2e0)</span> <span class="pre">AS</span> <span class="pre">ROW(x</span> <span class="pre">BIGINT,</span> <span class="pre">y</span> <span class="pre">DOUBLE))</span></code></p>
+<p>Named row fields are accessed with field reference operator (<code class="docutils literal notranslate"><span class="pre">.</span></code>).</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">CAST(ROW(1,</span> <span class="pre">2.0)</span> <span class="pre">AS</span> <span class="pre">ROW(x</span> <span class="pre">BIGINT,</span> <span class="pre">y</span> <span class="pre">DOUBLE)).x</span></code></p>
+<p>Named or unnamed row fields are accessed by position with the subscript
+operator (<code class="docutils literal notranslate"><span class="pre">[]</span></code>). The position starts at <code class="docutils literal notranslate"><span class="pre">1</span></code> and must be a constant.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">ROW(1,</span> <span class="pre">2.0)[1]</span></code></p>
+<h2 id="network-address">Network address<a class="headerlink" href="#network-address" title="Link to this heading">#</a></h2>
+<h3 id="ipaddress"><span id="ipaddress-type"></span><code class="docutils literal notranslate"><span class="pre">IPADDRESS</span></code><a class="headerlink" href="#ipaddress" title="Link to this heading">#</a></h3>
+<p>An IP address that can represent either an IPv4 or IPv6 address. Internally,
+the type is a pure IPv6 address. Support for IPv4 is handled using the
+<em>IPv4-mapped IPv6 address</em> range (<span class="target" id="index-0"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc4291.html#section-2.5.5.2"><strong>RFC 4291 Section 2.5.5.2</strong></a>).
+When creating an <code class="docutils literal notranslate"><span class="pre">IPADDRESS</span></code>, IPv4 addresses will be mapped into that range.
+When formatting an <code class="docutils literal notranslate"><span class="pre">IPADDRESS</span></code>, any address within the mapped range will
+be formatted as an IPv4 address. Other addresses will be formatted as IPv6
+using the canonical format defined in <span class="target" id="index-1"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc5952.html"><strong>RFC 5952</strong></a>.</p>
+<p>Examples: <code class="docutils literal notranslate"><span class="pre">IPADDRESS</span> <span class="pre">'10.0.0.1'</span></code>, <code class="docutils literal notranslate"><span class="pre">IPADDRESS</span> <span class="pre">'2001:db8::1'</span></code></p>
+<h2 id="uuid">UUID<a class="headerlink" href="#uuid" title="Link to this heading">#</a></h2>
+<h3 id="uuid-type"><span id="id2"></span><code class="docutils literal notranslate"><span class="pre">UUID</span></code><a class="headerlink" href="#uuid-type" title="Link to this heading">#</a></h3>
+<p>This type represents a UUID (Universally Unique IDentifier), also known as a
+GUID (Globally Unique IDentifier), using the format defined in <span class="target" id="index-2"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc4122.html"><strong>RFC 4122</strong></a>.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">UUID</span> <span class="pre">'12151fd2-7586-11e9-8f9e-2a86e4085a59'</span></code></p>
+<h2 id="hyperloglog">HyperLogLog<a class="headerlink" href="#hyperloglog" title="Link to this heading">#</a></h2>
+<p>Calculating the approximate distinct count can be done much more cheaply than an exact count using the
+<a class="reference external" href="https://wikipedia.org/wiki/HyperLogLog">HyperLogLog</a> data sketch. See <a class="reference internal" href="../functions/hyperloglog.html"><span class="doc">HyperLogLog functions</span></a>.</p>
+<h3 id="hyperloglog-type"><span id="id3"></span><code class="docutils literal notranslate"><span class="pre">HyperLogLog</span></code><a class="headerlink" href="#hyperloglog-type" title="Link to this heading">#</a></h3>
+<p>A HyperLogLog sketch allows efficient computation of <a class="reference internal" href="../functions/aggregate.html#approx_distinct" title="approx_distinct (Python function) — Returns the approximate number of distinct input values. This function provides an approximation of count(DISTINCT x). Zero is returned if all input values are null."><code class="xref py py-func docutils literal notranslate"><span class="pre">approx_distinct()</span></code></a>. It starts as a
+sparse representation, switching to a dense representation when it becomes more efficient.</p>
+<h3 id="p4hyperloglog"><span id="p4hyperloglog-type"></span><code class="docutils literal notranslate"><span class="pre">P4HyperLogLog</span></code><a class="headerlink" href="#p4hyperloglog" title="Link to this heading">#</a></h3>
+<p>A P4HyperLogLog sketch is similar to <a class="reference internal" href="#hyperloglog-type"><span class="std std-ref">HyperLogLog</span></a>, but it starts (and remains)
+in the dense representation.</p>
+<h2 id="setdigest">SetDigest<a class="headerlink" href="#setdigest" title="Link to this heading">#</a></h2>
+<h3 id="setdigest-type"><span id="id4"></span><code class="docutils literal notranslate"><span class="pre">SetDigest</span></code><a class="headerlink" href="#setdigest-type" title="Link to this heading">#</a></h3>
+<p>A SetDigest (setdigest) is a data sketch structure used
+in calculating <a class="reference external" href="https://wikipedia.org/wiki/Jaccard_index">Jaccard similarity coefficient</a>
+between two sets.</p>
+<p>SetDigest encapsulates the following components:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wikipedia.org/wiki/HyperLogLog">HyperLogLog</a></p></li>
+<li><p><a class="reference external" href="http://wikipedia.org/wiki/MinHash#Variant_with_a_single_hash_function">MinHash with a single hash function</a></p></li>
+</ul>
+<p>The HyperLogLog structure is used for the approximation of the distinct elements
+in the original set.</p>
+<p>The MinHash structure is used to store a low memory footprint signature of the original set.
+The similarity of any two sets is estimated by comparing their signatures.</p>
+<p>SetDigests are additive, meaning they can be merged together.</p>
+<h2 id="quantile-digest">Quantile digest<a class="headerlink" href="#quantile-digest" title="Link to this heading">#</a></h2>
+<h3 id="qdigest"><span id="qdigest-type"></span><code class="docutils literal notranslate"><span class="pre">QDigest</span></code><a class="headerlink" href="#qdigest" title="Link to this heading">#</a></h3>
+<p>A quantile digest (qdigest) is a summary structure which captures the approximate
+distribution of data for a given input set, and can be queried to retrieve approximate
+quantile values from the distribution.  The level of accuracy for a qdigest
+is tunable, allowing for more precise results at the expense of space.</p>
+<p>A qdigest can be used to give approximate answer to queries asking for what value
+belongs at a certain quantile.  A useful property of qdigests is that they are
+additive, meaning they can be merged together without losing precision.</p>
+<p>A qdigest may be helpful whenever the partial results of <code class="docutils literal notranslate"><span class="pre">approx_percentile</span></code>
+can be reused.  For example, one may be interested in a daily reading of the 99th
+percentile values that are read over the course of a week.  Instead of calculating
+the past week of data with <code class="docutils literal notranslate"><span class="pre">approx_percentile</span></code>, <code class="docutils literal notranslate"><span class="pre">qdigest</span></code>s could be stored
+daily, and quickly merged to retrieve the 99th percentile value.</p>
+<h2 id="t-digest">T-Digest<a class="headerlink" href="#t-digest" title="Link to this heading">#</a></h2>
+<h3 id="tdigest"><span id="tdigest-type"></span><code class="docutils literal notranslate"><span class="pre">TDigest</span></code><a class="headerlink" href="#tdigest" title="Link to this heading">#</a></h3>
+<p>A T-digest (tdigest) is a summary structure which, similarly to qdigest, captures the
+approximate distribution of data for a given input set. It can be queried to retrieve
+approximate quantile values from the distribution.</p>
+<p>TDigest has the following advantages compared to QDigest:</p>
+<ul class="simple">
+<li><p>higher performance</p></li>
+<li><p>lower memory usage</p></li>
+<li><p>higher accuracy at high and low percentiles</p></li>
+</ul>
+<p>T-digests are additive, meaning they can be merged together.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="sql-support.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: SQL statement support">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                SQL statement support
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="reserved.html" class="md-footer__link md-footer__link--next" aria-label="Next: Keywords and identifiers">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Keywords and identifiers
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

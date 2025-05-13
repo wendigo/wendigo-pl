@@ -1,0 +1,1231 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="containers.html">
+      
+      
+        <link rel="next" href="plugins.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Trino on Kubernetes with Helm - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Trino on Kubernetes with Helm
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../installation.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deploying Trino
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="containers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trino in a Docker container
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trino on Kubernetes with Helm
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plugins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="query-resiliency.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Improve query processing resilience
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="trino-on-kubernetes-with-helm">Trino on Kubernetes with Helm<a class="headerlink" href="#trino-on-kubernetes-with-helm" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://kubernetes.io">Kubernetes</a> is a container orchestration platform that
+allows you to deploy Trino and other applications in a repeatable manner across
+different types of infrastructure. This can range from deploying on your laptop
+using tools like <a class="reference external" href="https://kind.sigs.k8s.io">kind</a>, to running on a managed
+Kubernetes service on cloud services like
+<a class="reference external" href="https://aws.amazon.com/eks">Amazon Elastic Kubernetes Service</a>,
+<a class="reference external" href="https://cloud.google.com/kubernetes-engine">Google Kubernetes Engine</a>,
+<a class="reference external" href="https://azure.microsoft.com/services/kubernetes-service">Azure Kubernetes Service</a>,
+and others.</p>
+<p>The fastest way to run Trino on Kubernetes is to use the
+<a class="reference external" href="https://github.com/trinodb/charts">Trino Helm chart</a>.
+<a class="reference external" href="https://helm.sh">Helm</a> is a package manager for Kubernetes applications that
+allows for simpler installation and versioning by templating Kubernetes
+configuration files. This allows you to prototype on your local or on-premise
+cluster and use the same deployment mechanism to deploy to the cloud to scale
+up.</p>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A Kubernetes cluster with a
+<a class="reference external" href="https://kubernetes.io/releases/">supported version</a> of Kubernetes.</p>
+<ul>
+<li><p>If you don’t have a Kubernetes cluster, you can
+<a class="reference internal" href="#running-a-local-kubernetes-cluster-with-kind"><span class="std std-ref">run one locally using kind</span></a>.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://kubernetes.io/docs/tasks/tools/#kubectl">kubectl</a> with a version
+that adheres to the
+<a class="reference external" href="https://kubernetes.io/releases/version-skew-policy/">Kubernetes version skew policy</a>
+installed on the machine managing the Kubernetes deployment.</p></li>
+<li><p><a class="reference external" href="https://helm.sh">helm</a> with a version that adheres to the
+<a class="reference external" href="https://helm.sh/docs/topics/version_skew/">Helm version skew policy</a>
+installed on the machine managing the Kubernetes deployment.</p></li>
+</ul>
+<h2 id="running-trino-using-helm"><span id="id1"></span>Running Trino using Helm<a class="headerlink" href="#running-trino-using-helm" title="Link to this heading">#</a></h2>
+<p>Run the following commands from the system with <code class="docutils literal notranslate"><span class="pre">helm</span></code> and <code class="docutils literal notranslate"><span class="pre">kubectl</span></code>
+installed and configured to connect to your running Kubernetes cluster:</p>
+<ol class="arabic">
+<li><p>Validate <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> is pointing to the correct cluster by running the
+command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>kubectl cluster-info
+</code></pre></div>
+</div>
+<p>You should see output that shows the correct Kubernetes control plane
+address.</p>
+</li>
+<li><p>Add the Trino Helm chart repository to Helm if you haven’t done so already.
+This tells Helm where to find the Trino charts. You can name the repository
+whatever you want, <code class="docutils literal notranslate"><span class="pre">trino</span></code> is a good choice.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>helm repo add trino https://trinodb.github.io/charts
+</code></pre></div>
+</div>
+</li>
+<li><p>Install Trino on the Kubernetes cluster using the Helm chart. Start by
+running the <code class="docutils literal notranslate"><span class="pre">install</span></code> command to use all default values and create
+a cluster called <code class="docutils literal notranslate"><span class="pre">example-trino-cluster</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>helm install example-trino-cluster trino/trino
+</code></pre></div>
+</div>
+<p>This generates the Kubernetes configuration files by inserting properties
+into helm templates. The Helm chart contains
+<a class="reference external" href="https://trinodb.github.io/charts/charts/trino/">default values</a>
+that can be overridden by a YAML file to update default settings.</p>
+<ol class="arabic">
+<li><p><em>(Optional)</em> To override the default values,
+<a class="reference internal" href="#creating-your-own-yaml"><span class="std std-ref">create your own YAML configuration</span></a> to
+define the parameters of your deployment. To run the install command using
+the <code class="docutils literal notranslate"><span class="pre">example.yaml</span></code>, add the <code class="docutils literal notranslate"><span class="pre">f</span></code> parameter in you <code class="docutils literal notranslate"><span class="pre">install</span></code> command.
+Be sure to follow
+<a class="reference internal" href="#kubernetes-configuration-best-practices"><span class="std std-ref">best practices and naming conventions</span></a>
+for your configuration files.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>helm install -f example.yaml example-trino-cluster trino/trino
+</code></pre></div>
+</div>
+</li>
+</ol>
+<p>You should see output as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>NAME: example-trino-cluster
+LAST DEPLOYED: Tue Sep 13 14:12:09 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace default --selector &quot;app.kubernetes.io/name=trino,app.kubernetes.io/instance=example-trino-cluster,app.kubernetes.io/component=coordinator&quot; --output name)
+  echo &quot;Visit http://127.0.0.1:8080 to use your application&quot;
+  kubectl port-forward $POD_NAME 8080:8080
+</code></pre></div>
+</div>
+<p>This output depends on your configuration and cluster name. For example, the
+port <code class="docutils literal notranslate"><span class="pre">8080</span></code> is set by the <code class="docutils literal notranslate"><span class="pre">.service.port</span></code> in the <code class="docutils literal notranslate"><span class="pre">example.yaml</span></code>.</p>
+</li>
+<li><p>Run the following command to check that all pods, deployments, and services
+are running properly.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>kubectl get all
+</code></pre></div>
+</div>
+<p>You should expect to see output that shows running pods, deployments, and
+replica sets. A good indicator that everything is running properly is to see
+all pods are returning a ready status in the  <code class="docutils literal notranslate"><span class="pre">READY</span></code> column.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>NAME                                               READY   STATUS    RESTARTS   AGE
+pod/example-trino-cluster-coordinator-bfb74c98d-rnrxd   1/1     Running   0          161m
+pod/example-trino-cluster-worker-76f6bf54d6-hvl8n       1/1     Running   0          161m
+pod/example-trino-cluster-worker-76f6bf54d6-tcqgb       1/1     Running   0          161m
+
+NAME                       TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+service/example-trino-cluster   ClusterIP   10.96.25.35   &lt;none&gt;        8080/TCP   161m
+
+NAME                                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/example-trino-cluster-coordinator   1/1     1            1           161m
+deployment.apps/example-trino-cluster-worker        2/2     2            2           161m
+
+NAME                                                     DESIRED   CURRENT   READY   AGE
+replicaset.apps/example-trino-cluster-coordinator-bfb74c98d   1         1         1       161m
+replicaset.apps/example-trino-cluster-worker-76f6bf54d6       2         2         2       161m
+</code></pre></div>
+</div>
+<p>The output shows running pods. These include the actual Trino containers. To
+better understand this output, check out the following resources:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#get">kubectl get command reference</a>.</p></li>
+<li><p><a class="reference external" href="https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/#docker-ps">kubectl get command example</a>.</p></li>
+<li><p><a class="reference external" href="https://kubernetes.io/docs/tasks/debug/">Debugging Kubernetes reference</a>.</p></li>
+</ol>
+</li>
+<li><p>If all pods, deployments, and replica sets are running and in the ready
+state, Trino has been successfully deployed.</p></li>
+</ol>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Unlike some Kubernetes applications, where it’s better to have many small
+pods, Trino works best with fewer pods each having more resources
+available. We strongly recommend to avoid having multiple Trino pods on a
+single physical host to avoid contention for resources.</p>
+</div>
+<h2 id="executing-queries"><span id="id2"></span>Executing queries<a class="headerlink" href="#executing-queries" title="Link to this heading">#</a></h2>
+<p>The pods running the Trino containers are all running on a private network
+internal to Kubernetes. In order to access them, specifically the coordinator,
+you need to create a tunnel to the coordinator pod and your computer. You can do
+this by running the commands generated upon installation.</p>
+<ol class="arabic">
+<li><p>Create the tunnel from the client to the coordinator service.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>kubectl port-forward svc/trino 8080:8080
+</code></pre></div>
+</div>
+<p>Now you can connect to the Trino coordinator at <code class="docutils literal notranslate"><span class="pre">http://localhost:8080</span></code>.</p>
+</li>
+<li><p>To connect to Trino, you can use the
+<a class="reference internal" href="../client/cli.html"><span class="doc">command-line interface</span></a>, a
+<a class="reference internal" href="../client/jdbc.html"><span class="doc">JDBC client</span></a>, or any of the
+<a class="reference internal" href="../client.html"><span class="doc">other clients</span></a>. For this example,
+<a class="reference internal" href="../client/cli.html#cli-installation"><span class="std std-ref">install the command-line interface</span></a>, and connect to
+Trino in a new console session.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>trino --server http://localhost:8080
+</code></pre></div>
+</div>
+</li>
+<li><p>Using the sample data in the <code class="docutils literal notranslate"><span class="pre">tpch</span></code> catalog, type and execute a query on
+the <code class="docutils literal notranslate"><span class="pre">nation</span></code> table using the <code class="docutils literal notranslate"><span class="pre">tiny</span></code> schema:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>trino&gt; select count(*) from tpch.tiny.nation;
+ _col0
+-------
+  25
+(1 row)
+
+Query 20181105_001601_00002_e6r6y, FINISHED, 1 node
+Splits: 21 total, 21 done (100.00%)
+0:06 [25 rows, 0B] [4 rows/s, 0B/s]
+</code></pre></div>
+</div>
+<p>Try other SQL queries to explore the data set and test your cluster.</p>
+</li>
+<li><p>Once you are done with your exploration, enter the <code class="docutils literal notranslate"><span class="pre">quit</span></code> command in the
+CLI.</p></li>
+<li><p>Kill the tunnel to the coordinator pod. The is only available while the
+<code class="docutils literal notranslate"><span class="pre">kubectl</span></code> process is running, so you can just kill the <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> process
+that’s forwarding the port. In most cases that means pressing <code class="docutils literal notranslate"><span class="pre">CTRL</span></code> +
+<code class="docutils literal notranslate"><span class="pre">C</span></code> in the terminal where the port-forward command is running.</p></li>
+</ol>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
+<p>The Helm chart uses the <a class="reference internal" href="containers.html"><span class="doc">Trino container image</span></a>.
+The Docker image already contains a default configuration to get started, and
+some catalogs to allow you to explore Trino. Kubernetes allows you to mimic a
+<a class="reference internal" href="deployment.html"><span class="doc">traditional deployment</span></a> by supplying
+configuration in YAML files. It’s important to understand how files such as the
+Trino configuration, JVM, and various <a class="reference internal" href="../connector.html"><span class="doc">catalog properties</span></a> are
+configured in Trino before updating the values.</p>
+<h3 id="creating-your-own-yaml-configuration"><span id="creating-your-own-yaml"></span>Creating your own YAML configuration<a class="headerlink" href="#creating-your-own-yaml-configuration" title="Link to this heading">#</a></h3>
+<p>When you use your own YAML Kubernetes configuration, you only override the values you specify.
+The remaining properties use their default values. Add an <code class="docutils literal notranslate"><span class="pre">example.yaml</span></code> with
+the following configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;476-SNAPSHOT&quot;</span>
+<span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="nt">coordinator</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">jvm</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">maxHeapSize</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8G&quot;</span>
+<span class="nt">worker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">jvm</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">maxHeapSize</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8G&quot;</span>
+</code></pre></div>
+</div>
+<p>These values are higher than the defaults and allow Trino to use more memory
+and run more demanding queries. If the values are too high, Kubernetes might
+not be able to schedule some Trino pods, depending on other applications
+deployed in this cluster and the size of the cluster nodes.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.image.tag</span></code> is set to the current version, 476-SNAPSHOT. Set
+this value if you need to use a specific version of Trino. The default is
+<code class="docutils literal notranslate"><span class="pre">latest</span></code>, which is not recommended. Using <code class="docutils literal notranslate"><span class="pre">latest</span></code> will publish a new
+version of Trino with each release and a following Kubernetes deployment.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.server.workers</span></code> is set to <code class="docutils literal notranslate"><span class="pre">3</span></code>. This value sets the number of
+workers, in this case, a coordinator and three worker nodes are deployed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.coordinator.jvm.maxHeapSize</span></code> is set to <code class="docutils literal notranslate"><span class="pre">8GB</span></code>.
+This sets the maximum heap size in the JVM of the coordinator. See
+<a class="reference internal" href="deployment.html#jvm-config"><span class="std std-ref">JVM config</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.worker.jvm.maxHeapSize</span></code> is set to <code class="docutils literal notranslate"><span class="pre">8GB</span></code>.
+This sets the maximum heap size in the JVM of the worker. See
+<a class="reference internal" href="deployment.html#jvm-config"><span class="std std-ref">JVM config</span></a>.</p></li>
+</ol>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Some memory settings need to be tuned carefully as setting some values
+outside the range of the maximum heap size will cause Trino startup to
+fail. See the warnings listed on <a class="reference internal" href="../admin/properties-resource-management.html"><span class="doc">Resource management properties</span></a>.</p>
+</div>
+<p>Reference <a class="reference external" href="https://trinodb.github.io/charts/charts/trino/">the full list of properties</a>
+that can be overridden in the Helm chart.</p>
+<div class="note admonition" id="kubernetes-configuration-best-practices">
+<p class="admonition-title">Note</p>
+<p>Although <code class="docutils literal notranslate"><span class="pre">example.yaml</span></code> is used to refer to the Kubernetes configuration
+file in this document, you should use clear naming guidelines for the cluster
+and deployment you are managing. For example,
+<code class="docutils literal notranslate"><span class="pre">cluster-example-trino-etl.yaml</span></code> might refer to a Trino deployment for a
+cluster used primarily for extract-transform-load queries deployed on the
+<code class="docutils literal notranslate"><span class="pre">example</span></code> Kubernetes cluster. See
+<a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/overview/">Configuration Best Practices</a>
+for more tips on configuring Kubernetes deployments.</p>
+</div>
+<h3 id="adding-catalogs">Adding catalogs<a class="headerlink" href="#adding-catalogs" title="Link to this heading">#</a></h3>
+<p>A common use-case is to add custom catalogs. You can do this by adding values to
+the <code class="docutils literal notranslate"><span class="pre">catalogs</span></code> property in the <code class="docutils literal notranslate"><span class="pre">example.yaml</span></code> file.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">catalogs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">lakehouse</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">    </span><span class="no">connector.name=iceberg</span>
+<span class="w">    </span><span class="no">hive.metastore.uri=thrift://example.net:9083</span>
+<span class="w">  </span><span class="nt">rdbms</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">    </span><span class="no">connector.name=postgresql</span>
+<span class="w">    </span><span class="no">connection-url=jdbc:postgresql://example.net:5432/database</span>
+<span class="w">    </span><span class="no">connection-user=root</span>
+<span class="w">    </span><span class="no">connection-password=secret</span>
+<span class="w">  </span><span class="nt">tpch</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">    </span><span class="no">connector.name=tpch</span>
+<span class="w">    </span><span class="no">tpch.splits-per-node=4</span>
+</code></pre></div>
+</div>
+<p>This adds both <code class="docutils literal notranslate"><span class="pre">lakehouse</span></code> and <code class="docutils literal notranslate"><span class="pre">rdbms</span></code> catalogs to the Kubernetes deployment
+configuration.</p>
+<h2 id="running-a-local-kubernetes-cluster-with-kind"><span id="id3"></span>Running a local Kubernetes cluster with kind<a class="headerlink" href="#running-a-local-kubernetes-cluster-with-kind" title="Link to this heading">#</a></h2>
+<p>For local deployments, you can use
+<a class="reference external" href="https://kind.sigs.k8s.io">kind (Kubernetes in Docker)</a>. Follow the steps
+below to run <code class="docutils literal notranslate"><span class="pre">kind</span></code> on your system.</p>
+<ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">kind</span></code> runs on <a class="reference external" href="https://www.docker.com">Docker</a>, so first check if Docker
+is installed:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>docker --version
+</code></pre></div>
+</div>
+<p>If this command fails, install Docker by following
+<a class="reference external" href="https://docs.docker.com/engine/install/">Docker installation instructions</a>.</p>
+</li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">kind</span></code> by following the
+<a class="reference external" href="https://kind.sigs.k8s.io/docs/user/quick-start/#installation">kind installation instructions</a>.</p></li>
+<li><p>Run a Kubernetes cluster in <code class="docutils literal notranslate"><span class="pre">kind</span></code> by running the command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>kind create cluster --name trino
+</code></pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> parameter is optional but is used to showcase how the
+namespace is applied in future commands. The cluster name defaults to
+<code class="docutils literal notranslate"><span class="pre">kind</span></code> if no parameter is added. Use <code class="docutils literal notranslate"><span class="pre">trino</span></code> to make the application
+on this cluster obvious.</p>
+</div>
+</li>
+<li><p>Verify that <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> is running against the correct Kubernetes cluster.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>kubectl cluster-info --context kind-trino
+</code></pre></div>
+</div>
+<p>If you have multiple Kubernetes clusters already configured within
+<code class="docutils literal notranslate"><span class="pre">~/.kube/config</span></code>, you need to pass the <code class="docutils literal notranslate"><span class="pre">context</span></code> parameter to the
+<code class="docutils literal notranslate"><span class="pre">kubectl</span></code> commands to operate with the local <code class="docutils literal notranslate"><span class="pre">kind</span></code> cluster. <code class="docutils literal notranslate"><span class="pre">kubectl</span></code>
+uses the
+<a class="reference external" href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration">default context</a>
+if this parameter isn’t supplied. Notice the context is the name of the
+cluster with the <code class="docutils literal notranslate"><span class="pre">kind-</span></code> prefix added. Now you can look at all the
+Kubernetes objects running on your <code class="docutils literal notranslate"><span class="pre">kind</span></code> cluster.</p>
+</li>
+<li><p>Set up Trino by following the <a class="reference internal" href="#running-trino-using-helm"><span class="std std-ref">Running Trino using Helm</span></a> steps. When
+running the <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">all</span></code> command, add the <code class="docutils literal notranslate"><span class="pre">context</span></code> parameter.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>kubectl get all --context kind-trino
+</code></pre></div>
+</div>
+</li>
+<li><p>Run some queries by following the <a class="reference internal" href="#executing-queries">Executing queries</a> steps.</p></li>
+<li><p>Once you are done with the cluster using kind, you can delete the cluster.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>kind delete cluster -n trino
+</code></pre></div>
+</div>
+</li>
+</ol>
+<h2 id="cleaning-up">Cleaning up<a class="headerlink" href="#cleaning-up" title="Link to this heading">#</a></h2>
+<p>To uninstall Trino from the Kubernetes cluster, run the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>helm uninstall my-trino-cluster
+</code></pre></div>
+</div>
+<p>You should expect to see the following output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>release &quot;my-trino-cluster&quot; uninstalled
+</code></pre></div>
+</div>
+<p>To validate that this worked, you can run this <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> command to make sure
+there are no remaining Kubernetes objects related to the Trino cluster.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>kubectl get all
+</code></pre></div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="containers.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Trino in a Docker container">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Trino in a Docker container
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="plugins.html" class="md-footer__link md-footer__link--next" aria-label="Next: Plugins">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Plugins
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

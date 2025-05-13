@@ -1,0 +1,3753 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="rollback.html">
+      
+      
+        <link rel="next" href="set-path.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>SELECT - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SELECT
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../sql.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_12" id="__nav_12_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            SQL statement syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="alter-materialized-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ALTER MATERIALIZED VIEW
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="alter-schema.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ALTER SCHEMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="alter-table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ALTER TABLE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="alter-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ALTER VIEW
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="analyze.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ANALYZE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="call.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CALL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="comment.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    COMMENT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="commit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    COMMIT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="create-catalog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CREATE CATALOG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="create-function.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CREATE FUNCTION
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="create-materialized-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CREATE MATERIALIZED VIEW
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="create-role.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CREATE ROLE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="create-schema.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CREATE SCHEMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="create-table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CREATE TABLE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="create-table-as.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CREATE TABLE AS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="create-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CREATE VIEW
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deallocate-prepare.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DEALLOCATE PREPARE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="delete.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DELETE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deny.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DENY
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="describe.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DESCRIBE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="describe-input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DESCRIBE INPUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="describe-output.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DESCRIBE OUTPUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drop-catalog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DROP CATALOG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drop-function.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DROP FUNCTION
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drop-materialized-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DROP MATERIALIZED VIEW
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drop-role.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DROP ROLE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drop-schema.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DROP SCHEMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drop-table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DROP TABLE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drop-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DROP VIEW
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="execute.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EXECUTE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="execute-immediate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EXECUTE IMMEDIATE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="explain.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EXPLAIN
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="explain-analyze.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EXPLAIN ANALYZE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="grant.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GRANT privilege
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="grant-roles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GRANT role
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="insert.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    INSERT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="match-recognize.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MATCH_<wbr>RECOGNIZE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="merge.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MERGE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="prepare.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PREPARE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="refresh-materialized-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    REFRESH MATERIALIZED VIEW
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reset-session.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RESET SESSION
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reset-session-authorization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RESET SESSION AUTHORIZATION
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="revoke.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    REVOKE privilege
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="revoke-roles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    REVOKE role
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rollback.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROLLBACK
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    SELECT
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="set-path.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SET PATH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="set-role.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SET ROLE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="set-session.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SET SESSION
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="set-session-authorization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SET SESSION AUTHORIZATION
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="set-time-zone.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SET TIME ZONE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-catalogs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW CATALOGS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-columns.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW COLUMNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-create-function.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW CREATE FUNCTION
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-create-materialized-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW CREATE MATERIALIZED VIEW
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-create-schema.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW CREATE SCHEMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-create-table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW CREATE TABLE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-create-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW CREATE VIEW
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW FUNCTIONS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-grants.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW GRANTS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-role-grants.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW ROLE GRANTS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-roles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW ROLES
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-schemas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW SCHEMAS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-session.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW SESSION
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-stats.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW STATS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-tables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SHOW TABLES
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="start-transaction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    START TRANSACTION
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="truncate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TRUNCATE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="update.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UPDATE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="use.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    USE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="values.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VALUES
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pattern-recognition-in-window.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Row pattern recognition in window structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="select">SELECT<a class="headerlink" href="#select" title="Link to this heading">#</a></h1>
+<h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>[ WITH SESSION [ name = expression [, ...] ]
+[ WITH [ FUNCTION udf ] [, ...] ]
+[ WITH [ RECURSIVE ] with_query [, ...] ]
+SELECT [ ALL | DISTINCT ] select_expression [, ...]
+[ FROM from_item [, ...] ]
+[ WHERE condition ]
+[ GROUP BY [ ALL | DISTINCT ] grouping_element [, ...] ]
+[ HAVING condition]
+[ WINDOW window_definition_list]
+[ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT ] select ]
+[ ORDER BY expression [ ASC | DESC ] [, ...] ]
+[ OFFSET count [ ROW | ROWS ] ]
+[ LIMIT { count | ALL } ]
+[ FETCH { FIRST | NEXT } [ count ] { ROW | ROWS } { ONLY | WITH TIES } ]
+</code></pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">from_item</span></code> is one of</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>table_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>from_item join_type from_item
+  [ ON join_condition | USING ( join_column [, ...] ) ]
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>table_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+  MATCH_RECOGNIZE pattern_recognition_specification
+    [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+</code></pre></div>
+</div>
+<p>For detailed description of <code class="docutils literal notranslate"><span class="pre">MATCH_RECOGNIZE</span></code> clause, see <a class="reference internal" href="match-recognize.html"><span class="doc">pattern recognition in FROM clause</span></a>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>TABLE (table_function_invocation) [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+</code></pre></div>
+</div>
+<p>For description of table functions usage, see <a class="reference internal" href="../functions/table.html"><span class="doc">table functions</span></a>.</p>
+<p>and <code class="docutils literal notranslate"><span class="pre">join_type</span></code> is one of</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>[ INNER ] JOIN
+LEFT [ OUTER ] JOIN
+RIGHT [ OUTER ] JOIN
+FULL [ OUTER ] JOIN
+CROSS JOIN
+</code></pre></div>
+</div>
+<p>and <code class="docutils literal notranslate"><span class="pre">grouping_element</span></code> is one of</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>()
+expression
+AUTO
+GROUPING SETS ( ( column [, ...] ) [, ...] )
+CUBE ( column [, ...] )
+ROLLUP ( column [, ...] )
+</code></pre></div>
+</div>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h2>
+<p>Retrieve rows from zero or more tables.</p>
+<h2 id="with-session-clause"><span id="select-with-session"></span>WITH SESSION clause<a class="headerlink" href="#with-session-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">WITH</span> <span class="pre">SESSION</span></code> clause allows you to <a class="reference internal" href="set-session.html"><span class="doc std std-doc">set session and catalog session
+property values</span></a> applicable for the processing of the current
+SELECT statement only. The defined values override any other configuration and
+session property settings. Multiple properties are separated by commas.</p>
+<p>The following example overrides the global configuration property
+<code class="docutils literal notranslate"><span class="pre">query.max-execution-time</span></code> with the session property <code class="docutils literal notranslate"><span class="pre">query_max_execution_time</span></code>
+to reduce the time to <code class="docutils literal notranslate"><span class="pre">2h</span></code>. It also overrides the catalog property
+<code class="docutils literal notranslate"><span class="pre">iceberg.query-partition-filter-required</span></code> from the <code class="docutils literal notranslate"><span class="pre">example</span></code> catalog using
+<a class="reference internal" href="../connector/iceberg.html"><span class="doc std std-doc">Iceberg connector</span></a> setting the catalog session property
+<code class="docutils literal notranslate"><span class="pre">query_partition_filter_required</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">WITH</span>
+<span class="w">  </span><span class="k">SESSION</span>
+<span class="w">    </span><span class="n">query_max_execution_time</span><span class="o">=</span><span class="s1">&#39;2h&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">example</span><span class="p">.</span><span class="n">query_partition_filter_required</span><span class="o">=</span><span class="k">true</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">thetable</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h2 id="with-function-clause">WITH FUNCTION clause<a class="headerlink" href="#with-function-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">WITH</span> <span class="pre">FUNCTION</span></code> clause allows you to define a list of <a class="reference internal" href="../udf/introduction.html#udf-inline"><span class="std std-ref">Inline user-defined functions</span></a> that
+are available for use in the rest of the query.</p>
+<p>The following example declares and uses two inline UDFs:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span>
+<span class="w">  </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">)</span>
+<span class="w">    </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">varchar</span>
+<span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Hello %s!&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
+<span class="w">  </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">bye</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">)</span>
+<span class="w">    </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">varchar</span>
+<span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Bye %s!&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">hello</span><span class="p">(</span><span class="s1">&#39;Finn&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39; and &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">bye</span><span class="p">(</span><span class="s1">&#39;Joe&#39;</span><span class="p">);</span>
+<span class="c1">-- Hello Finn! and Bye Joe!</span>
+</code></pre></div>
+</div>
+<p>Find further information about UDFs in general, inline UDFs, all supported
+statements, and examples in <a class="reference internal" href="../udf.html"><span class="doc std std-doc">User-defined functions</span></a>.</p>
+<h2 id="with-clause">WITH clause<a class="headerlink" href="#with-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">WITH</span></code> clause defines named relations for use within a query.
+It allows flattening nested queries or simplifying subqueries.
+For example, the following queries are equivalent:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+
+<span class="k">WITH</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>This also works with multiple subqueries:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">WITH</span>
+<span class="w">  </span><span class="n">t1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a</span><span class="p">),</span>
+<span class="w">  </span><span class="n">t2</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">t1</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">a</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>Additionally, the relations within a <code class="docutils literal notranslate"><span class="pre">WITH</span></code> clause can chain:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">WITH</span>
+<span class="w">  </span><span class="n">x</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t</span><span class="p">),</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">x</span><span class="p">),</span>
+<span class="w">  </span><span class="n">z</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">z</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Currently, the SQL for the <code class="docutils literal notranslate"><span class="pre">WITH</span></code> clause will be inlined anywhere the named
+relation is used. This means that if the relation is used more than once and the query
+is non-deterministic, the results may be different each time.</p>
+</div>
+<h2 id="with-recursive-clause">WITH RECURSIVE clause<a class="headerlink" href="#with-recursive-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">WITH</span> <span class="pre">RECURSIVE</span></code> clause is a variant of the <code class="docutils literal notranslate"><span class="pre">WITH</span></code> clause. It defines
+a list of queries to process, including recursive processing of suitable
+queries.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental only. Proceed to use it only if you understand
+potential query failures and the impact of the recursion processing on your
+workload.</p>
+</div>
+<p>A recursive <code class="docutils literal notranslate"><span class="pre">WITH</span></code>-query must be shaped as a <code class="docutils literal notranslate"><span class="pre">UNION</span></code> of two relations. The
+first relation is called the <em>recursion base</em>, and the second relation is called
+the <em>recursion step</em>. Trino supports recursive <code class="docutils literal notranslate"><span class="pre">WITH</span></code>-queries with a single
+recursive reference to a <code class="docutils literal notranslate"><span class="pre">WITH</span></code>-query from within the query. The name <code class="docutils literal notranslate"><span class="pre">T</span></code> of
+the query <code class="docutils literal notranslate"><span class="pre">T</span></code> can be mentioned once in the <code class="docutils literal notranslate"><span class="pre">FROM</span></code> clause of the recursion
+step relation.</p>
+<p>The following listing shows a simple example, that displays a commonly used
+form of a single query in the list:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>WITH RECURSIVE t(n) AS (
+    VALUES (1)
+    UNION ALL
+    SELECT n + 1 FROM t WHERE n &lt; 4
+)
+SELECT sum(n) FROM t;
+</code></pre></div>
+</div>
+<p>In the preceding query the simple assignment <code class="docutils literal notranslate"><span class="pre">VALUES</span> <span class="pre">(1)</span></code> defines the
+recursion base relation. <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">n</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">FROM</span> <span class="pre">t</span> <span class="pre">WHERE</span> <span class="pre">n</span> <span class="pre">&lt;</span> <span class="pre">4</span></code> defines the
+recursion step relation. The recursion processing performs these steps:</p>
+<ul class="simple">
+<li><p>recursive base yields <code class="docutils literal notranslate"><span class="pre">1</span></code></p></li>
+<li><p>first recursion yields <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">=</span> <span class="pre">2</span></code></p></li>
+<li><p>second recursion uses the result from the first and adds one: <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">=</span> <span class="pre">3</span></code></p></li>
+<li><p>third recursion uses the result from the second and adds one again:
+<code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">=</span> <span class="pre">4</span></code></p></li>
+<li><p>fourth recursion aborts since <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">4</span></code></p></li>
+<li><p>this results in <code class="docutils literal notranslate"><span class="pre">t</span></code> having values <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">4</span></code></p></li>
+<li><p>the final statement performs the sum operation of these elements with the
+final result value <code class="docutils literal notranslate"><span class="pre">10</span></code></p></li>
+</ul>
+<p>The types of the returned columns are those of the base relation. Therefore it
+is required that types in the step relation can be coerced to base relation
+types.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">RECURSIVE</span></code> clause applies to all queries in the <code class="docutils literal notranslate"><span class="pre">WITH</span></code> list, but not
+all of them must be recursive. If a <code class="docutils literal notranslate"><span class="pre">WITH</span></code>-query is not shaped according to
+the rules mentioned above or it does not contain a recursive reference, it is
+processed like a regular <code class="docutils literal notranslate"><span class="pre">WITH</span></code>-query. Column aliases are mandatory for all
+the queries in the recursive <code class="docutils literal notranslate"><span class="pre">WITH</span></code> list.</p>
+<p>The following limitations apply as a result of following the SQL standard and
+due to implementation choices, in addition to <code class="docutils literal notranslate"><span class="pre">WITH</span></code> clause limitations:</p>
+<ul class="simple">
+<li><p>only single-element recursive cycles are supported. Like in regular
+<code class="docutils literal notranslate"><span class="pre">WITH</span></code>-queries, references to previous queries in the <code class="docutils literal notranslate"><span class="pre">WITH</span></code> list are
+allowed. References to following queries are forbidden.</p></li>
+<li><p>usage of outer joins, set operations, limit clause, and others is not always
+allowed in the step relation</p></li>
+<li><p>recursion depth is fixed, defaults to <code class="docutils literal notranslate"><span class="pre">10</span></code>, and doesn’t depend on the actual
+query results</p></li>
+</ul>
+<p>You can adjust the recursion depth with the <a class="reference internal" href="set-session.html"><span class="doc">session property</span></a> <code class="docutils literal notranslate"><span class="pre">max_recursion_depth</span></code>. When changing the value consider
+that the size of the query plan growth is quadratic with the recursion depth.</p>
+<h2 id="select-clause">SELECT clause<a class="headerlink" href="#select-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> clause specifies the output of the query. Each <code class="docutils literal notranslate"><span class="pre">select_expression</span></code>
+defines a column or columns to be included in the result.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>SELECT [ ALL | DISTINCT ] select_expression [, ...]
+</code></pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ALL</span></code> and <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code> quantifiers determine whether duplicate rows
+are included in the result set. If the argument <code class="docutils literal notranslate"><span class="pre">ALL</span></code> is specified,
+all rows are included. If the argument <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code> is specified, only unique
+rows are included in the result set. In this case, each output column must
+be of a type that allows comparison. If neither argument is specified,
+the behavior defaults to <code class="docutils literal notranslate"><span class="pre">ALL</span></code>.</p>
+<h3 id="select-expressions">Select expressions<a class="headerlink" href="#select-expressions" title="Link to this heading">#</a></h3>
+<p>Each <code class="docutils literal notranslate"><span class="pre">select_expression</span></code> must be in one of the following forms:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>expression [ [ AS ] column_alias ]
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>row_expression.* [ AS ( column_alias [, ...] ) ]
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>relation.*
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>*
+</code></pre></div>
+</div>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">expression</span> <span class="pre">[</span> <span class="pre">[</span> <span class="pre">AS</span> <span class="pre">]</span> <span class="pre">column_alias</span> <span class="pre">]</span></code>, a single output column
+is defined.</p>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">row_expression.*</span> <span class="pre">[</span> <span class="pre">AS</span> <span class="pre">(</span> <span class="pre">column_alias</span> <span class="pre">[,</span> <span class="pre">...]</span> <span class="pre">)</span> <span class="pre">]</span></code>,
+the <code class="docutils literal notranslate"><span class="pre">row_expression</span></code> is an arbitrary expression of type <code class="docutils literal notranslate"><span class="pre">ROW</span></code>.
+All fields of the row define output columns to be included in the result set.</p>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">relation.*</span></code>, all columns of <code class="docutils literal notranslate"><span class="pre">relation</span></code> are included
+in the result set. In this case column aliases are not allowed.</p>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">*</span></code>, all columns of the relation defined by the query
+are included in the result set.</p>
+<p>In the result set, the order of columns is the same as the order of their
+specification by the select expressions. If a select expression returns multiple
+columns, they are ordered the same way they were ordered in the source
+relation or row type expression.</p>
+<p>If column aliases are specified, they override any preexisting column
+or row field names:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">ROW</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">true</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">ROW</span><span class="p">(</span><span class="n">field1</span><span class="w"> </span><span class="nb">bigint</span><span class="p">,</span><span class="w"> </span><span class="n">field2</span><span class="w"> </span><span class="nb">boolean</span><span class="p">))).</span><span class="o">*</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="n">alias1</span><span class="p">,</span><span class="w"> </span><span class="n">alias2</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> alias1 | alias2
+--------+--------
+      1 | true
+(1 row)
+</code></pre></div>
+</div>
+<p>Otherwise, the existing names are used:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">ROW</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">true</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">ROW</span><span class="p">(</span><span class="n">field1</span><span class="w"> </span><span class="nb">bigint</span><span class="p">,</span><span class="w"> </span><span class="n">field2</span><span class="w"> </span><span class="nb">boolean</span><span class="p">))).</span><span class="o">*</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> field1 | field2
+--------+--------
+      1 | true
+(1 row)
+</code></pre></div>
+</div>
+<p>and in their absence, anonymous columns are produced:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="p">(</span><span class="k">ROW</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">true</span><span class="p">)).</span><span class="o">*</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> _col0 | _col1
+-------+-------
+     1 | true
+(1 row)
+</code></pre></div>
+</div>
+<h2 id="group-by-clause">GROUP BY clause<a class="headerlink" href="#group-by-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clause divides the output of a <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement into
+groups of rows containing matching values. A simple <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clause may
+contain any expression composed of input columns or it may be an ordinal
+number selecting an output column by position (starting at one).</p>
+<p>The following queries are equivalent. They both group the output by
+the <code class="docutils literal notranslate"><span class="pre">nationkey</span></code> input column with the first query using the ordinal
+position of the output column and the second query using the input
+column name:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="n">nationkey</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="n">nationkey</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">nationkey</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clauses can group output by input column names not appearing in
+the output of a select statement. For example, the following query generates
+row counts for the <code class="docutils literal notranslate"><span class="pre">customer</span></code> table using the input column <code class="docutils literal notranslate"><span class="pre">mktsegment</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">mktsegment</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> _col0
+-------
+ 29968
+ 30142
+ 30189
+ 29949
+ 29752
+(5 rows)
+</code></pre></div>
+</div>
+<p>When a <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clause is used in a <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement all output
+expressions must be either aggregate functions or columns present in
+the <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clause.</p>
+<h3 id="complex-grouping-operations"><span id="id1"></span>Complex grouping operations<a class="headerlink" href="#complex-grouping-operations" title="Link to this heading">#</a></h3>
+<p>Trino also supports complex aggregations using the <code class="docutils literal notranslate"><span class="pre">GROUPING</span> <span class="pre">SETS</span></code>, <code class="docutils literal notranslate"><span class="pre">CUBE</span></code>
+and <code class="docutils literal notranslate"><span class="pre">ROLLUP</span></code> syntax. This syntax allows users to perform analysis that requires
+aggregation on multiple sets of columns in a single query. Complex grouping
+operations do not support grouping on expressions composed of input columns.
+Only column names are allowed.</p>
+<p>Complex grouping operations are often equivalent to a <code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">ALL</span></code> of simple
+<code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> expressions, as shown in the following examples. This equivalence
+does not apply, however, when the source of data for the aggregation
+is non-deterministic.</p>
+<h3 id="grouping-sets">GROUPING SETS<a class="headerlink" href="#grouping-sets" title="Link to this heading">#</a></h3>
+<p>Grouping sets allow users to specify multiple lists of columns to group on.
+The columns not part of a given sublist of grouping columns are set to <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> origin_state | origin_zip | destination_state | destination_zip | package_weight
+--------------+------------+-------------------+-----------------+----------------
+ California   |      94131 | New Jersey        |            8648 |             13
+ California   |      94131 | New Jersey        |            8540 |             42
+ New Jersey   |       7081 | Connecticut       |            6708 |            225
+ California   |      90210 | Connecticut       |            6927 |           1337
+ California   |      94131 | Colorado          |           80302 |              5
+ New York     |      10002 | New Jersey        |            8540 |              3
+(6 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">GROUPING</span> <span class="pre">SETS</span></code> semantics are demonstrated by this example query:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">destination_state</span><span class="p">));</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> origin_state | origin_zip | destination_state | _col0
+--------------+------------+-------------------+-------
+ New Jersey   | NULL       | NULL              |   225
+ California   | NULL       | NULL              |  1397
+ New York     | NULL       | NULL              |     3
+ California   |      90210 | NULL              |  1337
+ California   |      94131 | NULL              |    60
+ New Jersey   |       7081 | NULL              |   225
+ New York     |      10002 | NULL              |     3
+ NULL         | NULL       | Colorado          |     5
+ NULL         | NULL       | New Jersey        |    58
+ NULL         | NULL       | Connecticut       |  1562
+(10 rows)
+</code></pre></div>
+</div>
+<p>The preceding query may be considered logically equivalent to a <code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">ALL</span></code> of
+multiple <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> queries:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">origin_state</span>
+
+<span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span>
+
+<span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">destination_state</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>However, the query with the complex grouping syntax (<code class="docutils literal notranslate"><span class="pre">GROUPING</span> <span class="pre">SETS</span></code>, <code class="docutils literal notranslate"><span class="pre">CUBE</span></code>
+or <code class="docutils literal notranslate"><span class="pre">ROLLUP</span></code>) will only read from the underlying data source once, while the
+query with the <code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">ALL</span></code> reads the underlying data three times. This is why
+queries with a <code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">ALL</span></code> may produce inconsistent results when the data
+source is not deterministic.</p>
+<h3 id="cube">CUBE<a class="headerlink" href="#cube" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">CUBE</span></code> operator generates all possible grouping sets (i.e. a power set)
+for a given set of columns. For example, the query:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">CUBE</span><span class="w"> </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>is equivalent to:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> origin_state | destination_state | _col0
+--------------+-------------------+-------
+ California   | New Jersey        |    55
+ California   | Colorado          |     5
+ New York     | New Jersey        |     3
+ New Jersey   | Connecticut       |   225
+ California   | Connecticut       |  1337
+ California   | NULL              |  1397
+ New York     | NULL              |     3
+ New Jersey   | NULL              |   225
+ NULL         | New Jersey        |    58
+ NULL         | Connecticut       |  1562
+ NULL         | Colorado          |     5
+ NULL         | NULL              |  1625
+(12 rows)
+</code></pre></div>
+</div>
+<h3 id="rollup">ROLLUP<a class="headerlink" href="#rollup" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ROLLUP</span></code> operator generates all possible subtotals for a given set of
+columns. For example, the query:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">ROLLUP</span><span class="w"> </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> origin_state | origin_zip | _col2
+--------------+------------+-------
+ California   |      94131 |    60
+ California   |      90210 |  1337
+ New Jersey   |       7081 |   225
+ New York     |      10002 |     3
+ California   | NULL       |  1397
+ New York     | NULL       |     3
+ New Jersey   | NULL       |   225
+ NULL         | NULL       |  1625
+(8 rows)
+</code></pre></div>
+</div>
+<p>is equivalent to:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">((</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">origin_state</span><span class="p">),</span><span class="w"> </span><span class="p">());</span>
+</code></pre></div>
+</div>
+<h3 id="combining-multiple-grouping-expressions">Combining multiple grouping expressions<a class="headerlink" href="#combining-multiple-grouping-expressions" title="Link to this heading">#</a></h3>
+<p>Multiple grouping expressions in the same query are interpreted as having
+cross-product semantics. For example, the following query:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span>
+<span class="w">    </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">((</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">)),</span>
+<span class="w">    </span><span class="k">ROLLUP</span><span class="w"> </span><span class="p">(</span><span class="n">origin_zip</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>which can be rewritten as:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span>
+<span class="w">    </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">((</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">)),</span>
+<span class="w">    </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">((</span><span class="n">origin_zip</span><span class="p">),</span><span class="w"> </span><span class="p">());</span>
+</code></pre></div>
+</div>
+<p>is logically equivalent to:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> origin_state | destination_state | origin_zip | _col3
+--------------+-------------------+------------+-------
+ New York     | New Jersey        |      10002 |     3
+ California   | New Jersey        |      94131 |    55
+ New Jersey   | Connecticut       |       7081 |   225
+ California   | Connecticut       |      90210 |  1337
+ California   | Colorado          |      94131 |     5
+ New York     | New Jersey        | NULL       |     3
+ New Jersey   | Connecticut       | NULL       |   225
+ California   | Colorado          | NULL       |     5
+ California   | Connecticut       | NULL       |  1337
+ California   | New Jersey        | NULL       |    55
+(10 rows)
+</code></pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ALL</span></code> and <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code> quantifiers determine whether duplicate grouping
+sets each produce distinct output rows. This is particularly useful when
+multiple complex grouping sets are combined in the same query. For example, the
+following query:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">ALL</span>
+<span class="w">    </span><span class="k">CUBE</span><span class="w"> </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="k">ROLLUP</span><span class="w"> </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>is equivalent to:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<p>However, if the query uses the <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code> quantifier for the <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">DISTINCT</span>
+<span class="w">    </span><span class="k">CUBE</span><span class="w"> </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="k">ROLLUP</span><span class="w"> </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>only unique grouping sets are generated:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">destination_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<p>The default set quantifier is <code class="docutils literal notranslate"><span class="pre">ALL</span></code>.</p>
+<h3 id="grouping-operation">GROUPING operation<a class="headerlink" href="#grouping-operation" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">grouping(col1,</span> <span class="pre">...,</span> <span class="pre">colN)</span> <span class="pre">-&gt;</span> <span class="pre">bigint</span></code></p>
+<p>The grouping operation returns a bit set converted to decimal, indicating which columns are present in a
+grouping. It must be used in conjunction with <code class="docutils literal notranslate"><span class="pre">GROUPING</span> <span class="pre">SETS</span></code>, <code class="docutils literal notranslate"><span class="pre">ROLLUP</span></code>, <code class="docutils literal notranslate"><span class="pre">CUBE</span></code>  or <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code>
+and its arguments must match exactly the columns referenced in the corresponding <code class="docutils literal notranslate"><span class="pre">GROUPING</span> <span class="pre">SETS</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ROLLUP</span></code>, <code class="docutils literal notranslate"><span class="pre">CUBE</span></code> or <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clause.</p>
+<p>To compute the resulting bit set for a particular row, bits are assigned to the argument columns with
+the rightmost column being the least significant bit. For a given grouping, a bit is set to 0 if the
+corresponding column is included in the grouping and to 1 otherwise. For example, consider the query
+below:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">package_weight</span><span class="p">),</span>
+<span class="w">       </span><span class="k">grouping</span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">,</span><span class="w"> </span><span class="n">destination_state</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">shipping</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">GROUPING</span><span class="w"> </span><span class="k">SETS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">origin_state</span><span class="p">,</span><span class="w"> </span><span class="n">origin_zip</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="n">destination_state</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>origin_state | origin_zip | destination_state | _col3 | _col4
+--------------+------------+-------------------+-------+-------
+California   | NULL       | NULL              |  1397 |     3
+New Jersey   | NULL       | NULL              |   225 |     3
+New York     | NULL       | NULL              |     3 |     3
+California   |      94131 | NULL              |    60 |     1
+New Jersey   |       7081 | NULL              |   225 |     1
+California   |      90210 | NULL              |  1337 |     1
+New York     |      10002 | NULL              |     3 |     1
+NULL         | NULL       | New Jersey        |    58 |     6
+NULL         | NULL       | Connecticut       |  1562 |     6
+NULL         | NULL       | Colorado          |     5 |     6
+(10 rows)
+</code></pre></div>
+</div>
+<p>The first grouping in the above result only includes the <code class="docutils literal notranslate"><span class="pre">origin_state</span></code> column and excludes
+the <code class="docutils literal notranslate"><span class="pre">origin_zip</span></code> and <code class="docutils literal notranslate"><span class="pre">destination_state</span></code> columns. The bit set constructed for that grouping
+is <code class="docutils literal notranslate"><span class="pre">011</span></code> where the most significant bit represents <code class="docutils literal notranslate"><span class="pre">origin_state</span></code>.</p>
+<h2 id="having-clause">HAVING clause<a class="headerlink" href="#having-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">HAVING</span></code> clause is used in conjunction with aggregate functions and
+the <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clause to control which groups are selected. A <code class="docutils literal notranslate"><span class="pre">HAVING</span></code>
+clause eliminates groups that do not satisfy the given conditions.
+<code class="docutils literal notranslate"><span class="pre">HAVING</span></code> filters groups after groups and aggregates are computed.</p>
+<p>The following example queries the <code class="docutils literal notranslate"><span class="pre">customer</span></code> table and selects groups
+with an account balance greater than the specified value:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="n">mktsegment</span><span class="p">,</span><span class="w"> </span><span class="n">nationkey</span><span class="p">,</span>
+<span class="w">       </span><span class="k">CAST</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">acctbal</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">bigint</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">totalbal</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">customer</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">mktsegment</span><span class="p">,</span><span class="w"> </span><span class="n">nationkey</span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">acctbal</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5700000</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">totalbal</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> _col0 | mktsegment | nationkey | totalbal
+-------+------------+-----------+----------
+  1272 | AUTOMOBILE |        19 |  5856939
+  1253 | FURNITURE  |        14 |  5794887
+  1248 | FURNITURE  |         9 |  5784628
+  1243 | FURNITURE  |        12 |  5757371
+  1231 | HOUSEHOLD  |         3 |  5753216
+  1251 | MACHINERY  |         2 |  5719140
+  1247 | FURNITURE  |         8 |  5701952
+(7 rows)
+</code></pre></div>
+</div>
+<h2 id="window-clause"><span id="id2"></span>WINDOW clause<a class="headerlink" href="#window-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">WINDOW</span></code> clause is used to define named window specifications. The defined named
+window specifications can be referred to in the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> and <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clauses
+of the enclosing query:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orderkey</span><span class="p">,</span><span class="w"> </span><span class="n">clerk</span><span class="p">,</span><span class="w"> </span><span class="n">totalprice</span><span class="p">,</span>
+<span class="w">      </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rnk</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="n">WINDOW</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">clerk</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">totalprice</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">count</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">clerk</span><span class="p">,</span><span class="w"> </span><span class="n">rnk</span>
+</code></pre></div>
+</div>
+<p>The window definition list of <code class="docutils literal notranslate"><span class="pre">WINDOW</span></code> clause can contain one or multiple named window
+specifications of the form</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>window_name AS (window_specification)
+</code></pre></div>
+</div>
+<p>A window specification has the following components:</p>
+<ul class="simple">
+<li><p>The existing window name, which refers to a named window specification in the
+<code class="docutils literal notranslate"><span class="pre">WINDOW</span></code> clause. The window specification associated with the referenced name
+is the basis of the current specification.</p></li>
+<li><p>The partition specification, which separates the input rows into different
+partitions. This is analogous to how the <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clause separates rows
+into different groups for aggregate functions.</p></li>
+<li><p>The ordering specification, which determines the order in which input rows
+will be processed by the window function.</p></li>
+<li><p>The window frame, which specifies a sliding window of rows to be processed
+by the function for a given row. If the frame is not specified, it defaults
+to <code class="docutils literal notranslate"><span class="pre">RANGE</span> <span class="pre">UNBOUNDED</span> <span class="pre">PRECEDING</span></code>, which is the same as
+<code class="docutils literal notranslate"><span class="pre">RANGE</span> <span class="pre">BETWEEN</span> <span class="pre">UNBOUNDED</span> <span class="pre">PRECEDING</span> <span class="pre">AND</span> <span class="pre">CURRENT</span> <span class="pre">ROW</span></code>. This frame contains all
+rows from the start of the partition up to the last peer of the current row.
+In the absence of <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code>, all rows are considered peers, so <code class="docutils literal notranslate"><span class="pre">RANGE</span> <span class="pre">BETWEEN</span> <span class="pre">UNBOUNDED</span> <span class="pre">PRECEDING</span> <span class="pre">AND</span> <span class="pre">CURRENT</span> <span class="pre">ROW</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">BETWEEN</span> <span class="pre">UNBOUNDED</span> <span class="pre">PRECEDING</span> <span class="pre">AND</span> <span class="pre">UNBOUNDED</span> <span class="pre">FOLLOWING</span></code>. The window frame syntax
+supports additional clauses for row pattern recognition. If the row pattern
+recognition clauses are specified, the window frame for a particular row
+consists of the rows matched by a pattern starting from that row.
+Additionally, if the frame specifies row pattern measures, they can be
+called over the window, similarly to window functions. For more details, see
+<a class="reference internal" href="pattern-recognition-in-window.html"><span class="doc std std-doc">Row pattern recognition in window structures</span></a> .</p></li>
+</ul>
+<p>Each window component is optional. If a window specification does not specify
+window partitioning, ordering or frame, those components are obtained from
+the window specification referenced by the <code class="docutils literal notranslate"><span class="pre">existing</span> <span class="pre">window</span> <span class="pre">name</span></code>, or from
+another window specification in the reference chain. In case when there is no
+<code class="docutils literal notranslate"><span class="pre">existing</span> <span class="pre">window</span> <span class="pre">name</span></code> specified, or none of the referenced window
+specifications contains the component, the default value is used.</p>
+<h2 id="set-operations">Set operations<a class="headerlink" href="#set-operations" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">UNION</span></code>  <code class="docutils literal notranslate"><span class="pre">INTERSECT</span></code> and <code class="docutils literal notranslate"><span class="pre">EXCEPT</span></code> are all set operations.  These clauses are used
+to combine the results of more than one select statement into a single result set:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>query UNION [ALL | DISTINCT] [CORRESPONDING] query
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>query INTERSECT [ALL | DISTINCT] [CORRESPONDING] query
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>query EXCEPT [ALL | DISTINCT] [CORRESPONDING] query
+</code></pre></div>
+</div>
+<p>The argument <code class="docutils literal notranslate"><span class="pre">ALL</span></code> or <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code> controls which rows are included in
+the final result set. If the argument <code class="docutils literal notranslate"><span class="pre">ALL</span></code> is specified all rows are
+included even if the rows are identical.  If the argument <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code>
+is specified only unique rows are included in the combined result set.
+If neither is specified, the behavior defaults to <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code>.</p>
+<p>Multiple set operations are processed left to right, unless the order is explicitly
+specified via parentheses. Additionally, <code class="docutils literal notranslate"><span class="pre">INTERSECT</span></code> binds more tightly
+than <code class="docutils literal notranslate"><span class="pre">EXCEPT</span></code> and <code class="docutils literal notranslate"><span class="pre">UNION</span></code>. That means <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">UNION</span> <span class="pre">B</span> <span class="pre">INTERSECT</span> <span class="pre">C</span> <span class="pre">EXCEPT</span> <span class="pre">D</span></code>
+is the same as <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">UNION</span> <span class="pre">(B</span> <span class="pre">INTERSECT</span> <span class="pre">C)</span> <span class="pre">EXCEPT</span> <span class="pre">D</span></code>.</p>
+<h3 id="union-clause">UNION clause<a class="headerlink" href="#union-clause" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">UNION</span></code> combines all the rows that are in the result set from the
+first query with those that are in the result set for the second query.
+The following is an example of one of the simplest possible <code class="docutils literal notranslate"><span class="pre">UNION</span></code> clauses.
+It selects the value <code class="docutils literal notranslate"><span class="pre">13</span></code> and combines this result set with a second query
+that selects the value <code class="docutils literal notranslate"><span class="pre">42</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="mi">13</span>
+<span class="k">UNION</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> _col0
+-------
+    13
+    42
+(2 rows)
+</code></pre></div>
+</div>
+<p>The following query demonstrates the difference between <code class="docutils literal notranslate"><span class="pre">UNION</span></code> and <code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">ALL</span></code>.
+It selects the value <code class="docutils literal notranslate"><span class="pre">13</span></code> and combines this result set with a second query that
+selects the values <code class="docutils literal notranslate"><span class="pre">42</span></code> and <code class="docutils literal notranslate"><span class="pre">13</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="mi">13</span>
+<span class="k">UNION</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> _col0
+-------
+    13
+    42
+(2 rows)
+</code></pre></div>
+</div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="mi">13</span>
+<span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> _col0
+-------
+    13
+    42
+    13
+(2 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CORRESPONDING</span></code> matches columns by name instead of by position:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;alice&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">CORRESPONDING</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> id | name
+----+-------
+  1 | alice
+  2 | bob
+(2 rows)
+</code></pre></div>
+</div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="nb">DATE</span><span class="w"> </span><span class="s1">&#39;2025-04-23&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;alice&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">order_date</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">CORRESPONDING</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">123</span><span class="p">.</span><span class="mi">45</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> name
+-------
+ alice
+ bob
+(2 rows)
+</code></pre></div>
+</div>
+<h3 id="intersect-clause">INTERSECT clause<a class="headerlink" href="#intersect-clause" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">INTERSECT</span></code> returns only the rows that are in the result sets of both the first and
+the second queries. The following is an example of one of the simplest
+possible <code class="docutils literal notranslate"><span class="pre">INTERSECT</span></code> clauses. It selects the values <code class="docutils literal notranslate"><span class="pre">13</span></code> and <code class="docutils literal notranslate"><span class="pre">42</span></code> and combines
+this result set with a second query that selects the value <code class="docutils literal notranslate"><span class="pre">13</span></code>.  Since <code class="docutils literal notranslate"><span class="pre">42</span></code>
+is only in the result set of the first query, it is not included in the final results.:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">)</span>
+<span class="k">INTERSECT</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="mi">13</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> _col0
+-------
+    13
+(2 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CORRESPONDING</span></code> matches columns by name instead of by position:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;alice&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="k">INTERSECT</span><span class="w"> </span><span class="k">CORRESPONDING</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;alice&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> id | name
+----+-------
+  1 | alice
+(1 row)
+</code></pre></div>
+</div>
+<h3 id="except-clause">EXCEPT clause<a class="headerlink" href="#except-clause" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">EXCEPT</span></code> returns the rows that are in the result set of the first query,
+but not the second. The following is an example of one of the simplest
+possible <code class="docutils literal notranslate"><span class="pre">EXCEPT</span></code> clauses. It selects the values <code class="docutils literal notranslate"><span class="pre">13</span></code> and <code class="docutils literal notranslate"><span class="pre">42</span></code> and combines
+this result set with a second query that selects the value <code class="docutils literal notranslate"><span class="pre">13</span></code>.  Since <code class="docutils literal notranslate"><span class="pre">13</span></code>
+is also in the result set of the second query, it is not included in the final result.:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">)</span>
+<span class="k">EXCEPT</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="mi">13</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> _col0
+-------
+   42
+(2 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CORRESPONDING</span></code> matches columns by name instead of by position:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;alice&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bob&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="k">EXCEPT</span><span class="w"> </span><span class="k">CORRESPONDING</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;alice&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> id | name
+----+------
+  2 | bob
+(1 row)
+</code></pre></div>
+</div>
+<h2 id="order-by-clause"><span id="id3"></span>ORDER BY clause<a class="headerlink" href="#order-by-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause is used to sort a result set by one or more
+output expressions:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>ORDER BY expression [ ASC | DESC ] [ NULLS { FIRST | LAST } ] [, ...]
+</code></pre></div>
+</div>
+<p>Each expression may be composed of output columns, or it may be an ordinal
+number selecting an output column by position, starting at one. The
+<code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause is evaluated after any <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> or <code class="docutils literal notranslate"><span class="pre">HAVING</span></code> clause,
+and before any <code class="docutils literal notranslate"><span class="pre">OFFSET</span></code>, <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> or <code class="docutils literal notranslate"><span class="pre">FETCH</span> <span class="pre">FIRST</span></code> clause.
+The default null ordering is <code class="docutils literal notranslate"><span class="pre">NULLS</span> <span class="pre">LAST</span></code>, regardless of the ordering direction.</p>
+<p>Note that, following the SQL specification, an <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause only
+affects the order of rows for queries that immediately contain the clause.
+Trino follows that specification, and drops redundant usage of the clause to
+avoid negative performance impacts.</p>
+<p>In the following example, the clause only applies to the select statement.</p>
+<div class="highlight-SQL notranslate"><div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">some_table</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">another_table</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">field</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>Since tables in SQL are inherently unordered, and the <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause in
+this case does not result in any difference, but negatively impacts performance
+of running the overall insert statement, Trino skips the sort operation.</p>
+<p>Another example where the <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause is redundant, and does not affect
+the outcome of the overall statement, is a nested query:</p>
+<div class="highlight-SQL notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">some_table</span>
+<span class="w">    </span><span class="k">JOIN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">another_table</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">field</span><span class="p">)</span><span class="w"> </span><span class="n">u</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">some_table</span><span class="p">.</span><span class="k">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="k">key</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>More background information and details can be found in
+<a class="reference external" href="https://trino.io/blog/2019/06/03/redundant-order-by.html">a blog post about this optimization</a>.</p>
+<h2 id="offset-clause"><span id="id4"></span>OFFSET clause<a class="headerlink" href="#offset-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">OFFSET</span></code> clause is used to discard a number of leading rows
+from the result set:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>OFFSET count [ ROW | ROWS ]
+</code></pre></div>
+</div>
+<p>If the <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause is present, the <code class="docutils literal notranslate"><span class="pre">OFFSET</span></code> clause is evaluated
+over a sorted result set, and the set remains sorted after the
+leading rows are discarded:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">nation</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">OFFSET</span><span class="w"> </span><span class="mi">22</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>      name
+----------------
+ UNITED KINGDOM
+ UNITED STATES
+ VIETNAM
+(3 rows)
+</code></pre></div>
+</div>
+<p>Otherwise, it is arbitrary which rows are discarded.
+If the count specified in the <code class="docutils literal notranslate"><span class="pre">OFFSET</span></code> clause equals or exceeds the size
+of the result set, the final result is empty.</p>
+<h2 id="limit-or-fetch-first-clause"><span id="limit-clause"></span>LIMIT or FETCH FIRST clause<a class="headerlink" href="#limit-or-fetch-first-clause" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> or <code class="docutils literal notranslate"><span class="pre">FETCH</span> <span class="pre">FIRST</span></code> clause restricts the number of rows
+in the result set.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>LIMIT { count | ALL }
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>FETCH { FIRST | NEXT } [ count ] { ROW | ROWS } { ONLY | WITH TIES }
+</code></pre></div>
+</div>
+<p>The following example queries a large table, but the <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> clause
+restricts the output to only have five rows (because the query lacks an <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code>,
+exactly which rows are returned is arbitrary):</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orderdate</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> orderdate
+------------
+ 1994-07-25
+ 1993-11-12
+ 1992-10-06
+ 1994-01-04
+ 1997-12-28
+(5 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">LIMIT</span> <span class="pre">ALL</span></code> is the same as omitting the <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> clause.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">FETCH</span> <span class="pre">FIRST</span></code> clause supports either the <code class="docutils literal notranslate"><span class="pre">FIRST</span></code> or <code class="docutils literal notranslate"><span class="pre">NEXT</span></code> keywords
+and the <code class="docutils literal notranslate"><span class="pre">ROW</span></code> or <code class="docutils literal notranslate"><span class="pre">ROWS</span></code> keywords. These keywords are equivalent and
+the choice of keyword has no effect on query execution.</p>
+<p>If the count is not specified in the <code class="docutils literal notranslate"><span class="pre">FETCH</span> <span class="pre">FIRST</span></code> clause, it defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orderdate</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">FETCH</span><span class="w"> </span><span class="k">FIRST</span><span class="w"> </span><span class="k">ROW</span><span class="w"> </span><span class="k">ONLY</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> orderdate
+------------
+ 1994-02-12
+(1 row)
+</code></pre></div>
+</div>
+<p>If the <code class="docutils literal notranslate"><span class="pre">OFFSET</span></code> clause is present, the <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> or <code class="docutils literal notranslate"><span class="pre">FETCH</span> <span class="pre">FIRST</span></code> clause
+is evaluated after the <code class="docutils literal notranslate"><span class="pre">OFFSET</span></code> clause:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">OFFSET</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> x
+---
+ 3
+ 4
+(2 rows)
+</code></pre></div>
+</div>
+<p>For the <code class="docutils literal notranslate"><span class="pre">FETCH</span> <span class="pre">FIRST</span></code> clause, the argument <code class="docutils literal notranslate"><span class="pre">ONLY</span></code> or <code class="docutils literal notranslate"><span class="pre">WITH</span> <span class="pre">TIES</span></code>
+controls which rows are included in the result set.</p>
+<p>If the argument <code class="docutils literal notranslate"><span class="pre">ONLY</span></code> is specified, the result set is limited to the exact
+number of leading rows determined by the count.</p>
+<p>If the argument <code class="docutils literal notranslate"><span class="pre">WITH</span> <span class="pre">TIES</span></code> is specified, it is required that the <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code>
+clause be present. The result set consists of the same set of leading rows
+and all of the rows in the same peer group as the last of them (‘ties’)
+as established by the ordering in the <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause. The result set is sorted:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">regionkey</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">regionkey</span><span class="w"> </span><span class="k">FETCH</span><span class="w"> </span><span class="k">FIRST</span><span class="w"> </span><span class="k">ROW</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">TIES</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>    name    | regionkey
+------------+-----------
+ ETHIOPIA   |         0
+ MOROCCO    |         0
+ KENYA      |         0
+ ALGERIA    |         0
+ MOZAMBIQUE |         0
+(5 rows)
+</code></pre></div>
+</div>
+<h2 id="tablesample"><span id="id5"></span>TABLESAMPLE<a class="headerlink" href="#tablesample" title="Link to this heading">#</a></h2>
+<p>There are multiple sample methods:</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">BERNOULLI</span></code></dt><dd><p>Each row is selected to be in the table sample with a probability of
+the sample percentage. When a table is sampled using the Bernoulli
+method, all physical blocks of the table are scanned and certain
+rows are skipped (based on a comparison between the sample percentage
+and a random value calculated at runtime).</p>
+<p>The probability of a row being included in the result is independent
+from any other row. This does not reduce the time required to read
+the sampled table from disk. It may have an impact on the total
+query time if the sampled output is processed further.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SYSTEM</span></code></dt><dd><p>This sampling method divides the table into logical segments of data
+and samples the table at this granularity. This sampling method either
+selects all the rows from a particular segment of data or skips it
+(based on a comparison between the sample percentage and a random
+value calculated at runtime).</p>
+<p>The rows selected in a system sampling will be dependent on which
+connector is used. For example, when used with Hive, it is dependent
+on how the data is laid out on HDFS. This method does not guarantee
+independent sampling probabilities.</p>
+</dd>
+</dl>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Neither of the two methods allow deterministic bounds on the number of rows returned.</p>
+</div>
+<p>Examples:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="n">TABLESAMPLE</span><span class="w"> </span><span class="n">BERNOULLI</span><span class="w"> </span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="n">TABLESAMPLE</span><span class="w"> </span><span class="k">SYSTEM</span><span class="w"> </span><span class="p">(</span><span class="mi">75</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Using sampling with joins:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="n">TABLESAMPLE</span><span class="w"> </span><span class="k">SYSTEM</span><span class="w"> </span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">lineitem</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">TABLESAMPLE</span><span class="w"> </span><span class="n">BERNOULLI</span><span class="w"> </span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">orderkey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">orderkey</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h2 id="unnest"><span id="id6"></span>UNNEST<a class="headerlink" href="#unnest" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">UNNEST</span></code> can be used to expand an <a class="reference internal" href="../language/types.html#array-type"><span class="std std-ref">ARRAY</span></a> or <a class="reference internal" href="../language/types.html#map-type"><span class="std std-ref">MAP</span></a> into a relation.
+Arrays are expanded into a single column:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">UNNEST</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="nb">number</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> number
+--------
+      1
+      2
+(2 rows)
+</code></pre></div>
+</div>
+<p>Maps are expanded into two columns (key, value):</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">UNNEST</span><span class="p">(</span>
+<span class="w">        </span><span class="n">map_from_entries</span><span class="p">(</span>
+<span class="w">            </span><span class="nb">ARRAY</span><span class="p">[</span>
+<span class="w">                </span><span class="p">(</span><span class="s1">&#39;SQL&#39;</span><span class="p">,</span><span class="mi">1974</span><span class="p">),</span>
+<span class="w">                </span><span class="p">(</span><span class="s1">&#39;Java&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1995</span><span class="p">)</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="k">language</span><span class="p">,</span><span class="w"> </span><span class="n">first_appeared_year</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> language | first_appeared_year
+----------+---------------------
+ SQL      |                1974
+ Java     |                1995
+(2 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">UNNEST</span></code> can be used in combination with an <code class="docutils literal notranslate"><span class="pre">ARRAY</span></code> of <a class="reference internal" href="../language/types.html#row-type"><span class="std std-ref">ROW</span></a> structures for expanding each
+field of the <code class="docutils literal notranslate"><span class="pre">ROW</span></code> into a corresponding column:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">UNNEST</span><span class="p">(</span>
+<span class="w">        </span><span class="nb">ARRAY</span><span class="p">[</span>
+<span class="w">            </span><span class="k">ROW</span><span class="p">(</span><span class="s1">&#39;Java&#39;</span><span class="p">,</span><span class="w">  </span><span class="mi">1995</span><span class="p">),</span>
+<span class="w">            </span><span class="k">ROW</span><span class="p">(</span><span class="s1">&#39;SQL&#39;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">1974</span><span class="p">)],</span>
+<span class="w">        </span><span class="nb">ARRAY</span><span class="p">[</span>
+<span class="w">            </span><span class="k">ROW</span><span class="p">(</span><span class="k">false</span><span class="p">),</span>
+<span class="w">            </span><span class="k">ROW</span><span class="p">(</span><span class="k">true</span><span class="p">)]</span>
+<span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="k">language</span><span class="p">,</span><span class="n">first_appeared_year</span><span class="p">,</span><span class="n">declarative</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> language | first_appeared_year | declarative
+----------+---------------------+-------------
+ Java     |                1995 | false
+ SQL      |                1974 | true
+(2 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">UNNEST</span></code> can optionally have a <code class="docutils literal notranslate"><span class="pre">WITH</span> <span class="pre">ORDINALITY</span></code> clause, in which case an additional ordinality column
+is added to the end:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">rownumber</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">UNNEST</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">],</span>
+<span class="w">    </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">]</span>
+<span class="w">     </span><span class="p">)</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">ORDINALITY</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">rownumber</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>  a   | b | rownumber
+------+---+-----------
+    2 | 7 |         1
+    5 | 8 |         2
+ NULL | 9 |         3
+(3 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">UNNEST</span></code> returns zero entries when the array/map is empty:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">UNNEST</span><span class="w"> </span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[])</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> value
+-------
+(0 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">UNNEST</span></code> returns zero entries when the array/map is null:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">UNNEST</span><span class="w"> </span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">null</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">(</span><span class="nb">integer</span><span class="p">)))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="nb">number</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> number
+--------
+(0 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">UNNEST</span></code> is normally used with a <code class="docutils literal notranslate"><span class="pre">JOIN</span></code>, and can reference columns
+from relations on the left side of the join:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">student</span><span class="p">,</span><span class="w"> </span><span class="n">score</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="k">VALUES</span>
+<span class="w">      </span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">]),</span>
+<span class="w">      </span><span class="p">(</span><span class="s1">&#39;Mary&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">])</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="p">(</span><span class="n">student</span><span class="p">,</span><span class="w"> </span><span class="n">scores</span><span class="p">)</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">UNNEST</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">score</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> student | score
+---------+-------
+ John    |     7
+ John    |    10
+ John    |     9
+ Mary    |     4
+ Mary    |     8
+ Mary    |     9
+(6 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">UNNEST</span></code> can also be used with multiple arguments, in which case they are expanded into multiple columns,
+with as many rows as the highest cardinality argument (the other columns are padded with nulls):</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">numbers</span><span class="p">,</span><span class="w"> </span><span class="n">animals</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">a</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;dog&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cat&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bird&#39;</span><span class="p">]),</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;cow&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;pig&#39;</span><span class="p">])</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span><span class="w"> </span><span class="n">animals</span><span class="p">)</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">UNNEST</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span><span class="w"> </span><span class="n">animals</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>  numbers  |     animals      |  n   |  a
+-----------+------------------+------+------
+ [2, 5]    | [dog, cat, bird] |    2 | dog
+ [2, 5]    | [dog, cat, bird] |    5 | cat
+ [2, 5]    | [dog, cat, bird] | NULL | bird
+ [7, 8, 9] | [cow, pig]       |    7 | cow
+ [7, 8, 9] | [cow, pig]       |    8 | pig
+ [7, 8, 9] | [cow, pig]       |    9 | NULL
+(6 rows)
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">LEFT</span> <span class="pre">JOIN</span></code> is preferable in order to avoid losing the row containing the array/map field in question
+when referenced columns from relations on the left side of the join can be empty or have <code class="docutils literal notranslate"><span class="pre">NULL</span></code> values:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">runner</span><span class="p">,</span><span class="w"> </span><span class="k">checkpoint</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="k">VALUES</span>
+<span class="w">      </span><span class="p">(</span><span class="s1">&#39;Joe&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">]),</span>
+<span class="w">      </span><span class="p">(</span><span class="s1">&#39;Roger&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">10</span><span class="p">]),</span>
+<span class="w">      </span><span class="p">(</span><span class="s1">&#39;Dave&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[]),</span>
+<span class="w">      </span><span class="p">(</span><span class="s1">&#39;Levi&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">marathon</span><span class="w"> </span><span class="p">(</span><span class="n">runner</span><span class="p">,</span><span class="w"> </span><span class="n">checkpoints</span><span class="p">)</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">UNNEST</span><span class="p">(</span><span class="n">checkpoints</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="k">checkpoint</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">TRUE</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code> runner | checkpoint
+--------+------------
+ Joe    |         10
+ Joe    |         20
+ Joe    |         30
+ Joe    |         42
+ Roger  |         10
+ Dave   |       NULL
+ Levi   |       NULL
+(7 rows)
+</code></pre></div>
+</div>
+<p>Note that in case of using <code class="docutils literal notranslate"><span class="pre">LEFT</span> <span class="pre">JOIN</span></code> the only condition supported by the current implementation is <code class="docutils literal notranslate"><span class="pre">ON</span> <span class="pre">TRUE</span></code>.</p>
+<h2 id="json-table"><span id="select-json-table"></span>JSON_TABLE<a class="headerlink" href="#json-table" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">JSON_TABLE</span></code> transforms JSON data into a relational table format. Like <code class="docutils literal notranslate"><span class="pre">UNNEST</span></code>
+and <code class="docutils literal notranslate"><span class="pre">LATERAL</span></code>, use <code class="docutils literal notranslate"><span class="pre">JSON_TABLE</span></code> in the <code class="docutils literal notranslate"><span class="pre">FROM</span></code> clause of a <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement.
+For more information, see <a class="reference internal" href="../functions/json.html#json-table"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">JSON_TABLE</span></code></span></a>.</p>
+<h2 id="joins">Joins<a class="headerlink" href="#joins" title="Link to this heading">#</a></h2>
+<p>Joins allow you to combine data from multiple relations.</p>
+<h3 id="cross-join">CROSS JOIN<a class="headerlink" href="#cross-join" title="Link to this heading">#</a></h3>
+<p>A cross join returns the Cartesian product (all combinations) of two
+relations. Cross joins can either be specified using the explit
+<code class="docutils literal notranslate"><span class="pre">CROSS</span> <span class="pre">JOIN</span></code> syntax or by specifying multiple relations in the
+<code class="docutils literal notranslate"><span class="pre">FROM</span></code> clause.</p>
+<p>Both of the following queries are equivalent:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span><span class="p">,</span><span class="w"> </span><span class="n">region</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">nation</span></code> table contains 25 rows and the <code class="docutils literal notranslate"><span class="pre">region</span></code> table contains 5 rows,
+so a cross join between the two tables produces 125 rows:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">nation</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">region</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">n</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>     nation     |   region
+----------------+-------------
+ ALGERIA        | AFRICA
+ ALGERIA        | AMERICA
+ ALGERIA        | ASIA
+ ALGERIA        | EUROPE
+ ALGERIA        | MIDDLE EAST
+ ARGENTINA      | AFRICA
+ ARGENTINA      | AMERICA
+...
+(125 rows)
+</code></pre></div>
+</div>
+<h3 id="lateral">LATERAL<a class="headerlink" href="#lateral" title="Link to this heading">#</a></h3>
+<p>Subqueries appearing in the <code class="docutils literal notranslate"><span class="pre">FROM</span></code> clause can be preceded by the keyword <code class="docutils literal notranslate"><span class="pre">LATERAL</span></code>.
+This allows them to reference columns provided by preceding <code class="docutils literal notranslate"><span class="pre">FROM</span></code> items.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">LATERAL</span></code> join can appear at the top level in the <code class="docutils literal notranslate"><span class="pre">FROM</span></code> list, or anywhere
+within a parenthesized join tree. In the latter case, it can also refer to any items
+that are on the left-hand side of a <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> for which it is on the right-hand side.</p>
+<p>When a <code class="docutils literal notranslate"><span class="pre">FROM</span></code> item contains <code class="docutils literal notranslate"><span class="pre">LATERAL</span></code> cross-references, evaluation proceeds as follows:
+for each row of the <code class="docutils literal notranslate"><span class="pre">FROM</span></code> item providing the cross-referenced columns,
+the <code class="docutils literal notranslate"><span class="pre">LATERAL</span></code> item is evaluated using that row set’s values of the columns.
+The resulting rows are joined as usual with the rows they were computed from.
+This is repeated for set of rows from the column source tables.</p>
+<p><code class="docutils literal notranslate"><span class="pre">LATERAL</span></code> is primarily useful when the cross-referenced column is necessary for
+computing the rows to be joined:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">LATERAL</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39; :-&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">LATERAL</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;)&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<h3 id="qualifying-column-names">Qualifying column names<a class="headerlink" href="#qualifying-column-names" title="Link to this heading">#</a></h3>
+<p>When two relations in a join have columns with the same name, the column
+references must be qualified using the relation alias (if the relation
+has an alias), or with the relation name:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">nation</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">region</span><span class="p">.</span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">n</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span><span class="w"> </span><span class="n">n</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>The following query will fail with the error <code class="docutils literal notranslate"><span class="pre">Column</span> <span class="pre">'name'</span> <span class="pre">is</span> <span class="pre">ambiguous</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h2 id="subqueries">Subqueries<a class="headerlink" href="#subqueries" title="Link to this heading">#</a></h2>
+<p>A subquery is an expression which is composed of a query. The subquery
+is correlated when it refers to columns outside of the subquery.
+Logically, the subquery will be evaluated for each row in the surrounding
+query. The referenced columns will thus be constant during any single
+evaluation of the subquery.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Support for correlated subqueries is limited. Not every standard form is supported.</p>
+</div>
+<h3 id="exists">EXISTS<a class="headerlink" href="#exists" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">EXISTS</span></code> predicate determines if a subquery returns any rows:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">     </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="w">     </span><span class="k">FROM</span><span class="w"> </span><span class="n">region</span>
+<span class="w">     </span><span class="k">WHERE</span><span class="w"> </span><span class="n">region</span><span class="p">.</span><span class="n">regionkey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nation</span><span class="p">.</span><span class="n">regionkey</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<h3 id="in">IN<a class="headerlink" href="#in" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">IN</span></code> predicate determines if any values produced by the subquery
+are equal to the provided expression. The result of <code class="docutils literal notranslate"><span class="pre">IN</span></code> follows the
+standard rules for nulls. The subquery must produce exactly one column:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">regionkey</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">     </span><span class="k">SELECT</span><span class="w"> </span><span class="n">regionkey</span>
+<span class="w">     </span><span class="k">FROM</span><span class="w"> </span><span class="n">region</span>
+<span class="w">     </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;AMERICA&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;AFRICA&#39;</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<h3 id="scalar-subquery">Scalar subquery<a class="headerlink" href="#scalar-subquery" title="Link to this heading">#</a></h3>
+<p>A scalar subquery is a non-correlated subquery that returns zero or
+one row. It is an error for the subquery to produce more than one
+row. The returned value is <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if the subquery produces no rows:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">regionkey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">regionkey</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">region</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Currently only single column can be returned from the scalar subquery.</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="rollback.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: ROLLBACK">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                ROLLBACK
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="set-path.html" class="md-footer__link md-footer__link--next" aria-label="Next: SET PATH">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                SET PATH
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,1841 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="file-system-alluxio.html">
+      
+      
+        <link rel="next" href="file-formats.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Metastores - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Metastores
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../object-storage.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Object storage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system-azure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Storage file system support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system-gcs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Google Cloud Storage file system support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system-s3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    S3 file system support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system-local.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local file system support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system-hdfs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    HDFS file system support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system-cache.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File system cache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system-alluxio.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alluxio file system support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metastores
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-formats.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage file formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="metastores">Metastores<a class="headerlink" href="#metastores" title="Link to this heading">#</a></h1>
+<p>Object storage access is mediated through a <em>metastore</em>. Metastores provide
+information on directory structure, file format, and metadata about the stored
+data. Object storage connectors support the use of one or more metastores. A
+supported metastore is required to use any object storage connector.</p>
+<p>Additional configuration is required in order to access tables with Athena
+partition projection metadata or implement first class support for Avro tables.
+These requirements are discussed later in this topic.</p>
+<h2 id="general-metastore-configuration-properties"><span id="general-metastore-properties"></span>General metastore configuration properties<a class="headerlink" href="#general-metastore-configuration-properties" title="Link to this heading">#</a></h2>
+<p>The following table describes general metastore configuration properties, most
+of which are used with either metastore.</p>
+<p>At a minimum, each Delta Lake, Hive or Hudi object storage catalog file must set
+the <code class="docutils literal notranslate"><span class="pre">hive.metastore</span></code> configuration property to define the type of metastore to
+use. Iceberg catalogs instead use the <code class="docutils literal notranslate"><span class="pre">iceberg.catalog.type</span></code> configuration
+property to define the type of metastore to use.</p>
+<p>Additional configuration properties specific to the Thrift and Glue Metastores
+are also available. They are discussed later in this topic.</p>
+<table class="docutils data align-default" id="id1">
+<caption><span class="caption-text">General metastore configuration properties</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 50.0%" />
+<col style="width: 15.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore</span></code></p></td>
+<td><p>The type of Hive metastore to use. Trino currently supports the default Hive
+Thrift metastore (<code class="docutils literal notranslate"><span class="pre">thrift</span></code>), and the AWS Glue Catalog (<code class="docutils literal notranslate"><span class="pre">glue</span></code>) as metadata
+sources. You must use this for all object storage catalogs except Iceberg.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">thrift</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.catalog.type</span></code></p></td>
+<td><p>The Iceberg table format manages most metadata in metadata files in the
+object storage itself. A small amount of metadata, however, still requires
+the use of a metastore. In the Iceberg ecosystem, these smaller metastores
+are called Iceberg metadata catalogs, or just catalogs. The examples in each
+subsection depict the contents of a Trino catalog file that uses the
+Iceberg connector to configures different Iceberg metadata catalogs.</p>
+<p>You must set this property in all Iceberg catalog property files. Valid
+values are <code class="docutils literal notranslate"><span class="pre">hive_metastore</span></code>, <code class="docutils literal notranslate"><span class="pre">glue</span></code>, <code class="docutils literal notranslate"><span class="pre">jdbc</span></code>, <code class="docutils literal notranslate"><span class="pre">rest</span></code>, <code class="docutils literal notranslate"><span class="pre">nessie</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">snowflake</span></code>.</p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hive_metastore</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore-cache.cache-partitions</span></code></p></td>
+<td><p>Enable caching for partition metadata. You can disable caching to avoid
+inconsistent behavior that results from it.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore-cache.cache-missing</span></code></p></td>
+<td><p>Enable caching the fact that a table is missing to prevent future metastore
+calls for that table.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore-cache.cache-missing-partitions</span></code></p></td>
+<td><p>Enable caching the fact that a partition is missing to prevent future
+metastore calls for that partition.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore-cache.cache-missing-stats</span></code></p></td>
+<td><p>Enable caching the fact that table statistics for a specific table are
+missing to prevent future metastore calls.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore-cache-ttl</span></code></p></td>
+<td><p><a class="reference internal" href="../admin/properties.html#prop-type-duration"><span class="std std-ref">Duration</span></a> of how long cached metastore data is considered valid.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0s</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore-stats-cache-ttl</span></code></p></td>
+<td><p><a class="reference internal" href="../admin/properties.html#prop-type-duration"><span class="std std-ref">Duration</span></a> of how long cached metastore statistics are considered valid.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5m</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore-cache-maximum-size</span></code></p></td>
+<td><p>Maximum number of metastore data objects in the Hive metastore cache.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">20000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore-refresh-interval</span></code></p></td>
+<td><p>Asynchronously refresh cached metastore data after access if it is older
+than this but is not yet expired, allowing subsequent accesses to see fresh
+data.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore-refresh-max-threads</span></code></p></td>
+<td><p>Maximum threads used to refresh cached metastore data.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.user-metastore-cache-ttl</span></code></p></td>
+<td><p><a class="reference internal" href="../admin/properties.html#prop-type-duration"><span class="std std-ref">Duration</span></a> of how long cached metastore statistics, which are user specific
+in user impersonation scenarios, are considered valid.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10s</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.user-metastore-cache-maximum-size</span></code></p></td>
+<td><p>Maximum number of metastore data objects in the Hive metastore cache,
+which are user specific in user impersonation scenarios.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.hide-delta-lake-tables</span></code></p></td>
+<td><p>Controls whether to hide Delta Lake tables in table listings. Currently
+applies only when using the AWS Glue metastore.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="thrift-metastore-configuration-properties"><span id="hive-thrift-metastore"></span>Thrift metastore configuration properties<a class="headerlink" href="#thrift-metastore-configuration-properties" title="Link to this heading">#</a></h2>
+<p>In order to use a Hive Thrift metastore, you must configure the metastore with
+<code class="docutils literal notranslate"><span class="pre">hive.metastore=thrift</span></code> and provide further details with the following
+properties:</p>
+<table class="docutils data align-default" id="id2">
+<caption><span class="caption-text">Thrift metastore configuration properties</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 50.0%" />
+<col style="width: 15.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.uri</span></code></p></td>
+<td><p>The URIs of the Hive metastore to connect to using the Thrift protocol.
+If a comma-separated list of URIs is provided, the first URI is used by
+default, and the rest of the URIs are fallback metastores. This property
+is required. Example: <code class="docutils literal notranslate"><span class="pre">thrift://192.0.2.3:9083</span></code> or
+<code class="docutils literal notranslate"><span class="pre">thrift://192.0.2.3:9083,thrift://192.0.2.4:9083</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.username</span></code></p></td>
+<td><p>The username Trino uses to access the Hive metastore.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.authentication.type</span></code></p></td>
+<td><p>Hive metastore authentication type. Possible values are <code class="docutils literal notranslate"><span class="pre">NONE</span></code> or
+<code class="docutils literal notranslate"><span class="pre">KERBEROS</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.connect-timeout</span></code></p></td>
+<td><p>Socket connect timeout for metastore client.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10s</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.read-timeout</span></code></p></td>
+<td><p>Socket read timeout for metastore client.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10s</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.impersonation.enabled</span></code></p></td>
+<td><p>Enable Hive metastore end user impersonation.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.use-spark-table-statistics-fallback</span></code></p></td>
+<td><p>Enable usage of table statistics generated by Apache Spark when Hive table
+statistics are not available.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.delegation-token.cache-ttl</span></code></p></td>
+<td><p>Time to live delegation token cache for metastore.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1h</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.delegation-token.cache-maximum-size</span></code></p></td>
+<td><p>Delegation token cache maximum size.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.ssl.enabled</span></code></p></td>
+<td><p>Use SSL when connecting to metastore.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.ssl.key</span></code></p></td>
+<td><p>Path to private key and client certification (key store).</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.ssl.key-password</span></code></p></td>
+<td><p>Password for the private key.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.ssl.trust-certificate</span></code></p></td>
+<td><p>Path to the server certificate chain (trust store). Required when SSL is
+enabled.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.ssl.trust-certificate-password</span></code></p></td>
+<td><p>Password for the trust store.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.service.principal</span></code></p></td>
+<td><p>The Kerberos principal of the Hive metastore service.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.client.principal</span></code></p></td>
+<td><p>The Kerberos principal that Trino uses when connecting to the Hive metastore
+service.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.client.keytab</span></code></p></td>
+<td><p>Hive metastore client keytab location.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.delete-files-on-drop</span></code></p></td>
+<td><p>Actively delete the files for managed tables when performing drop table or
+partition operations, for cases when the metastore does not delete the
+files.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.assume-canonical-partition-keys</span></code></p></td>
+<td><p>Allow the metastore to assume that the values of partition columns can be
+converted to string values. This can lead to performance improvements in
+queries which apply filters on the partition columns. Partition keys with a
+<code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code> type do not get canonicalized.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.socks-proxy</span></code></p></td>
+<td><p>SOCKS proxy to use for the Thrift Hive metastore.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.max-retries</span></code></p></td>
+<td><p>Maximum number of retry attempts for metastore requests.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">9</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.backoff-scale-factor</span></code></p></td>
+<td><p>Scale factor for metastore request retry delay.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2.0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.max-retry-time</span></code></p></td>
+<td><p>Total allowed time limit for a metastore request to be retried.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">30s</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.min-backoff-delay</span></code></p></td>
+<td><p>Minimum delay between metastore request retries.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1s</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.client.max-backoff-delay</span></code></p></td>
+<td><p>Maximum delay between metastore request retries.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1s</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.txn-lock-max-wait</span></code></p></td>
+<td><p>Maximum time to wait to acquire hive transaction lock.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10m</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.catalog-name</span></code></p></td>
+<td><p>The term “Hive metastore catalog name” refers to the abstraction concept
+within Hive, enabling various systems to connect to distinct, independent
+catalogs stored in the metastore. By default, the catalog name in Hive
+metastore is set to “hive.” When this configuration property is left empty,
+the default catalog of the Hive metastore will be accessed.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="iceberg-specific-hive-catalog-configuration-properties"><span id="iceberg-hive-catalog"></span>Iceberg-specific Hive catalog configuration properties<a class="headerlink" href="#iceberg-specific-hive-catalog-configuration-properties" title="Link to this heading">#</a></h3>
+<p>When using the Hive catalog, the Iceberg connector supports the same
+<a class="reference internal" href="#hive-thrift-metastore"><span class="std std-ref">general Thrift metastore configuration properties</span></a>
+as previously described with the following additional property:</p>
+<table class="docutils data align-default" id="id3">
+<caption><span class="caption-text">Iceberg Hive catalog configuration property</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 50.0%" />
+<col style="width: 15.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.hive-catalog.locking-enabled</span></code></p></td>
+<td><p>Commit to tables using Hive locks.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">iceberg.hive-catalog.locking-enabled=false</span></code> will cause the catalog to
+commit to tables without using Hive locks. This should only be set to false if all
+following conditions are met:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://issues.apache.org/jira/browse/HIVE-26882">HIVE-26882</a> is available on
+the Hive metastore server. Requires version 2.3.10, 4.0.0-beta-1 or later.</p></li>
+<li><p><a class="reference external" href="https://issues.apache.org/jira/browse/HIVE-28121">HIVE-28121</a> is available on
+the Hive metastore server, if it is backed by MySQL or MariaDB. Requires version
+2.3.10, 4.1.0, 4.0.1 or later.</p></li>
+<li><p>All other catalogs committing to tables that this catalogs commits to are also
+on Iceberg 1.3 or later, and disabled Hive locks on commit.</p></li>
+</ul>
+</div>
+<h3 id="thrift-metastore-authentication"><span id="hive-thrift-metastore-authentication"></span>Thrift metastore authentication<a class="headerlink" href="#thrift-metastore-authentication" title="Link to this heading">#</a></h3>
+<p>In a Kerberized Hadoop cluster, Trino connects to the Hive metastore Thrift
+service using <abbr title="Simple Authentication and Security Layer">SASL</abbr> and
+authenticates using Kerberos. Kerberos authentication for the metastore is
+configured in the connector’s properties file using the following optional
+properties:</p>
+<table class="docutils data align-default" id="id4">
+<caption><span class="caption-text">Hive metastore Thrift service authentication properties</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 55.0%" />
+<col style="width: 15.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property value</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.authentication.type</span></code></p></td>
+<td><p>Hive metastore authentication type. One of <code class="docutils literal notranslate"><span class="pre">NONE</span></code> or <code class="docutils literal notranslate"><span class="pre">KERBEROS</span></code>. When using
+the default value of <code class="docutils literal notranslate"><span class="pre">NONE</span></code>, Kerberos authentication is disabled, and no
+other properties must be configured.</p>
+<p>When set to <code class="docutils literal notranslate"><span class="pre">KERBEROS</span></code> the Hive connector connects to the Hive metastore
+Thrift service using SASL and authenticate using Kerberos.</p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.thrift.impersonation.enabled</span></code></p></td>
+<td><p>Enable Hive metastore end user impersonation. See
+<a class="reference internal" href="#hive-security-metastore-impersonation"><span class="std std-ref">KERBEROS authentication with impersonation</span></a> for more information.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.service.principal</span></code></p></td>
+<td><p>The Kerberos principal of the Hive metastore service. The coordinator uses
+this to authenticate the Hive metastore.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">_HOST</span></code> placeholder can be used in this property value. When connecting
+to the Hive metastore, the Hive connector substitutes in the hostname of the
+<strong>metastore</strong> server it is connecting to. This is useful if the metastore
+runs on multiple hosts.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">hive/hive-server-host&#64;EXAMPLE.COM</span></code> or <code class="docutils literal notranslate"><span class="pre">hive/_HOST&#64;EXAMPLE.COM</span></code>.</p>
+</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.client.principal</span></code></p></td>
+<td><p>The Kerberos principal that Trino uses when connecting to the Hive metastore
+service.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">trino/trino-server-node&#64;EXAMPLE.COM</span></code> or <code class="docutils literal notranslate"><span class="pre">trino/_HOST&#64;EXAMPLE.COM</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">_HOST</span></code> placeholder can be used in this property value. When connecting
+to the Hive metastore, the Hive connector substitutes in the hostname of the
+<strong>worker</strong> node Trino is running on. This is useful if each worker node has
+its own Kerberos principal.</p>
+<p>Unless <a class="reference internal" href="#hive-security-metastore-impersonation"><span class="std std-ref">KERBEROS authentication with impersonation</span></a> is enabled, the principal
+specified by <code class="docutils literal notranslate"><span class="pre">hive.metastore.client.principal</span></code> must have sufficient
+privileges to remove files and directories within the <code class="docutils literal notranslate"><span class="pre">hive/warehouse</span></code>
+directory.</p>
+<p><strong>Warning:</strong> If the principal does have sufficient permissions, only the
+metadata is removed, and the data continues to consume disk space. This
+occurs because the Hive metastore is responsible for deleting the internal
+table data. When the metastore is configured to use Kerberos authentication,
+all the HDFS operations performed by the metastore are impersonated.
+Errors deleting data are silently ignored.</p>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.client.keytab</span></code></p></td>
+<td><p>The path to the keytab file that contains a key for the principal
+specified by <code class="docutils literal notranslate"><span class="pre">hive.metastore.client.principal</span></code>. This file must be
+readable by the operating system user running Trino.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The following sections describe the configuration properties and values needed
+for the various authentication configurations needed to use the Hive metastore
+Thrift service with the Hive connector.</p>
+<h4 id="default-none-authentication-without-impersonation">Default <code class="docutils literal notranslate"><span class="pre">NONE</span></code> authentication without impersonation<a class="headerlink" href="#default-none-authentication-without-impersonation" title="Link to this heading">#</a></h4>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>hive.metastore.authentication.type=NONE
+</code></pre></div>
+</div>
+<p>The default authentication type for the Hive metastore is <code class="docutils literal notranslate"><span class="pre">NONE</span></code>. When the
+authentication type is <code class="docutils literal notranslate"><span class="pre">NONE</span></code>, Trino connects to an unsecured Hive
+metastore. Kerberos is not used.</p>
+<h4 id="kerberos-authentication-with-impersonation"><span id="hive-security-metastore-impersonation"></span><code class="docutils literal notranslate"><span class="pre">KERBEROS</span></code> authentication with impersonation<a class="headerlink" href="#kerberos-authentication-with-impersonation" title="Link to this heading">#</a></h4>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>hive.metastore.authentication.type=KERBEROS
+hive.metastore.thrift.impersonation.enabled=true
+hive.metastore.service.principal=hive/hive-metastore-host.example.com@EXAMPLE.COM
+hive.metastore.client.principal=trino@EXAMPLE.COM
+hive.metastore.client.keytab=/etc/trino/hive.keytab
+</code></pre></div>
+</div>
+<p>When the authentication type for the Hive metastore Thrift service is
+<code class="docutils literal notranslate"><span class="pre">KERBEROS</span></code>, Trino connects as the Kerberos principal specified by the
+property <code class="docutils literal notranslate"><span class="pre">hive.metastore.client.principal</span></code>. Trino authenticates this
+principal using the keytab specified by the <code class="docutils literal notranslate"><span class="pre">hive.metastore.client.keytab</span></code>
+property, and verifies that the identity of the metastore matches
+<code class="docutils literal notranslate"><span class="pre">hive.metastore.service.principal</span></code>.</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">KERBEROS</span></code> Metastore authentication with impersonation, the
+principal specified by the <code class="docutils literal notranslate"><span class="pre">hive.metastore.client.principal</span></code> property must be
+allowed to impersonate the current Trino user, as discussed in the section
+<a class="reference internal" href="file-system-hdfs.html#hdfs-security-impersonation"><span class="std std-ref">HDFS impersonation</span></a>.</p>
+<p>Keytab files must be distributed to every node in the Trino cluster.</p>
+<h2 id="aws-glue-catalog-configuration-properties"><span id="hive-glue-metastore"></span>AWS Glue catalog configuration properties<a class="headerlink" href="#aws-glue-catalog-configuration-properties" title="Link to this heading">#</a></h2>
+<p>In order to use an AWS Glue catalog, you must configure your catalog file as
+follows:</p>
+<p><code class="docutils literal notranslate"><span class="pre">hive.metastore=glue</span></code> and provide further details with the following
+properties:</p>
+<table class="docutils data align-default" id="id5">
+<caption><span class="caption-text">AWS Glue catalog configuration properties</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 50.0%" />
+<col style="width: 15.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.region</span></code></p></td>
+<td><p>AWS region of the Glue Catalog. This is required when not running in EC2, or
+when the catalog is in a different region. Example: <code class="docutils literal notranslate"><span class="pre">us-east-1</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.endpoint-url</span></code></p></td>
+<td><p>Glue API endpoint URL (optional). Example:
+<code class="docutils literal notranslate"><span class="pre">https://glue.us-east-1.amazonaws.com</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.sts.region</span></code></p></td>
+<td><p>AWS region of the STS service to authenticate with. This is required when
+running in a GovCloud region. Example: <code class="docutils literal notranslate"><span class="pre">us-gov-east-1</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.sts.endpoint</span></code></p></td>
+<td><p>STS endpoint URL to use when authenticating to Glue (optional). Example:
+<code class="docutils literal notranslate"><span class="pre">https://sts.us-gov-east-1.amazonaws.com</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.pin-client-to-current-region</span></code></p></td>
+<td><p>Pin Glue requests to the same region as the EC2 instance where Trino is
+running.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.max-connections</span></code></p></td>
+<td><p>Max number of concurrent connections to Glue.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">30</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.max-error-retries</span></code></p></td>
+<td><p>Maximum number of error retries for the Glue client.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.default-warehouse-dir</span></code></p></td>
+<td><p>Default warehouse directory for schemas created without an explicit
+<code class="docutils literal notranslate"><span class="pre">location</span></code> property.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.use-web-identity-token-credentials-provider</span></code></p></td>
+<td><p>If you are running Trino on Amazon EKS, and authenticate using a Kubernetes
+service account, you can set this property to <code class="docutils literal notranslate"><span class="pre">true</span></code>. Setting to <code class="docutils literal notranslate"><span class="pre">true</span></code> forces
+Trino to not try using different credential providers from the default credential
+provider chain, and instead directly use credentials from the service account.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.aws-access-key</span></code></p></td>
+<td><p>AWS access key to use to connect to the Glue Catalog. If specified along
+with <code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.aws-secret-key</span></code>, this parameter takes precedence
+over <code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.iam-role</span></code>.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.aws-secret-key</span></code></p></td>
+<td><p>AWS secret key to use to connect to the Glue Catalog. If specified along
+with <code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.aws-access-key</span></code>, this parameter takes precedence
+over <code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.iam-role</span></code>.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.catalogid</span></code></p></td>
+<td><p>The ID of the Glue Catalog in which the metadata database resides.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.iam-role</span></code></p></td>
+<td><p>ARN of an IAM role to assume when connecting to the Glue Catalog.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.external-id</span></code></p></td>
+<td><p>External ID for the IAM role trust policy when connecting to the Glue
+Catalog.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.partitions-segments</span></code></p></td>
+<td><p>Number of segments for partitioned Glue tables.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metastore.glue.skip-archive</span></code></p></td>
+<td><p>AWS Glue has the ability to archive older table versions and a user can
+roll back the table to any historical version if needed. By default, the
+Hive Connector backed by Glue will not skip the archival of older table
+versions.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="iceberg-specific-glue-catalog-configuration-properties"><span id="iceberg-glue-catalog"></span>Iceberg-specific Glue catalog configuration properties<a class="headerlink" href="#iceberg-specific-glue-catalog-configuration-properties" title="Link to this heading">#</a></h3>
+<p>When using the Glue catalog, the Iceberg connector supports the same
+<a class="reference internal" href="#hive-glue-metastore"><span class="std std-ref">general Glue configuration properties</span></a> as previously
+described with the following additional property:</p>
+<table class="docutils data align-default" id="id6">
+<caption><span class="caption-text">Iceberg Glue catalog configuration property</span><a class="headerlink" href="#id6" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 50.0%" />
+<col style="width: 15.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.glue.cache-table-metadata</span></code></p></td>
+<td><p>While updating the table in AWS Glue, store the table metadata with the
+purpose of accelerating <code class="docutils literal notranslate"><span class="pre">information_schema.columns</span></code> and
+<code class="docutils literal notranslate"><span class="pre">system.metadata.table_comments</span></code> queries.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="iceberg-specific-metastores">Iceberg-specific metastores<a class="headerlink" href="#iceberg-specific-metastores" title="Link to this heading">#</a></h2>
+<p>The Iceberg table format manages most metadata in metadata files in the object
+storage itself. A small amount of metadata, however, still requires the use of a
+metastore. In the Iceberg ecosystem, these smaller metastores are called Iceberg
+metadata catalogs, or just catalogs.</p>
+<p>You can use a general metastore such as an HMS or AWS Glue, or you can use the
+Iceberg-specific REST, Nessie or JDBC metadata catalogs, as discussed in this
+section.</p>
+<h3 id="rest-catalog"><span id="iceberg-rest-catalog"></span>REST catalog<a class="headerlink" href="#rest-catalog" title="Link to this heading">#</a></h3>
+<p>In order to use the Iceberg REST catalog, configure the catalog type
+with <code class="docutils literal notranslate"><span class="pre">iceberg.catalog.type=rest</span></code>, and provide further details with the
+following properties:</p>
+<table class="docutils data align-default" id="id7">
+<caption><span class="caption-text">Iceberg REST catalog configuration properties</span><a class="headerlink" href="#id7" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.uri</span></code></p></td>
+<td><p>REST server API endpoint URI (required). Example:
+<code class="docutils literal notranslate"><span class="pre">http://iceberg-with-rest:8181</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.prefix</span></code></p></td>
+<td><p>The prefix for the resource path to use with the REST catalog server (optional).
+Example: <code class="docutils literal notranslate"><span class="pre">dev</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.warehouse</span></code></p></td>
+<td><p>Warehouse identifier/location for the catalog (optional). Example:
+<code class="docutils literal notranslate"><span class="pre">s3://my_bucket/warehouse_location</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.security</span></code></p></td>
+<td><p>The type of security to use (default: <code class="docutils literal notranslate"><span class="pre">NONE</span></code>).  <code class="docutils literal notranslate"><span class="pre">OAUTH2</span></code> requires either a
+<code class="docutils literal notranslate"><span class="pre">token</span></code> or <code class="docutils literal notranslate"><span class="pre">credential</span></code>. Example: <code class="docutils literal notranslate"><span class="pre">OAUTH2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.session</span></code></p></td>
+<td><p>Session information included when communicating with the REST Catalog.
+Options are <code class="docutils literal notranslate"><span class="pre">NONE</span></code> or <code class="docutils literal notranslate"><span class="pre">USER</span></code> (default: <code class="docutils literal notranslate"><span class="pre">NONE</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.session-timeout</span></code></p></td>
+<td><p><a class="reference internal" href="../admin/properties.html#prop-type-duration"><span class="std std-ref">Duration</span></a> to keep authentication session in cache. Defaults to <code class="docutils literal notranslate"><span class="pre">1h</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.oauth2.token</span></code></p></td>
+<td><p>The bearer token used for interactions with the server. A <code class="docutils literal notranslate"><span class="pre">token</span></code> or
+<code class="docutils literal notranslate"><span class="pre">credential</span></code> is required for <code class="docutils literal notranslate"><span class="pre">OAUTH2</span></code> security. Example: <code class="docutils literal notranslate"><span class="pre">AbCdEf123456</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.oauth2.credential</span></code></p></td>
+<td><p>The credential to exchange for a token in the OAuth2 client credentials flow
+with the server. A <code class="docutils literal notranslate"><span class="pre">token</span></code> or <code class="docutils literal notranslate"><span class="pre">credential</span></code> is required for <code class="docutils literal notranslate"><span class="pre">OAUTH2</span></code>
+security. Example: <code class="docutils literal notranslate"><span class="pre">AbCdEf123456</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.oauth2.scope</span></code></p></td>
+<td><p>Scope to be used when communicating with the REST Catalog. Applicable only
+when using <code class="docutils literal notranslate"><span class="pre">credential</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.oauth2.server-uri</span></code></p></td>
+<td><p>The endpoint to retrieve access token from OAuth2 Server.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.oauth2.token-refresh-enabled</span></code></p></td>
+<td><p>Controls whether a token should be refreshed if information about its expiration time is available.
+Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.vended-credentials-enabled</span></code></p></td>
+<td><p>Use credentials provided by the REST backend for file system access.
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.nested-namespace-enabled</span></code></p></td>
+<td><p>Support querying objects under nested namespace.
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.case-insensitive-name-matching</span></code></p></td>
+<td><p>Match namespace, table, and view names case insensitively. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.rest-catalog.case-insensitive-name-matching.cache-ttl</span></code></p></td>
+<td><p><a class="reference internal" href="../admin/properties.html#prop-type-duration"><span class="std std-ref">Duration</span></a> for which case-insensitive namespace, table,
+and view names are cached. Defaults to <code class="docutils literal notranslate"><span class="pre">1m</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following example shows a minimal catalog configuration using an Iceberg
+REST metadata catalog:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><code><span class="na">connector.name</span><span class="o">=</span><span class="s">iceberg</span>
+<span class="na">iceberg.catalog.type</span><span class="o">=</span><span class="s">rest</span>
+<span class="na">iceberg.rest-catalog.uri</span><span class="o">=</span><span class="s">http://iceberg-with-rest:8181</span>
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">iceberg.security</span></code> must be <code class="docutils literal notranslate"><span class="pre">read_only</span></code> when connecting to Databricks Unity catalog
+using an Iceberg REST catalog:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><code><span class="na">connector.name</span><span class="o">=</span><span class="s">iceberg</span>
+<span class="na">iceberg.catalog.type</span><span class="o">=</span><span class="s">rest</span>
+<span class="na">iceberg.rest-catalog.uri</span><span class="o">=</span><span class="s">https://dbc-12345678-9999.cloud.databricks.com/api/2.1/unity-catalog/iceberg</span>
+<span class="na">iceberg.security</span><span class="o">=</span><span class="s">read_only</span>
+<span class="na">iceberg.rest-catalog.security</span><span class="o">=</span><span class="s">OAUTH2</span>
+<span class="na">iceberg.rest-catalog.oauth2.token</span><span class="o">=</span><span class="s">***</span>
+</code></pre></div>
+</div>
+<p>The REST catalog supports <a class="reference internal" href="../language/sql-support.html#sql-view-management"><span class="std std-ref">view management</span></a>
+using the <a class="reference external" href="https://iceberg.apache.org/view-spec/">Iceberg View specification</a>.</p>
+<p>The REST catalog does not support <a class="reference internal" href="../language/sql-support.html#sql-materialized-view-management"><span class="std std-ref">materialized view management</span></a>.</p>
+<h3 id="jdbc-catalog"><span id="iceberg-jdbc-catalog"></span>JDBC catalog<a class="headerlink" href="#jdbc-catalog" title="Link to this heading">#</a></h3>
+<p>The Iceberg JDBC catalog is supported for the Iceberg connector.  At a minimum,
+<code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.driver-class</span></code>, <code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.connection-url</span></code>,
+<code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.default-warehouse-dir</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.catalog-name</span></code> must be configured. When using any
+database besides PostgreSQL, a JDBC driver jar file must be placed in the plugin
+directory.</p>
+<table class="docutils data align-default" id="id8">
+<caption><span class="caption-text">JDBC catalog configuration properties</span><a class="headerlink" href="#id8" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.driver-class</span></code></p></td>
+<td><p>JDBC driver class name.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.connection-url</span></code></p></td>
+<td><p>The URI to connect to the JDBC server.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.connection-user</span></code></p></td>
+<td><p>Username for JDBC client.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.connection-password</span></code></p></td>
+<td><p>Password for JDBC client.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.catalog-name</span></code></p></td>
+<td><p>Iceberg JDBC metastore catalog name.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.default-warehouse-dir</span></code></p></td>
+<td><p>The default warehouse directory to use for JDBC.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.schema-version</span></code></p></td>
+<td><p>JDBC catalog schema version.
+Valid values are <code class="docutils literal notranslate"><span class="pre">V0</span></code> or <code class="docutils literal notranslate"><span class="pre">V1</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">V1</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.jdbc-catalog.retryable-status-codes</span></code></p></td>
+<td><p>On connection error to JDBC metastore, retry if
+it is one of these JDBC status codes.
+Valid value is a comma-separated list of status codes.
+Note: JDBC catalog always retries the following status
+codes: <code class="docutils literal notranslate"><span class="pre">08000,08003,08006,08007,40001</span></code>. Specify only
+additional codes (such as <code class="docutils literal notranslate"><span class="pre">57000,57P03,57P04</span></code> if using
+PostgreSQL driver) here.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>The JDBC catalog may have compatibility issues if Iceberg introduces breaking
+changes in the future. Consider the <a class="reference internal" href="#iceberg-rest-catalog"><span class="std std-ref">REST catalog</span></a> as an alternative solution.</p>
+<p>The JDBC catalog requires the metadata tables to already exist.
+Refer to <a class="reference external" href="https://github.com/apache/iceberg/blob/main/core/src/main/java/org/apache/iceberg/jdbc/JdbcUtil.java">Iceberg repository</a>
+for creating those tables.</p>
+</div>
+<p>The following example shows a minimal catalog configuration using an
+Iceberg JDBC metadata catalog:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>connector.name=iceberg
+iceberg.catalog.type=jdbc
+iceberg.jdbc-catalog.catalog-name=test
+iceberg.jdbc-catalog.driver-class=org.postgresql.Driver
+iceberg.jdbc-catalog.connection-url=jdbc:postgresql://example.net:5432/database
+iceberg.jdbc-catalog.connection-user=admin
+iceberg.jdbc-catalog.connection-password=test
+iceberg.jdbc-catalog.default-warehouse-dir=s3://bucket
+</code></pre></div>
+</div>
+<p>The JDBC catalog does not support <a class="reference internal" href="../language/sql-support.html#sql-materialized-view-management"><span class="std std-ref">materialized view management</span></a>.</p>
+<h3 id="nessie-catalog"><span id="iceberg-nessie-catalog"></span>Nessie catalog<a class="headerlink" href="#nessie-catalog" title="Link to this heading">#</a></h3>
+<p>In order to use a Nessie catalog, configure the catalog type with
+<code class="docutils literal notranslate"><span class="pre">iceberg.catalog.type=nessie</span></code> and provide further details with the following
+properties:</p>
+<table class="docutils data align-default" id="id9">
+<caption><span class="caption-text">Nessie catalog configuration properties</span><a class="headerlink" href="#id9" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.uri</span></code></p></td>
+<td><p>Nessie API endpoint URI (required). Example:
+<code class="docutils literal notranslate"><span class="pre">https://localhost:19120/api/v2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.ref</span></code></p></td>
+<td><p>The branch/tag to use for Nessie. Defaults to <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.default-warehouse-dir</span></code></p></td>
+<td><p>Default warehouse directory for schemas created without an explicit
+<code class="docutils literal notranslate"><span class="pre">location</span></code> property. Example: <code class="docutils literal notranslate"><span class="pre">/tmp</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.read-timeout</span></code></p></td>
+<td><p>The read timeout <a class="reference internal" href="../admin/properties.html#prop-type-duration"><span class="std std-ref">duration</span></a> for requests to the Nessie
+server. Defaults to <code class="docutils literal notranslate"><span class="pre">25s</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.connection-timeout</span></code></p></td>
+<td><p>The connection timeout <a class="reference internal" href="../admin/properties.html#prop-type-duration"><span class="std std-ref">duration</span></a> for connection
+requests to the Nessie server. Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.enable-compression</span></code></p></td>
+<td><p>Configure whether compression should be enabled or not for requests to the
+Nessie server. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.authentication.type</span></code></p></td>
+<td><p>The authentication type to use. Available value is <code class="docutils literal notranslate"><span class="pre">BEARER</span></code>. Defaults to no
+authentication.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.authentication.token</span></code></p></td>
+<td><p>The token to use with <code class="docutils literal notranslate"><span class="pre">BEARER</span></code> authentication. Example:
+<code class="docutils literal notranslate"><span class="pre">SXVLUXUhIExFQ0tFUiEK</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.client-api-version</span></code></p></td>
+<td><p>Optional version of the Client API version to use. By default it is inferred from the <code class="docutils literal notranslate"><span class="pre">iceberg.nessie-catalog.uri</span></code> value.
+Valid values are <code class="docutils literal notranslate"><span class="pre">V1</span></code> or <code class="docutils literal notranslate"><span class="pre">V2</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>connector.name=iceberg
+iceberg.catalog.type=nessie
+iceberg.nessie-catalog.uri=https://localhost:19120/api/v2
+iceberg.nessie-catalog.default-warehouse-dir=/tmp
+</code></pre></div>
+</div>
+<p>The Nessie catalog does not support <a class="reference internal" href="../language/sql-support.html#sql-view-management"><span class="std std-ref">view management</span></a> or
+<a class="reference internal" href="../language/sql-support.html#sql-materialized-view-management"><span class="std std-ref">materialized view management</span></a>.</p>
+<h3 id="snowflake-catalog"><span id="iceberg-snowflake-catalog"></span>Snowflake catalog<a class="headerlink" href="#snowflake-catalog" title="Link to this heading">#</a></h3>
+<p>In order to use a Snowflake catalog, configure the catalog type with
+<code class="docutils literal notranslate"><span class="pre">iceberg.catalog.type=snowflake</span></code> and provide further details with the following
+properties:</p>
+<table class="docutils data align-default" id="id10">
+<caption><span class="caption-text">Snowflake catalog configuration properties</span><a class="headerlink" href="#id10" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.snowflake-catalog.account-uri</span></code></p></td>
+<td><p>Snowflake JDBC account URI (required). Example:
+<code class="docutils literal notranslate"><span class="pre">jdbc:snowflake://example123456789.snowflakecomputing.com</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.snowflake-catalog.user</span></code></p></td>
+<td><p>Snowflake user (required).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.snowflake-catalog.password</span></code></p></td>
+<td><p>Snowflake password (required).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.snowflake-catalog.database</span></code></p></td>
+<td><p>Snowflake database name (required).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iceberg.snowflake-catalog.role</span></code></p></td>
+<td><p>Snowflake role name</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>connector.name=iceberg
+iceberg.catalog.type=snowflake
+iceberg.snowflake-catalog.account-uri=jdbc:snowflake://example1234567890.snowflakecomputing.com
+iceberg.snowflake-catalog.user=user
+iceberg.snowflake-catalog.password=secret
+iceberg.snowflake-catalog.database=db
+</code></pre></div>
+</div>
+<p>When using the Snowflake catalog, data management tasks such as creating tables,
+must be performed in Snowflake because using the catalog from external systems
+like Trino only supports <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> queries and other <a class="reference internal" href="../language/sql-support.html#sql-read-operations"><span class="std std-ref">read operations</span></a>.</p>
+<p>Additionally, the <a class="reference external" href="https://docs.snowflake.com/en/sql-reference/sql/create-iceberg-table-snowflake">Snowflake-created Iceberg
+tables</a>
+do not expose partitioning information, which prevents efficient parallel reads
+and therefore can have significant negative performance implications.</p>
+<p>The Snowflake catalog does not support <a class="reference internal" href="../language/sql-support.html#sql-view-management"><span class="std std-ref">view management</span></a> or
+<a class="reference internal" href="../language/sql-support.html#sql-materialized-view-management"><span class="std std-ref">materialized view management</span></a>.</p>
+<p>Further information is available in the <a class="reference external" href="https://docs.snowflake.com/en/user-guide/tables-iceberg-catalog">Snowflake catalog
+documentation</a>.</p>
+<h2 id="access-tables-with-athena-partition-projection-metadata"><span id="partition-projection"></span>Access tables with Athena partition projection metadata<a class="headerlink" href="#access-tables-with-athena-partition-projection-metadata" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection.html">Partition projection</a>
+is a feature of AWS Athena often used to speed up query processing with highly
+partitioned tables when using the Hive connector.</p>
+<p>Trino supports partition projection table properties stored in the Hive
+metastore or Glue catalog, and it reimplements this functionality. Currently,
+there is a limitation in comparison to AWS Athena for date projection, as it
+only supports intervals of <code class="docutils literal notranslate"><span class="pre">DAYS</span></code>, <code class="docutils literal notranslate"><span class="pre">HOURS</span></code>, <code class="docutils literal notranslate"><span class="pre">MINUTES</span></code>, and <code class="docutils literal notranslate"><span class="pre">SECONDS</span></code>.</p>
+<p>If there are any compatibility issues blocking access to a requested table when
+partition projection is enabled, set the
+<code class="docutils literal notranslate"><span class="pre">partition_projection_ignore</span></code> table property to <code class="docutils literal notranslate"><span class="pre">true</span></code> for a table to bypass
+any errors.</p>
+<p>Refer to <a class="reference internal" href="../connector/hive.html#hive-table-properties"><span class="std std-ref">Table properties</span></a> and <a class="reference internal" href="../connector/hive.html#hive-column-properties"><span class="std std-ref">Column properties</span></a> for
+configuration of partition projection.</p>
+<h2 id="configure-metastore-for-avro">Configure metastore for Avro<a class="headerlink" href="#configure-metastore-for-avro" title="Link to this heading">#</a></h2>
+<p>For catalogs using the Hive connector, you must add the following property
+definition to the Hive metastore configuration file <code class="docutils literal notranslate"><span class="pre">hive-site.xml</span></code> and
+restart the metastore service to enable first-class support for Avro tables when
+using Hive 3.x:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">&lt;property&gt;</span>
+<span class="w">     </span><span class="cm">&lt;!-- https://community.hortonworks.com/content/supportkb/247055/errorjavalangunsupportedoperationexception-storage.html --&gt;</span>
+<span class="w">     </span><span class="nt">&lt;name&gt;</span>metastore.storage.schema.reader.impl<span class="nt">&lt;/name&gt;</span>
+<span class="w">     </span><span class="nt">&lt;value&gt;</span>org.apache.hadoop.hive.metastore.SerDeStorageSchemaReader<span class="nt">&lt;/value&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/property&gt;</span>
+</code></pre></div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="file-system-alluxio.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Alluxio file system support">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Alluxio file system support
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="file-formats.html" class="md-footer__link md-footer__link--next" aria-label="Next: Object storage file formats">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Object storage file formats
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

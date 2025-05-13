@@ -1,0 +1,4793 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Index - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#X"><strong>X</strong></a>
+ | <a href="#Y"><strong>Y</strong></a>
+ | <a href="#Z"><strong>Z</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    abs()
+
+      <ul>
+        <li><a href="functions/math.html#abs">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    acos()
+
+      <ul>
+        <li><a href="functions/math.html#acos">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ai_analyze_sentiment()
+
+      <ul>
+        <li><a href="functions/ai.html#ai_analyze_sentiment">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ai_classify()
+
+      <ul>
+        <li><a href="functions/ai.html#ai_classify">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ai_extract()
+
+      <ul>
+        <li><a href="functions/ai.html#ai_extract">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ai_fix_grammar()
+
+      <ul>
+        <li><a href="functions/ai.html#ai_fix_grammar">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ai_gen()
+
+      <ul>
+        <li><a href="functions/ai.html#ai_gen">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ai_mask()
+
+      <ul>
+        <li><a href="functions/ai.html#ai_mask">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ai_translate()
+
+      <ul>
+        <li><a href="functions/ai.html#ai_translate">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    all_match()
+
+      <ul>
+        <li><a href="functions/array.html#all_match">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    any_match()
+
+      <ul>
+        <li><a href="functions/array.html#any_match">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    any_value()
+
+      <ul>
+        <li><a href="functions/aggregate.html#any_value">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    approx_distinct()
+
+      <ul>
+        <li><a href="functions/aggregate.html#approx_distinct">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    approx_most_frequent()
+
+      <ul>
+        <li><a href="functions/aggregate.html#approx_most_frequent">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    approx_percentile()
+
+      <ul>
+        <li><a href="functions/aggregate.html#approx_percentile">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    approx_set()
+
+      <ul>
+        <li><a href="functions/hyperloglog.html#approx_set">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    arbitrary()
+
+      <ul>
+        <li><a href="functions/aggregate.html#arbitrary">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_agg()
+
+      <ul>
+        <li><a href="functions/aggregate.html#array_agg">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    array_distinct()
+
+      <ul>
+        <li><a href="functions/array.html#array_distinct">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_except()
+
+      <ul>
+        <li><a href="functions/array.html#array_except">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_histogram()
+
+      <ul>
+        <li><a href="functions/array.html#array_histogram">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_intersect()
+
+      <ul>
+        <li><a href="functions/array.html#array_intersect">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_join()
+
+      <ul>
+        <li><a href="functions/array.html#array_join">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_max()
+
+      <ul>
+        <li><a href="functions/array.html#array_max">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_min()
+
+      <ul>
+        <li><a href="functions/array.html#array_min">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_position()
+
+      <ul>
+        <li><a href="functions/array.html#array_position">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_remove()
+
+      <ul>
+        <li><a href="functions/array.html#array_remove">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_sort()
+
+      <ul>
+        <li><a href="functions/array.html#array_sort">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    array_union()
+
+      <ul>
+        <li><a href="functions/array.html#array_union">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    arrays_overlap()
+
+      <ul>
+        <li><a href="functions/array.html#arrays_overlap">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    asin()
+
+      <ul>
+        <li><a href="functions/math.html#asin">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    at_timezone()
+
+      <ul>
+        <li><a href="functions/datetime.html#at_timezone">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    atan()
+
+      <ul>
+        <li><a href="functions/math.html#atan">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    atan2()
+
+      <ul>
+        <li><a href="functions/math.html#atan2">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    avg()
+
+      <ul>
+        <li><a href="functions/aggregate.html#avg">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    bar()
+
+      <ul>
+        <li><a href="functions/color.html#bar">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    beta_cdf()
+
+      <ul>
+        <li><a href="functions/math.html#beta_cdf">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bing_tile()
+
+      <ul>
+        <li><a href="functions/geospatial.html#bing_tile">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bing_tile_at()
+
+      <ul>
+        <li><a href="functions/geospatial.html#bing_tile_at">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bing_tile_coordinates()
+
+      <ul>
+        <li><a href="functions/geospatial.html#bing_tile_coordinates">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bing_tile_polygon()
+
+      <ul>
+        <li><a href="functions/geospatial.html#bing_tile_polygon">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bing_tile_quadkey()
+
+      <ul>
+        <li><a href="functions/geospatial.html#bing_tile_quadkey">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bing_tile_zoom_level()
+
+      <ul>
+        <li><a href="functions/geospatial.html#bing_tile_zoom_level">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bing_tiles_around()
+
+      <ul>
+        <li><a href="functions/geospatial.html#bing_tiles_around">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bit_count()
+
+      <ul>
+        <li><a href="functions/bitwise.html#bit_count">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_and()
+
+      <ul>
+        <li><a href="functions/bitwise.html#bitwise_and">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_and_agg()
+
+      <ul>
+        <li><a href="functions/aggregate.html#bitwise_and_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_left_shift()
+
+      <ul>
+        <li><a href="functions/bitwise.html#bitwise_left_shift">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_not()
+
+      <ul>
+        <li><a href="functions/bitwise.html#bitwise_not">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_or()
+
+      <ul>
+        <li><a href="functions/bitwise.html#bitwise_or">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_or_agg()
+
+      <ul>
+        <li><a href="functions/aggregate.html#bitwise_or_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_right_shift()
+
+      <ul>
+        <li><a href="functions/bitwise.html#bitwise_right_shift">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_right_shift_arithmetic()
+
+      <ul>
+        <li><a href="functions/bitwise.html#bitwise_right_shift_arithmetic">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_xor()
+
+      <ul>
+        <li><a href="functions/bitwise.html#bitwise_xor">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bitwise_xor_agg()
+
+      <ul>
+        <li><a href="functions/aggregate.html#bitwise_xor_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bool_and()
+
+      <ul>
+        <li><a href="functions/aggregate.html#bool_and">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    bool_or()
+
+      <ul>
+        <li><a href="functions/aggregate.html#bool_or">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    built-in function
+
+      <ul>
+        <li><a href="functions/math.html#abs">abs()</a>
+</li>
+        <li><a href="functions/math.html#acos">acos()</a>
+</li>
+        <li><a href="functions/ai.html#ai_analyze_sentiment">ai_analyze_sentiment()</a>
+</li>
+        <li><a href="functions/ai.html#ai_classify">ai_classify()</a>
+</li>
+        <li><a href="functions/ai.html#ai_extract">ai_extract()</a>
+</li>
+        <li><a href="functions/ai.html#ai_fix_grammar">ai_fix_grammar()</a>
+</li>
+        <li><a href="functions/ai.html#ai_gen">ai_gen()</a>
+</li>
+        <li><a href="functions/ai.html#ai_mask">ai_mask()</a>
+</li>
+        <li><a href="functions/ai.html#ai_translate">ai_translate()</a>
+</li>
+        <li><a href="functions/array.html#all_match">all_match()</a>
+</li>
+        <li><a href="functions/array.html#any_match">any_match()</a>
+</li>
+        <li><a href="functions/aggregate.html#any_value">any_value()</a>
+</li>
+        <li><a href="functions/aggregate.html#approx_distinct">approx_distinct()</a>
+</li>
+        <li><a href="functions/aggregate.html#approx_most_frequent">approx_most_frequent()</a>
+</li>
+        <li><a href="functions/aggregate.html#approx_percentile">approx_percentile()</a>
+</li>
+        <li><a href="functions/hyperloglog.html#approx_set">approx_set()</a>
+</li>
+        <li><a href="functions/aggregate.html#arbitrary">arbitrary()</a>
+</li>
+        <li><a href="functions/aggregate.html#array_agg">array_agg()</a>
+</li>
+        <li><a href="functions/array.html#array_distinct">array_distinct()</a>
+</li>
+        <li><a href="functions/array.html#array_except">array_except()</a>
+</li>
+        <li><a href="functions/array.html#array_histogram">array_histogram()</a>
+</li>
+        <li><a href="functions/array.html#array_intersect">array_intersect()</a>
+</li>
+        <li><a href="functions/array.html#array_join">array_join()</a>
+</li>
+        <li><a href="functions/array.html#array_max">array_max()</a>
+</li>
+        <li><a href="functions/array.html#array_min">array_min()</a>
+</li>
+        <li><a href="functions/array.html#array_position">array_position()</a>
+</li>
+        <li><a href="functions/array.html#array_remove">array_remove()</a>
+</li>
+        <li><a href="functions/array.html#array_sort">array_sort()</a>
+</li>
+        <li><a href="functions/array.html#array_union">array_union()</a>
+</li>
+        <li><a href="functions/array.html#arrays_overlap">arrays_overlap()</a>
+</li>
+        <li><a href="functions/math.html#asin">asin()</a>
+</li>
+        <li><a href="functions/datetime.html#at_timezone">at_timezone()</a>
+</li>
+        <li><a href="functions/math.html#atan">atan()</a>
+</li>
+        <li><a href="functions/math.html#atan2">atan2()</a>
+</li>
+        <li><a href="functions/aggregate.html#avg">avg()</a>
+</li>
+        <li><a href="functions/color.html#bar">bar()</a>
+</li>
+        <li><a href="functions/math.html#beta_cdf">beta_cdf()</a>
+</li>
+        <li><a href="functions/geospatial.html#bing_tile">bing_tile()</a>
+</li>
+        <li><a href="functions/geospatial.html#bing_tile_at">bing_tile_at()</a>
+</li>
+        <li><a href="functions/geospatial.html#bing_tile_coordinates">bing_tile_coordinates()</a>
+</li>
+        <li><a href="functions/geospatial.html#bing_tile_polygon">bing_tile_polygon()</a>
+</li>
+        <li><a href="functions/geospatial.html#bing_tile_quadkey">bing_tile_quadkey()</a>
+</li>
+        <li><a href="functions/geospatial.html#bing_tile_zoom_level">bing_tile_zoom_level()</a>
+</li>
+        <li><a href="functions/geospatial.html#bing_tiles_around">bing_tiles_around()</a>
+</li>
+        <li><a href="functions/bitwise.html#bit_count">bit_count()</a>
+</li>
+        <li><a href="functions/bitwise.html#bitwise_and">bitwise_and()</a>
+</li>
+        <li><a href="functions/aggregate.html#bitwise_and_agg">bitwise_and_agg()</a>
+</li>
+        <li><a href="functions/bitwise.html#bitwise_left_shift">bitwise_left_shift()</a>
+</li>
+        <li><a href="functions/bitwise.html#bitwise_not">bitwise_not()</a>
+</li>
+        <li><a href="functions/bitwise.html#bitwise_or">bitwise_or()</a>
+</li>
+        <li><a href="functions/aggregate.html#bitwise_or_agg">bitwise_or_agg()</a>
+</li>
+        <li><a href="functions/bitwise.html#bitwise_right_shift">bitwise_right_shift()</a>
+</li>
+        <li><a href="functions/bitwise.html#bitwise_right_shift_arithmetic">bitwise_right_shift_arithmetic()</a>
+</li>
+        <li><a href="functions/bitwise.html#bitwise_xor">bitwise_xor()</a>
+</li>
+        <li><a href="functions/aggregate.html#bitwise_xor_agg">bitwise_xor_agg()</a>
+</li>
+        <li><a href="functions/aggregate.html#bool_and">bool_and()</a>
+</li>
+        <li><a href="functions/aggregate.html#bool_or">bool_or()</a>
+</li>
+        <li><a href="functions/array.html#cardinality">cardinality()</a>
+</li>
+        <li><a href="functions/conversion.html#cast">cast()</a>
+</li>
+        <li><a href="functions/math.html#cbrt">cbrt()</a>
+</li>
+        <li><a href="functions/math.html#ceil">ceil()</a>
+</li>
+        <li><a href="functions/math.html#ceiling">ceiling()</a>
+</li>
+        <li><a href="functions/teradata.html#char2hexint">char2hexint()</a>
+</li>
+        <li><a href="functions/aggregate.html#checksum">checksum()</a>
+</li>
+        <li><a href="functions/string.html#chr">chr()</a>
+</li>
+        <li><a href="functions/ml.html#classify">classify()</a>
+</li>
+        <li><a href="functions/conditional.html#id1">coalesce()</a>
+</li>
+        <li><a href="functions/string.html#codepoint">codepoint()</a>
+</li>
+        <li><a href="functions/color.html#color">color()</a>
+</li>
+        <li><a href="functions/array.html#combinations">combinations()</a>
+</li>
+        <li><a href="functions/string.html#concat">concat()</a>
+</li>
+        <li><a href="functions/string.html#concat_ws">concat_ws()</a>
+</li>
+        <li><a href="functions/array.html#contains">contains()</a>
+</li>
+        <li><a href="functions/array.html#contains_sequence">contains_sequence()</a>
+</li>
+        <li><a href="functions/geospatial.html#convex_hull_agg">convex_hull_agg()</a>
+</li>
+        <li><a href="functions/aggregate.html#corr">corr()</a>
+</li>
+        <li><a href="functions/math.html#cos">cos()</a>
+</li>
+        <li><a href="functions/math.html#cosh">cosh()</a>
+</li>
+        <li><a href="functions/math.html#cosine_distance">cosine_distance()</a>
+</li>
+        <li><a href="functions/math.html#cosine_similarity">cosine_similarity()</a>
+</li>
+        <li><a href="functions/aggregate.html#count">count()</a>
+</li>
+        <li><a href="functions/aggregate.html#count_if">count_if()</a>
+</li>
+        <li><a href="functions/aggregate.html#covar_pop">covar_pop()</a>
+</li>
+        <li><a href="functions/aggregate.html#covar_samp">covar_samp()</a>
+</li>
+        <li><a href="functions/binary.html#crc32">crc32()</a>
+</li>
+        <li><a href="functions/window.html#cume_dist">cume_dist()</a>
+</li>
+        <li><a href="functions/session.html#current_groups">current_groups()</a>
+</li>
+        <li><a href="functions/datetime.html#current_timezone">current_timezone()</a>
+</li>
+        <li><a href="functions/datetime.html#date">date()</a>
+</li>
+        <li><a href="functions/datetime.html#date_add">date_add()</a>
+</li>
+        <li><a href="functions/datetime.html#date_diff">date_diff()</a>
+</li>
+        <li><a href="functions/datetime.html#date_format">date_format()</a>
+</li>
+        <li><a href="functions/datetime.html#date_trunc">date_trunc()</a>
+</li>
+        <li><a href="functions/datetime.html#day">day()</a>
+</li>
+        <li><a href="functions/datetime.html#day_of_month">day_of_month()</a>
+</li>
+        <li><a href="functions/datetime.html#day_of_week">day_of_week()</a>
+</li>
+        <li><a href="functions/datetime.html#day_of_year">day_of_year()</a>
+</li>
+        <li><a href="functions/math.html#degrees">degrees()</a>
+</li>
+        <li><a href="functions/window.html#dense_rank">dense_rank()</a>
+</li>
+        <li><a href="functions/array.html#dot_product">dot_product()</a>
+</li>
+        <li><a href="functions/datetime.html#dow">dow()</a>
+</li>
+        <li><a href="functions/datetime.html#doy">doy()</a>
+</li>
+        <li><a href="functions/math.html#e">e()</a>
+</li>
+        <li><a href="functions/array.html#element_at">element_at()</a>
+</li>
+        <li><a href="functions/hyperloglog.html#empty_approx_set">empty_approx_set()</a>
+</li>
+        <li><a href="functions/array.html#euclidean_distance">euclidean_distance()</a>
+</li>
+        <li><a href="functions/aggregate.html#every">every()</a>
+</li>
+        <li><a href="functions/math.html#exp">exp()</a>
+</li>
+        <li><a href="functions/datetime.html#extract">extract()</a>
+</li>
+        <li><a href="functions/ml.html#features">features()</a>
+</li>
+        <li><a href="functions/array.html#filter">filter()</a>
+</li>
+        <li><a href="functions/window.html#first_value">first_value()</a>
+</li>
+        <li><a href="functions/array.html#flatten">flatten()</a>
+</li>
+        <li><a href="functions/math.html#floor">floor()</a>
+</li>
+        <li><a href="functions/conversion.html#format">format()</a>
+</li>
+        <li><a href="functions/datetime.html#format_datetime">format_datetime()</a>
+</li>
+        <li><a href="functions/conversion.html#format_number">format_number()</a>
+</li>
+        <li><a href="functions/math.html#from_base">from_base()</a>
+</li>
+        <li><a href="functions/binary.html#from_base32">from_base32()</a>
+</li>
+        <li><a href="functions/binary.html#from_base64">from_base64()</a>
+</li>
+        <li><a href="functions/binary.html#from_base64url">from_base64url()</a>
+</li>
+        <li><a href="functions/binary.html#from_big_endian_32">from_big_endian_32()</a>
+</li>
+        <li><a href="functions/binary.html#from_big_endian_64">from_big_endian_64()</a>
+</li>
+        <li><a href="functions/geospatial.html#from_encoded_polyline">from_encoded_polyline()</a>
+</li>
+        <li><a href="functions/geospatial.html#from_geojson_geometry">from_geojson_geometry()</a>
+</li>
+        <li><a href="functions/binary.html#from_hex">from_hex()</a>
+</li>
+        <li><a href="functions/binary.html#from_ieee754_32">from_ieee754_32()</a>
+</li>
+        <li><a href="functions/binary.html#from_ieee754_64">from_ieee754_64()</a>
+</li>
+        <li><a href="functions/datetime.html#from_iso8601_date">from_iso8601_date()</a>
+</li>
+        <li><a href="functions/datetime.html#from_iso8601_timestamp">from_iso8601_timestamp()</a>
+</li>
+        <li><a href="functions/datetime.html#from_iso8601_timestamp_nanos">from_iso8601_timestamp_nanos()</a>
+</li>
+        <li><a href="functions/datetime.html#from_unixtime">from_unixtime()</a>
+</li>
+        <li><a href="functions/datetime.html#from_unixtime_nanos">from_unixtime_nanos()</a>
+</li>
+        <li><a href="functions/string.html#from_utf8">from_utf8()</a>
+</li>
+        <li><a href="functions/aggregate.html#geometric_mean">geometric_mean()</a>
+</li>
+        <li><a href="functions/geospatial.html#geometry_from_hadoop_shape">geometry_from_hadoop_shape()</a>
+</li>
+        <li><a href="functions/geospatial.html#geometry_invalid_reason">geometry_invalid_reason()</a>
+</li>
+        <li><a href="functions/geospatial.html#geometry_nearest_points">geometry_nearest_points()</a>
+</li>
+        <li><a href="functions/geospatial.html#geometry_to_bing_tiles">geometry_to_bing_tiles()</a>
+</li>
+        <li><a href="functions/geospatial.html#geometry_union">geometry_union()</a>
+</li>
+        <li><a href="functions/geospatial.html#geometry_union_agg">geometry_union_agg()</a>
+</li>
+        <li><a href="functions/geospatial.html#great_circle_distance">great_circle_distance()</a>
+</li>
+        <li><a href="functions/comparison.html#greatest">greatest()</a>
+</li>
+        <li><a href="functions/string.html#hamming_distance">hamming_distance()</a>
+</li>
+        <li><a href="functions/setdigest.html#hash_counts">hash_counts()</a>
+</li>
+        <li><a href="functions/aggregate.html#histogram">histogram()</a>
+</li>
+        <li><a href="functions/binary.html#hmac_md5">hmac_md5()</a>
+</li>
+        <li><a href="functions/binary.html#hmac_sha1">hmac_sha1()</a>
+</li>
+        <li><a href="functions/binary.html#hmac_sha256">hmac_sha256()</a>
+</li>
+        <li><a href="functions/binary.html#hmac_sha512">hmac_sha512()</a>
+</li>
+        <li><a href="functions/datetime.html#hour">hour()</a>
+</li>
+        <li><a href="functions/datetime.html#human_readable_seconds">human_readable_seconds()</a>
+</li>
+        <li><a href="functions/conditional.html#id0">if()</a>
+</li>
+        <li><a href="functions/teradata.html#index">index()</a>
+</li>
+        <li><a href="functions/math.html#infinity">infinity()</a>
+</li>
+        <li><a href="functions/setdigest.html#intersection_cardinality">intersection_cardinality()</a>
+</li>
+        <li><a href="functions/math.html#inverse_beta_cdf">inverse_beta_cdf()</a>
+</li>
+        <li><a href="functions/math.html#inverse_normal_cdf">inverse_normal_cdf()</a>
+</li>
+        <li><a href="functions/math.html#is_finite">is_finite()</a>
+</li>
+        <li><a href="functions/math.html#is_infinite">is_infinite()</a>
+</li>
+        <li><a href="functions/json.html#is_json_scalar">is_json_scalar()</a>
+</li>
+        <li><a href="functions/math.html#is_nan">is_nan()</a>
+</li>
+        <li><a href="functions/setdigest.html#jaccard_index">jaccard_index()</a>
+</li>
+        <li><a href="functions/json.html#json_array_contains">json_array_contains()</a>
+</li>
+        <li><a href="functions/json.html#json_array_get">json_array_get()</a>
+</li>
+        <li><a href="functions/json.html#json_array_length">json_array_length()</a>
+</li>
+        <li><a href="functions/json.html#json_extract">json_extract()</a>
+</li>
+        <li><a href="functions/json.html#json_extract_scalar">json_extract_scalar()</a>
+</li>
+        <li><a href="functions/json.html#json_format">json_format()</a>
+</li>
+        <li><a href="functions/json.html#json_parse">json_parse()</a>
+</li>
+        <li><a href="functions/json.html#json_size">json_size()</a>
+</li>
+        <li><a href="functions/aggregate.html#kurtosis">kurtosis()</a>
+</li>
+        <li><a href="functions/window.html#lag">lag()</a>
+</li>
+        <li><a href="functions/datetime.html#last_day_of_month">last_day_of_month()</a>
+</li>
+        <li><a href="functions/window.html#last_value">last_value()</a>
+</li>
+        <li><a href="functions/window.html#lead">lead()</a>
+</li>
+        <li><a href="functions/ml.html#learn_classifier">learn_classifier()</a>
+</li>
+        <li><a href="functions/ml.html#learn_libsvm_classifier">learn_libsvm_classifier()</a>
+</li>
+        <li><a href="functions/ml.html#learn_libsvm_regressor">learn_libsvm_regressor()</a>
+</li>
+        <li><a href="functions/ml.html#learn_regressor">learn_regressor()</a>
+</li>
+        <li><a href="functions/comparison.html#least">least()</a>
+</li>
+        <li><a href="functions/string.html#length">length()</a>
+</li>
+        <li><a href="functions/string.html#levenshtein_distance">levenshtein_distance()</a>
+</li>
+        <li><a href="functions/geospatial.html#line_interpolate_point">line_interpolate_point()</a>
+</li>
+        <li><a href="functions/geospatial.html#line_interpolate_points">line_interpolate_points()</a>
+</li>
+        <li><a href="functions/geospatial.html#line_locate_point">line_locate_point()</a>
+</li>
+        <li><a href="functions/aggregate.html#listagg">listagg()</a>
+</li>
+        <li><a href="functions/math.html#ln">ln()</a>
+</li>
+        <li><a href="functions/math.html#log">log()</a>
+</li>
+        <li><a href="functions/math.html#log10">log10()</a>
+</li>
+        <li><a href="functions/math.html#log2">log2()</a>
+</li>
+        <li><a href="functions/string.html#lower">lower()</a>
+</li>
+        <li><a href="functions/string.html#lpad">lpad()</a>
+</li>
+        <li><a href="functions/string.html#ltrim">ltrim()</a>
+</li>
+        <li><a href="functions/string.html#luhn_check">luhn_check()</a>
+</li>
+        <li><a href="functions/setdigest.html#make_set_digest">make_set_digest()</a>
+</li>
+        <li><a href="functions/map.html#map">map()</a>
+</li>
+        <li><a href="functions/aggregate.html#map_agg">map_agg()</a>
+</li>
+        <li><a href="functions/map.html#map_concat">map_concat()</a>
+</li>
+        <li><a href="functions/map.html#map_entries">map_entries()</a>
+</li>
+        <li><a href="functions/map.html#map_filter">map_filter()</a>
+</li>
+        <li><a href="functions/map.html#map_from_entries">map_from_entries()</a>
+</li>
+        <li><a href="functions/map.html#map_keys">map_keys()</a>
+</li>
+        <li><a href="functions/aggregate.html#map_union">map_union()</a>
+</li>
+        <li><a href="functions/map.html#map_values">map_values()</a>
+</li>
+        <li><a href="functions/map.html#map_zip_with">map_zip_with()</a>
+</li>
+        <li><a href="functions/aggregate.html#max">max()</a>
+</li>
+        <li><a href="functions/aggregate.html#max_by">max_by()</a>
+</li>
+        <li><a href="functions/binary.html#md5">md5()</a>
+</li>
+        <li><a href="functions/hyperloglog.html#merge">merge()</a>
+</li>
+        <li><a href="functions/setdigest.html#merge_set_digest">merge_set_digest()</a>
+</li>
+        <li><a href="functions/datetime.html#millisecond">millisecond()</a>
+</li>
+        <li><a href="functions/aggregate.html#min">min()</a>
+</li>
+        <li><a href="functions/aggregate.html#min_by">min_by()</a>
+</li>
+        <li><a href="functions/datetime.html#minute">minute()</a>
+</li>
+        <li><a href="functions/math.html#mod">mod()</a>
+</li>
+        <li><a href="functions/datetime.html#month">month()</a>
+</li>
+        <li><a href="functions/aggregate.html#multimap_agg">multimap_agg()</a>
+</li>
+        <li><a href="functions/map.html#multimap_from_entries">multimap_from_entries()</a>
+</li>
+        <li><a href="functions/binary.html#murmur3">murmur3()</a>
+</li>
+        <li><a href="functions/math.html#nan">nan()</a>
+</li>
+        <li><a href="functions/array.html#ngrams">ngrams()</a>
+</li>
+        <li><a href="functions/array.html#none_match">none_match()</a>
+</li>
+        <li><a href="functions/math.html#normal_cdf">normal_cdf()</a>
+</li>
+        <li><a href="functions/string.html#normalize">normalize()</a>
+</li>
+        <li><a href="functions/datetime.html#now">now()</a>
+</li>
+        <li><a href="functions/window.html#nth_value">nth_value()</a>
+</li>
+        <li><a href="functions/window.html#ntile">ntile()</a>
+</li>
+        <li><a href="functions/conditional.html#id2">nullif()</a>
+</li>
+        <li><a href="functions/aggregate.html#numeric_histogram">numeric_histogram()</a>
+</li>
+        <li><a href="connector/mongodb.html#objectid_timestamp">objectid_timestamp()</a>
+</li>
+        <li><a href="functions/conversion.html#parse_data_size">parse_data_size()</a>
+</li>
+        <li><a href="functions/datetime.html#parse_datetime">parse_datetime()</a>
+</li>
+        <li><a href="functions/datetime.html#parse_duration">parse_duration()</a>
+</li>
+        <li><a href="functions/window.html#percent_rank">percent_rank()</a>
+</li>
+        <li><a href="functions/math.html#pi">pi()</a>
+</li>
+        <li><a href="functions/string.html#position">position()</a>
+</li>
+        <li><a href="functions/math.html#pow">pow()</a>
+</li>
+        <li><a href="functions/math.html#power">power()</a>
+</li>
+        <li><a href="functions/qdigest.html#qdigest_agg">qdigest_agg()</a>
+</li>
+        <li><a href="functions/qdigest.html#quantile_at_value">quantile_at_value()</a>
+</li>
+        <li><a href="functions/datetime.html#quarter">quarter()</a>
+</li>
+        <li><a href="functions/math.html#radians">radians()</a>
+</li>
+        <li><a href="functions/math.html#rand">rand()</a>
+</li>
+        <li><a href="functions/math.html#random">random()</a>
+</li>
+        <li><a href="connector/faker.html#random_string">random_string()</a>
+</li>
+        <li><a href="functions/window.html#rank">rank()</a>
+</li>
+        <li><a href="functions/array.html#reduce">reduce()</a>
+</li>
+        <li><a href="functions/aggregate.html#reduce_agg">reduce_agg()</a>
+</li>
+        <li><a href="functions/regexp.html#regexp_count">regexp_count()</a>
+</li>
+        <li><a href="functions/regexp.html#regexp_extract">regexp_extract()</a>
+</li>
+        <li><a href="functions/regexp.html#regexp_extract_all">regexp_extract_all()</a>
+</li>
+        <li><a href="functions/regexp.html#regexp_like">regexp_like()</a>
+</li>
+        <li><a href="functions/regexp.html#regexp_position">regexp_position()</a>
+</li>
+        <li><a href="functions/regexp.html#regexp_replace">regexp_replace()</a>
+</li>
+        <li><a href="functions/regexp.html#regexp_split">regexp_split()</a>
+</li>
+        <li><a href="functions/aggregate.html#regr_intercept">regr_intercept()</a>
+</li>
+        <li><a href="functions/aggregate.html#regr_slope">regr_slope()</a>
+</li>
+        <li><a href="functions/ml.html#regress">regress()</a>
+</li>
+        <li><a href="functions/color.html#render">render()</a>
+</li>
+        <li><a href="functions/array.html#repeat">repeat()</a>
+</li>
+        <li><a href="functions/string.html#replace">replace()</a>
+</li>
+        <li><a href="functions/string.html#reverse">reverse()</a>
+</li>
+        <li><a href="functions/color.html#rgb">rgb()</a>
+</li>
+        <li><a href="functions/math.html#round">round()</a>
+</li>
+        <li><a href="functions/window.html#row_number">row_number()</a>
+</li>
+        <li><a href="functions/string.html#rpad">rpad()</a>
+</li>
+        <li><a href="functions/string.html#rtrim">rtrim()</a>
+</li>
+        <li><a href="connector/system.html#runtime.kill_query">runtime.kill_query()</a>
+</li>
+        <li><a href="functions/datetime.html#second">second()</a>
+</li>
+        <li><a href="functions/array.html#sequence">sequence()</a>
+</li>
+        <li><a href="functions/binary.html#sha1">sha1()</a>
+</li>
+        <li><a href="functions/binary.html#sha256">sha256()</a>
+</li>
+        <li><a href="functions/binary.html#sha512">sha512()</a>
+</li>
+        <li><a href="functions/array.html#shuffle">shuffle()</a>
+</li>
+        <li><a href="functions/math.html#sign">sign()</a>
+</li>
+        <li><a href="functions/geospatial.html#simplify_geometry">simplify_geometry()</a>
+</li>
+        <li><a href="functions/math.html#sin">sin()</a>
+</li>
+        <li><a href="functions/math.html#sinh">sinh()</a>
+</li>
+        <li><a href="functions/aggregate.html#skewness">skewness()</a>
+</li>
+        <li><a href="functions/array.html#slice">slice()</a>
+</li>
+        <li><a href="functions/string.html#soundex">soundex()</a>
+</li>
+        <li><a href="functions/string.html#split">split()</a>
+</li>
+        <li><a href="functions/string.html#split_part">split_part()</a>
+</li>
+        <li><a href="functions/string.html#split_to_map">split_to_map()</a>
+</li>
+        <li><a href="functions/string.html#split_to_multimap">split_to_multimap()</a>
+</li>
+        <li><a href="functions/binary.html#spooky_hash_v2_32">spooky_hash_v2_32()</a>
+</li>
+        <li><a href="functions/binary.html#spooky_hash_v2_64">spooky_hash_v2_64()</a>
+</li>
+        <li><a href="functions/math.html#sqrt">sqrt()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Area">ST_Area()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_AsBinary">ST_AsBinary()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_AsText">ST_AsText()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Boundary">ST_Boundary()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Buffer">ST_Buffer()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Centroid">ST_Centroid()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Contains">ST_Contains()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_ConvexHull">ST_ConvexHull()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_CoordDim">ST_CoordDim()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Crosses">ST_Crosses()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Difference">ST_Difference()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Dimension">ST_Dimension()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Disjoint">ST_Disjoint()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Distance">ST_Distance()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_EndPoint">ST_EndPoint()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Envelope">ST_Envelope()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_EnvelopeAsPts">ST_EnvelopeAsPts()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Equals">ST_Equals()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_ExteriorRing">ST_ExteriorRing()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Geometries">ST_Geometries()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_GeometryFromText">ST_GeometryFromText()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_GeometryN">ST_GeometryN()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_GeometryType">ST_GeometryType()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_GeomFromBinary">ST_GeomFromBinary()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_GeomFromKML">ST_GeomFromKML()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_InteriorRingN">ST_InteriorRingN()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_InteriorRings">ST_InteriorRings()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Intersection">ST_Intersection()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Intersects">ST_Intersects()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_IsClosed">ST_IsClosed()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_IsEmpty">ST_IsEmpty()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_IsRing">ST_IsRing()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_IsSimple">ST_IsSimple()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_IsValid">ST_IsValid()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Length">ST_Length()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_LineFromText">ST_LineFromText()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_LineString">ST_LineString()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_MultiPoint">ST_MultiPoint()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_NumGeometries">ST_NumGeometries()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_NumInteriorRing">ST_NumInteriorRing()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_NumPoints">ST_NumPoints()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Overlaps">ST_Overlaps()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Point">ST_Point()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_PointN">ST_PointN()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Points">ST_Points()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Polygon">ST_Polygon()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Relate">ST_Relate()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_StartPoint">ST_StartPoint()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_SymDifference">ST_SymDifference()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Touches">ST_Touches()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Union">ST_Union()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Within">ST_Within()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_X">ST_X()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_XMax">ST_XMax()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_XMin">ST_XMin()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_Y">ST_Y()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_YMax">ST_YMax()</a>
+</li>
+        <li><a href="functions/geospatial.html#ST_YMin">ST_YMin()</a>
+</li>
+        <li><a href="functions/string.html#starts_with">starts_with()</a>
+</li>
+        <li><a href="functions/aggregate.html#stddev">stddev()</a>
+</li>
+        <li><a href="functions/aggregate.html#stddev_pop">stddev_pop()</a>
+</li>
+        <li><a href="functions/aggregate.html#stddev_samp">stddev_samp()</a>
+</li>
+        <li><a href="functions/string.html#strpos">strpos()</a>
+</li>
+        <li><a href="functions/string.html#substr">substr()</a>
+</li>
+        <li><a href="functions/string.html#substring">substring()</a>
+</li>
+        <li><a href="functions/aggregate.html#sum">sum()</a>
+</li>
+        <li><a href="functions/math.html#t_cdf">t_cdf()</a>
+</li>
+        <li><a href="functions/math.html#t_pdf">t_pdf()</a>
+</li>
+        <li><a href="functions/math.html#tan">tan()</a>
+</li>
+        <li><a href="functions/math.html#tanh">tanh()</a>
+</li>
+        <li><a href="functions/tdigest.html#tdigest_agg">tdigest_agg()</a>
+</li>
+        <li><a href="connector/mongodb.html#timestamp_objectid">timestamp_objectid()</a>
+</li>
+        <li><a href="functions/datetime.html#timezone">timezone()</a>
+</li>
+        <li><a href="functions/datetime.html#timezone_hour">timezone_hour()</a>
+</li>
+        <li><a href="functions/datetime.html#timezone_minute">timezone_minute()</a>
+</li>
+        <li><a href="functions/math.html#to_base">to_base()</a>
+</li>
+        <li><a href="functions/binary.html#to_base32">to_base32()</a>
+</li>
+        <li><a href="functions/binary.html#to_base64">to_base64()</a>
+</li>
+        <li><a href="functions/binary.html#to_base64url">to_base64url()</a>
+</li>
+        <li><a href="functions/binary.html#to_big_endian_32">to_big_endian_32()</a>
+</li>
+        <li><a href="functions/binary.html#to_big_endian_64">to_big_endian_64()</a>
+</li>
+        <li><a href="functions/teradata.html#to_char">to_char()</a>
+</li>
+        <li><a href="functions/teradata.html#to_date">to_date()</a>
+</li>
+        <li><a href="functions/geospatial.html#to_encoded_polyline">to_encoded_polyline()</a>
+</li>
+        <li><a href="functions/geospatial.html#to_geojson_geometry">to_geojson_geometry()</a>
+</li>
+        <li><a href="functions/geospatial.html#to_geometry">to_geometry()</a>
+</li>
+        <li><a href="functions/binary.html#to_hex">to_hex()</a>
+</li>
+        <li><a href="functions/binary.html#to_ieee754_32">to_ieee754_32()</a>
+</li>
+        <li><a href="functions/binary.html#to_ieee754_64">to_ieee754_64()</a>
+</li>
+        <li><a href="functions/datetime.html#to_iso8601">to_iso8601()</a>
+</li>
+        <li><a href="functions/datetime.html#to_milliseconds">to_milliseconds()</a>
+</li>
+        <li><a href="functions/geospatial.html#to_spherical_geography">to_spherical_geography()</a>
+</li>
+        <li><a href="functions/teradata.html#to_timestamp">to_timestamp()</a>
+</li>
+        <li><a href="functions/datetime.html#to_unixtime">to_unixtime()</a>
+</li>
+        <li><a href="functions/string.html#to_utf8">to_utf8()</a>
+</li>
+        <li><a href="functions/array.html#transform">transform()</a>
+</li>
+        <li><a href="functions/map.html#transform_keys">transform_keys()</a>
+</li>
+        <li><a href="functions/map.html#transform_values">transform_values()</a>
+</li>
+        <li><a href="functions/string.html#translate">translate()</a>
+</li>
+        <li><a href="functions/string.html#trim">trim()</a>
+</li>
+        <li><a href="functions/array.html#trim_array">trim_array()</a>
+</li>
+        <li><a href="functions/math.html#truncate">truncate()</a>
+</li>
+        <li><a href="functions/conditional.html#id3">try()</a>
+</li>
+        <li><a href="functions/conversion.html#try_cast">try_cast()</a>
+</li>
+        <li><a href="functions/conversion.html#typeof">typeof()</a>
+</li>
+        <li><a href="functions/string.html#upper">upper()</a>
+</li>
+        <li><a href="functions/url.html#url_decode">url_decode()</a>
+</li>
+        <li><a href="functions/url.html#url_encode">url_encode()</a>
+</li>
+        <li><a href="functions/url.html#url_extract_fragment">url_extract_fragment()</a>
+</li>
+        <li><a href="functions/url.html#url_extract_host">url_extract_host()</a>
+</li>
+        <li><a href="functions/url.html#url_extract_parameter">url_extract_parameter()</a>
+</li>
+        <li><a href="functions/url.html#url_extract_path">url_extract_path()</a>
+</li>
+        <li><a href="functions/url.html#url_extract_port">url_extract_port()</a>
+</li>
+        <li><a href="functions/url.html#url_extract_protocol">url_extract_protocol()</a>
+</li>
+        <li><a href="functions/url.html#url_extract_query">url_extract_query()</a>
+</li>
+        <li><a href="functions/uuid.html#uuid">uuid()</a>
+</li>
+        <li><a href="functions/qdigest.html#value_at_quantile">value_at_quantile()</a>
+</li>
+        <li><a href="functions/qdigest.html#values_at_quantiles">values_at_quantiles()</a>
+</li>
+        <li><a href="functions/aggregate.html#var_pop">var_pop()</a>
+</li>
+        <li><a href="functions/aggregate.html#var_samp">var_samp()</a>
+</li>
+        <li><a href="functions/aggregate.html#variance">variance()</a>
+</li>
+        <li><a href="functions/system.html#version">version()</a>
+</li>
+        <li><a href="functions/datetime.html#week">week()</a>
+</li>
+        <li><a href="functions/datetime.html#week_of_year">week_of_year()</a>
+</li>
+        <li><a href="functions/math.html#width_bucket">width_bucket()</a>
+</li>
+        <li><a href="functions/math.html#wilson_interval_lower">wilson_interval_lower()</a>
+</li>
+        <li><a href="functions/math.html#wilson_interval_upper">wilson_interval_upper()</a>
+</li>
+        <li><a href="functions/datetime.html#with_timezone">with_timezone()</a>
+</li>
+        <li><a href="functions/string.html#word_stem">word_stem()</a>
+</li>
+        <li><a href="functions/binary.html#xxhash64">xxhash64()</a>
+</li>
+        <li><a href="functions/datetime.html#year">year()</a>
+</li>
+        <li><a href="functions/datetime.html#year_of_week">year_of_week()</a>
+</li>
+        <li><a href="functions/datetime.html#yow">yow()</a>
+</li>
+        <li><a href="functions/array.html#zip">zip()</a>
+</li>
+        <li><a href="functions/array.html#zip_with">zip_with()</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    cardinality()
+
+      <ul>
+        <li><a href="functions/array.html#cardinality">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    cast()
+
+      <ul>
+        <li><a href="functions/conversion.html#cast">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    cbrt()
+
+      <ul>
+        <li><a href="functions/math.html#cbrt">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ceil()
+
+      <ul>
+        <li><a href="functions/math.html#ceil">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ceiling()
+
+      <ul>
+        <li><a href="functions/math.html#ceiling">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    char2hexint()
+
+      <ul>
+        <li><a href="functions/teradata.html#char2hexint">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    checksum()
+
+      <ul>
+        <li><a href="functions/aggregate.html#checksum">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    chr()
+
+      <ul>
+        <li><a href="functions/string.html#chr">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    classify()
+
+      <ul>
+        <li><a href="functions/ml.html#classify">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    coalesce()
+
+      <ul>
+        <li><a href="functions/conditional.html#id1">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    codepoint()
+
+      <ul>
+        <li><a href="functions/string.html#codepoint">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    color()
+
+      <ul>
+        <li><a href="functions/color.html#color">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    combinations()
+
+      <ul>
+        <li><a href="functions/array.html#combinations">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    concat()
+
+      <ul>
+        <li><a href="functions/string.html#concat">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    concat_ws()
+
+      <ul>
+        <li><a href="functions/string.html#concat_ws">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    contains()
+
+      <ul>
+        <li><a href="functions/array.html#contains">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    contains_sequence()
+
+      <ul>
+        <li><a href="functions/array.html#contains_sequence">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    convex_hull_agg()
+
+      <ul>
+        <li><a href="functions/geospatial.html#convex_hull_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    corr()
+
+      <ul>
+        <li><a href="functions/aggregate.html#corr">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    cos()
+
+      <ul>
+        <li><a href="functions/math.html#cos">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    cosh()
+
+      <ul>
+        <li><a href="functions/math.html#cosh">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    cosine_distance()
+
+      <ul>
+        <li><a href="functions/math.html#cosine_distance">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    cosine_similarity()
+
+      <ul>
+        <li><a href="functions/math.html#cosine_similarity">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    count()
+
+      <ul>
+        <li><a href="functions/aggregate.html#count">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    count_if()
+
+      <ul>
+        <li><a href="functions/aggregate.html#count_if">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    covar_pop()
+
+      <ul>
+        <li><a href="functions/aggregate.html#covar_pop">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    covar_samp()
+
+      <ul>
+        <li><a href="functions/aggregate.html#covar_samp">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    crc32()
+
+      <ul>
+        <li><a href="functions/binary.html#crc32">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    cume_dist()
+
+      <ul>
+        <li><a href="functions/window.html#cume_dist">built-in function</a>
+</li>
+      </ul></li>
+      <li><a href="functions/session.html#current_catalog">current_catalog (built-in variable)</a>
+</li>
+      <li><a href="functions/datetime.html#current_date">current_date (built-in variable)</a>
+</li>
+      <li>
+    current_groups()
+
+      <ul>
+        <li><a href="functions/session.html#current_groups">built-in function</a>
+</li>
+      </ul></li>
+      <li><a href="functions/session.html#current_schema">current_schema (built-in variable)</a>
+</li>
+      <li><a href="functions/datetime.html#current_time">current_time (built-in variable)</a>
+</li>
+      <li><a href="functions/datetime.html#current_timestamp">current_timestamp (built-in variable)</a>
+</li>
+      <li>
+    current_timezone()
+
+      <ul>
+        <li><a href="functions/datetime.html#current_timezone">built-in function</a>
+</li>
+      </ul></li>
+      <li><a href="functions/session.html#current_user">current_user (built-in variable)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    date()
+
+      <ul>
+        <li><a href="functions/datetime.html#date">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    date_add()
+
+      <ul>
+        <li><a href="functions/datetime.html#date_add">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    date_diff()
+
+      <ul>
+        <li><a href="functions/datetime.html#date_diff">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    date_format()
+
+      <ul>
+        <li><a href="functions/datetime.html#date_format">built-in function</a>
+</li>
+      </ul></li>
+      <li><a href="functions/datetime.html#date_parse">date_parse() (built-in function)</a>
+</li>
+      <li>
+    date_trunc()
+
+      <ul>
+        <li><a href="functions/datetime.html#date_trunc">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    day()
+
+      <ul>
+        <li><a href="functions/datetime.html#day">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    day_of_month()
+
+      <ul>
+        <li><a href="functions/datetime.html#day_of_month">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    day_of_week()
+
+      <ul>
+        <li><a href="functions/datetime.html#day_of_week">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    day_of_year()
+
+      <ul>
+        <li><a href="functions/datetime.html#day_of_year">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    degrees()
+
+      <ul>
+        <li><a href="functions/math.html#degrees">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    dense_rank()
+
+      <ul>
+        <li><a href="functions/window.html#dense_rank">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    dot_product()
+
+      <ul>
+        <li><a href="functions/array.html#dot_product">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    dow()
+
+      <ul>
+        <li><a href="functions/datetime.html#dow">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    doy()
+
+      <ul>
+        <li><a href="functions/datetime.html#doy">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    e()
+
+      <ul>
+        <li><a href="functions/math.html#e">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    element_at()
+
+      <ul>
+        <li><a href="functions/array.html#element_at">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    empty_approx_set()
+
+      <ul>
+        <li><a href="functions/hyperloglog.html#empty_approx_set">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    euclidean_distance()
+
+      <ul>
+        <li><a href="functions/array.html#euclidean_distance">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    every()
+
+      <ul>
+        <li><a href="functions/aggregate.html#every">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    exp()
+
+      <ul>
+        <li><a href="functions/math.html#exp">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    extract()
+
+      <ul>
+        <li><a href="functions/datetime.html#extract">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    features()
+
+      <ul>
+        <li><a href="functions/ml.html#features">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    filter()
+
+      <ul>
+        <li><a href="functions/array.html#filter">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    first_value()
+
+      <ul>
+        <li><a href="functions/window.html#first_value">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    flatten()
+
+      <ul>
+        <li><a href="functions/array.html#flatten">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    floor()
+
+      <ul>
+        <li><a href="functions/math.html#floor">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    format()
+
+      <ul>
+        <li><a href="functions/conversion.html#format">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    format_datetime()
+
+      <ul>
+        <li><a href="functions/datetime.html#format_datetime">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    format_number()
+
+      <ul>
+        <li><a href="functions/conversion.html#format_number">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_base()
+
+      <ul>
+        <li><a href="functions/math.html#from_base">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_base32()
+
+      <ul>
+        <li><a href="functions/binary.html#from_base32">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_base64()
+
+      <ul>
+        <li><a href="functions/binary.html#from_base64">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_base64url()
+
+      <ul>
+        <li><a href="functions/binary.html#from_base64url">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_big_endian_32()
+
+      <ul>
+        <li><a href="functions/binary.html#from_big_endian_32">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    from_big_endian_64()
+
+      <ul>
+        <li><a href="functions/binary.html#from_big_endian_64">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_encoded_polyline()
+
+      <ul>
+        <li><a href="functions/geospatial.html#from_encoded_polyline">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_geojson_geometry()
+
+      <ul>
+        <li><a href="functions/geospatial.html#from_geojson_geometry">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_hex()
+
+      <ul>
+        <li><a href="functions/binary.html#from_hex">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_ieee754_32()
+
+      <ul>
+        <li><a href="functions/binary.html#from_ieee754_32">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_ieee754_64()
+
+      <ul>
+        <li><a href="functions/binary.html#from_ieee754_64">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_iso8601_date()
+
+      <ul>
+        <li><a href="functions/datetime.html#from_iso8601_date">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_iso8601_timestamp()
+
+      <ul>
+        <li><a href="functions/datetime.html#from_iso8601_timestamp">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_iso8601_timestamp_nanos()
+
+      <ul>
+        <li><a href="functions/datetime.html#from_iso8601_timestamp_nanos">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_unixtime()
+
+      <ul>
+        <li><a href="functions/datetime.html#from_unixtime">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_unixtime_nanos()
+
+      <ul>
+        <li><a href="functions/datetime.html#from_unixtime_nanos">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    from_utf8()
+
+      <ul>
+        <li><a href="functions/string.html#from_utf8">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    geometric_mean()
+
+      <ul>
+        <li><a href="functions/aggregate.html#geometric_mean">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    geometry_from_hadoop_shape()
+
+      <ul>
+        <li><a href="functions/geospatial.html#geometry_from_hadoop_shape">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    geometry_invalid_reason()
+
+      <ul>
+        <li><a href="functions/geospatial.html#geometry_invalid_reason">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    geometry_nearest_points()
+
+      <ul>
+        <li><a href="functions/geospatial.html#geometry_nearest_points">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    geometry_to_bing_tiles()
+
+      <ul>
+        <li><a href="functions/geospatial.html#geometry_to_bing_tiles">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    geometry_union()
+
+      <ul>
+        <li><a href="functions/geospatial.html#geometry_union">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    geometry_union_agg()
+
+      <ul>
+        <li><a href="functions/geospatial.html#geometry_union_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    great_circle_distance()
+
+      <ul>
+        <li><a href="functions/geospatial.html#great_circle_distance">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    greatest()
+
+      <ul>
+        <li><a href="functions/comparison.html#greatest">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    hamming_distance()
+
+      <ul>
+        <li><a href="functions/string.html#hamming_distance">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    hash_counts()
+
+      <ul>
+        <li><a href="functions/setdigest.html#hash_counts">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    histogram()
+
+      <ul>
+        <li><a href="functions/aggregate.html#histogram">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    hmac_md5()
+
+      <ul>
+        <li><a href="functions/binary.html#hmac_md5">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    hmac_sha1()
+
+      <ul>
+        <li><a href="functions/binary.html#hmac_sha1">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    hmac_sha256()
+
+      <ul>
+        <li><a href="functions/binary.html#hmac_sha256">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    hmac_sha512()
+
+      <ul>
+        <li><a href="functions/binary.html#hmac_sha512">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    hour()
+
+      <ul>
+        <li><a href="functions/datetime.html#hour">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    human_readable_seconds()
+
+      <ul>
+        <li><a href="functions/datetime.html#human_readable_seconds">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    if()
+
+      <ul>
+        <li><a href="functions/conditional.html#id0">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    index()
+
+      <ul>
+        <li><a href="functions/teradata.html#index">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    infinity()
+
+      <ul>
+        <li><a href="functions/math.html#infinity">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    intersection_cardinality()
+
+      <ul>
+        <li><a href="functions/setdigest.html#intersection_cardinality">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    inverse_beta_cdf()
+
+      <ul>
+        <li><a href="functions/math.html#inverse_beta_cdf">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    inverse_normal_cdf()
+
+      <ul>
+        <li><a href="functions/math.html#inverse_normal_cdf">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    is_finite()
+
+      <ul>
+        <li><a href="functions/math.html#is_finite">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    is_infinite()
+
+      <ul>
+        <li><a href="functions/math.html#is_infinite">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    is_json_scalar()
+
+      <ul>
+        <li><a href="functions/json.html#is_json_scalar">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    is_nan()
+
+      <ul>
+        <li><a href="functions/math.html#is_nan">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    jaccard_index()
+
+      <ul>
+        <li><a href="functions/setdigest.html#jaccard_index">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    json_array_contains()
+
+      <ul>
+        <li><a href="functions/json.html#json_array_contains">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    json_array_get()
+
+      <ul>
+        <li><a href="functions/json.html#json_array_get">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    json_array_length()
+
+      <ul>
+        <li><a href="functions/json.html#json_array_length">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    json_extract()
+
+      <ul>
+        <li><a href="functions/json.html#json_extract">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    json_extract_scalar()
+
+      <ul>
+        <li><a href="functions/json.html#json_extract_scalar">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    json_format()
+
+      <ul>
+        <li><a href="functions/json.html#json_format">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    json_parse()
+
+      <ul>
+        <li><a href="functions/json.html#json_parse">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    json_size()
+
+      <ul>
+        <li><a href="functions/json.html#json_size">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    kurtosis()
+
+      <ul>
+        <li><a href="functions/aggregate.html#kurtosis">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    lag()
+
+      <ul>
+        <li><a href="functions/window.html#lag">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    last_day_of_month()
+
+      <ul>
+        <li><a href="functions/datetime.html#last_day_of_month">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    last_value()
+
+      <ul>
+        <li><a href="functions/window.html#last_value">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    lead()
+
+      <ul>
+        <li><a href="functions/window.html#lead">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    learn_classifier()
+
+      <ul>
+        <li><a href="functions/ml.html#learn_classifier">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    learn_libsvm_classifier()
+
+      <ul>
+        <li><a href="functions/ml.html#learn_libsvm_classifier">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    learn_libsvm_regressor()
+
+      <ul>
+        <li><a href="functions/ml.html#learn_libsvm_regressor">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    learn_regressor()
+
+      <ul>
+        <li><a href="functions/ml.html#learn_regressor">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    least()
+
+      <ul>
+        <li><a href="functions/comparison.html#least">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    length()
+
+      <ul>
+        <li><a href="functions/string.html#length">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    levenshtein_distance()
+
+      <ul>
+        <li><a href="functions/string.html#levenshtein_distance">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    line_interpolate_point()
+
+      <ul>
+        <li><a href="functions/geospatial.html#line_interpolate_point">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    line_interpolate_points()
+
+      <ul>
+        <li><a href="functions/geospatial.html#line_interpolate_points">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    line_locate_point()
+
+      <ul>
+        <li><a href="functions/geospatial.html#line_locate_point">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    listagg()
+
+      <ul>
+        <li><a href="functions/aggregate.html#listagg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ln()
+
+      <ul>
+        <li><a href="functions/math.html#ln">built-in function</a>
+</li>
+      </ul></li>
+      <li><a href="functions/datetime.html#localtime">localtime (built-in variable)</a>
+</li>
+      <li><a href="functions/datetime.html#localtimestamp">localtimestamp (built-in variable)</a>
+</li>
+      <li>
+    log()
+
+      <ul>
+        <li><a href="functions/math.html#log">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    log10()
+
+      <ul>
+        <li><a href="functions/math.html#log10">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    log2()
+
+      <ul>
+        <li><a href="functions/math.html#log2">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    lower()
+
+      <ul>
+        <li><a href="functions/string.html#lower">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    lpad()
+
+      <ul>
+        <li><a href="functions/string.html#lpad">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ltrim()
+
+      <ul>
+        <li><a href="functions/string.html#ltrim">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    luhn_check()
+
+      <ul>
+        <li><a href="functions/string.html#luhn_check">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    make_set_digest()
+
+      <ul>
+        <li><a href="functions/setdigest.html#make_set_digest">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map()
+
+      <ul>
+        <li><a href="functions/map.html#map">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map_agg()
+
+      <ul>
+        <li><a href="functions/aggregate.html#map_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map_concat()
+
+      <ul>
+        <li><a href="functions/map.html#map_concat">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map_entries()
+
+      <ul>
+        <li><a href="functions/map.html#map_entries">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map_filter()
+
+      <ul>
+        <li><a href="functions/map.html#map_filter">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map_from_entries()
+
+      <ul>
+        <li><a href="functions/map.html#map_from_entries">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map_keys()
+
+      <ul>
+        <li><a href="functions/map.html#map_keys">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map_union()
+
+      <ul>
+        <li><a href="functions/aggregate.html#map_union">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map_values()
+
+      <ul>
+        <li><a href="functions/map.html#map_values">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    map_zip_with()
+
+      <ul>
+        <li><a href="functions/map.html#map_zip_with">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    max()
+
+      <ul>
+        <li><a href="functions/aggregate.html#max">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    max_by()
+
+      <ul>
+        <li><a href="functions/aggregate.html#max_by">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    md5()
+
+      <ul>
+        <li><a href="functions/binary.html#md5">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    merge()
+
+      <ul>
+        <li><a href="functions/hyperloglog.html#merge">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    merge_set_digest()
+
+      <ul>
+        <li><a href="functions/setdigest.html#merge_set_digest">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    millisecond()
+
+      <ul>
+        <li><a href="functions/datetime.html#millisecond">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    min()
+
+      <ul>
+        <li><a href="functions/aggregate.html#min">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    min_by()
+
+      <ul>
+        <li><a href="functions/aggregate.html#min_by">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    minute()
+
+      <ul>
+        <li><a href="functions/datetime.html#minute">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    mod()
+
+      <ul>
+        <li><a href="functions/math.html#mod">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    month()
+
+      <ul>
+        <li><a href="functions/datetime.html#month">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    multimap_agg()
+
+      <ul>
+        <li><a href="functions/aggregate.html#multimap_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    multimap_from_entries()
+
+      <ul>
+        <li><a href="functions/map.html#multimap_from_entries">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    murmur3()
+
+      <ul>
+        <li><a href="functions/binary.html#murmur3">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    nan()
+
+      <ul>
+        <li><a href="functions/math.html#nan">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ngrams()
+
+      <ul>
+        <li><a href="functions/array.html#ngrams">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    none_match()
+
+      <ul>
+        <li><a href="functions/array.html#none_match">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    normal_cdf()
+
+      <ul>
+        <li><a href="functions/math.html#normal_cdf">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    normalize()
+
+      <ul>
+        <li><a href="functions/string.html#normalize">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    now()
+
+      <ul>
+        <li><a href="functions/datetime.html#now">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    nth_value()
+
+      <ul>
+        <li><a href="functions/window.html#nth_value">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ntile()
+
+      <ul>
+        <li><a href="functions/window.html#ntile">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    nullif()
+
+      <ul>
+        <li><a href="functions/conditional.html#id2">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    numeric_histogram()
+
+      <ul>
+        <li><a href="functions/aggregate.html#numeric_histogram">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    objectid_timestamp()
+
+      <ul>
+        <li><a href="connector/mongodb.html#objectid_timestamp">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    parse_data_size()
+
+      <ul>
+        <li><a href="functions/conversion.html#parse_data_size">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    parse_datetime()
+
+      <ul>
+        <li><a href="functions/datetime.html#parse_datetime">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    parse_duration()
+
+      <ul>
+        <li><a href="functions/datetime.html#parse_duration">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    percent_rank()
+
+      <ul>
+        <li><a href="functions/window.html#percent_rank">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    pi()
+
+      <ul>
+        <li><a href="functions/math.html#pi">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    position()
+
+      <ul>
+        <li><a href="functions/string.html#position">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    pow()
+
+      <ul>
+        <li><a href="functions/math.html#pow">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    power()
+
+      <ul>
+        <li><a href="functions/math.html#power">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    qdigest_agg()
+
+      <ul>
+        <li><a href="functions/qdigest.html#qdigest_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    quantile_at_value()
+
+      <ul>
+        <li><a href="functions/qdigest.html#quantile_at_value">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    quarter()
+
+      <ul>
+        <li><a href="functions/datetime.html#quarter">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    radians()
+
+      <ul>
+        <li><a href="functions/math.html#radians">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    rand()
+
+      <ul>
+        <li><a href="functions/math.html#rand">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    random()
+
+      <ul>
+        <li><a href="functions/math.html#random">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    random_string()
+
+      <ul>
+        <li><a href="connector/faker.html#random_string">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    rank()
+
+      <ul>
+        <li><a href="functions/window.html#rank">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    reduce()
+
+      <ul>
+        <li><a href="functions/array.html#reduce">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    reduce_agg()
+
+      <ul>
+        <li><a href="functions/aggregate.html#reduce_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    regexp_count()
+
+      <ul>
+        <li><a href="functions/regexp.html#regexp_count">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    regexp_extract()
+
+      <ul>
+        <li><a href="functions/regexp.html#regexp_extract">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    regexp_extract_all()
+
+      <ul>
+        <li><a href="functions/regexp.html#regexp_extract_all">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    regexp_like()
+
+      <ul>
+        <li><a href="functions/regexp.html#regexp_like">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    regexp_position()
+
+      <ul>
+        <li><a href="functions/regexp.html#regexp_position">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    regexp_replace()
+
+      <ul>
+        <li><a href="functions/regexp.html#regexp_replace">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    regexp_split()
+
+      <ul>
+        <li><a href="functions/regexp.html#regexp_split">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    regr_intercept()
+
+      <ul>
+        <li><a href="functions/aggregate.html#regr_intercept">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    regr_slope()
+
+      <ul>
+        <li><a href="functions/aggregate.html#regr_slope">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    regress()
+
+      <ul>
+        <li><a href="functions/ml.html#regress">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    render()
+
+      <ul>
+        <li><a href="functions/color.html#render">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    repeat()
+
+      <ul>
+        <li><a href="functions/array.html#repeat">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    replace()
+
+      <ul>
+        <li><a href="functions/string.html#replace">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    reverse()
+
+      <ul>
+        <li><a href="functions/string.html#reverse">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    RFC
+
+      <ul>
+        <li><a href="functions/url.html#index-1">RFC 1866 Section 8.2.1</a>
+</li>
+        <li><a href="functions/url.html#index-0">RFC 2396</a>
+</li>
+        <li><a href="connector/kafka.html#index-2">RFC 2822</a>, <a href="connector/redis.html#index-1">[1]</a>
+</li>
+        <li><a href="language/types.html#index-2">RFC 4122</a>
+</li>
+        <li><a href="language/types.html#index-0">RFC 4291 Section 2.5.5.2</a>
+</li>
+        <li><a href="connector/kafka.html#index-0">RFC 4627</a>, <a href="connector/kafka.html#index-1">[1]</a>, <a href="connector/redis.html#index-0">[2]</a>
+</li>
+        <li><a href="functions/binary.html#index-0">RFC 4648</a>
+</li>
+        <li><a href="language/types.html#index-1">RFC 5952</a>
+</li>
+        <li><a href="functions/json.html#index-0">RFC 7159</a>, <a href="functions/json.html#index-1">[1]</a>
+</li>
+        <li><a href="release/release-334.html#index-0">RFC 7239</a>
+</li>
+      </ul></li>
+      <li>
+    rgb()
+
+      <ul>
+        <li><a href="functions/color.html#rgb">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    round()
+
+      <ul>
+        <li><a href="functions/math.html#round">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    row_number()
+
+      <ul>
+        <li><a href="functions/window.html#row_number">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    rpad()
+
+      <ul>
+        <li><a href="functions/string.html#rpad">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    rtrim()
+
+      <ul>
+        <li><a href="functions/string.html#rtrim">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    runtime.kill_query()
+
+      <ul>
+        <li><a href="connector/system.html#runtime.kill_query">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    second()
+
+      <ul>
+        <li><a href="functions/datetime.html#second">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    sequence()
+
+      <ul>
+        <li><a href="functions/array.html#sequence">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    sha1()
+
+      <ul>
+        <li><a href="functions/binary.html#sha1">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    sha256()
+
+      <ul>
+        <li><a href="functions/binary.html#sha256">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    sha512()
+
+      <ul>
+        <li><a href="functions/binary.html#sha512">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    shuffle()
+
+      <ul>
+        <li><a href="functions/array.html#shuffle">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    sign()
+
+      <ul>
+        <li><a href="functions/math.html#sign">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    simplify_geometry()
+
+      <ul>
+        <li><a href="functions/geospatial.html#simplify_geometry">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    sin()
+
+      <ul>
+        <li><a href="functions/math.html#sin">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    sinh()
+
+      <ul>
+        <li><a href="functions/math.html#sinh">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    skewness()
+
+      <ul>
+        <li><a href="functions/aggregate.html#skewness">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    slice()
+
+      <ul>
+        <li><a href="functions/array.html#slice">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    soundex()
+
+      <ul>
+        <li><a href="functions/string.html#soundex">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    split()
+
+      <ul>
+        <li><a href="functions/string.html#split">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    split_part()
+
+      <ul>
+        <li><a href="functions/string.html#split_part">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    split_to_map()
+
+      <ul>
+        <li><a href="functions/string.html#split_to_map">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    split_to_multimap()
+
+      <ul>
+        <li><a href="functions/string.html#split_to_multimap">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    spooky_hash_v2_32()
+
+      <ul>
+        <li><a href="functions/binary.html#spooky_hash_v2_32">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    spooky_hash_v2_64()
+
+      <ul>
+        <li><a href="functions/binary.html#spooky_hash_v2_64">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    sqrt()
+
+      <ul>
+        <li><a href="functions/math.html#sqrt">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Area()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Area">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_AsBinary()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_AsBinary">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_AsText()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_AsText">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Boundary()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Boundary">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Buffer()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Buffer">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Centroid()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Centroid">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Contains()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Contains">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_ConvexHull()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_ConvexHull">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_CoordDim()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_CoordDim">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Crosses()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Crosses">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Difference()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Difference">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Dimension()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Dimension">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Disjoint()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Disjoint">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Distance()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Distance">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_EndPoint()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_EndPoint">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Envelope()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Envelope">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_EnvelopeAsPts()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_EnvelopeAsPts">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Equals()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Equals">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_ExteriorRing()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_ExteriorRing">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Geometries()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Geometries">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_GeometryFromText()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_GeometryFromText">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_GeometryN()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_GeometryN">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_GeometryType()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_GeometryType">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    ST_GeomFromBinary()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_GeomFromBinary">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_GeomFromKML()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_GeomFromKML">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_InteriorRingN()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_InteriorRingN">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_InteriorRings()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_InteriorRings">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Intersection()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Intersection">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Intersects()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Intersects">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_IsClosed()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_IsClosed">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_IsEmpty()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_IsEmpty">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_IsRing()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_IsRing">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_IsSimple()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_IsSimple">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_IsValid()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_IsValid">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Length()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Length">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_LineFromText()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_LineFromText">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_LineString()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_LineString">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_MultiPoint()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_MultiPoint">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_NumGeometries()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_NumGeometries">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_NumInteriorRing()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_NumInteriorRing">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_NumPoints()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_NumPoints">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Overlaps()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Overlaps">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Point()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Point">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_PointN()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_PointN">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Points()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Points">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Polygon()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Polygon">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Relate()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Relate">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_StartPoint()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_StartPoint">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_SymDifference()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_SymDifference">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Touches()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Touches">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Union()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Union">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Within()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Within">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_X()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_X">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_XMax()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_XMax">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_XMin()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_XMin">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_Y()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_Y">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_YMax()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_YMax">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    ST_YMin()
+
+      <ul>
+        <li><a href="functions/geospatial.html#ST_YMin">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    starts_with()
+
+      <ul>
+        <li><a href="functions/string.html#starts_with">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    stddev()
+
+      <ul>
+        <li><a href="functions/aggregate.html#stddev">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    stddev_pop()
+
+      <ul>
+        <li><a href="functions/aggregate.html#stddev_pop">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    stddev_samp()
+
+      <ul>
+        <li><a href="functions/aggregate.html#stddev_samp">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    strpos()
+
+      <ul>
+        <li><a href="functions/string.html#strpos">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    substr()
+
+      <ul>
+        <li><a href="functions/string.html#substr">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    substring()
+
+      <ul>
+        <li><a href="functions/string.html#substring">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    sum()
+
+      <ul>
+        <li><a href="functions/aggregate.html#sum">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    t_cdf()
+
+      <ul>
+        <li><a href="functions/math.html#t_cdf">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    t_pdf()
+
+      <ul>
+        <li><a href="functions/math.html#t_pdf">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    tan()
+
+      <ul>
+        <li><a href="functions/math.html#tan">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    tanh()
+
+      <ul>
+        <li><a href="functions/math.html#tanh">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    tdigest_agg()
+
+      <ul>
+        <li><a href="functions/tdigest.html#tdigest_agg">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    timestamp_objectid()
+
+      <ul>
+        <li><a href="connector/mongodb.html#timestamp_objectid">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    timezone()
+
+      <ul>
+        <li><a href="functions/datetime.html#timezone">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    timezone_hour()
+
+      <ul>
+        <li><a href="functions/datetime.html#timezone_hour">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    timezone_minute()
+
+      <ul>
+        <li><a href="functions/datetime.html#timezone_minute">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_base()
+
+      <ul>
+        <li><a href="functions/math.html#to_base">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_base32()
+
+      <ul>
+        <li><a href="functions/binary.html#to_base32">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_base64()
+
+      <ul>
+        <li><a href="functions/binary.html#to_base64">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_base64url()
+
+      <ul>
+        <li><a href="functions/binary.html#to_base64url">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_big_endian_32()
+
+      <ul>
+        <li><a href="functions/binary.html#to_big_endian_32">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_big_endian_64()
+
+      <ul>
+        <li><a href="functions/binary.html#to_big_endian_64">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_char()
+
+      <ul>
+        <li><a href="functions/teradata.html#to_char">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_date()
+
+      <ul>
+        <li><a href="functions/teradata.html#to_date">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_encoded_polyline()
+
+      <ul>
+        <li><a href="functions/geospatial.html#to_encoded_polyline">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_geojson_geometry()
+
+      <ul>
+        <li><a href="functions/geospatial.html#to_geojson_geometry">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_geometry()
+
+      <ul>
+        <li><a href="functions/geospatial.html#to_geometry">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    to_hex()
+
+      <ul>
+        <li><a href="functions/binary.html#to_hex">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_ieee754_32()
+
+      <ul>
+        <li><a href="functions/binary.html#to_ieee754_32">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_ieee754_64()
+
+      <ul>
+        <li><a href="functions/binary.html#to_ieee754_64">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_iso8601()
+
+      <ul>
+        <li><a href="functions/datetime.html#to_iso8601">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_milliseconds()
+
+      <ul>
+        <li><a href="functions/datetime.html#to_milliseconds">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_spherical_geography()
+
+      <ul>
+        <li><a href="functions/geospatial.html#to_spherical_geography">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_timestamp()
+
+      <ul>
+        <li><a href="functions/teradata.html#to_timestamp">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_unixtime()
+
+      <ul>
+        <li><a href="functions/datetime.html#to_unixtime">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    to_utf8()
+
+      <ul>
+        <li><a href="functions/string.html#to_utf8">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    transform()
+
+      <ul>
+        <li><a href="functions/array.html#transform">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    transform_keys()
+
+      <ul>
+        <li><a href="functions/map.html#transform_keys">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    transform_values()
+
+      <ul>
+        <li><a href="functions/map.html#transform_values">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    translate()
+
+      <ul>
+        <li><a href="functions/string.html#translate">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    trim()
+
+      <ul>
+        <li><a href="functions/string.html#trim">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    trim_array()
+
+      <ul>
+        <li><a href="functions/array.html#trim_array">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    truncate()
+
+      <ul>
+        <li><a href="functions/math.html#truncate">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    try()
+
+      <ul>
+        <li><a href="functions/conditional.html#id3">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    try_cast()
+
+      <ul>
+        <li><a href="functions/conversion.html#try_cast">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    typeof()
+
+      <ul>
+        <li><a href="functions/conversion.html#typeof">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    upper()
+
+      <ul>
+        <li><a href="functions/string.html#upper">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    url_decode()
+
+      <ul>
+        <li><a href="functions/url.html#url_decode">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    url_encode()
+
+      <ul>
+        <li><a href="functions/url.html#url_encode">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    url_extract_fragment()
+
+      <ul>
+        <li><a href="functions/url.html#url_extract_fragment">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    url_extract_host()
+
+      <ul>
+        <li><a href="functions/url.html#url_extract_host">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    url_extract_parameter()
+
+      <ul>
+        <li><a href="functions/url.html#url_extract_parameter">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    url_extract_path()
+
+      <ul>
+        <li><a href="functions/url.html#url_extract_path">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    url_extract_port()
+
+      <ul>
+        <li><a href="functions/url.html#url_extract_port">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    url_extract_protocol()
+
+      <ul>
+        <li><a href="functions/url.html#url_extract_protocol">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    url_extract_query()
+
+      <ul>
+        <li><a href="functions/url.html#url_extract_query">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    uuid()
+
+      <ul>
+        <li><a href="functions/uuid.html#uuid">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    value_at_quantile()
+
+      <ul>
+        <li><a href="functions/qdigest.html#value_at_quantile">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    values_at_quantiles()
+
+      <ul>
+        <li><a href="functions/qdigest.html#values_at_quantiles">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    var_pop()
+
+      <ul>
+        <li><a href="functions/aggregate.html#var_pop">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    var_samp()
+
+      <ul>
+        <li><a href="functions/aggregate.html#var_samp">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    variance()
+
+      <ul>
+        <li><a href="functions/aggregate.html#variance">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    version()
+
+      <ul>
+        <li><a href="functions/system.html#version">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    week()
+
+      <ul>
+        <li><a href="functions/datetime.html#week">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    week_of_year()
+
+      <ul>
+        <li><a href="functions/datetime.html#week_of_year">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    width_bucket()
+
+      <ul>
+        <li><a href="functions/math.html#width_bucket">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    wilson_interval_lower()
+
+      <ul>
+        <li><a href="functions/math.html#wilson_interval_lower">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    wilson_interval_upper()
+
+      <ul>
+        <li><a href="functions/math.html#wilson_interval_upper">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    with_timezone()
+
+      <ul>
+        <li><a href="functions/datetime.html#with_timezone">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    word_stem()
+
+      <ul>
+        <li><a href="functions/string.html#word_stem">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    xxhash64()
+
+      <ul>
+        <li><a href="functions/binary.html#xxhash64">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Y">Y</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    year()
+
+      <ul>
+        <li><a href="functions/datetime.html#year">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    year_of_week()
+
+      <ul>
+        <li><a href="functions/datetime.html#year_of_week">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    yow()
+
+      <ul>
+        <li><a href="functions/datetime.html#yow">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Z">Z</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    zip()
+
+      <ul>
+        <li><a href="functions/array.html#zip">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    zip_with()
+
+      <ul>
+        <li><a href="functions/array.html#zip_with">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

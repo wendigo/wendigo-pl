@@ -1,0 +1,1982 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="tests.html">
+      
+      
+        <link rel="next" href="example-http.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Connectors - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Connectors
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../develop.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_13" id="__nav_13_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Developer guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spi-overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SPI overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tests.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Test writing guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="example-http.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example HTTP connector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="example-jdbc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example JDBC connector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="insert.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supporting INSERT and CREATE TABLE AS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="supporting-merge.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supporting MERGE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="types.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Types
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="table-functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system-access-control.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System access control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="password-authenticator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Password authenticator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="certificate-authenticator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate authenticator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="header-authenticator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Header authenticator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="group-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Group provider
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="event-listener.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Event listener
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="client-protocol.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trino client REST API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="connectors">Connectors<a class="headerlink" href="#connectors" title="Link to this heading">#</a></h1>
+<p>Connectors are the source of all data for queries in Trino. Even if your data
+source doesn’t have underlying tables backing it, as long as you adapt your data
+source to the API expected by Trino, you can write queries against this data.</p>
+<h2 id="connectorfactory">ConnectorFactory<a class="headerlink" href="#connectorfactory" title="Link to this heading">#</a></h2>
+<p>Instances of your connector are created by a <code class="docutils literal notranslate"><span class="pre">ConnectorFactory</span></code> instance which
+is created when Trino calls <code class="docutils literal notranslate"><span class="pre">getConnectorFactory()</span></code> on the plugin. The
+connector factory is a simple interface responsible for providing the connector
+name and creating an instance of a <code class="docutils literal notranslate"><span class="pre">Connector</span></code> object. A basic connector
+implementation that only supports reading, but not writing data, should return
+instances of the following services:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#connector-metadata"><span class="std std-ref">ConnectorMetadata</span></a></p></li>
+<li><p><a class="reference internal" href="#connector-split-manager"><span class="std std-ref">ConnectorSplitManager</span></a></p></li>
+<li><p><a class="reference internal" href="#connector-record-set-provider"><span class="std std-ref">ConnectorRecordSetProvider</span></a> or <a class="reference internal" href="#connector-page-source-provider"><span class="std std-ref">ConnectorPageSourceProvider</span></a></p></li>
+</ul>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">create()</span></code> method of the connector factory receives a <code class="docutils literal notranslate"><span class="pre">config</span></code> map,
+containing all properties from the catalog properties file. It can be used
+to configure the connector, but because all the values are strings, they
+might require additional processing if they represent other data types.
+It also doesn’t validate if all the provided properties are known. This
+can lead to the connector behaving differently than expected when a
+connector ignores a property due to the user making a mistake in
+typing the name of the property.</p>
+<p>To make the configuration more robust, define a Configuration class. This
+class describes all the available properties, their types, and additional
+validation rules.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">io.airlift.configuration.Config</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io.airlift.configuration.ConfigDescription</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io.airlift.configuration.ConfigSecuritySensitive</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io.airlift.units.Duration</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io.airlift.units.MaxDuration</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io.airlift.units.MinDuration</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">javax.validation.constraints.NotNull</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ExampleConfig</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">secret</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Duration</span><span class="w"> </span><span class="n">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Duration</span><span class="p">.</span><span class="na">succinctDuration</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getSecret</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">secret</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Config</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@ConfigDescription</span><span class="p">(</span><span class="s">&quot;Secret required to access the data source&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@ConfigSecuritySensitive</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ExampleConfig</span><span class="w"> </span><span class="nf">setSecret</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">secret</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">secret</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@NotNull</span>
+<span class="w">    </span><span class="nd">@MaxDuration</span><span class="p">(</span><span class="s">&quot;10m&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@MinDuration</span><span class="p">(</span><span class="s">&quot;1ms&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Duration</span><span class="w"> </span><span class="nf">getTimeout</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">timeout</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Config</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ExampleConfig</span><span class="w"> </span><span class="nf">setTimeout</span><span class="p">(</span><span class="n">Duration</span><span class="w"> </span><span class="n">timeout</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timeout</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>The preceding example defines two configuration properties and makes
+the connector more robust by:</p>
+<ul class="simple">
+<li><p>defining all supported properties, which allows detecting spelling mistakes
+in the configuration on server startup</p></li>
+<li><p>defining a default timeout value, to prevent connections getting stuck
+indefinitely</p></li>
+<li><p>preventing invalid timeout values, like 0 ms, that would make
+all requests fail</p></li>
+<li><p>parsing timeout values in different units, detecting invalid values</p></li>
+<li><p>preventing logging the secret value in plain text</p></li>
+</ul>
+<p>The configuration class needs to be bound in a Guice module:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.google.inject.Binder</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.google.inject.Module</span><span class="p">;</span>
+
+<span class="kn">import static</span><span class="w"> </span><span class="nn">io.airlift.configuration.ConfigBinder.configBinder</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ExampleModule</span>
+<span class="w">        </span><span class="kd">implements</span><span class="w"> </span><span class="n">Module</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ExampleModule</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">configure</span><span class="p">(</span><span class="n">Binder</span><span class="w"> </span><span class="n">binder</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">configBinder</span><span class="p">(</span><span class="n">binder</span><span class="p">).</span><span class="na">bindConfig</span><span class="p">(</span><span class="n">ExampleConfig</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>And then the module needs to be initialized in the connector factory, when
+creating a new instance of the connector:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@Override</span>
+<span class="kd">public</span><span class="w"> </span><span class="n">Connector</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">connectorName</span><span class="p">,</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">ConnectorContext</span><span class="w"> </span><span class="n">context</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">requireNonNull</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;config is null&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Bootstrap</span><span class="w"> </span><span class="n">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Bootstrap</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ExampleModule</span><span class="p">());</span>
+<span class="w">    </span><span class="n">Injector</span><span class="w"> </span><span class="n">injector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span>
+<span class="w">            </span><span class="p">.</span><span class="na">doNotInitializeLogging</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setRequiredConfigurationProperties</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">initialize</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">injector</span><span class="p">.</span><span class="na">getInstance</span><span class="p">(</span><span class="n">ExampleConnector</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Environment variables in the catalog properties file
+(ex. <code class="docutils literal notranslate"><span class="pre">secret=${ENV:SECRET}</span></code>) are resolved only when using
+the <code class="docutils literal notranslate"><span class="pre">io.airlift.bootstrap.Bootstrap</span></code> class to initialize the module.
+See <a class="reference internal" href="../security/secrets.html"><span class="doc">Secrets</span></a> for more information.</p>
+</div>
+<p>If you end up needing to define multiple catalogs using the same connector
+just to change one property, consider adding support for schema and/or
+table properties. That would allow a more fine-grained configuration.
+If a connector doesn’t support managing the schema, query predicates for
+selected columns could be used as a way of passing the required configuration
+at run time.</p>
+<p>For example, when building a connector to read commits from a Git repository,
+the repository URL could be a configuration property. But this would result
+in a catalog being able to return data only from a single repository.
+Alternatively, it can be a column, where every select query would require
+a predicate for it:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">git</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">commits</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://github.com/trinodb/trino.git&#39;</span>
+</code></pre></div>
+</div>
+<h2 id="connectormetadata"><span id="connector-metadata"></span>ConnectorMetadata<a class="headerlink" href="#connectormetadata" title="Link to this heading">#</a></h2>
+<p>The connector metadata interface allows Trino to get a lists of schemas,
+tables, columns, and other metadata about a particular data source.</p>
+<p>A basic read-only connector should implement the following methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">listSchemaNames</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">listTables</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">streamTableColumns</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getTableHandle</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getTableMetadata</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getColumnHandles</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getColumnMetadata</span></code></p></li>
+</ul>
+<p>If you are interested in seeing strategies for implementing more methods,
+look at the <a class="reference internal" href="example-http.html"><span class="doc">Example HTTP connector</span></a> and the Cassandra connector. If your underlying
+data source supports schemas, tables, and columns, this interface should be
+straightforward to implement. If you are attempting to adapt something that
+isn’t a relational database, as the Example HTTP connector does, you may
+need to get creative about how you map your data source to Trino’s schema,
+table, and column concepts.</p>
+<p>The connector metadata interface allows to also implement other connector
+features, like:</p>
+<ul class="simple">
+<li><p>Schema management, which is creating, altering and dropping schemas, tables,
+table columns, views, and materialized views.</p></li>
+<li><p>Support for table and column comments, and properties.</p></li>
+<li><p>Schema, table and view authorization.</p></li>
+<li><p>Executing <a class="reference internal" href="table-functions.html"><span class="doc">Table functions</span></a>.</p></li>
+<li><p>Providing table statistics used by the Cost Based Optimizer (CBO)
+and collecting statistics during writes and when analyzing selected tables.</p></li>
+<li><p>Data modification, which is:</p>
+<ul>
+<li><p>inserting, updating, and deleting rows in tables,</p></li>
+<li><p>refreshing materialized views,</p></li>
+<li><p>truncating whole tables,</p></li>
+<li><p>and creating tables from query results.</p></li>
+</ul>
+</li>
+<li><p>Role and grant management.</p></li>
+<li><p>Pushing down:</p>
+<ul>
+<li><p><a class="reference internal" href="#connector-limit-pushdown"><span class="std std-ref">Limit and Top N - limit with sort items</span></a></p></li>
+<li><p><a class="reference internal" href="#dev-predicate-pushdown"><span class="std std-ref">Predicates</span></a></p></li>
+<li><p>Projections</p></li>
+<li><p>Sampling</p></li>
+<li><p>Aggregations</p></li>
+<li><p>Joins</p></li>
+<li><p>Table function invocation</p></li>
+</ul>
+</li>
+</ul>
+<p>Note that data modification also requires implementing
+a <a class="reference internal" href="#connector-page-sink-provider"><span class="std std-ref">ConnectorPageSinkProvider</span></a>.</p>
+<p>When Trino receives a <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> query, it parses it into an Intermediate
+Representation (IR). Then, during optimization, it checks if connectors
+can handle operations related to SQL clauses by calling one of the following
+methods of the <code class="docutils literal notranslate"><span class="pre">ConnectorMetadata</span></code> service:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">applyLimit</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">applyTopN</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">applyFilter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">applyProjection</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">applySample</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">applyAggregation</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">applyJoin</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">applyTableFunction</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">applyTableScanRedirect</span></code></p></li>
+</ul>
+<p>Connectors can indicate that they don’t support a particular pushdown or that
+the action had no effect by returning <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code>. Connectors should
+expect these methods to be called multiple times during the optimization of
+a given query.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>It’s critical for connectors to return <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code> if calling
+this method has no effect for that invocation, even if the connector generally
+supports a particular pushdown. Doing otherwise can cause the optimizer
+to loop indefinitely.</p>
+</div>
+<p>Otherwise, these methods return a result object containing a new table handle.
+The new table handle represents the virtual table derived from applying the
+operation (filter, project, limit, etc.) to the table produced by the table
+scan node. Once the query actually runs, <code class="docutils literal notranslate"><span class="pre">ConnectorRecordSetProvider</span></code> or
+<code class="docutils literal notranslate"><span class="pre">ConnectorPageSourceProvider</span></code> can use whatever optimizations were pushed down to
+<code class="docutils literal notranslate"><span class="pre">ConnectorTableHandle</span></code>.</p>
+<p>The returned table handle is later passed to other services that the connector
+implements, like the <code class="docutils literal notranslate"><span class="pre">ConnectorRecordSetProvider</span></code> or
+<code class="docutils literal notranslate"><span class="pre">ConnectorPageSourceProvider</span></code>.</p>
+<h3 id="limit-and-top-n-pushdown"><span id="connector-limit-pushdown"></span>Limit and top-N pushdown<a class="headerlink" href="#limit-and-top-n-pushdown" title="Link to this heading">#</a></h3>
+<p>When executing a <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> query with <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> or <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clauses,
+the query plan may contain a <code class="docutils literal notranslate"><span class="pre">Sort</span></code> or <code class="docutils literal notranslate"><span class="pre">Limit</span></code> operations.</p>
+<p>When the plan contains a <code class="docutils literal notranslate"><span class="pre">Sort</span></code> and <code class="docutils literal notranslate"><span class="pre">Limit</span></code> operations, the engine
+tries to push down the limit into the connector by calling the <code class="docutils literal notranslate"><span class="pre">applyTopN</span></code>
+method of the connector metadata service. If there’s no <code class="docutils literal notranslate"><span class="pre">Sort</span></code> operation, but
+only a <code class="docutils literal notranslate"><span class="pre">Limit</span></code>, the <code class="docutils literal notranslate"><span class="pre">applyLimit</span></code> method is called, and the connector can
+return results in an arbitrary order.</p>
+<p>If the connector could benefit from the information passed to these methods but
+can’t guarantee that it’d be able to produce fewer rows than the provided
+limit, it should return a non-empty result containing a new handle for the
+derived table and the <code class="docutils literal notranslate"><span class="pre">limitGuaranteed</span></code> (in <code class="docutils literal notranslate"><span class="pre">LimitApplicationResult</span></code>) or
+<code class="docutils literal notranslate"><span class="pre">topNGuaranteed</span></code> (in <code class="docutils literal notranslate"><span class="pre">TopNApplicationResult</span></code>) flag set to false.</p>
+<p>If the connector can guarantee to produce fewer rows than the provided
+limit, it should return a non-empty result with the “limit guaranteed” or
+“topN guaranteed” flag set to true.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">applyTopN</span></code> is the only method that receives sort items from the
+<code class="docutils literal notranslate"><span class="pre">Sort</span></code> operation.</p>
+</div>
+<p>In a query, the <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> section can include any column with any order.
+But the data source for the connector might only support limited combinations.
+Plugin authors have to decide if the connector should ignore the pushdown,
+return all the data and let the engine sort it, or throw an exception
+to inform the user that particular order isn’t supported, if fetching all
+the data would be too expensive or time consuming. When throwing
+an exception, use the <code class="docutils literal notranslate"><span class="pre">TrinoException</span></code> class with the <code class="docutils literal notranslate"><span class="pre">INVALID_ORDER_BY</span></code>
+error code and an actionable message, to let users know how to write a valid
+query.</p>
+<h3 id="predicate-pushdown"><span id="dev-predicate-pushdown"></span>Predicate pushdown<a class="headerlink" href="#predicate-pushdown" title="Link to this heading">#</a></h3>
+<p>When executing a query with a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause, the query plan can
+contain a <code class="docutils literal notranslate"><span class="pre">ScanFilterProject</span></code> plan node/node with a predicate constraint.</p>
+<p>A predicate constraint is a description of the constraint imposed on the
+results of the stage/fragment as expressed in the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause. For example,
+<code class="docutils literal notranslate"><span class="pre">WHERE</span> <span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">5</span> <span class="pre">AND</span> <span class="pre">y</span> <span class="pre">=</span> <span class="pre">3</span></code> translates into a constraint where the
+<code class="docutils literal notranslate"><span class="pre">summary</span></code> field means the <code class="docutils literal notranslate"><span class="pre">x</span></code> column’s domain must be greater than
+<code class="docutils literal notranslate"><span class="pre">5</span></code> and the <code class="docutils literal notranslate"><span class="pre">y</span></code> column domain equals <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+<p>When the query plan contains a <code class="docutils literal notranslate"><span class="pre">ScanFilterProject</span></code> operation, Trino
+tries to optimize the query by pushing down the predicate constraint
+into the connector by calling the <code class="docutils literal notranslate"><span class="pre">applyFilter</span></code> method of the
+connector metadata service. This method receives a table handle with
+all optimizations applied thus far, and returns either
+<code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code> or a response with a new table handle derived from
+the old one.</p>
+<p>The query optimizer may call <code class="docutils literal notranslate"><span class="pre">applyFilter</span></code> for a single query multiple times,
+as it searches for an optimal query plan. Connectors must
+return <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code> from <code class="docutils literal notranslate"><span class="pre">applyFilter</span></code> if they cannot apply the
+constraint for this invocation, even if they support <code class="docutils literal notranslate"><span class="pre">ScanFilterProject</span></code>
+pushdown in general. Connectors must also return <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code> if the
+constraint has already been applied.</p>
+<p>A constraint contains the following elements:</p>
+<ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">TupleDomain</span></code> defining the mapping between columns and their domains.
+A <code class="docutils literal notranslate"><span class="pre">Domain</span></code> is either a list of possible values, or a list of ranges, and
+also contains information about nullability.</p></li>
+<li><p>Expression for pushing down function calls.</p></li>
+<li><p>Map of assignments from variables in the expression to columns.</p></li>
+<li><p>(optional) Predicate which tests a map of columns and their values;
+it cannot be held on to after the <code class="docutils literal notranslate"><span class="pre">applyFilter</span></code> call returns.</p></li>
+<li><p>(optional) Set of columns the predicate depends on; must be present
+if predicate is present.</p></li>
+</ul>
+<p>If both a predicate and a summary are available, the predicate is guaranteed to
+be more strict in filtering of values, and can provide a significant boost to
+query performance if used.</p>
+<p>However it is not possible to store a predicate in the table handle and use
+it later, as the predicate cannot be held on to after the <code class="docutils literal notranslate"><span class="pre">applyFilter</span></code>
+call returns. It is used for filtering of entire partitions, and is not pushed
+down. The summary can be pushed down instead by storing it in the table handle.</p>
+<p>This overlap between the predicate and summary is due to historical reasons,
+as simple comparison pushdown was implemented first via summary, and more
+complex filters such as <code class="docutils literal notranslate"><span class="pre">LIKE</span></code> which required more expressive predicates
+were added later.</p>
+<p>If a constraint can only be partially pushed down, for example when a connector
+for a database that does not support range matching is used in a query with
+<code class="docutils literal notranslate"><span class="pre">WHERE</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">2</span> <span class="pre">AND</span> <span class="pre">y</span> <span class="pre">&gt;</span> <span class="pre">5</span></code>, the <code class="docutils literal notranslate"><span class="pre">y</span></code> column constraint must be
+returned in the <code class="docutils literal notranslate"><span class="pre">ConstraintApplicationResult</span></code> from <code class="docutils literal notranslate"><span class="pre">applyFilter</span></code>.
+In this case the <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">&gt;</span> <span class="pre">5</span></code> condition is applied in Trino,
+and not pushed down.</p>
+<p>The following is a simple example which only looks at <code class="docutils literal notranslate"><span class="pre">TupleDomain</span></code>:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@Override</span>
+<span class="kd">public</span><span class="w"> </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">ConstraintApplicationResult</span><span class="o">&lt;</span><span class="n">ConnectorTableHandle</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="nf">applyFilter</span><span class="p">(</span>
+<span class="w">        </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="n">session</span><span class="p">,</span>
+<span class="w">        </span><span class="n">ConnectorTableHandle</span><span class="w"> </span><span class="n">tableHandle</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Constraint</span><span class="w"> </span><span class="n">constraint</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ExampleTableHandle</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ExampleTableHandle</span><span class="p">)</span><span class="w"> </span><span class="n">tableHandle</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">TupleDomain</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">oldDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="na">getConstraint</span><span class="p">();</span>
+<span class="w">    </span><span class="n">TupleDomain</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">newDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oldDomain</span><span class="p">.</span><span class="na">intersect</span><span class="p">(</span><span class="n">constraint</span><span class="p">.</span><span class="na">getSummary</span><span class="p">());</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">oldDomain</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">newDomain</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Nothing has changed, return empty Option</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExampleTableHandle</span><span class="p">(</span><span class="n">newDomain</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ConstraintApplicationResult</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">TupleDomain</span><span class="p">.</span><span class="na">all</span><span class="p">(),</span><span class="w"> </span><span class="kc">false</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">TupleDomain</span></code> from the constraint is intersected with the <code class="docutils literal notranslate"><span class="pre">TupleDomain</span></code>
+already applied to the <code class="docutils literal notranslate"><span class="pre">TableHandle</span></code> to form <code class="docutils literal notranslate"><span class="pre">newDomain</span></code>.
+If filtering has not changed, an <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code> result is returned to
+notify the planner that this optimization path has reached its end.</p>
+<p>In this example, the connector pushes down the <code class="docutils literal notranslate"><span class="pre">TupleDomain</span></code>
+with all Trino data types supported with same semantics in the
+data source. As a result, no filters are needed in Trino,
+and the <code class="docutils literal notranslate"><span class="pre">ConstraintApplicationResult</span></code> sets <code class="docutils literal notranslate"><span class="pre">remainingFilter</span></code> to
+<code class="docutils literal notranslate"><span class="pre">TupleDomain.all()</span></code>.</p>
+<p>This pushdown implementation is quite similar to many Trino connectors,
+including  <code class="docutils literal notranslate"><span class="pre">MongoMetadata</span></code>, <code class="docutils literal notranslate"><span class="pre">BigQueryMetadata</span></code>, <code class="docutils literal notranslate"><span class="pre">KafkaMetadata</span></code>.</p>
+<p>The following, more complex example shows data types from Trino that are
+not available directly in the underlying data source, and must be mapped:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@Override</span>
+<span class="kd">public</span><span class="w"> </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">ConstraintApplicationResult</span><span class="o">&lt;</span><span class="n">ConnectorTableHandle</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="nf">applyFilter</span><span class="p">(</span>
+<span class="w">        </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="n">session</span><span class="p">,</span>
+<span class="w">        </span><span class="n">ConnectorTableHandle</span><span class="w"> </span><span class="n">table</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Constraint</span><span class="w"> </span><span class="n">constraint</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">JdbcTableHandle</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">JdbcTableHandle</span><span class="p">)</span><span class="w"> </span><span class="n">table</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">TupleDomain</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">oldDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="na">getConstraint</span><span class="p">();</span>
+<span class="w">    </span><span class="n">TupleDomain</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">newDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oldDomain</span><span class="p">.</span><span class="na">intersect</span><span class="p">(</span><span class="n">constraint</span><span class="p">.</span><span class="na">getSummary</span><span class="p">());</span>
+<span class="w">    </span><span class="n">TupleDomain</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">remainingFilter</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">newDomain</span><span class="p">.</span><span class="na">isNone</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">newConstraintExpressions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImmutableList</span><span class="p">.</span><span class="na">of</span><span class="p">();</span>
+<span class="w">        </span><span class="n">remainingFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TupleDomain</span><span class="p">.</span><span class="na">all</span><span class="p">();</span>
+<span class="w">        </span><span class="n">remainingExpression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Constant</span><span class="p">.</span><span class="na">TRUE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// We need to decide which columns to push down.</span>
+<span class="w">        </span><span class="c1">// Since this is a base class for many JDBC-based connectors, each</span>
+<span class="w">        </span><span class="c1">// having different Trino type mappings and comparison semantics</span>
+<span class="w">        </span><span class="c1">// it needs to be flexible.</span>
+
+<span class="w">        </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&gt;</span><span class="w"> </span><span class="n">domains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newDomain</span><span class="p">.</span><span class="na">getDomains</span><span class="p">().</span><span class="na">orElseThrow</span><span class="p">();</span>
+<span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">JdbcColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">columnHandles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domains</span><span class="p">.</span><span class="na">keySet</span><span class="p">().</span><span class="na">stream</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">JdbcColumnHandle</span><span class="p">.</span><span class="na">class</span><span class="p">::</span><span class="n">cast</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">toImmutableList</span><span class="p">());</span>
+
+<span class="w">        </span><span class="c1">// Get information about how to push down every column based on its</span>
+<span class="w">        </span><span class="c1">// JDBC data type</span>
+<span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">ColumnMapping</span><span class="o">&gt;</span><span class="w"> </span><span class="n">columnMappings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jdbcClient</span><span class="p">.</span><span class="na">toColumnMappings</span><span class="p">(</span>
+<span class="w">                </span><span class="n">session</span><span class="p">,</span>
+<span class="w">                </span><span class="n">columnHandles</span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">JdbcColumnHandle</span><span class="p">::</span><span class="n">getJdbcTypeHandle</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">toImmutableList</span><span class="p">()));</span>
+
+<span class="w">        </span><span class="c1">// Calculate the domains which can be safely pushed down (supported)</span>
+<span class="w">        </span><span class="c1">// and those which need to be filtered in Trino (unsupported)</span>
+<span class="w">        </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&gt;</span><span class="w"> </span><span class="n">supported</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="w">        </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&gt;</span><span class="w"> </span><span class="n">unsupported</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">columnHandles</span><span class="p">.</span><span class="na">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">JdbcColumnHandle</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">columnHandles</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="w">            </span><span class="n">DomainPushdownResult</span><span class="w"> </span><span class="n">pushdownResult</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="n">columnMappings</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="na">getPredicatePushdownController</span><span class="p">().</span><span class="na">apply</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">session</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">domains</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">column</span><span class="p">));</span>
+<span class="w">            </span><span class="n">supported</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">column</span><span class="p">,</span><span class="w"> </span><span class="n">pushdownResult</span><span class="p">.</span><span class="na">getPushedDown</span><span class="p">());</span>
+<span class="w">            </span><span class="n">unsupported</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">column</span><span class="p">,</span><span class="w"> </span><span class="n">pushdownResult</span><span class="p">.</span><span class="na">getRemainingFilter</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">newDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TupleDomain</span><span class="p">.</span><span class="na">withColumnDomains</span><span class="p">(</span><span class="n">supported</span><span class="p">);</span>
+<span class="w">        </span><span class="n">remainingFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TupleDomain</span><span class="p">.</span><span class="na">withColumnDomains</span><span class="p">(</span><span class="n">unsupported</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Return empty Optional if nothing changed in filtering</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">oldDomain</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">newDomain</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JdbcTableHandle</span><span class="p">(</span>
+<span class="w">            </span><span class="n">handle</span><span class="p">.</span><span class="na">getRelationHandle</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">newDomain</span><span class="p">,</span>
+<span class="w">            </span><span class="p">...);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span>
+<span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">ConstraintApplicationResult</span><span class="o">&lt;&gt;</span><span class="p">(</span>
+<span class="w">                </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">                </span><span class="n">remainingFilter</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>This example illustrates implementing a base class for many JDBC connectors
+while handling the specific requirements of multiple JDBC-compliant data sources.
+It ensures that if a constraint gets pushed down, it works exactly the same in
+the underlying data source, and produces the same results as it would in Trino.
+For example, in databases where string comparisons are case-insensitive,
+pushdown does not work, as string comparison operations in Trino are
+case-sensitive.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">PredicatePushdownController</span></code> interface determines if a column domain can
+be pushed down in JDBC-compliant data sources. In the preceding example, it is
+called from a <code class="docutils literal notranslate"><span class="pre">JdbcClient</span></code> implementation specific to that database.
+In non-JDBC-compliant data sources, type-based push downs are implemented
+directly, without going through the <code class="docutils literal notranslate"><span class="pre">PredicatePushdownController</span></code> interface.</p>
+<p>The following example adds expression pushdown enabled by a session flag:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@Override</span>
+<span class="kd">public</span><span class="w"> </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">ConstraintApplicationResult</span><span class="o">&lt;</span><span class="n">ConnectorTableHandle</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="nf">applyFilter</span><span class="p">(</span>
+<span class="w">        </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="n">session</span><span class="p">,</span>
+<span class="w">        </span><span class="n">ConnectorTableHandle</span><span class="w"> </span><span class="n">table</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Constraint</span><span class="w"> </span><span class="n">constraint</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">JdbcTableHandle</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">JdbcTableHandle</span><span class="p">)</span><span class="w"> </span><span class="n">table</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">TupleDomain</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">oldDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="na">getConstraint</span><span class="p">();</span>
+<span class="w">    </span><span class="n">TupleDomain</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">newDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oldDomain</span><span class="p">.</span><span class="na">intersect</span><span class="p">(</span><span class="n">constraint</span><span class="p">.</span><span class="na">getSummary</span><span class="p">());</span>
+<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">newConstraintExpressions</span><span class="p">;</span>
+<span class="w">    </span><span class="n">TupleDomain</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">remainingFilter</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">ConnectorExpression</span><span class="o">&gt;</span><span class="w"> </span><span class="n">remainingExpression</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">newDomain</span><span class="p">.</span><span class="na">isNone</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">newConstraintExpressions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImmutableList</span><span class="p">.</span><span class="na">of</span><span class="p">();</span>
+<span class="w">        </span><span class="n">remainingFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TupleDomain</span><span class="p">.</span><span class="na">all</span><span class="p">();</span>
+<span class="w">        </span><span class="n">remainingExpression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Constant</span><span class="p">.</span><span class="na">TRUE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// We need to decide which columns to push down.</span>
+<span class="w">        </span><span class="c1">// Since this is a base class for many JDBC-based connectors, each</span>
+<span class="w">        </span><span class="c1">// having different Trino type mappings and comparison semantics</span>
+<span class="w">        </span><span class="c1">// it needs to be flexible.</span>
+
+<span class="w">        </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&gt;</span><span class="w"> </span><span class="n">domains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newDomain</span><span class="p">.</span><span class="na">getDomains</span><span class="p">().</span><span class="na">orElseThrow</span><span class="p">();</span>
+<span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">JdbcColumnHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">columnHandles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domains</span><span class="p">.</span><span class="na">keySet</span><span class="p">().</span><span class="na">stream</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">JdbcColumnHandle</span><span class="p">.</span><span class="na">class</span><span class="p">::</span><span class="n">cast</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">toImmutableList</span><span class="p">());</span>
+
+<span class="w">        </span><span class="c1">// Get information about how to push down every column based on its</span>
+<span class="w">        </span><span class="c1">// JDBC data type</span>
+<span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">ColumnMapping</span><span class="o">&gt;</span><span class="w"> </span><span class="n">columnMappings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jdbcClient</span><span class="p">.</span><span class="na">toColumnMappings</span><span class="p">(</span>
+<span class="w">                </span><span class="n">session</span><span class="p">,</span>
+<span class="w">                </span><span class="n">columnHandles</span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">JdbcColumnHandle</span><span class="p">::</span><span class="n">getJdbcTypeHandle</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">toImmutableList</span><span class="p">()));</span>
+
+<span class="w">        </span><span class="c1">// Calculate the domains which can be safely pushed down (supported)</span>
+<span class="w">        </span><span class="c1">// and those which need to be filtered in Trino (unsupported)</span>
+<span class="w">        </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&gt;</span><span class="w"> </span><span class="n">supported</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="w">        </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">ColumnHandle</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&gt;</span><span class="w"> </span><span class="n">unsupported</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">columnHandles</span><span class="p">.</span><span class="na">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">JdbcColumnHandle</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">columnHandles</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="w">            </span><span class="n">DomainPushdownResult</span><span class="w"> </span><span class="n">pushdownResult</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="n">columnMappings</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="na">getPredicatePushdownController</span><span class="p">().</span><span class="na">apply</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">session</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">domains</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">column</span><span class="p">));</span>
+<span class="w">            </span><span class="n">supported</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">column</span><span class="p">,</span><span class="w"> </span><span class="n">pushdownResult</span><span class="p">.</span><span class="na">getPushedDown</span><span class="p">());</span>
+<span class="w">            </span><span class="n">unsupported</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">column</span><span class="p">,</span><span class="w"> </span><span class="n">pushdownResult</span><span class="p">.</span><span class="na">getRemainingFilter</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">newDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TupleDomain</span><span class="p">.</span><span class="na">withColumnDomains</span><span class="p">(</span><span class="n">supported</span><span class="p">);</span>
+<span class="w">        </span><span class="n">remainingFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TupleDomain</span><span class="p">.</span><span class="na">withColumnDomains</span><span class="p">(</span><span class="n">unsupported</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Do we want to handle expression pushdown?</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isComplexExpressionPushdown</span><span class="p">(</span><span class="n">session</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">newExpressions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="w">            </span><span class="n">List</span><span class="o">&lt;</span><span class="n">ConnectorExpression</span><span class="o">&gt;</span><span class="w"> </span><span class="n">remainingExpressions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="w">            </span><span class="c1">// Each expression can be broken down into a list of conjuncts</span>
+<span class="w">            </span><span class="c1">// joined with AND. We handle each conjunct separately.</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">ConnectorExpression</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">extractConjuncts</span><span class="p">(</span><span class="n">constraint</span><span class="p">.</span><span class="na">getExpression</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Try to convert the conjunct into something which is</span>
+<span class="w">                </span><span class="c1">// understood by the underlying JDBC data source</span>
+<span class="w">                </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">converted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jdbcClient</span><span class="p">.</span><span class="na">convertPredicate</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">session</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">expression</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">constraint</span><span class="p">.</span><span class="na">getAssignments</span><span class="p">());</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">converted</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">newExpressions</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">converted</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">remainingExpressions</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">expression</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="c1">// Calculate which parts of the expression can be pushed down</span>
+<span class="w">            </span><span class="c1">// and which need to be calculated in Trino engine</span>
+<span class="w">            </span><span class="n">newConstraintExpressions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImmutableSet</span><span class="p">.</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">builder</span><span class="p">()</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="n">handle</span><span class="p">.</span><span class="na">getConstraintExpressions</span><span class="p">())</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="n">newExpressions</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">build</span><span class="p">().</span><span class="na">asList</span><span class="p">();</span>
+<span class="w">            </span><span class="n">remainingExpression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">and</span><span class="p">(</span><span class="n">remainingExpressions</span><span class="p">));</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">newConstraintExpressions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImmutableList</span><span class="p">.</span><span class="na">of</span><span class="p">();</span>
+<span class="w">            </span><span class="n">remainingExpression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Return empty Optional if nothing changed in filtering</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">oldDomain</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">newDomain</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">handle</span><span class="p">.</span><span class="na">getConstraintExpressions</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">newConstraintExpressions</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JdbcTableHandle</span><span class="p">(</span>
+<span class="w">            </span><span class="n">handle</span><span class="p">.</span><span class="na">getRelationHandle</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">newDomain</span><span class="p">,</span>
+<span class="w">            </span><span class="n">newConstraintExpressions</span><span class="p">,</span>
+<span class="w">            </span><span class="p">...);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span>
+<span class="w">            </span><span class="n">remainingExpression</span><span class="p">.</span><span class="na">isPresent</span><span class="p">()</span>
+<span class="w">                    </span><span class="o">?</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConstraintApplicationResult</span><span class="o">&lt;&gt;</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">remainingFilter</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">remainingExpression</span><span class="p">.</span><span class="na">get</span><span class="p">())</span>
+<span class="w">                    </span><span class="p">:</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConstraintApplicationResult</span><span class="o">&lt;&gt;</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">remainingFilter</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ConnectorExpression</span></code> is split similarly to <code class="docutils literal notranslate"><span class="pre">TupleDomain</span></code>.
+Each expression can be broken down into independent <em>conjuncts</em>. Conjuncts are
+smaller expressions which, if joined together using an <code class="docutils literal notranslate"><span class="pre">AND</span></code> operator, are
+equivalent to the original expression. Every conjunct can be handled
+individually. Each one is converted using connector-specific rules, as defined
+by the <code class="docutils literal notranslate"><span class="pre">JdbcClient</span></code> implementation, to be more flexible. Unconverted
+conjuncts are returned as <code class="docutils literal notranslate"><span class="pre">remainingExpression</span></code> and are evaluated by
+the Trino engine.</p>
+<h2 id="connectorsplitmanager"><span id="connector-split-manager"></span>ConnectorSplitManager<a class="headerlink" href="#connectorsplitmanager" title="Link to this heading">#</a></h2>
+<p>The split manager partitions the data for a table into the individual chunks
+that Trino distributes to workers for processing. For example, the Hive
+connector lists the files for each Hive partition and creates one or more
+splits per file. For data sources that don’t have partitioned data, a good
+strategy here is to simply return a single split for the entire table. This is
+the strategy employed by the Example HTTP connector.</p>
+<h2 id="connectorrecordsetprovider"><span id="connector-record-set-provider"></span>ConnectorRecordSetProvider<a class="headerlink" href="#connectorrecordsetprovider" title="Link to this heading">#</a></h2>
+<p>Given a split, a table handle, and a list of columns, the record set provider
+is responsible for delivering data to the Trino execution engine.</p>
+<p>The table and column handles represent a virtual table. They’re created by the
+connector’s metadata service, called by Trino during query planning and
+optimization. Such a virtual table doesn’t have to map directly to a single
+collection in the connector’s data source. If the connector supports pushdowns,
+there can be multiple virtual tables derived from others, presenting a different
+view of the underlying data.</p>
+<p>The provider creates a <code class="docutils literal notranslate"><span class="pre">RecordSet</span></code>, which in turn creates a <code class="docutils literal notranslate"><span class="pre">RecordCursor</span></code>
+that’s used by Trino to read the column values for each row.</p>
+<p>The provided record set must only include requested columns in the order
+matching the list of column handles passed to the
+<code class="docutils literal notranslate"><span class="pre">ConnectorRecordSetProvider.getRecordSet()</span></code> method. The record set must return
+all the rows contained in the “virtual table” represented by the TableHandle
+associated with the TableScan operation.</p>
+<p>For simple connectors, where performance isn’t critical, the record set
+provider can return an instance of <code class="docutils literal notranslate"><span class="pre">InMemoryRecordSet</span></code>. The in-memory record
+set can be built using lists of values for every row, which can be simpler than
+implementing a <code class="docutils literal notranslate"><span class="pre">RecordCursor</span></code>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">RecordCursor</span></code> implementation needs to keep track of the current record.
+It returns values for columns by a numerical position, in the data type matching
+the column definition in the table. When the engine is done reading the current
+record it calls <code class="docutils literal notranslate"><span class="pre">advanceNextPosition</span></code> on the cursor.</p>
+<h3 id="type-mapping">Type mapping<a class="headerlink" href="#type-mapping" title="Link to this heading">#</a></h3>
+<p>The built-in SQL data types use different Java types as carrier types.</p>
+<table class="docutils data align-default" id="id1">
+<caption><span class="caption-text">SQL type to carrier type mapping</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 45.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SQL type</p></th>
+<th class="head"><p>Java type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BOOLEAN</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TINYINT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">REAL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code> for precision up to 19, inclusive; <code class="docutils literal notranslate"><span class="pre">Int128</span></code> for precision greater
+than 19</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CHAR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VARBINARY</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">JSON</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DATE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TIME(P)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TIME</span> <span class="pre">WITH</span> <span class="pre">TIME</span> <span class="pre">ZONE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code> for precision up to 9; <code class="docutils literal notranslate"><span class="pre">LongTimeWithTimeZone</span></code> for precision greater
+than 9</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TIMESTAMP(P)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code> for precision up to 6; <code class="docutils literal notranslate"><span class="pre">LongTimestamp</span></code> for precision greater than 6</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TIMESTAMP(P)</span> <span class="pre">WITH</span> <span class="pre">TIME</span> <span class="pre">ZONE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code> for precision up to 3; <code class="docutils literal notranslate"><span class="pre">LongTimestampWithTimeZone</span></code> for precision
+greater than 3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">YEAR</span> <span class="pre">TO</span> <span class="pre">MONTH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">DAY</span> <span class="pre">TO</span> <span class="pre">SECOND</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ARRAY</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Block</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MAP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Block</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ROW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Block</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IPADDRESS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UUID</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HyperLogLog</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">P4HyperLogLog</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SetDigest</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QDigest</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Slice</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TDigest</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TDigest</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal notranslate"><span class="pre">RecordCursor.getType(int</span> <span class="pre">field)</span></code> method returns the SQL type for a field
+and the field value is returned by one of the following methods, matching
+the carrier type:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">getBoolean(int</span> <span class="pre">field)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getLong(int</span> <span class="pre">field)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getDouble(int</span> <span class="pre">field)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getSlice(int</span> <span class="pre">field)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getObject(int</span> <span class="pre">field)</span></code></p></li>
+</ul>
+<p>Values for the <code class="docutils literal notranslate"><span class="pre">real</span></code> type are encoded into <code class="docutils literal notranslate"><span class="pre">long</span></code> using the IEEE 754
+floating-point “single format” bit layout, with NaN preservation. This can be
+accomplished using the <code class="docutils literal notranslate"><span class="pre">java.lang.Float.floatToRawIntBits</span></code> static method.</p>
+<p>Values for the <code class="docutils literal notranslate"><span class="pre">timestamp(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></code> and <code class="docutils literal notranslate"><span class="pre">time(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></code>
+types of regular precision can be converted into <code class="docutils literal notranslate"><span class="pre">long</span></code> using static methods
+from the <code class="docutils literal notranslate"><span class="pre">io.trino.spi.type.DateTimeEncoding</span></code> class, like <code class="docutils literal notranslate"><span class="pre">pack()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">packDateTimeWithZone()</span></code>.</p>
+<p>UTF-8 encoded strings can be converted to Slices using
+the <code class="docutils literal notranslate"><span class="pre">Slices.utf8Slice()</span></code> static method.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Slice</span></code> class is provided by the <code class="docutils literal notranslate"><span class="pre">io.airlift:slice</span></code> package.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Int128</span></code> objects can be created using the <code class="docutils literal notranslate"><span class="pre">Int128.valueOf()</span></code> method.</p>
+<p>The following example creates a block for an <code class="docutils literal notranslate"><span class="pre">array(varchar)</span></code>  column:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="n">Block</span><span class="w"> </span><span class="nf">encodeArray</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">names</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">BlockBuilder</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VARCHAR</span><span class="p">.</span><span class="na">createBlockBuilder</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="n">names</span><span class="p">.</span><span class="na">size</span><span class="p">());</span>
+<span class="w">    </span><span class="n">blockBuilder</span><span class="p">.</span><span class="na">buildEntry</span><span class="p">(</span><span class="n">elementBuilder</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">names</span><span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">elementBuilder</span><span class="p">.</span><span class="na">appendNull</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">VARCHAR</span><span class="p">.</span><span class="na">writeString</span><span class="p">(</span><span class="n">elementBuilder</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">builder</span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>The following example creates a SqlMap object for a <code class="docutils literal notranslate"><span class="pre">map(varchar,</span> <span class="pre">varchar)</span></code> column:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="n">SqlMap</span><span class="w"> </span><span class="nf">encodeMap</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="o">?&gt;</span><span class="w"> </span><span class="n">map</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MapType</span><span class="w"> </span><span class="n">mapType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">typeManager</span><span class="p">.</span><span class="na">getType</span><span class="p">(</span><span class="n">TypeSignature</span><span class="p">.</span><span class="na">mapType</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">VARCHAR</span><span class="p">.</span><span class="na">getTypeSignature</span><span class="p">(),</span>
+<span class="w">                            </span><span class="n">VARCHAR</span><span class="p">.</span><span class="na">getTypeSignature</span><span class="p">()));</span>
+<span class="w">    </span><span class="n">MapBlockBuilder</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapType</span><span class="p">.</span><span class="na">createBlockBuilder</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">values</span><span class="p">.</span><span class="na">appendNull</span><span class="p">();</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="na">build</span><span class="p">().</span><span class="na">getObject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">Block</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">values</span><span class="p">.</span><span class="na">buildEntry</span><span class="p">((</span><span class="n">keyBuilder</span><span class="p">,</span><span class="w"> </span><span class="n">valueBuilder</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="na">foreach</span><span class="p">((</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">VARCHAR</span><span class="p">.</span><span class="na">writeString</span><span class="p">(</span><span class="n">keyBuilder</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">valueBuilder</span><span class="p">.</span><span class="na">appendNull</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">VARCHAR</span><span class="p">.</span><span class="na">writeString</span><span class="p">(</span><span class="n">valueBuilder</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="na">toString</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="na">build</span><span class="p">().</span><span class="na">getObject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">SqlMap</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h2 id="connectorpagesourceprovider"><span id="connector-page-source-provider"></span>ConnectorPageSourceProvider<a class="headerlink" href="#connectorpagesourceprovider" title="Link to this heading">#</a></h2>
+<p>Given a split, a table handle, and a list of columns, the page source provider
+is responsible for delivering data to the Trino execution engine. It creates
+a <code class="docutils literal notranslate"><span class="pre">ConnectorPageSource</span></code>, which in turn creates <code class="docutils literal notranslate"><span class="pre">Page</span></code> objects that are used
+by Trino to read the column values.</p>
+<p>If not implemented, a default <code class="docutils literal notranslate"><span class="pre">RecordPageSourceProvider</span></code> is used.
+Given a record set provider, it returns an instance of <code class="docutils literal notranslate"><span class="pre">RecordPageSource</span></code>
+that builds <code class="docutils literal notranslate"><span class="pre">Page</span></code> objects from records in a record set.</p>
+<p>A connector should implement a page source provider instead of a record set
+provider when it’s possible to create pages directly. The conversion of
+individual records from a record set provider into pages adds overheads during
+query execution.</p>
+<h2 id="connectorpagesinkprovider"><span id="connector-page-sink-provider"></span>ConnectorPageSinkProvider<a class="headerlink" href="#connectorpagesinkprovider" title="Link to this heading">#</a></h2>
+<p>Given an insert table handle, the page sink provider is responsible for
+consuming data from the Trino execution engine.
+It creates a <code class="docutils literal notranslate"><span class="pre">ConnectorPageSink</span></code>, which in turn accepts <code class="docutils literal notranslate"><span class="pre">Page</span></code> objects
+that contains the column values.</p>
+<p>Example that shows how to iterate over the page to access single values:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@Override</span>
+<span class="kd">public</span><span class="w"> </span><span class="n">CompletableFuture</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">appendPage</span><span class="p">(</span><span class="n">Page</span><span class="w"> </span><span class="n">page</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">channel</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getChannelCount</span><span class="p">();</span><span class="w"> </span><span class="n">channel</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Block</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getBlock</span><span class="p">(</span><span class="n">channel</span><span class="p">);</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getPositionCount</span><span class="p">();</span><span class="w"> </span><span class="n">position</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">block</span><span class="p">.</span><span class="na">isNull</span><span class="p">(</span><span class="n">position</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// or handle this differently</span>
+<span class="w">                </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="c1">// channel should match the column number in the table</span>
+<span class="w">            </span><span class="c1">// use it to determine the expected column type</span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VARCHAR</span><span class="p">.</span><span class="na">getSlice</span><span class="p">(</span><span class="n">block</span><span class="p">,</span><span class="w"> </span><span class="n">position</span><span class="p">).</span><span class="na">toStringUtf8</span><span class="p">();</span>
+<span class="w">            </span><span class="c1">// TODO do something with the value</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">NOT_BLOCKED</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="tests.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Test writing guidelines">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Test writing guidelines
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="example-http.html" class="md-footer__link md-footer__link--next" aria-label="Next: Example HTTP connector">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Example HTTP connector
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

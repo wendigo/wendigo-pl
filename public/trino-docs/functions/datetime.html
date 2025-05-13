@@ -1,0 +1,2469 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="conversion.html">
+      
+      
+        <link rel="next" href="decimal.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Date and time functions and operators - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Date and time functions and operators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../functions.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Functions and operators
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list-by-topic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions by topic
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aggregate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ai.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="array.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bitwise.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bitwise
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="color.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Color
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="comparison.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conditional.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conditional
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conversion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conversion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="timezone.time(p) with time zone (Python parameter)">Date and time</span>
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="decimal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Decimal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="geospatial.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Geospatial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hyperloglog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hyper<wbr>Log<wbr>Log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ipaddress.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IP Address
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="json.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    JSON
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lambda.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lambda
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logical.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logical
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Machine learning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="math.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="cosine_similarity.x (Python parameter)">Math</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="qdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quantile digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="regexp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Regular expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="session.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Session
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="setdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Set Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="string.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    String
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="teradata.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Teradata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    T-<wbr>Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="url.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    URL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uuid.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UUID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="window.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Window
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="date-and-time-functions-and-operators">Date and time functions and operators<a class="headerlink" href="#date-and-time-functions-and-operators" title="Link to this heading">#</a></h1>
+<p>These functions and operators operate on <a class="reference internal" href="../language/types.html#date-time-data-types"><span class="std std-ref">date and time data types</span></a>.</p>
+<h2 id="date-and-time-operators">Date and time operators<a class="headerlink" href="#date-and-time-operators" title="Link to this heading">#</a></h2>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Result</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">'2012-08-08'</span> <span class="pre">+</span> <span class="pre">interval</span> <span class="pre">'2'</span> <span class="pre">day</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2012-08-10</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">'01:00'</span> <span class="pre">+</span> <span class="pre">interval</span> <span class="pre">'3'</span> <span class="pre">hour</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">04:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">timestamp</span> <span class="pre">'2012-08-08</span> <span class="pre">01:00'</span> <span class="pre">+</span> <span class="pre">interval</span> <span class="pre">'29'</span> <span class="pre">hour</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2012-08-09</span> <span class="pre">06:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">timestamp</span> <span class="pre">'2012-10-31</span> <span class="pre">01:00'</span> <span class="pre">+</span> <span class="pre">interval</span> <span class="pre">'1'</span> <span class="pre">month</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2012-11-30</span> <span class="pre">01:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interval</span> <span class="pre">'2'</span> <span class="pre">day</span> <span class="pre">+</span> <span class="pre">interval</span> <span class="pre">'3'</span> <span class="pre">hour</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">03:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interval</span> <span class="pre">'3'</span> <span class="pre">year</span> <span class="pre">+</span> <span class="pre">interval</span> <span class="pre">'5'</span> <span class="pre">month</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3-5</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">'2012-08-08'</span> <span class="pre">-</span> <span class="pre">interval</span> <span class="pre">'2'</span> <span class="pre">day</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2012-08-06</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">'01:00'</span> <span class="pre">-</span> <span class="pre">interval</span> <span class="pre">'3'</span> <span class="pre">hour</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">22:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">timestamp</span> <span class="pre">'2012-08-08</span> <span class="pre">01:00'</span> <span class="pre">-</span> <span class="pre">interval</span> <span class="pre">'29'</span> <span class="pre">hour</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2012-08-06</span> <span class="pre">20:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">timestamp</span> <span class="pre">'2012-10-31</span> <span class="pre">01:00'</span> <span class="pre">-</span> <span class="pre">interval</span> <span class="pre">'1'</span> <span class="pre">month</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2012-09-30</span> <span class="pre">01:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interval</span> <span class="pre">'2'</span> <span class="pre">day</span> <span class="pre">-</span> <span class="pre">interval</span> <span class="pre">'3'</span> <span class="pre">hour</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">21:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interval</span> <span class="pre">'3'</span> <span class="pre">year</span> <span class="pre">-</span> <span class="pre">interval</span> <span class="pre">'5'</span> <span class="pre">month</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2-7</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="time-zone-conversion"><span id="at-time-zone-operator"></span>Time zone conversion<a class="headerlink" href="#time-zone-conversion" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">AT</span> <span class="pre">TIME</span> <span class="pre">ZONE</span></code> operator sets the time zone of a timestamp:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="s1">&#39;2012-10-31 01:00 UTC&#39;</span><span class="p">;</span>
+<span class="c1">-- 2012-10-31 01:00:00.000 UTC</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="s1">&#39;2012-10-31 01:00 UTC&#39;</span><span class="w"> </span><span class="k">AT</span><span class="w"> </span><span class="k">TIME</span><span class="w"> </span><span class="k">ZONE</span><span class="w"> </span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">;</span>
+<span class="c1">-- 2012-10-30 18:00:00.000 America/Los_Angeles</span>
+</code></pre></div>
+</div>
+<h2 id="date-and-time-functions">Date and time functions<a class="headerlink" href="#date-and-time-functions" title="Link to this heading">#</a></h2>
+<dl class="py data objdesc">
+<dt class="sig sig-object highlight py" id="current_date">
+<span class="sig-name descname"><span class="pre">current_date</span></span><a class="headerlink" href="#current_date" title="Link to this definition">#</a></dt>
+<dd><p>Returns the current date as of the start of the query.</p>
+</dd></dl>
+
+<dl class="py data objdesc">
+<dt class="sig sig-object highlight py" id="current_time">
+<span class="sig-name descname"><span class="pre">current_time</span></span><a class="headerlink" href="#current_time" title="Link to this definition">#</a></dt>
+<dd><p>Returns the current time with time zone as of the start of the query.</p>
+</dd></dl>
+
+<dl class="py data objdesc">
+<dt class="sig sig-object highlight py" id="current_timestamp">
+<span class="sig-name descname"><span class="pre">current_timestamp</span></span><a class="headerlink" href="#current_timestamp" title="Link to this definition">#</a></dt>
+<dd><p>Returns the current timestamp with time zone as of the start of the query,
+with <code class="docutils literal notranslate"><span class="pre">3</span></code> digits of subsecond precision,</p>
+</dd></dl>
+
+<dl class="py data objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">current_timestamp</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">p</span></span></em></span><span class="sig-paren">)</span></dt>
+<dd><p>Returns the current <a class="reference internal" href="../language/types.html#timestamp-with-time-zone-data-type"><span class="std std-ref">timestamp with time zone</span></a> as of the start of the query, with
+<code class="docutils literal notranslate"><span class="pre">p</span></code> digits of subsecond precision:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">current_timestamp</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+<span class="c1">-- 2020-06-24 08:25:31.759993 America/Los_Angeles</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="current_timezone">
+<span class="sig-name descname"><span class="pre">current_timezone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#current_timezone" title="Link to this definition">#</a></dt>
+<dd><p>Returns the current time zone in the format defined by IANA
+(e.g., <code class="docutils literal notranslate"><span class="pre">America/Los_Angeles</span></code>) or as fixed offset from UTC (e.g., <code class="docutils literal notranslate"><span class="pre">+08:35</span></code>)</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="date">
+<span class="sig-name descname"><span class="pre">date</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date" title="date.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">date</span></span></span></span><a class="headerlink" href="#date" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <code class="docutils literal notranslate"><span class="pre">CAST(x</span> <span class="pre">AS</span> <span class="pre">date)</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="last_day_of_month">
+<span class="sig-name descname"><span class="pre">last_day_of_month</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#last_day_of_month" title="last_day_of_month.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">date</span></span></span></span><a class="headerlink" href="#last_day_of_month" title="Link to this definition">#</a></dt>
+<dd><p>Returns the last day of the month.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="from_iso8601_timestamp">
+<span class="sig-name descname"><span class="pre">from_iso8601_timestamp</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_iso8601_timestamp" title="from_iso8601_timestamp.string (Python parameter)"><span class="n"><span class="pre">string</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp(3)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span><a class="headerlink" href="#from_iso8601_timestamp" title="Link to this definition">#</a></dt>
+<dd><p>Parses the ISO 8601 formatted date <code class="docutils literal notranslate"><span class="pre">string</span></code>, optionally with time and time
+zone, into a <code class="docutils literal notranslate"><span class="pre">timestamp(3)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></code>. The time defaults to
+<code class="docutils literal notranslate"><span class="pre">00:00:00.000</span></code>, and the time zone defaults to the session time zone:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">from_iso8601_timestamp</span><span class="p">(</span><span class="s1">&#39;2020-05-11&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-05-11 00:00:00.000 America/Vancouver</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">from_iso8601_timestamp</span><span class="p">(</span><span class="s1">&#39;2020-05-11T11:15:05&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-05-11 11:15:05.000 America/Vancouver</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">from_iso8601_timestamp</span><span class="p">(</span><span class="s1">&#39;2020-05-11T11:15:05.055+01:00&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-05-11 11:15:05.055 +01:00</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="from_iso8601_timestamp_nanos">
+<span class="sig-name descname"><span class="pre">from_iso8601_timestamp_nanos</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_iso8601_timestamp_nanos" title="from_iso8601_timestamp_nanos.string (Python parameter)"><span class="n"><span class="pre">string</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp(9)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span><a class="headerlink" href="#from_iso8601_timestamp_nanos" title="Link to this definition">#</a></dt>
+<dd><p>Parses the ISO 8601 formatted date and time <code class="docutils literal notranslate"><span class="pre">string</span></code>. The time zone
+defaults to the session time zone:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">from_iso8601_timestamp_nanos</span><span class="p">(</span><span class="s1">&#39;2020-05-11T11:15:05&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-05-11 11:15:05.000000000 America/Vancouver</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">from_iso8601_timestamp_nanos</span><span class="p">(</span><span class="s1">&#39;2020-05-11T11:15:05.123456789+01:00&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-05-11 11:15:05.123456789 +01:00</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="from_iso8601_date">
+<span class="sig-name descname"><span class="pre">from_iso8601_date</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_iso8601_date" title="from_iso8601_date.string (Python parameter)"><span class="n"><span class="pre">string</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">date</span></span></span></span><a class="headerlink" href="#from_iso8601_date" title="Link to this definition">#</a></dt>
+<dd><p>Parses the ISO 8601 formatted date <code class="docutils literal notranslate"><span class="pre">string</span></code> into a <code class="docutils literal notranslate"><span class="pre">date</span></code>. The date can
+be a calendar date, a week date using ISO week numbering, or year and day
+of year combined:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">from_iso8601_date</span><span class="p">(</span><span class="s1">&#39;2020-05-11&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-05-11</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">from_iso8601_date</span><span class="p">(</span><span class="s1">&#39;2020-W10&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-03-02</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">from_iso8601_date</span><span class="p">(</span><span class="s1">&#39;2020-123&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-05-02</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="at_timezone">
+<span class="sig-name descname"><span class="pre">at_timezone</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#at_timezone" title="at_timezone.timestamp(p) with time zone (Python parameter)"><span class="n"><span class="pre">timestamp(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#at_timezone" title="at_timezone.zone (Python parameter)"><span class="n"><span class="pre">zone</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span><a class="headerlink" href="#at_timezone" title="Link to this definition">#</a></dt>
+<dd><p>Converts a <code class="docutils literal notranslate"><span class="pre">timestamp(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></code> to a time zone specified in <code class="docutils literal notranslate"><span class="pre">zone</span></code>.</p>
+<p>In the following example, the input timezone is <code class="docutils literal notranslate"><span class="pre">GMT</span></code>, which is seven hours
+ahead of <code class="docutils literal notranslate"><span class="pre">America/Los_Angeles</span></code> in November 2022:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">at_timezone</span><span class="p">(</span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2022-11-01 09:08:07.321 GMT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">)</span>
+<span class="c1">-- 2022-11-01 02:08:07.321 America/Los_Angeles</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="with_timezone">
+<span class="sig-name descname"><span class="pre">with_timezone</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#with_timezone" title="with_timezone.timestamp(p) (Python parameter)"><span class="n"><span class="pre">timestamp(p)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#with_timezone" title="with_timezone.zone (Python parameter)"><span class="n"><span class="pre">zone</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span><a class="headerlink" href="#with_timezone" title="Link to this definition">#</a></dt>
+<dd><p>Returns the timestamp specified in <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> with the time zone
+specified in <code class="docutils literal notranslate"><span class="pre">zone</span></code> with precision <code class="docutils literal notranslate"><span class="pre">p</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">current_timezone</span><span class="p">()</span>
+<span class="c1">-- America/New_York</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">with_timezone</span><span class="p">(</span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2022-11-01 09:08:07.321&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">)</span>
+<span class="c1">-- 2022-11-01 09:08:07.321 America/Los_Angeles</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="from_unixtime">
+<span class="sig-name descname"><span class="pre">from_unixtime</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_unixtime" title="from_unixtime.unixtime (Python parameter)"><span class="n"><span class="pre">unixtime</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp(3)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span><a class="headerlink" href="#from_unixtime" title="Link to this definition">#</a></dt>
+<dd><p>Returns the UNIX timestamp <code class="docutils literal notranslate"><span class="pre">unixtime</span></code> as a timestamp with time zone. <code class="docutils literal notranslate"><span class="pre">unixtime</span></code> is the
+number of seconds since <code class="docutils literal notranslate"><span class="pre">1970-01-01</span> <span class="pre">00:00:00</span> <span class="pre">UTC</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">from_unixtime</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_unixtime" title="from_unixtime.unixtime (Python parameter)"><span class="n"><span class="pre">unixtime</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">zone</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp(3)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span></dt>
+<dd><p>Returns the UNIX timestamp <code class="docutils literal notranslate"><span class="pre">unixtime</span></code> as a timestamp with time zone
+using <code class="docutils literal notranslate"><span class="pre">zone</span></code> for the time zone. <code class="docutils literal notranslate"><span class="pre">unixtime</span></code> is the number of seconds
+since <code class="docutils literal notranslate"><span class="pre">1970-01-01</span> <span class="pre">00:00:00</span> <span class="pre">UTC</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight sig-wrap py">
+<span class="sig-name descname"><span class="pre">from_unixtime</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_unixtime" title="from_unixtime.unixtime (Python parameter)"><span class="n"><span class="pre">unixtime</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">hours</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">minutes</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp(3)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span></dt>
+<dd><p>Returns the UNIX timestamp <code class="docutils literal notranslate"><span class="pre">unixtime</span></code> as a timestamp with time zone
+using <code class="docutils literal notranslate"><span class="pre">hours</span></code> and <code class="docutils literal notranslate"><span class="pre">minutes</span></code> for the time zone offset. <code class="docutils literal notranslate"><span class="pre">unixtime</span></code> is
+the number of seconds since <code class="docutils literal notranslate"><span class="pre">1970-01-01</span> <span class="pre">00:00:00</span></code> in <code class="docutils literal notranslate"><span class="pre">double</span></code> data type.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="from_unixtime_nanos">
+<span class="sig-name descname"><span class="pre">from_unixtime_nanos</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_unixtime_nanos" title="from_unixtime_nanos.unixtime (Python parameter)"><span class="n"><span class="pre">unixtime</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp(9)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span><a class="headerlink" href="#from_unixtime_nanos" title="Link to this definition">#</a></dt>
+<dd><p>Returns the UNIX timestamp <code class="docutils literal notranslate"><span class="pre">unixtime</span></code> as a timestamp with time zone. <code class="docutils literal notranslate"><span class="pre">unixtime</span></code> is the
+number of nanoseconds since <code class="docutils literal notranslate"><span class="pre">1970-01-01</span> <span class="pre">00:00:00.000000000</span> <span class="pre">UTC</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">from_unixtime_nanos</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="c1">-- 1970-01-01 00:00:00.000000100 UTC</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">from_unixtime_nanos</span><span class="p">(</span><span class="nb">DECIMAL</span><span class="w"> </span><span class="s1">&#39;1234&#39;</span><span class="p">);</span>
+<span class="c1">-- 1970-01-01 00:00:00.000001234 UTC</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">from_unixtime_nanos</span><span class="p">(</span><span class="nb">DECIMAL</span><span class="w"> </span><span class="s1">&#39;1234.499&#39;</span><span class="p">);</span>
+<span class="c1">-- 1970-01-01 00:00:00.000001234 UTC</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">from_unixtime_nanos</span><span class="p">(</span><span class="nb">DECIMAL</span><span class="w"> </span><span class="s1">&#39;-1234&#39;</span><span class="p">);</span>
+<span class="c1">-- 1969-12-31 23:59:59.999998766 UTC</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data objdesc">
+<dt class="sig sig-object highlight py" id="localtime">
+<span class="sig-name descname"><span class="pre">localtime</span></span><a class="headerlink" href="#localtime" title="Link to this definition">#</a></dt>
+<dd><p>Returns the current time as of the start of the query.</p>
+</dd></dl>
+
+<dl class="py data objdesc">
+<dt class="sig sig-object highlight py" id="localtimestamp">
+<span class="sig-name descname"><span class="pre">localtimestamp</span></span><a class="headerlink" href="#localtimestamp" title="Link to this definition">#</a></dt>
+<dd><p>Returns the current timestamp as of the start of the query, with <code class="docutils literal notranslate"><span class="pre">3</span></code>
+digits of subsecond precision.</p>
+</dd></dl>
+
+<dl class="py data objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">localtimestamp</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">p</span></span></em></span><span class="sig-paren">)</span></dt>
+<dd><p>Returns the current <a class="reference internal" href="../language/types.html#timestamp-data-type"><span class="std std-ref">timestamp</span></a> as of the start
+of the query, with <code class="docutils literal notranslate"><span class="pre">p</span></code> digits of subsecond precision:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">localtimestamp</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+<span class="c1">-- 2020-06-10 15:55:23.383628</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="now">
+<span class="sig-name descname"><span class="pre">now</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp(3)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span><a class="headerlink" href="#now" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <code class="docutils literal notranslate"><span class="pre">current_timestamp</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="to_iso8601">
+<span class="sig-name descname"><span class="pre">to_iso8601</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#to_iso8601" title="to_iso8601.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#to_iso8601" title="Link to this definition">#</a></dt>
+<dd><p>Formats <code class="docutils literal notranslate"><span class="pre">x</span></code> as an ISO 8601 string. <code class="docutils literal notranslate"><span class="pre">x</span></code> can be date, timestamp, or
+timestamp with time zone.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="to_milliseconds">
+<span class="sig-name descname"><span class="pre">to_milliseconds</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#to_milliseconds" title="to_milliseconds.interval (Python parameter)"><span class="n"><span class="pre">interval</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#to_milliseconds" title="Link to this definition">#</a></dt>
+<dd><p>Returns the day-to-second <code class="docutils literal notranslate"><span class="pre">interval</span></code> as milliseconds.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="to_unixtime">
+<span class="sig-name descname"><span class="pre">to_unixtime</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#to_unixtime" title="to_unixtime.timestamp (Python parameter)"><span class="n"><span class="pre">timestamp</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#to_unixtime" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> as a UNIX timestamp.</p>
+</dd></dl>
+
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The following SQL-standard functions do not use parenthesis:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">current_date</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">current_time</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">current_timestamp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">localtime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">localtimestamp</span></code></p></li>
+</ul>
+</div>
+<h2 id="truncation-function">Truncation function<a class="headerlink" href="#truncation-function" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">date_trunc</span></code> function supports the following units:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Unit</p></th>
+<th class="head"><p>Example Truncated Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">millisecond</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2001-08-22</span> <span class="pre">03:04:05.321</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">second</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2001-08-22</span> <span class="pre">03:04:05.000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minute</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2001-08-22</span> <span class="pre">03:04:00.000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hour</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2001-08-22</span> <span class="pre">03:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">day</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2001-08-22</span> <span class="pre">00:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">week</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2001-08-20</span> <span class="pre">00:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">month</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2001-08-01</span> <span class="pre">00:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">quarter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2001-07-01</span> <span class="pre">00:00:00.000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">year</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2001-01-01</span> <span class="pre">00:00:00.000</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>The above examples use the timestamp <code class="docutils literal notranslate"><span class="pre">2001-08-22</span> <span class="pre">03:04:05.321</span></code> as the input.</p>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="date_trunc">
+<span class="sig-name descname"><span class="pre">date_trunc</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_trunc" title="date_trunc.unit (Python parameter)"><span class="n"><span class="pre">unit</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_trunc" title="date_trunc.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span><a class="headerlink" href="#date_trunc" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> truncated to <code class="docutils literal notranslate"><span class="pre">unit</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">date_trunc</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2022-10-20 05:10:00&#39;</span><span class="p">);</span>
+<span class="c1">-- 2022-10-20 00:00:00.000</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">date_trunc</span><span class="p">(</span><span class="s1">&#39;month&#39;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2022-10-20 05:10:00&#39;</span><span class="p">);</span>
+<span class="c1">-- 2022-10-01 00:00:00.000</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">date_trunc</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2022-10-20 05:10:00&#39;</span><span class="p">);</span>
+<span class="c1">-- 2022-01-01 00:00:00.000</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<h2 id="interval-functions"><span id="datetime-interval-functions"></span>Interval functions<a class="headerlink" href="#interval-functions" title="Link to this heading">#</a></h2>
+<p>The functions in this section support the following interval units:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">millisecond</span></code></p></td>
+<td><p>Milliseconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">second</span></code></p></td>
+<td><p>Seconds</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minute</span></code></p></td>
+<td><p>Minutes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hour</span></code></p></td>
+<td><p>Hours</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">day</span></code></p></td>
+<td><p>Days</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">week</span></code></p></td>
+<td><p>Weeks</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">month</span></code></p></td>
+<td><p>Months</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">quarter</span></code></p></td>
+<td><p>Quarters of a year</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">year</span></code></p></td>
+<td><p>Years</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="date_add">
+<span class="sig-name descname"><span class="pre">date_add</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_add" title="date_add.unit (Python parameter)"><span class="n"><span class="pre">unit</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_add" title="date_add.value (Python parameter)"><span class="n"><span class="pre">value</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_add" title="date_add.timestamp (Python parameter)"><span class="n"><span class="pre">timestamp</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">[same</span> <span class="pre">as</span> <span class="pre">input]</span></span></span></span><a class="headerlink" href="#date_add" title="Link to this definition">#</a></dt>
+<dd><p>Adds an interval <code class="docutils literal notranslate"><span class="pre">value</span></code> of type <code class="docutils literal notranslate"><span class="pre">unit</span></code> to <code class="docutils literal notranslate"><span class="pre">timestamp</span></code>.
+Subtraction can be performed by using a negative value:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">date_add</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">86</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-03-01 00:00:00&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-03-01 00:01:26.000</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">date_add</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-03-01 00:00:00&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-03-01 09:00:00.000</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">date_add</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-03-01 00:00:00 UTC&#39;</span><span class="p">);</span>
+<span class="c1">-- 2020-02-29 00:00:00.000 UTC</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="date_diff">
+<span class="sig-name descname"><span class="pre">date_diff</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_diff" title="date_diff.unit (Python parameter)"><span class="n"><span class="pre">unit</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_diff" title="date_diff.timestamp1 (Python parameter)"><span class="n"><span class="pre">timestamp1</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_diff" title="date_diff.timestamp2 (Python parameter)"><span class="n"><span class="pre">timestamp2</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#date_diff" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">timestamp2</span> <span class="pre">-</span> <span class="pre">timestamp1</span></code> expressed in terms of <code class="docutils literal notranslate"><span class="pre">unit</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">date_diff</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-03-01 00:00:00&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-03-02 00:00:00&#39;</span><span class="p">);</span>
+<span class="c1">-- 86400</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">date_diff</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-03-01 00:00:00 UTC&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-03-02 00:00:00 UTC&#39;</span><span class="p">);</span>
+<span class="c1">-- 24</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">date_diff</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="s1">&#39;2020-03-01&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="s1">&#39;2020-03-02&#39;</span><span class="p">);</span>
+<span class="c1">-- 1</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">date_diff</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-06-01 12:30:45.000000000&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-06-02 12:30:45.123456789&#39;</span><span class="p">);</span>
+<span class="c1">-- 86400</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">date_diff</span><span class="p">(</span><span class="s1">&#39;millisecond&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-06-01 12:30:45.000000000&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2020-06-02 12:30:45.123456789&#39;</span><span class="p">);</span>
+<span class="c1">-- 86400123</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<h2 id="duration-function">Duration function<a class="headerlink" href="#duration-function" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">parse_duration</span></code> function supports the following units:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ns</span></code></p></td>
+<td><p>Nanoseconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">us</span></code></p></td>
+<td><p>Microseconds</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ms</span></code></p></td>
+<td><p>Milliseconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>Seconds</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+<td><p>Minutes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">h</span></code></p></td>
+<td><p>Hours</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">d</span></code></p></td>
+<td><p>Days</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="parse_duration">
+<span class="sig-name descname"><span class="pre">parse_duration</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#parse_duration" title="parse_duration.string (Python parameter)"><span class="n"><span class="pre">string</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">interval</span></span></span></span><a class="headerlink" href="#parse_duration" title="Link to this definition">#</a></dt>
+<dd><p>Parses <code class="docutils literal notranslate"><span class="pre">string</span></code> of format <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">unit</span></code> into an interval, where
+<code class="docutils literal notranslate"><span class="pre">value</span></code> is fractional number of <code class="docutils literal notranslate"><span class="pre">unit</span></code> values:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">parse_duration</span><span class="p">(</span><span class="s1">&#39;42.8ms&#39;</span><span class="p">);</span>
+<span class="c1">-- 0 00:00:00.043</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">parse_duration</span><span class="p">(</span><span class="s1">&#39;3.81 d&#39;</span><span class="p">);</span>
+<span class="c1">-- 3 19:26:24.000</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">parse_duration</span><span class="p">(</span><span class="s1">&#39;5m&#39;</span><span class="p">);</span>
+<span class="c1">-- 0 00:05:00.000</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="human_readable_seconds">
+<span class="sig-name descname"><span class="pre">human_readable_seconds</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#human_readable_seconds" title="human_readable_seconds.double (Python parameter)"><span class="n"><span class="pre">double</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#human_readable_seconds" title="Link to this definition">#</a></dt>
+<dd><p>Formats the double value of <code class="docutils literal notranslate"><span class="pre">seconds</span></code> into a human-readable string containing
+<code class="docutils literal notranslate"><span class="pre">weeks</span></code>, <code class="docutils literal notranslate"><span class="pre">days</span></code>, <code class="docutils literal notranslate"><span class="pre">hours</span></code>, <code class="docutils literal notranslate"><span class="pre">minutes</span></code>, and <code class="docutils literal notranslate"><span class="pre">seconds</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">human_readable_seconds</span><span class="p">(</span><span class="mi">96</span><span class="p">);</span>
+<span class="c1">-- 1 minute, 36 seconds</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">human_readable_seconds</span><span class="p">(</span><span class="mi">3762</span><span class="p">);</span>
+<span class="c1">-- 1 hour, 2 minutes, 42 seconds</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">human_readable_seconds</span><span class="p">(</span><span class="mi">56363463</span><span class="p">);</span>
+<span class="c1">-- 93 weeks, 1 day, 8 hours, 31 minutes, 3 seconds</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<h2 id="mysql-date-functions">MySQL date functions<a class="headerlink" href="#mysql-date-functions" title="Link to this heading">#</a></h2>
+<p>The functions in this section use a format string that is compatible with
+the MySQL <code class="docutils literal notranslate"><span class="pre">date_parse</span></code> and <code class="docutils literal notranslate"><span class="pre">str_to_date</span></code> functions. The following table,
+based on the MySQL manual, describes the format specifiers:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Specifier</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%a</span></code></p></td>
+<td><p>Abbreviated weekday name (<code class="docutils literal notranslate"><span class="pre">Sun</span></code> .. <code class="docutils literal notranslate"><span class="pre">Sat</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%b</span></code></p></td>
+<td><p>Abbreviated month name (<code class="docutils literal notranslate"><span class="pre">Jan</span></code> .. <code class="docutils literal notranslate"><span class="pre">Dec</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%c</span></code></p></td>
+<td><p>Month, numeric (<code class="docutils literal notranslate"><span class="pre">1</span></code> .. <code class="docutils literal notranslate"><span class="pre">12</span></code>), this specifier does not support <code class="docutils literal notranslate"><span class="pre">0</span></code> as a month.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%D</span></code></p></td>
+<td><p>Day of the month with English suffix (<code class="docutils literal notranslate"><span class="pre">0th</span></code>, <code class="docutils literal notranslate"><span class="pre">1st</span></code>, <code class="docutils literal notranslate"><span class="pre">2nd</span></code>, <code class="docutils literal notranslate"><span class="pre">3rd</span></code>, …)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%d</span></code></p></td>
+<td><p>Day of the month, numeric (<code class="docutils literal notranslate"><span class="pre">01</span></code> .. <code class="docutils literal notranslate"><span class="pre">31</span></code>), this specifier does not support <code class="docutils literal notranslate"><span class="pre">0</span></code> as a month or day.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%e</span></code></p></td>
+<td><p>Day of the month, numeric (<code class="docutils literal notranslate"><span class="pre">1</span></code> .. <code class="docutils literal notranslate"><span class="pre">31</span></code>), this specifier does not support <code class="docutils literal notranslate"><span class="pre">0</span></code> as a day.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%f</span></code></p></td>
+<td><p>Fraction of second (6 digits for printing: <code class="docutils literal notranslate"><span class="pre">000000</span></code> .. <code class="docutils literal notranslate"><span class="pre">999000</span></code>; 1 - 9 digits for parsing: <code class="docutils literal notranslate"><span class="pre">0</span></code> .. <code class="docutils literal notranslate"><span class="pre">999999999</span></code>), timestamp is truncated to milliseconds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%H</span></code></p></td>
+<td><p>Hour (<code class="docutils literal notranslate"><span class="pre">00</span></code> .. <code class="docutils literal notranslate"><span class="pre">23</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%h</span></code></p></td>
+<td><p>Hour (<code class="docutils literal notranslate"><span class="pre">01</span></code> .. <code class="docutils literal notranslate"><span class="pre">12</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%I</span></code></p></td>
+<td><p>Hour (<code class="docutils literal notranslate"><span class="pre">01</span></code> .. <code class="docutils literal notranslate"><span class="pre">12</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%i</span></code></p></td>
+<td><p>Minutes, numeric (<code class="docutils literal notranslate"><span class="pre">00</span></code> .. <code class="docutils literal notranslate"><span class="pre">59</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%j</span></code></p></td>
+<td><p>Day of year (<code class="docutils literal notranslate"><span class="pre">001</span></code> .. <code class="docutils literal notranslate"><span class="pre">366</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%k</span></code></p></td>
+<td><p>Hour (<code class="docutils literal notranslate"><span class="pre">0</span></code> .. <code class="docutils literal notranslate"><span class="pre">23</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%l</span></code></p></td>
+<td><p>Hour (<code class="docutils literal notranslate"><span class="pre">1</span></code> .. <code class="docutils literal notranslate"><span class="pre">12</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%M</span></code></p></td>
+<td><p>Month name (<code class="docutils literal notranslate"><span class="pre">January</span></code> .. <code class="docutils literal notranslate"><span class="pre">December</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%m</span></code></p></td>
+<td><p>Month, numeric (<code class="docutils literal notranslate"><span class="pre">01</span></code> .. <code class="docutils literal notranslate"><span class="pre">12</span></code>), this specifier does not support <code class="docutils literal notranslate"><span class="pre">0</span></code> as a month.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%p</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AM</span></code> or <code class="docutils literal notranslate"><span class="pre">PM</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%r</span></code></p></td>
+<td><p>Time of day, 12-hour (equivalent to <code class="docutils literal notranslate"><span class="pre">%h:%i:%s</span> <span class="pre">%p</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%S</span></code></p></td>
+<td><p>Seconds (<code class="docutils literal notranslate"><span class="pre">00</span></code> .. <code class="docutils literal notranslate"><span class="pre">59</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%s</span></code></p></td>
+<td><p>Seconds (<code class="docutils literal notranslate"><span class="pre">00</span></code> .. <code class="docutils literal notranslate"><span class="pre">59</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%T</span></code></p></td>
+<td><p>Time of day, 24-hour (equivalent to <code class="docutils literal notranslate"><span class="pre">%H:%i:%s</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%U</span></code></p></td>
+<td><p>Week (<code class="docutils literal notranslate"><span class="pre">00</span></code> .. <code class="docutils literal notranslate"><span class="pre">53</span></code>), where Sunday is the first day of the week</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%u</span></code></p></td>
+<td><p>Week (<code class="docutils literal notranslate"><span class="pre">00</span></code> .. <code class="docutils literal notranslate"><span class="pre">53</span></code>), where Monday is the first day of the week</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%V</span></code></p></td>
+<td><p>Week (<code class="docutils literal notranslate"><span class="pre">01</span></code> .. <code class="docutils literal notranslate"><span class="pre">53</span></code>), where Sunday is the first day of the week; used with <code class="docutils literal notranslate"><span class="pre">%X</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%v</span></code></p></td>
+<td><p>Week (<code class="docutils literal notranslate"><span class="pre">01</span></code> .. <code class="docutils literal notranslate"><span class="pre">53</span></code>), where Monday is the first day of the week; used with <code class="docutils literal notranslate"><span class="pre">%x</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%W</span></code></p></td>
+<td><p>Weekday name (<code class="docutils literal notranslate"><span class="pre">Sunday</span></code> .. <code class="docutils literal notranslate"><span class="pre">Saturday</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%w</span></code></p></td>
+<td><p>Day of the week (<code class="docutils literal notranslate"><span class="pre">0</span></code> .. <code class="docutils literal notranslate"><span class="pre">6</span></code>), where Sunday is the first day of the week, this specifier is not supported,consider using <a class="reference internal" href="#day_of_week" title="day_of_week (Python function) — Returns the ISO day of the week from x. The value ranges from 1 (Monday) to 7 (Sunday)."><code class="xref py py-func docutils literal notranslate"><span class="pre">day_of_week()</span></code></a> (it uses <code class="docutils literal notranslate"><span class="pre">1-7</span></code> instead of <code class="docutils literal notranslate"><span class="pre">0-6</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%X</span></code></p></td>
+<td><p>Year for the week where Sunday is the first day of the week, numeric, four digits; used with <code class="docutils literal notranslate"><span class="pre">%V</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%x</span></code></p></td>
+<td><p>Year for the week, where Monday is the first day of the week, numeric, four digits; used with <code class="docutils literal notranslate"><span class="pre">%v</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%Y</span></code></p></td>
+<td><p>Year, numeric, four digits</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%y</span></code></p></td>
+<td><p>Year, numeric (two digits), when parsing, two-digit year format assumes range <code class="docutils literal notranslate"><span class="pre">1970</span></code> .. <code class="docutils literal notranslate"><span class="pre">2069</span></code>, so “70” will result in year <code class="docutils literal notranslate"><span class="pre">1970</span></code> but “69” will produce <code class="docutils literal notranslate"><span class="pre">2069</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%%</span></code></p></td>
+<td><p>A literal <code class="docutils literal notranslate"><span class="pre">%</span></code> character</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%x</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span></code>, for any <code class="docutils literal notranslate"><span class="pre">x</span></code> not listed above</p></td>
+</tr>
+</tbody>
+</table>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>The following specifiers are not currently supported: <code class="docutils literal notranslate"><span class="pre">%D</span> <span class="pre">%U</span> <span class="pre">%u</span> <span class="pre">%V</span> <span class="pre">%w</span> <span class="pre">%X</span></code></p>
+</div>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="date_format">
+<span class="sig-name descname"><span class="pre">date_format</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_format" title="date_format.timestamp (Python parameter)"><span class="n"><span class="pre">timestamp</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#date_format" title="date_format.format (Python parameter)"><span class="n"><span class="pre">format</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#date_format" title="Link to this definition">#</a></dt>
+<dd><p>Formats <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> as a string using <code class="docutils literal notranslate"><span class="pre">format</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">date_format</span><span class="p">(</span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2022-10-20 05:10:00&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%m-%d-%Y %H&#39;</span><span class="p">);</span>
+<span class="c1">-- 10-20-2022 05</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="date_parse">
+<span class="sig-name descname"><span class="n"><span class="pre">date_parse</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">format)</span> <span class="pre">→</span> <span class="pre">timestamp(3</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#date_parse" title="Link to this definition">#</a></dt>
+<dd><p>Parses <code class="docutils literal notranslate"><span class="pre">string</span></code> into a timestamp using <code class="docutils literal notranslate"><span class="pre">format</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">date_parse</span><span class="p">(</span><span class="s1">&#39;2022/10/20/05&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%Y/%m/%d/%H&#39;</span><span class="p">);</span>
+<span class="c1">-- 2022-10-20 05:00:00.000</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<h2 id="java-date-functions">Java date functions<a class="headerlink" href="#java-date-functions" title="Link to this heading">#</a></h2>
+<p>The functions in this section use a format string that is compatible with
+JodaTime’s <a class="reference external" href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html">DateTimeFormat</a> pattern format.</p>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="format_datetime">
+<span class="sig-name descname"><span class="pre">format_datetime</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#format_datetime" title="format_datetime.timestamp (Python parameter)"><span class="n"><span class="pre">timestamp</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#format_datetime" title="format_datetime.format (Python parameter)"><span class="n"><span class="pre">format</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#format_datetime" title="Link to this definition">#</a></dt>
+<dd><p>Formats <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> as a string using <code class="docutils literal notranslate"><span class="pre">format</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="parse_datetime">
+<span class="sig-name descname"><span class="pre">parse_datetime</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#parse_datetime" title="parse_datetime.string (Python parameter)"><span class="n"><span class="pre">string</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#parse_datetime" title="parse_datetime.format (Python parameter)"><span class="n"><span class="pre">format</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">timestamp</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></span></span><a class="headerlink" href="#parse_datetime" title="Link to this definition">#</a></dt>
+<dd><p>Parses <code class="docutils literal notranslate"><span class="pre">string</span></code> into a timestamp with time zone using <code class="docutils literal notranslate"><span class="pre">format</span></code>.</p>
+</dd></dl>
+
+<h2 id="extraction-function">Extraction function<a class="headerlink" href="#extraction-function" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">extract</span></code> function supports the following fields:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">YEAR</span></code></p></td>
+<td><p><a class="reference internal" href="#year" title="year (Python function) — Returns the year from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">year()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QUARTER</span></code></p></td>
+<td><p><a class="reference internal" href="#quarter" title="quarter (Python function) — Returns the quarter of the year from x. The value ranges from 1 to 4."><code class="xref py py-func docutils literal notranslate"><span class="pre">quarter()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MONTH</span></code></p></td>
+<td><p><a class="reference internal" href="#month" title="month (Python function) — Returns the month of the year from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">month()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WEEK</span></code></p></td>
+<td><p><a class="reference internal" href="#week" title="week (Python function) — Returns the ISO week of the year from x. The value ranges from 1 to 53."><code class="xref py py-func docutils literal notranslate"><span class="pre">week()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DAY</span></code></p></td>
+<td><p><a class="reference internal" href="#day" title="day (Python function) — Returns the day of the month from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">day()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DAY_OF_MONTH</span></code></p></td>
+<td><p><a class="reference internal" href="#day" title="day (Python function) — Returns the day of the month from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">day()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DAY_OF_WEEK</span></code></p></td>
+<td><p><a class="reference internal" href="#day_of_week" title="day_of_week (Python function) — Returns the ISO day of the week from x. The value ranges from 1 (Monday) to 7 (Sunday)."><code class="xref py py-func docutils literal notranslate"><span class="pre">day_of_week()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DOW</span></code></p></td>
+<td><p><a class="reference internal" href="#day_of_week" title="day_of_week (Python function) — Returns the ISO day of the week from x. The value ranges from 1 (Monday) to 7 (Sunday)."><code class="xref py py-func docutils literal notranslate"><span class="pre">day_of_week()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DAY_OF_YEAR</span></code></p></td>
+<td><p><a class="reference internal" href="#day_of_year" title="day_of_year (Python function) — Returns the day of the year from x. The value ranges from 1 to 366."><code class="xref py py-func docutils literal notranslate"><span class="pre">day_of_year()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DOY</span></code></p></td>
+<td><p><a class="reference internal" href="#day_of_year" title="day_of_year (Python function) — Returns the day of the year from x. The value ranges from 1 to 366."><code class="xref py py-func docutils literal notranslate"><span class="pre">day_of_year()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">YEAR_OF_WEEK</span></code></p></td>
+<td><p><a class="reference internal" href="#year_of_week" title="year_of_week (Python function) — Returns the year of the ISO week from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">year_of_week()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">YOW</span></code></p></td>
+<td><p><a class="reference internal" href="#year_of_week" title="year_of_week (Python function) — Returns the year of the ISO week from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">year_of_week()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HOUR</span></code></p></td>
+<td><p><a class="reference internal" href="#hour" title="hour (Python function) — Returns the hour of the day from x. The value ranges from 0 to 23."><code class="xref py py-func docutils literal notranslate"><span class="pre">hour()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MINUTE</span></code></p></td>
+<td><p><a class="reference internal" href="#minute" title="minute (Python function) — Returns the minute of the hour from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">minute()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SECOND</span></code></p></td>
+<td><p><a class="reference internal" href="#second" title="second (Python function) — Returns the second of the minute from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">second()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TIMEZONE_HOUR</span></code></p></td>
+<td><p><a class="reference internal" href="#timezone_hour" title="timezone_hour (Python function) — Returns the hour of the time zone offset from timestamp."><code class="xref py py-func docutils literal notranslate"><span class="pre">timezone_hour()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TIMEZONE_MINUTE</span></code></p></td>
+<td><p><a class="reference internal" href="#timezone_minute" title="timezone_minute (Python function) — Returns the minute of the time zone offset from timestamp."><code class="xref py py-func docutils literal notranslate"><span class="pre">timezone_minute()</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+<p>The types supported by the <code class="docutils literal notranslate"><span class="pre">extract</span></code> function vary depending on the
+field to be extracted. Most fields support all date and time types.</p>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="extract">
+<span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#extract" title="extract.field FROM x (Python parameter)"><span class="n"><span class="pre">field</span> <span class="pre">FROM</span> <span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#extract" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">field</span></code> from <code class="docutils literal notranslate"><span class="pre">x</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">YEAR</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2022-10-20 05:10:00&#39;</span><span class="p">);</span>
+<span class="c1">-- 2022</span>
+</code></pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>This SQL-standard function uses special syntax for specifying the arguments.</p>
+</div>
+</dd></dl>
+
+<h2 id="convenience-extraction-functions">Convenience extraction functions<a class="headerlink" href="#convenience-extraction-functions" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="day">
+<span class="sig-name descname"><span class="pre">day</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#day" title="day.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#day" title="Link to this definition">#</a></dt>
+<dd><p>Returns the day of the month from <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="day_of_month">
+<span class="sig-name descname"><span class="pre">day_of_month</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#day_of_month" title="day_of_month.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#day_of_month" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <a class="reference internal" href="#day" title="day (Python function) — Returns the day of the month from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">day()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="day_of_week">
+<span class="sig-name descname"><span class="pre">day_of_week</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#day_of_week" title="day_of_week.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#day_of_week" title="Link to this definition">#</a></dt>
+<dd><p>Returns the ISO day of the week from <code class="docutils literal notranslate"><span class="pre">x</span></code>.
+The value ranges from <code class="docutils literal notranslate"><span class="pre">1</span></code> (Monday) to <code class="docutils literal notranslate"><span class="pre">7</span></code> (Sunday).</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="day_of_year">
+<span class="sig-name descname"><span class="pre">day_of_year</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#day_of_year" title="day_of_year.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#day_of_year" title="Link to this definition">#</a></dt>
+<dd><p>Returns the day of the year from <code class="docutils literal notranslate"><span class="pre">x</span></code>.
+The value ranges from <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">366</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="dow">
+<span class="sig-name descname"><span class="pre">dow</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#dow" title="dow.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#dow" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <a class="reference internal" href="#day_of_week" title="day_of_week (Python function) — Returns the ISO day of the week from x. The value ranges from 1 (Monday) to 7 (Sunday)."><code class="xref py py-func docutils literal notranslate"><span class="pre">day_of_week()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="doy">
+<span class="sig-name descname"><span class="pre">doy</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#doy" title="doy.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#doy" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <a class="reference internal" href="#day_of_year" title="day_of_year (Python function) — Returns the day of the year from x. The value ranges from 1 to 366."><code class="xref py py-func docutils literal notranslate"><span class="pre">day_of_year()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="hour">
+<span class="sig-name descname"><span class="pre">hour</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#hour" title="hour.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#hour" title="Link to this definition">#</a></dt>
+<dd><p>Returns the hour of the day from <code class="docutils literal notranslate"><span class="pre">x</span></code>.
+The value ranges from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">23</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="millisecond">
+<span class="sig-name descname"><span class="pre">millisecond</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#millisecond" title="millisecond.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#millisecond" title="Link to this definition">#</a></dt>
+<dd><p>Returns the millisecond of the second from <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="minute">
+<span class="sig-name descname"><span class="pre">minute</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#minute" title="minute.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#minute" title="Link to this definition">#</a></dt>
+<dd><p>Returns the minute of the hour from <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="month">
+<span class="sig-name descname"><span class="pre">month</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#month" title="month.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#month" title="Link to this definition">#</a></dt>
+<dd><p>Returns the month of the year from <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="quarter">
+<span class="sig-name descname"><span class="pre">quarter</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#quarter" title="quarter.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#quarter" title="Link to this definition">#</a></dt>
+<dd><p>Returns the quarter of the year from <code class="docutils literal notranslate"><span class="pre">x</span></code>.
+The value ranges from <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">4</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="second">
+<span class="sig-name descname"><span class="pre">second</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#second" title="second.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#second" title="Link to this definition">#</a></dt>
+<dd><p>Returns the second of the minute from <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="timezone_hour">
+<span class="sig-name descname"><span class="pre">timezone_hour</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#timezone_hour" title="timezone_hour.timestamp (Python parameter)"><span class="n"><span class="pre">timestamp</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#timezone_hour" title="Link to this definition">#</a></dt>
+<dd><p>Returns the hour of the time zone offset from <code class="docutils literal notranslate"><span class="pre">timestamp</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="timezone_minute">
+<span class="sig-name descname"><span class="pre">timezone_minute</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#timezone_minute" title="timezone_minute.timestamp (Python parameter)"><span class="n"><span class="pre">timestamp</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#timezone_minute" title="Link to this definition">#</a></dt>
+<dd><p>Returns the minute of the time zone offset from <code class="docutils literal notranslate"><span class="pre">timestamp</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="week">
+<span class="sig-name descname"><span class="pre">week</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#week" title="week.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#week" title="Link to this definition">#</a></dt>
+<dd><p>Returns the <a class="reference external" href="https://wikipedia.org/wiki/ISO_week_date">ISO week</a> of the year from <code class="docutils literal notranslate"><span class="pre">x</span></code>.
+The value ranges from <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">53</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="week_of_year">
+<span class="sig-name descname"><span class="pre">week_of_year</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#week_of_year" title="week_of_year.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#week_of_year" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <a class="reference internal" href="#week" title="week (Python function) — Returns the ISO week of the year from x. The value ranges from 1 to 53."><code class="xref py py-func docutils literal notranslate"><span class="pre">week()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="year">
+<span class="sig-name descname"><span class="pre">year</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#year" title="year.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#year" title="Link to this definition">#</a></dt>
+<dd><p>Returns the year from <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="year_of_week">
+<span class="sig-name descname"><span class="pre">year_of_week</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#year_of_week" title="year_of_week.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#year_of_week" title="Link to this definition">#</a></dt>
+<dd><p>Returns the year of the <a class="reference external" href="https://wikipedia.org/wiki/ISO_week_date">ISO week</a> from <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="yow">
+<span class="sig-name descname"><span class="pre">yow</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#yow" title="yow.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#yow" title="Link to this definition">#</a></dt>
+<dd><p>This is an alias for <a class="reference internal" href="#year_of_week" title="year_of_week (Python function) — Returns the year of the ISO week from x."><code class="xref py py-func docutils literal notranslate"><span class="pre">year_of_week()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="timezone">
+<span class="sig-name descname"><span class="pre">timezone</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#timezone" title="timezone.timestamp(p) with time zone (Python parameter)"><span class="n"><span class="pre">timestamp(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#timezone" title="Link to this definition">#</a></dt>
+<dd><p>Returns the timezone identifier from <code class="docutils literal notranslate"><span class="pre">timestamp(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></code>. The format
+of the returned identifier is identical to the <a class="reference internal" href="../language/types.html#timestamp-p-with-time-zone-data-type"><span class="std std-ref">format used in the input
+timestamp</span></a>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">timezone</span><span class="p">(</span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2024-01-01 12:00:00 Asia/Tokyo&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- Asia/Tokyo</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">timezone</span><span class="p">(</span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2024-01-01 12:00:00 +01:00&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- +01:00</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">timezone</span><span class="p">(</span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="s1">&#39;2024-02-29 12:00:00 UTC&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- UTC</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">timezone</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#" title="timezone.time(p) with time zone (Python parameter)"><span class="n"><span class="pre">time(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span></dt>
+<dd><p>Returns the timezone identifier from a <code class="docutils literal notranslate"><span class="pre">time(p)</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></code>. The format
+of the returned identifier is identical to the <a class="reference internal" href="../language/types.html#time-with-time-zone-data-type"><span class="std std-ref">format used in the input
+time</span></a>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">timezone</span><span class="p">(</span><span class="k">TIME</span><span class="w"> </span><span class="s1">&#39;12:00:00+09:00&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- +09:00</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="conversion.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Conversion functions">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Conversion functions
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="decimal.html" class="md-footer__link md-footer__link--next" aria-label="Next: Decimal functions and operators">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Decimal functions and operators
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

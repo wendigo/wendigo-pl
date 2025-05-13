@@ -1,0 +1,1198 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="cost-based-optimizations.html">
+      
+      
+        <link rel="next" href="adaptive-plan-optimizations.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Pushdown - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pushdown
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../optimizer.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Query optimizer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="statistics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table statistics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cost-in-explain.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cost in EXPLAIN
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cost-based-optimizations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cost-<wbr>based optimizations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pushdown
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adaptive-plan-optimizations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Adaptive plan optimizations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="pushdown">Pushdown<a class="headerlink" href="#pushdown" title="Link to this heading">#</a></h1>
+<p>Trino can push down the processing of queries, or parts of queries, into the
+connected data source. This means that a specific predicate, aggregation
+function, or other operation, is passed through to the underlying database or
+storage system for processing.</p>
+<p>The results of this pushdown can include the following benefits:</p>
+<ul class="simple">
+<li><p>Improved overall query performance</p></li>
+<li><p>Reduced network traffic between Trino and the data source</p></li>
+<li><p>Reduced load on the remote data source</p></li>
+</ul>
+<p>These benefits often result in significant cost reduction.</p>
+<p>Support for pushdown is specific to each connector and the relevant underlying
+database or storage system.</p>
+<h2 id="predicate-pushdown"><span id="id1"></span>Predicate pushdown<a class="headerlink" href="#predicate-pushdown" title="Link to this heading">#</a></h2>
+<p>Predicate pushdown optimizes row-based filtering. It uses the inferred filter,
+typically resulting from a condition in a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause to omit unnecessary
+rows. The processing is pushed down to the data source by the connector and then
+processed by the data source.</p>
+<p>If predicate pushdown for a specific clause is successful, the <code class="docutils literal notranslate"><span class="pre">EXPLAIN</span></code> plan
+for the query does not include a <code class="docutils literal notranslate"><span class="pre">ScanFilterProject</span></code> operation for that
+clause.</p>
+<h2 id="projection-pushdown"><span id="id2"></span>Projection pushdown<a class="headerlink" href="#projection-pushdown" title="Link to this heading">#</a></h2>
+<p>Projection pushdown optimizes column-based filtering. It uses the columns
+specified in the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> clause and other parts of the query to limit access
+to these columns. The processing is pushed down to the data source by the
+connector and then the data source only reads and returns the necessary
+columns.</p>
+<p>If projection pushdown is successful, the <code class="docutils literal notranslate"><span class="pre">EXPLAIN</span></code> plan for the query only
+accesses the relevant columns in the <code class="docutils literal notranslate"><span class="pre">Layout</span></code> of the <code class="docutils literal notranslate"><span class="pre">TableScan</span></code> operation.</p>
+<h2 id="dereference-pushdown"><span id="id3"></span>Dereference pushdown<a class="headerlink" href="#dereference-pushdown" title="Link to this heading">#</a></h2>
+<p>Projection pushdown and dereference pushdown limit access to relevant columns,
+except dereference pushdown is more selective. It limits access to only read the
+specified fields within a top level or nested <code class="docutils literal notranslate"><span class="pre">ROW</span></code> data type.</p>
+<p>For example, consider a table in the Hive connector that has a <code class="docutils literal notranslate"><span class="pre">ROW</span></code> type
+column with several fields. If a query only accesses one field, dereference
+pushdown allows the file reader to read only that single field within the row.
+The same applies to fields of a row nested within the top level row. This can
+result in significant savings in the amount of data read from the storage
+system.</p>
+<h2 id="aggregation-pushdown"><span id="id4"></span>Aggregation pushdown<a class="headerlink" href="#aggregation-pushdown" title="Link to this heading">#</a></h2>
+<p>Aggregation pushdown can take place provided the following conditions are satisfied:</p>
+<ul class="simple">
+<li><p>If aggregation pushdown is generally supported by the connector.</p></li>
+<li><p>If pushdown of the specific function or functions is supported by the connector.</p></li>
+<li><p>If the query structure allows pushdown to take place.</p></li>
+</ul>
+<p>You can check if pushdown for a specific query is performed by looking at the
+<a class="reference internal" href="../sql/explain.html"><span class="doc">EXPLAIN plan</span></a> of the query. If an aggregate function is successfully
+pushed down to the connector, the explain plan does <strong>not</strong> show that <code class="docutils literal notranslate"><span class="pre">Aggregate</span></code> operator.
+The explain plan only shows the operations that are performed by Trino.</p>
+<p>As an example, we loaded the TPC-H data set into a PostgreSQL database and then
+queried it using the PostgreSQL connector:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">regionkey</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">regionkey</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>You can get the explain plan by prepending the above query with <code class="docutils literal notranslate"><span class="pre">EXPLAIN</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">EXPLAIN</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">regionkey</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">nation</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">regionkey</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>The explain plan for this query does not show any <code class="docutils literal notranslate"><span class="pre">Aggregate</span></code> operator with
+the <code class="docutils literal notranslate"><span class="pre">count</span></code> function, as this operation is now performed by the connector. You
+can see the <code class="docutils literal notranslate"><span class="pre">count(*)</span></code> function as part of the PostgreSQL <code class="docutils literal notranslate"><span class="pre">TableScan</span></code>
+operator. This shows you that the pushdown was successful.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>Fragment 0 [SINGLE]
+    Output layout: [regionkey_0, _generated_1]
+    Output partitioning: SINGLE []
+    Output[regionkey, _col1]
+    │   Layout: [regionkey_0:bigint, _generated_1:bigint]
+    │   Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: ?}
+    │   regionkey := regionkey_0
+    │   _col1 := _generated_1
+    └─ RemoteSource[1]
+            Layout: [regionkey_0:bigint, _generated_1:bigint]
+
+Fragment 1 [SOURCE]
+    Output layout: [regionkey_0, _generated_1]
+    Output partitioning: SINGLE []
+    TableScan[postgresql:tpch.nation tpch.nation columns=[regionkey:bigint:int8, count(*):_generated_1:bigint:bigint] groupingSets=[[regionkey:bigint:int8]], gro
+        Layout: [regionkey_0:bigint, _generated_1:bigint]
+        Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: 0B}
+        _generated_1 := count(*):_generated_1:bigint:bigint
+        regionkey_0 := regionkey:bigint:int8
+</code></pre></div>
+</div>
+<p>A number of factors can prevent a push-down:</p>
+<ul class="simple">
+<li><p>adding a condition to the query</p></li>
+<li><p>using a different aggregate function that cannot be pushed down into the connector</p></li>
+<li><p>using a connector without pushdown support for the specific function</p></li>
+</ul>
+<p>As a result, the explain plan shows the <code class="docutils literal notranslate"><span class="pre">Aggregate</span></code> operation being performed
+by Trino. This is a clear sign that now pushdown to the remote data source is not
+performed, and instead Trino performs the aggregate processing.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>Fragment 0 [SINGLE]
+    Output layout: [regionkey, count]
+    Output partitioning: SINGLE []
+    Output[regionkey, _col1]
+    │   Layout: [regionkey:bigint, count:bigint]
+    │   Estimates: {rows: ? (?), cpu: ?, memory: ?, network: ?}
+    │   _col1 := count
+    └─ RemoteSource[1]
+           Layout: [regionkey:bigint, count:bigint]
+
+Fragment 1 [HASH]
+    Output layout: [regionkey, count]
+    Output partitioning: SINGLE []
+    Aggregate(FINAL)[regionkey]
+    │   Layout: [regionkey:bigint, count:bigint]
+    │   Estimates: {rows: ? (?), cpu: ?, memory: ?, network: ?}
+    │   count := count(&quot;count_0&quot;)
+    └─ LocalExchange[HASH][$hashvalue] (&quot;regionkey&quot;)
+       │   Layout: [regionkey:bigint, count_0:bigint, $hashvalue:bigint]
+       │   Estimates: {rows: ? (?), cpu: ?, memory: ?, network: ?}
+       └─ RemoteSource[2]
+              Layout: [regionkey:bigint, count_0:bigint, $hashvalue_1:bigint]
+
+Fragment 2 [SOURCE]
+    Output layout: [regionkey, count_0, $hashvalue_2]
+    Output partitioning: HASH [regionkey][$hashvalue_2]
+    Project[]
+    │   Layout: [regionkey:bigint, count_0:bigint, $hashvalue_2:bigint]
+    │   Estimates: {rows: ? (?), cpu: ?, memory: ?, network: ?}
+    │   $hashvalue_2 := combine_hash(bigint &#39;0&#39;, COALESCE(&quot;$operator$hash_code&quot;(&quot;regionkey&quot;), 0))
+    └─ Aggregate(PARTIAL)[regionkey]
+       │   Layout: [regionkey:bigint, count_0:bigint]
+       │   count_0 := count(*)
+       └─ TableScan[tpch:nation:sf0.01, grouped = false]
+              Layout: [regionkey:bigint]
+              Estimates: {rows: 25 (225B), cpu: 225, memory: 0B, network: 0B}
+              regionkey := tpch:regionkey
+</code></pre></div>
+</div>
+<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h3>
+<p>Aggregation pushdown does not support a number of more complex statements:</p>
+<ul class="simple">
+<li><p>complex grouping operations such as <code class="docutils literal notranslate"><span class="pre">ROLLUP</span></code>, <code class="docutils literal notranslate"><span class="pre">CUBE</span></code>, or <code class="docutils literal notranslate"><span class="pre">GROUPING</span> <span class="pre">SETS</span></code></p></li>
+<li><p>expressions inside the aggregation function call: <code class="docutils literal notranslate"><span class="pre">sum(a</span> <span class="pre">*</span> <span class="pre">b)</span></code></p></li>
+<li><p>coercions: <code class="docutils literal notranslate"><span class="pre">sum(integer_column)</span></code></p></li>
+<li><p><a class="reference internal" href="../functions/aggregate.html#aggregate-function-ordering-during-aggregation"><span class="std std-ref">aggregations with ordering</span></a></p></li>
+<li><p><a class="reference internal" href="../functions/aggregate.html#aggregate-function-filtering-during-aggregation"><span class="std std-ref">aggregations with filter</span></a></p></li>
+</ul>
+<h2 id="join-pushdown"><span id="id5"></span>Join pushdown<a class="headerlink" href="#join-pushdown" title="Link to this heading">#</a></h2>
+<p>Join pushdown allows the connector to delegate the table join operation to the
+underlying data source. This can result in performance gains, and allows Trino
+to perform the remaining query processing on a smaller amount of data.</p>
+<p>The specifics for the supported pushdown of table joins varies for each data
+source, and therefore for each connector.</p>
+<p>However, there are some generic conditions that must be met in order for a join
+to be pushed down:</p>
+<ul class="simple">
+<li><p>all predicates that are part of the join must be possible to be pushed down</p></li>
+<li><p>the tables in the join must be from the same catalog</p></li>
+</ul>
+<p>You can verify if pushdown for a specific join is performed by looking at the
+<a class="reference internal" href="../sql/explain.html"><span class="doc">EXPLAIN</span></a>  plan of the query. The explain plan does not
+show a <code class="docutils literal notranslate"><span class="pre">Join</span></code> operator, if the join is pushed down to the data source by the
+connector:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">custkey</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">orderkey</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">custkey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">custkey</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>The following plan results from the PostgreSQL connector querying TPC-H
+data in a PostgreSQL database. It does not show any <code class="docutils literal notranslate"><span class="pre">Join</span></code> operator as a
+result of the successful join push down.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>Fragment 0 [SINGLE]
+    Output layout: [custkey, orderkey]
+    Output partitioning: SINGLE []
+    Output[custkey, orderkey]
+    │   Layout: [custkey:bigint, orderkey:bigint]
+    │   Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: ?}
+    └─ RemoteSource[1]
+           Layout: [orderkey:bigint, custkey:bigint]
+
+Fragment 1 [SOURCE]
+    Output layout: [orderkey, custkey]
+    Output partitioning: SINGLE []
+    TableScan[postgres:Query[SELECT l.&quot;orderkey&quot; AS &quot;orderkey_0&quot;, l.&quot;custkey&quot; AS &quot;custkey_1&quot;, r.&quot;custkey&quot; AS &quot;custkey_2&quot; FROM (SELECT &quot;orderkey&quot;, &quot;custkey&quot; FROM &quot;tpch&quot;.&quot;orders&quot;) l INNER JOIN (SELECT &quot;custkey&quot; FROM &quot;tpch&quot;.&quot;customer&quot;) r O
+        Layout: [orderkey:bigint, custkey:bigint]
+        Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: 0B}
+        orderkey := orderkey_0:bigint:int8
+        custkey := custkey_1:bigint:int8
+</code></pre></div>
+</div>
+<p>It is typically beneficial to push down a join. Pushing down a join can also
+increase the row count compared to the size of the input to the join. This
+may impact performance.</p>
+<h2 id="limit-pushdown"><span id="id6"></span>Limit pushdown<a class="headerlink" href="#limit-pushdown" title="Link to this heading">#</a></h2>
+<p>A <a class="reference internal" href="../sql/select.html#limit-clause"><span class="std std-ref">LIMIT or FETCH FIRST clause</span></a> reduces the number of returned records for a statement.
+Limit pushdown enables a connector to push processing of such queries of
+unsorted record to the underlying data source.</p>
+<p>A pushdown of this clause can improve the performance of the query and
+significantly reduce the amount of data transferred from the data source to
+Trino.</p>
+<p>Queries include sections such as <code class="docutils literal notranslate"><span class="pre">LIMIT</span> <span class="pre">N</span></code> or <code class="docutils literal notranslate"><span class="pre">FETCH</span> <span class="pre">FIRST</span> <span class="pre">N</span> <span class="pre">ROWS</span></code>.</p>
+<p>Implementation and support is connector-specific since different data sources have varying capabilities.</p>
+<h2 id="top-n-pushdown"><span id="topn-pushdown"></span>Top-N pushdown<a class="headerlink" href="#top-n-pushdown" title="Link to this heading">#</a></h2>
+<p>The combination of a <a class="reference internal" href="../sql/select.html#limit-clause"><span class="std std-ref">LIMIT or FETCH FIRST clause</span></a> with an <a class="reference internal" href="../sql/select.html#order-by-clause"><span class="std std-ref">ORDER BY clause</span></a> creates
+a small set of records to return out of a large sorted dataset. It relies on the
+order to determine which records need to be returned, and is therefore quite
+different to optimize compared to a <a class="reference internal" href="#limit-pushdown"><span class="std std-ref">Limit pushdown</span></a>.</p>
+<p>The pushdown for such a query is called a Top-N pushdown, since the operation is
+returning the top N rows. It enables a connector to push processing of such
+queries to the underlying data source, and therefore significantly reduces the
+amount of data transferred to and processed by Trino.</p>
+<p>Queries include sections such as <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span> <span class="pre">...</span> <span class="pre">LIMIT</span> <span class="pre">N</span></code> or <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span> <span class="pre">...</span> <span class="pre">FETCH</span> <span class="pre">FIRST</span> <span class="pre">N</span> <span class="pre">ROWS</span></code>.</p>
+<p>Implementation and support is connector-specific since different data sources
+support different SQL syntax and processing.</p>
+<p>For example, you can find two queries to learn how to identify Top-N pushdown behavior in the following section.</p>
+<p>First, a concrete example of a Top-N pushdown query on top of a PostgreSQL database:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">postgresql</span><span class="p">.</span><span class="k">public</span><span class="p">.</span><span class="n">company</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>You can get the explain plan by prepending the above query with <code class="docutils literal notranslate"><span class="pre">EXPLAIN</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">postgresql</span><span class="p">.</span><span class="k">public</span><span class="p">.</span><span class="n">company</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>Fragment 0 [SINGLE]
+    Output layout: [id, name]
+    Output partitioning: SINGLE []
+    Stage Execution Strategy: UNGROUPED_EXECUTION
+    Output[id, name]
+    │   Layout: [id:integer, name:varchar]
+    │   Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: ?}
+    └─ RemoteSource[1]
+           Layout: [id:integer, name:varchar]
+
+Fragment 1 [SOURCE]
+    Output layout: [id, name]
+    Output partitioning: SINGLE []
+    Stage Execution Strategy: UNGROUPED_EXECUTION
+    TableScan[postgresql:public.company public.company sortOrder=[id:integer:int4 ASC NULLS LAST] limit=5, grouped = false]
+        Layout: [id:integer, name:varchar]
+        Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: 0B}
+        name := name:varchar:text
+        id := id:integer:int4
+</code></pre></div>
+</div>
+<p>Second, an example of a Top-N query on the <code class="docutils literal notranslate"><span class="pre">tpch</span></code> connector which does not support
+Top-N pushdown functionality:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">custkey</span><span class="p">,</span><span class="w"> </span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tpch</span><span class="p">.</span><span class="n">sf1</span><span class="p">.</span><span class="n">customer</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">custkey</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>The related query plan:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>Fragment 0 [SINGLE]
+    Output layout: [custkey, name]
+    Output partitioning: SINGLE []
+    Stage Execution Strategy: UNGROUPED_EXECUTION
+    Output[custkey, name]
+    │   Layout: [custkey:bigint, name:varchar(25)]
+    │   Estimates: {rows: ? (?), cpu: ?, memory: ?, network: ?}
+    └─ TopN[5 by (custkey ASC NULLS LAST)]
+       │   Layout: [custkey:bigint, name:varchar(25)]
+       └─ LocalExchange[SINGLE] ()
+          │   Layout: [custkey:bigint, name:varchar(25)]
+          │   Estimates: {rows: ? (?), cpu: ?, memory: ?, network: ?}
+          └─ RemoteSource[1]
+                 Layout: [custkey:bigint, name:varchar(25)]
+
+Fragment 1 [SOURCE]
+    Output layout: [custkey, name]
+    Output partitioning: SINGLE []
+    Stage Execution Strategy: UNGROUPED_EXECUTION
+    TopNPartial[5 by (custkey ASC NULLS LAST)]
+    │   Layout: [custkey:bigint, name:varchar(25)]
+    └─ TableScan[tpch:customer:sf1.0, grouped = false]
+           Layout: [custkey:bigint, name:varchar(25)]
+           Estimates: {rows: 150000 (4.58MB), cpu: 4.58M, memory: 0B, network: 0B}
+           custkey := tpch:custkey
+           name := tpch:name
+</code></pre></div>
+</div>
+<p>In the preceding query plan, the Top-N operation <code class="docutils literal notranslate"><span class="pre">TopN[5</span> <span class="pre">by</span> <span class="pre">(custkey</span> <span class="pre">ASC</span> <span class="pre">NULLS</span> <span class="pre">LAST)]</span></code>
+is being applied in the <code class="docutils literal notranslate"><span class="pre">Fragment</span> <span class="pre">0</span></code> by Trino and not by the source database.</p>
+<p>Note that, compared to the query executed on top of the <code class="docutils literal notranslate"><span class="pre">tpch</span></code> connector,
+the explain plan of the query applied on top of the <code class="docutils literal notranslate"><span class="pre">postgresql</span></code> connector
+is missing the reference to the operation <code class="docutils literal notranslate"><span class="pre">TopN[5</span> <span class="pre">by</span> <span class="pre">(id</span> <span class="pre">ASC</span> <span class="pre">NULLS</span> <span class="pre">LAST)]</span></code>
+in the <code class="docutils literal notranslate"><span class="pre">Fragment</span> <span class="pre">0</span></code>.
+The absence of the <code class="docutils literal notranslate"><span class="pre">TopN</span></code> Trino operator in the <code class="docutils literal notranslate"><span class="pre">Fragment</span> <span class="pre">0</span></code> from the query plan
+demonstrates that the query benefits of the Top-N pushdown optimization.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="cost-based-optimizations.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Cost-based optimizations">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Cost-based optimizations
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="adaptive-plan-optimizations.html" class="md-footer__link md-footer__link--next" aria-label="Next: Adaptive plan optimizations">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Adaptive plan optimizations
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

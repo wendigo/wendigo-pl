@@ -1,0 +1,3122 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="googlesheets.html">
+      
+      
+        <link rel="next" href="hudi.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Hive connector - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hive connector
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../connector.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Connectors
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bigquery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Big<wbr>Query
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="blackhole.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Black Hole
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cassandra.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cassandra
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="clickhouse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Click<wbr>House
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="delta-lake.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Delta Lake
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="druid.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Druid
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="duckdb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Duck<wbr>DB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="elasticsearch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Elasticsearch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exasol.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Exasol
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faker.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Faker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="googlesheets.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Google Sheets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hive
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hudi.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hudi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="iceberg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Iceberg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ignite.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ignite
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="jmx.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    JMX
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="kafka.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kafka
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="loki.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loki
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mariadb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maria<wbr>DB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="memory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Memory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mongodb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mongo<wbr>DB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    My<wbr>SQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="opensearch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Open<wbr>Search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oracle.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Oracle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pinot.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pinot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="postgresql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Postgre<wbr>SQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="prometheus.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Redis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redshift.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Redshift
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="singlestore.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Single<wbr>Store
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="snowflake.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Snowflake
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sqlserver.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="thrift.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thrift
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tpcds.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TPC-<wbr>DS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tpch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TPC-<wbr>H
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vertica.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vertica
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="removed.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    404 -<wbr> Connector removed
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="hive-connector">Hive connector<a class="headerlink" href="#hive-connector" title="Link to this heading">#</a></h1>
+<img src="../_static/img/hive.png" class="connector-logo"><p>The Hive connector allows querying data stored in an
+<a class="reference external" href="https://hive.apache.org/">Apache Hive</a>
+data warehouse. Hive is a combination of three components:</p>
+<ul class="simple">
+<li><p>Data files in varying formats, that are typically stored in the
+Hadoop Distributed File System (HDFS) or in object storage systems
+such as Amazon S3.</p></li>
+<li><p>Metadata about how the data files are mapped to schemas and tables. This
+metadata is stored in a database, such as MySQL, and is accessed via the Hive
+metastore service.</p></li>
+<li><p>A query language called HiveQL. This query language is executed on a
+distributed computing framework such as MapReduce or Tez.</p></li>
+</ul>
+<p>Trino only uses the first two components: the data and the metadata.
+It does not use HiveQL or any part of Hive’s execution environment.</p>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
+<p>The Hive connector requires a
+<a class="reference internal" href="../object-storage/metastores.html#hive-thrift-metastore"><span class="std std-ref">Hive metastore service</span></a> (HMS), or a compatible
+implementation of the Hive metastore, such as
+<a class="reference internal" href="../object-storage/metastores.html#hive-glue-metastore"><span class="std std-ref">AWS Glue</span></a>.</p>
+<p>You must select and configure a <a class="reference internal" href="#hive-file-system-configuration"><span class="std std-ref">supported
+file system</span></a> in your catalog configuration file.</p>
+<p>The coordinator and all workers must have network access to the Hive metastore
+and the storage system. Hive metastore access with the Thrift protocol defaults
+to using port 9083.</p>
+<p>Data files must be in a supported file format. File formats can be
+configured using the <a class="reference internal" href="#hive-table-properties"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">format</span></code> table property</span></a>
+and other specific properties:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../object-storage/file-formats.html#orc-format-configuration"><span class="std std-ref">ORC</span></a></p></li>
+<li><p><a class="reference internal" href="../object-storage/file-formats.html#parquet-format-configuration"><span class="std std-ref">Parquet</span></a></p></li>
+<li><p>Avro</p></li>
+</ul>
+<p>In the case of serializable formats, only specific
+<a class="reference external" href="https://www.wikipedia.org/wiki/SerDes">SerDes</a> are allowed:</p>
+<ul class="simple">
+<li><p>RCText - RCFile using <code class="docutils literal notranslate"><span class="pre">ColumnarSerDe</span></code></p></li>
+<li><p>RCBinary - RCFile using <code class="docutils literal notranslate"><span class="pre">LazyBinaryColumnarSerDe</span></code></p></li>
+<li><p>SequenceFile</p></li>
+<li><p>CSV - using <code class="docutils literal notranslate"><span class="pre">org.apache.hadoop.hive.serde2.OpenCSVSerde</span></code></p></li>
+<li><p>JSON - using <code class="docutils literal notranslate"><span class="pre">org.apache.hive.hcatalog.data.JsonSerDe</span></code></p></li>
+<li><p>OPENX_JSON - OpenX JSON SerDe from <code class="docutils literal notranslate"><span class="pre">org.openx.data.jsonserde.JsonSerDe</span></code>. Find
+more <a class="reference external" href="https://github.com/trinodb/trino/tree/master/lib/trino-hive-formats/src/main/java/io/trino/hive/formats/line/openxjson/README.md">details about the Trino implementation in the source repository</a>.</p></li>
+<li><p>TextFile</p></li>
+</ul>
+<h2 id="general-configuration"><span id="hive-configuration"></span>General configuration<a class="headerlink" href="#general-configuration" title="Link to this heading">#</a></h2>
+<p>To configure the Hive connector, create a catalog properties file
+<code class="docutils literal notranslate"><span class="pre">etc/catalog/example.properties</span></code> that references the <code class="docutils literal notranslate"><span class="pre">hive</span></code> connector.</p>
+<p>You must configure a <a class="reference internal" href="../object-storage/metastores.html"><span class="doc std std-doc">metastore for metadata</span></a>.</p>
+<p>You must select and configure one of the <a class="reference internal" href="#hive-file-system-configuration"><span class="std std-ref">supported file
+systems</span></a>.</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><code><span class="na">connector.name</span><span class="o">=</span><span class="s">hive</span>
+<span class="na">hive.metastore.uri</span><span class="o">=</span><span class="s">thrift://example.net:9083</span>
+<span class="na">fs.x.enabled</span><span class="o">=</span><span class="s">true</span>
+</code></pre></div>
+</div>
+<p>Replace the <code class="docutils literal notranslate"><span class="pre">fs.x.enabled</span></code> configuration property with the desired file system.</p>
+<p>If you are using <a class="reference internal" href="../object-storage/metastores.html#hive-glue-metastore"><span class="std std-ref">AWS Glue</span></a> as your metastore, you
+must instead set <code class="docutils literal notranslate"><span class="pre">hive.metastore</span></code> to <code class="docutils literal notranslate"><span class="pre">glue</span></code>:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><code><span class="na">connector.name</span><span class="o">=</span><span class="s">hive</span>
+<span class="na">hive.metastore</span><span class="o">=</span><span class="s">glue</span>
+</code></pre></div>
+</div>
+<p>Each metastore type has specific configuration properties along with
+<a class="reference internal" href="../object-storage/metastores.html#general-metastore-properties"><span class="std std-ref">General metastore configuration properties</span></a>.</p>
+<h3 id="multiple-hive-clusters">Multiple Hive clusters<a class="headerlink" href="#multiple-hive-clusters" title="Link to this heading">#</a></h3>
+<p>You can have as many catalogs as you need, so if you have additional
+Hive clusters, simply add another properties file to <code class="docutils literal notranslate"><span class="pre">etc/catalog</span></code>
+with a different name, making sure it ends in <code class="docutils literal notranslate"><span class="pre">.properties</span></code>. For
+example, if you name the property file <code class="docutils literal notranslate"><span class="pre">sales.properties</span></code>, Trino
+creates a catalog named <code class="docutils literal notranslate"><span class="pre">sales</span></code> using the configured connector.</p>
+<h3 id="hive-general-configuration-properties"><span id="hive-configuration-properties"></span>Hive general configuration properties<a class="headerlink" href="#hive-general-configuration-properties" title="Link to this heading">#</a></h3>
+<p>The following table lists general configuration properties for the Hive
+connector. There are additional sets of configuration properties throughout the
+Hive connector documentation.</p>
+<table class="docutils data align-default" id="id2">
+<caption><span class="caption-text">Hive general configuration properties</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 50.0%" />
+<col style="width: 15.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.recursive-directories</span></code></p></td>
+<td><p>Enable reading data from subdirectories of table or partition locations. If
+disabled, subdirectories are ignored. This is equivalent to the
+<code class="docutils literal notranslate"><span class="pre">hive.mapred.supports.subdirectories</span></code> property in Hive.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.ignore-absent-partitions</span></code></p></td>
+<td><p>Ignore partitions when the file system location does not exist rather than
+failing the query. This skips data that may be expected to be part of the
+table.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.storage-format</span></code></p></td>
+<td><p>The default file format used when creating new tables.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ORC</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.orc.use-column-names</span></code></p></td>
+<td><p>Access ORC columns by name. By default, columns in ORC files are accessed by
+their ordinal position in the Hive table definition. The equivalent catalog
+session property is <code class="docutils literal notranslate"><span class="pre">orc_use_column_names</span></code>. See also,
+<a class="reference internal" href="../object-storage/file-formats.html#orc-format-configuration"><span class="std std-ref">ORC format configuration properties</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.parquet.use-column-names</span></code></p></td>
+<td><p>Access Parquet columns by name by default. Set this property to <code class="docutils literal notranslate"><span class="pre">false</span></code> to
+access columns by their ordinal position in the Hive table definition. The
+equivalent catalog session property is <code class="docutils literal notranslate"><span class="pre">parquet_use_column_names</span></code>. See also,
+<a class="reference internal" href="../object-storage/file-formats.html#parquet-format-configuration"><span class="std std-ref">Parquet format configuration properties</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.parquet.time-zone</span></code></p></td>
+<td><p>Time zone for Parquet read and write.</p></td>
+<td><p>JVM default</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.compression-codec</span></code></p></td>
+<td><p>The compression codec to use when writing files. Possible values are <code class="docutils literal notranslate"><span class="pre">NONE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SNAPPY</span></code>, <code class="docutils literal notranslate"><span class="pre">LZ4</span></code>, <code class="docutils literal notranslate"><span class="pre">ZSTD</span></code>, or <code class="docutils literal notranslate"><span class="pre">GZIP</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GZIP</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.force-local-scheduling</span></code></p></td>
+<td><p>Force splits to be scheduled on the same node as the Hadoop DataNode process
+serving the split data. This is useful for installations where Trino is
+collocated with every DataNode.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.respect-table-format</span></code></p></td>
+<td><p>Should new partitions be written using the existing table format or the
+default Trino format?</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.immutable-partitions</span></code></p></td>
+<td><p>Can new data be inserted into existing partitions? If <code class="docutils literal notranslate"><span class="pre">true</span></code> then setting
+<code class="docutils literal notranslate"><span class="pre">hive.insert-existing-partitions-behavior</span></code> to <code class="docutils literal notranslate"><span class="pre">APPEND</span></code> is not allowed. This
+also affects the <code class="docutils literal notranslate"><span class="pre">insert_existing_partitions_behavior</span></code> session property in
+the same way.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.insert-existing-partitions-behavior</span></code></p></td>
+<td><p>What happens when data is inserted into an existing partition? Possible
+values are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">APPEND</span></code> - appends data to existing partitions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OVERWRITE</span></code> - overwrites existing partitions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ERROR</span></code> - modifying existing partitions is not allowed</p></li>
+</ul>
+<p>The equivalent catalog session property is <code class="docutils literal notranslate"><span class="pre">insert_existing_partitions_behavior</span></code>.</p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">APPEND</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.target-max-file-size</span></code></p></td>
+<td><p>Best effort maximum size of new files.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1GB</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.create-empty-bucket-files</span></code></p></td>
+<td><p>Should empty files be created for buckets that have no data?</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.validate-bucketing</span></code></p></td>
+<td><p>Enables validation that data is in the correct bucket when reading bucketed
+tables.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.partition-statistics-sample-size</span></code></p></td>
+<td><p>Specifies the number of partitions to analyze when computing table
+statistics.</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-partitions-per-writers</span></code></p></td>
+<td><p>Maximum number of partitions per writer.</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-partitions-for-eager-load</span></code></p></td>
+<td><p>The maximum number of partitions for a single table scan to load eagerly on
+the coordinator. Certain optimizations are not possible without eager
+loading.</p></td>
+<td><p>100,000</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-partitions-per-scan</span></code></p></td>
+<td><p>Maximum number of partitions for a single table scan.</p></td>
+<td><p>1,000,000</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.non-managed-table-writes-enabled</span></code></p></td>
+<td><p>Enable writes to non-managed (external) Hive tables.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.non-managed-table-creates-enabled</span></code></p></td>
+<td><p>Enable creating non-managed (external) Hive tables.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.collect-column-statistics-on-write</span></code></p></td>
+<td><p>Enables automatic column level statistics collection on write. See
+<a class="reference internal" href="#hive-table-statistics"><span class="std std-ref">Table statistics</span></a> for details.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.file-status-cache-tables</span></code></p></td>
+<td><p>Cache directory listing for specific tables. Examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fruit.apple,fruit.orange</span></code> to cache listings only for tables
+<code class="docutils literal notranslate"><span class="pre">apple</span></code> and <code class="docutils literal notranslate"><span class="pre">orange</span></code> in schema <code class="docutils literal notranslate"><span class="pre">fruit</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fruit.*,vegetable.*</span></code> to cache listings for all tables
+in schemas <code class="docutils literal notranslate"><span class="pre">fruit</span></code> and <code class="docutils literal notranslate"><span class="pre">vegetable</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> to cache listings for all tables in all schemas</p></li>
+</ul>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.file-status-cache.excluded-tables</span></code></p></td>
+<td><p>Whereas <code class="docutils literal notranslate"><span class="pre">hive.file-status-cache-tables</span></code> is an inclusion list, this is an exclusion list for the cache.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fruit.apple,fruit.orange</span></code> to <em>NOT</em> cache listings only for tables
+<code class="docutils literal notranslate"><span class="pre">apple</span></code> and <code class="docutils literal notranslate"><span class="pre">orange</span></code> in schema <code class="docutils literal notranslate"><span class="pre">fruit</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fruit.*,vegetable.*</span></code> to <em>NOT</em> cache listings for all tables
+in schemas <code class="docutils literal notranslate"><span class="pre">fruit</span></code> and <code class="docutils literal notranslate"><span class="pre">vegetable</span></code></p></li>
+</ul>
+</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.file-status-cache.max-retained-size</span></code></p></td>
+<td><p>Maximum retained size of cached file status entries.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1GB</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.file-status-cache-expire-time</span></code></p></td>
+<td><p>How long a cached directory listing is considered valid.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1m</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.per-transaction-file-status-cache.max-retained-size</span></code></p></td>
+<td><p>Maximum retained size of all entries in per transaction file status cache.
+Retained size limit is shared across all running queries.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">100MB</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.rcfile.time-zone</span></code></p></td>
+<td><p>Adjusts binary encoded timestamp values to a specific time zone. For Hive
+3.1+, this must be set to UTC.</p></td>
+<td><p>JVM default</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.timestamp-precision</span></code></p></td>
+<td><p>Specifies the precision to use for Hive columns of type <code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code>.
+Possible values are <code class="docutils literal notranslate"><span class="pre">MILLISECONDS</span></code>, <code class="docutils literal notranslate"><span class="pre">MICROSECONDS</span></code> and <code class="docutils literal notranslate"><span class="pre">NANOSECONDS</span></code>.
+Values with higher precision than configured are rounded. The equivalent
+<a class="reference internal" href="../sql/set-session.html"><span class="doc std std-doc">catalog session property</span></a> is <code class="docutils literal notranslate"><span class="pre">timestamp_precision</span></code> for
+session specific use.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MILLISECONDS</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.temporary-staging-directory-enabled</span></code></p></td>
+<td><p>Controls whether the temporary staging directory configured at
+<code class="docutils literal notranslate"><span class="pre">hive.temporary-staging-directory-path</span></code> is used for write operations.
+Temporary staging directory is never used for writes to non-sorted tables on
+S3, encrypted HDFS or external location. Writes to sorted tables will
+utilize this path for staging temporary files during sorting operation. When
+disabled, the target storage will be used for staging while writing sorted
+tables which can be inefficient when writing to object stores like S3.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.temporary-staging-directory-path</span></code></p></td>
+<td><p>Controls the location of temporary staging directory that is used for write
+operations. The <code class="docutils literal notranslate"><span class="pre">${USER}</span></code> placeholder can be used to use a different
+location for each user.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/tmp/presto-${USER}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.hive-views.enabled</span></code></p></td>
+<td><p>Enable translation for <a class="reference internal" href="#hive-views"><span class="std std-ref">Hive views</span></a>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.hive-views.legacy-translation</span></code></p></td>
+<td><p>Use the legacy algorithm to translate <a class="reference internal" href="#hive-views"><span class="std std-ref">Hive views</span></a>. You
+can use the <code class="docutils literal notranslate"><span class="pre">hive_views_legacy_translation</span></code> catalog session property for
+temporary, catalog specific use.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.parallel-partitioned-bucketed-writes</span></code></p></td>
+<td><p>Improve parallelism of partitioned and bucketed table writes. When disabled,
+the number of writing threads is limited to number of buckets.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.query-partition-filter-required</span></code></p></td>
+<td><p>Set to <code class="docutils literal notranslate"><span class="pre">true</span></code> to force a query to use a partition filter. You can use the
+<code class="docutils literal notranslate"><span class="pre">query_partition_filter_required</span></code> catalog session property for temporary,
+catalog specific use.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.query-partition-filter-required-schemas</span></code></p></td>
+<td><p>Allow specifying the list of schemas for which Trino will enforce that
+queries use a filter on partition keys for source tables. The list can be
+specified using the <code class="docutils literal notranslate"><span class="pre">hive.query-partition-filter-required-schemas</span></code>,
+or the <code class="docutils literal notranslate"><span class="pre">query_partition_filter_required_schemas</span></code> session property. The list
+is taken into consideration only if the <code class="docutils literal notranslate"><span class="pre">hive.query-partition-filter-required</span></code>
+configuration property or the <code class="docutils literal notranslate"><span class="pre">query_partition_filter_required</span></code> session
+property is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.table-statistics-enabled</span></code></p></td>
+<td><p>Enables <a class="reference internal" href="../optimizer/statistics.html"><span class="doc std std-doc">Table statistics</span></a>. The equivalent <a class="reference internal" href="../sql/set-session.html"><span class="doc std std-doc">catalog session
+property</span></a> is <code class="docutils literal notranslate"><span class="pre">statistics_enabled</span></code> for session specific
+use. Set to <code class="docutils literal notranslate"><span class="pre">false</span></code> to disable statistics. Disabling statistics means that
+<a class="reference internal" href="../optimizer/cost-based-optimizations.html"><span class="doc std std-doc">Cost-based optimizations</span></a> can not make smart decisions about
+the query plan.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.auto-purge</span></code></p></td>
+<td><p>Set the default value for the auto_purge table property for managed tables.
+See the <a class="reference internal" href="#hive-table-properties"><span class="std std-ref">Table properties</span></a> for more information on auto_purge.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.partition-projection-enabled</span></code></p></td>
+<td><p>Enables Athena partition projection support</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.s3-glacier-filter</span></code></p></td>
+<td><p>Filter S3 objects based on their storage class and restored status if applicable. Possible
+values are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">READ_ALL</span></code> - read files from all S3 storage classes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">READ_NON_GLACIER</span></code> - read files from non S3 Glacier storage classes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">READ_NON_GLACIER_AND_RESTORED</span></code> - read files from non S3 Glacier storage classes and
+restored objects from Glacier storage class</p></li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">READ_ALL</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-partition-drops-per-query</span></code></p></td>
+<td><p>Maximum number of partitions to drop in a single query.</p></td>
+<td><p>100,000</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.single-statement-writes</span></code></p></td>
+<td><p>Enables auto-commit for all writes. This can be used to disallow
+multi-statement write transactions.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.metadata.parallelism</span></code></p></td>
+<td><p>Number of threads used for retrieving metadata. Currently, only table loading
+is parallelized.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="file-system-access-configuration"><span id="hive-file-system-configuration"></span>File system access configuration<a class="headerlink" href="#file-system-access-configuration" title="Link to this heading">#</a></h3>
+<p>The connector supports accessing the following file systems:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../object-storage/file-system-azure.html"><span class="doc std std-doc">Azure Storage file system support</span></a></p></li>
+<li><p><a class="reference internal" href="../object-storage/file-system-gcs.html"><span class="doc std std-doc">Google Cloud Storage file system support</span></a></p></li>
+<li><p><a class="reference internal" href="../object-storage/file-system-s3.html"><span class="doc std std-doc">S3 file system support</span></a></p></li>
+<li><p><a class="reference internal" href="../object-storage/file-system-hdfs.html"><span class="doc std std-doc">HDFS file system support</span></a></p></li>
+</ul>
+<p>You must enable and configure the specific file system access. <a class="reference internal" href="../object-storage.html#file-system-legacy"><span class="std std-ref">Legacy
+support</span></a> is not recommended and will be removed.</p>
+<h3 id="fault-tolerant-execution-support"><span id="hive-fte-support"></span>Fault-tolerant execution support<a class="headerlink" href="#fault-tolerant-execution-support" title="Link to this heading">#</a></h3>
+<p>The connector supports <a class="reference internal" href="../admin/fault-tolerant-execution.html"><span class="doc">Fault-tolerant execution</span></a> of query
+processing. Read and write operations are both supported with any retry policy
+on non-transactional tables.</p>
+<p>Read operations are supported with any retry policy on transactional tables.
+Write operations and <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">TABLE</span> <span class="pre">...</span> <span class="pre">AS</span></code> operations are not supported with
+any retry policy on transactional tables.</p>
+<h2 id="security"><span id="hive-security"></span>Security<a class="headerlink" href="#security" title="Link to this heading">#</a></h2>
+<p>The connector supports different means of authentication for the used <a class="reference internal" href="#hive-file-system-configuration"><span class="std std-ref">file
+system</span></a> and <a class="reference internal" href="#hive-configuration"><span class="std std-ref">metastore</span></a>.</p>
+<p>In addition, the following security-related features are supported.</p>
+<h2 id="authorization"><span id="hive-authorization"></span>Authorization<a class="headerlink" href="#authorization" title="Link to this heading">#</a></h2>
+<p>You can enable authorization checks by setting the <code class="docutils literal notranslate"><span class="pre">hive.security</span></code> property in
+the catalog properties file. This property must be one of the following values:</p>
+<table class="docutils data align-default" id="id3">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">hive.security</span></code> property values</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 66.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">allow-all</span></code> (default value)</p></td>
+<td><p>No authorization checks are enforced.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">read-only</span></code></p></td>
+<td><p>Operations that read data or metadata, such as <code class="docutils literal notranslate"><span class="pre">SELECT</span></code>, are permitted, but
+none of the operations that write data or metadata, such as <code class="docutils literal notranslate"><span class="pre">CREATE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">INSERT</span></code> or <code class="docutils literal notranslate"><span class="pre">DELETE</span></code>, are allowed.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">file</span></code></p></td>
+<td><p>Authorization checks are enforced using a catalog-level access control
+configuration file whose path is specified in the <code class="docutils literal notranslate"><span class="pre">security.config-file</span></code>
+catalog configuration property. See <a class="reference internal" href="../security/file-system-access-control.html#catalog-file-based-access-control"><span class="std std-ref">Catalog-level access control files</span></a>
+for details.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sql-standard</span></code></p></td>
+<td><p>Users are permitted to perform the operations as long as they have the
+required privileges as per the SQL standard. In this mode, Trino enforces
+the authorization checks for queries based on the privileges defined in Hive
+metastore. To alter these privileges, use the <a class="reference internal" href="../sql/grant.html"><span class="doc std std-doc">GRANT privilege</span></a> and
+<a class="reference internal" href="../sql/revoke.html"><span class="doc std std-doc">REVOKE privilege</span></a> commands.</p>
+<p>See the <a class="reference internal" href="#hive-sql-standard-based-authorization"><span class="std std-ref">SQL standard based authorization</span></a> section for details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sql-standard-based-authorization"><span id="hive-sql-standard-based-authorization"></span>SQL standard based authorization<a class="headerlink" href="#sql-standard-based-authorization" title="Link to this heading">#</a></h3>
+<p>When <code class="docutils literal notranslate"><span class="pre">sql-standard</span></code> security is enabled, Trino enforces the same SQL
+standard-based authorization as Hive does.</p>
+<p>Since Trino’s <code class="docutils literal notranslate"><span class="pre">ROLE</span></code> syntax support matches the SQL standard, and
+Hive does not exactly follow the SQL standard, there are the following
+limitations and differences:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">ROLE</span> <span class="pre">role</span> <span class="pre">WITH</span> <span class="pre">ADMIN</span></code> is not supported.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">admin</span></code> role must be enabled to execute <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">ROLE</span></code>, <code class="docutils literal notranslate"><span class="pre">DROP</span> <span class="pre">ROLE</span></code> or <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">SCHEMA</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GRANT</span> <span class="pre">role</span> <span class="pre">TO</span> <span class="pre">user</span> <span class="pre">GRANTED</span> <span class="pre">BY</span> <span class="pre">someone</span></code> is not supported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REVOKE</span> <span class="pre">role</span> <span class="pre">FROM</span> <span class="pre">user</span> <span class="pre">GRANTED</span> <span class="pre">BY</span> <span class="pre">someone</span></code> is not supported.</p></li>
+<li><p>By default, all a user’s roles, except <code class="docutils literal notranslate"><span class="pre">admin</span></code>, are enabled in a new user session.</p></li>
+<li><p>One particular role can be selected by executing <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">ROLE</span> <span class="pre">role</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">ROLE</span> <span class="pre">ALL</span></code> enables all of a user’s roles except <code class="docutils literal notranslate"><span class="pre">admin</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">admin</span></code> role must be enabled explicitly by executing <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">ROLE</span> <span class="pre">admin</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GRANT</span> <span class="pre">privilege</span> <span class="pre">ON</span> <span class="pre">SCHEMA</span> <span class="pre">schema</span></code> is not supported. Schema ownership can be
+changed with <code class="docutils literal notranslate"><span class="pre">ALTER</span> <span class="pre">SCHEMA</span> <span class="pre">schema</span> <span class="pre">SET</span> <span class="pre">AUTHORIZATION</span> <span class="pre">user</span></code></p></li>
+</ul>
+<h2 id="sql-support"><span id="hive-sql-support"></span>SQL support<a class="headerlink" href="#sql-support" title="Link to this heading">#</a></h2>
+<p>The connector provides read access and write access to data and metadata in the
+configured object storage system and metadata stores:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../language/sql-support.html#sql-globally-available"><span class="std std-ref">Globally available statements</span></a>; see also
+<a class="reference internal" href="#hive-procedures"><span class="std std-ref">Globally available statements</span></a></p></li>
+<li><p><a class="reference internal" href="../language/sql-support.html#sql-read-operations"><span class="std std-ref">Read operations</span></a></p></li>
+<li><p><a class="reference internal" href="../language/sql-support.html#sql-write-operations"><span class="std std-ref">Write operations</span></a>:</p>
+<ul>
+<li><p><a class="reference internal" href="../language/sql-support.html#sql-data-management"><span class="std std-ref">Data management</span></a>; see also
+<a class="reference internal" href="#hive-data-management"><span class="std std-ref">Hive-specific data management</span></a></p></li>
+<li><p><a class="reference internal" href="../language/sql-support.html#sql-schema-table-management"><span class="std std-ref">Schema and table management</span></a>; see also
+<a class="reference internal" href="#hive-schema-and-table-management"><span class="std std-ref">Hive-specific schema and table management</span></a></p></li>
+<li><p><a class="reference internal" href="../language/sql-support.html#sql-view-management"><span class="std std-ref">View management</span></a>; see also
+<a class="reference internal" href="#hive-sql-view-management"><span class="std std-ref">Hive-specific view management</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="../language/sql-support.html#udf-management"><span class="std std-ref">User-defined function management</span></a></p></li>
+<li><p><a class="reference internal" href="../language/sql-support.html#sql-security-operations"><span class="std std-ref">Security operations</span></a>: see also
+<a class="reference internal" href="#hive-sql-standard-based-authorization"><span class="std std-ref">SQL standard-based authorization for object storage</span></a></p></li>
+<li><p><a class="reference internal" href="../language/sql-support.html#sql-transactions"><span class="std std-ref">Transactions</span></a></p></li>
+</ul>
+<p>Refer to <a class="reference internal" href="../appendix/from-hive.html"><span class="doc">the migration guide</span></a> for practical advice
+on migrating from Hive to Trino.</p>
+<p>The following sections provide Hive-specific information regarding SQL support.</p>
+<h3 id="basic-usage-examples"><span id="hive-examples"></span>Basic usage examples<a class="headerlink" href="#basic-usage-examples" title="Link to this heading">#</a></h3>
+<p>The examples shown here work on Google Cloud Storage by replacing <code class="docutils literal notranslate"><span class="pre">s3://</span></code> with
+<code class="docutils literal notranslate"><span class="pre">gs://</span></code>.</p>
+<p>Create a new Hive table named <code class="docutils literal notranslate"><span class="pre">page_views</span></code> in the <code class="docutils literal notranslate"><span class="pre">web</span></code> schema
+that is stored using the ORC file format, partitioned by date and
+country, and bucketed by user into <code class="docutils literal notranslate"><span class="pre">50</span></code> buckets. Note that Hive
+requires the partition columns to be the last columns in the table:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">page_views</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">view_time</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">,</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">,</span>
+<span class="w">  </span><span class="n">page_url</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">,</span>
+<span class="w">  </span><span class="n">ds</span><span class="w"> </span><span class="nb">DATE</span><span class="p">,</span>
+<span class="w">  </span><span class="n">country</span><span class="w"> </span><span class="nb">VARCHAR</span>
+<span class="p">)</span>
+<span class="k">WITH</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ORC&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="n">partitioned_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;ds&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;country&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="n">bucketed_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="n">bucket_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Create a new Hive schema named <code class="docutils literal notranslate"><span class="pre">web</span></code> that stores tables in an
+S3 bucket named <code class="docutils literal notranslate"><span class="pre">my-bucket</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span>
+<span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="k">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;s3://my-bucket/&#39;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Drop a schema:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span>
+</code></pre></div>
+</div>
+<p>Drop a partition from the <code class="docutils literal notranslate"><span class="pre">page_views</span></code> table:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">page_views</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="s1">&#39;2016-08-09&#39;</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;US&#39;</span>
+</code></pre></div>
+</div>
+<p>Query the <code class="docutils literal notranslate"><span class="pre">page_views</span></code> table:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">page_views</span>
+</code></pre></div>
+</div>
+<p>List the partitions of the <code class="docutils literal notranslate"><span class="pre">page_views</span></code> table:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="ss">&quot;page_views$partitions&quot;</span>
+</code></pre></div>
+</div>
+<p>Create an external Hive table named <code class="docutils literal notranslate"><span class="pre">request_logs</span></code> that points at
+existing data in S3:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">request_logs</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">request_time</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">,</span>
+<span class="w">  </span><span class="n">url</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">,</span>
+<span class="w">  </span><span class="n">ip</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">,</span>
+<span class="w">  </span><span class="n">user_agent</span><span class="w"> </span><span class="nb">VARCHAR</span>
+<span class="p">)</span>
+<span class="k">WITH</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;TEXTFILE&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="n">external_location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;s3://my-bucket/data/logs/&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Collect statistics for the <code class="docutils literal notranslate"><span class="pre">request_logs</span></code> table:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">ANALYZE</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">request_logs</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>Drop the external table <code class="docutils literal notranslate"><span class="pre">request_logs</span></code>. This only drops the metadata
+for the table. The referenced data directory is not deleted:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">request_logs</span>
+</code></pre></div>
+</div>
+<ul>
+<li><p><a class="reference internal" href="../sql/create-table-as.html"><span class="doc">CREATE TABLE AS</span></a> can be used to create transactional tables in ORC format like this:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
+<span class="k">WITH</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;ORC&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">transactional</span><span class="o">=</span><span class="k">true</span>
+<span class="p">)</span>
+<span class="k">AS</span><span class="w"> </span><span class="o">&lt;</span><span class="n">query</span><span class="o">&gt;</span>
+</code></pre></div>
+</div>
+</li>
+</ul>
+<p>Add an empty partition to the <code class="docutils literal notranslate"><span class="pre">page_views</span></code> table:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">create_empty_partition</span><span class="p">(</span>
+<span class="w">    </span><span class="k">schema_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;web&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="k">table_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;page_views&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">partition_columns</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;ds&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;country&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="n">partition_values</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;2016-08-09&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;US&#39;</span><span class="p">]);</span>
+</code></pre></div>
+</div>
+<p>Drop stats for a partition of the <code class="docutils literal notranslate"><span class="pre">page_views</span></code> table:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">drop_stats</span><span class="p">(</span>
+<span class="w">    </span><span class="k">schema_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;web&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="k">table_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;page_views&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">partition_values</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;2016-08-09&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;US&#39;</span><span class="p">]]);</span>
+</code></pre></div>
+</div>
+<h3 id="procedures"><span id="hive-procedures"></span>Procedures<a class="headerlink" href="#procedures" title="Link to this heading">#</a></h3>
+<p>Use the <a class="reference internal" href="../sql/call.html"><span class="doc">CALL</span></a> statement to perform data manipulation or
+administrative tasks. Procedures must include a qualified catalog name, if your
+Hive catalog is called <code class="docutils literal notranslate"><span class="pre">web</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">web</span><span class="p">.</span><span class="k">system</span><span class="p">.</span><span class="n">example_procedure</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>The following procedures are available:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">system.create_empty_partition(schema_name,</span> <span class="pre">table_name,</span> <span class="pre">partition_columns,</span> <span class="pre">partition_values)</span></code></p>
+<p>Create an empty partition in the specified table.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">system.sync_partition_metadata(schema_name,</span> <span class="pre">table_name,</span> <span class="pre">mode,</span> <span class="pre">case_sensitive)</span></code></p>
+<p>Check and update partitions list in metastore. There are three modes available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ADD</span></code> : add any partitions that exist on the file system, but not in the metastore.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DROP</span></code>: drop any partitions that exist in the metastore, but not on the file system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FULL</span></code>: perform both <code class="docutils literal notranslate"><span class="pre">ADD</span></code> and <code class="docutils literal notranslate"><span class="pre">DROP</span></code>.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">case_sensitive</span></code> argument is optional. The default value is <code class="docutils literal notranslate"><span class="pre">true</span></code> for compatibility
+with Hive’s <code class="docutils literal notranslate"><span class="pre">MSCK</span> <span class="pre">REPAIR</span> <span class="pre">TABLE</span></code> behavior, which expects the partition column names in
+file system paths to use lowercase (e.g. <code class="docutils literal notranslate"><span class="pre">col_x=SomeValue</span></code>). Partitions on the file system
+not conforming to this convention are ignored, unless the argument is set to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">system.drop_stats(schema_name,</span> <span class="pre">table_name,</span> <span class="pre">partition_values)</span></code></p>
+<p>Drops statistics for a subset of partitions or the entire table. The partitions are specified as an
+array whose elements are arrays of partition values (similar to the <code class="docutils literal notranslate"><span class="pre">partition_values</span></code> argument in
+<code class="docutils literal notranslate"><span class="pre">create_empty_partition</span></code>). If <code class="docutils literal notranslate"><span class="pre">partition_values</span></code> argument is omitted, stats are dropped for the
+entire table.</p>
+</li>
+</ul>
+<ul id="register-partition">
+<li><p><code class="docutils literal notranslate"><span class="pre">system.register_partition(schema_name,</span> <span class="pre">table_name,</span> <span class="pre">partition_columns,</span> <span class="pre">partition_values,</span> <span class="pre">location)</span></code></p>
+<p>Registers existing location as a new partition in the metastore for the specified table.</p>
+<p>When the <code class="docutils literal notranslate"><span class="pre">location</span></code> argument is omitted, the partition location is
+constructed using <code class="docutils literal notranslate"><span class="pre">partition_columns</span></code> and <code class="docutils literal notranslate"><span class="pre">partition_values</span></code>.</p>
+<p>Due to security reasons, the procedure is enabled only when <code class="docutils literal notranslate"><span class="pre">hive.allow-register-partition-procedure</span></code>
+is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</li>
+</ul>
+<ul id="unregister-partition">
+<li><p><code class="docutils literal notranslate"><span class="pre">system.unregister_partition(schema_name,</span> <span class="pre">table_name,</span> <span class="pre">partition_columns,</span> <span class="pre">partition_values)</span></code></p>
+<p>Unregisters given, existing partition in the metastore for the specified table.
+The partition data is not deleted.</p>
+</li>
+</ul>
+<ul id="hive-flush-metadata-cache">
+<li><p><code class="docutils literal notranslate"><span class="pre">system.flush_metadata_cache()</span></code></p>
+<p>Flush all Hive metadata caches.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">system.flush_metadata_cache(schema_name</span> <span class="pre">=&gt;</span> <span class="pre">...,</span> <span class="pre">table_name</span> <span class="pre">=&gt;</span> <span class="pre">...)</span></code></p>
+<p>Flush Hive metadata caches entries connected with selected table.
+Procedure requires named parameters to be passed</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">system.flush_metadata_cache(schema_name</span> <span class="pre">=&gt;</span> <span class="pre">...,</span> <span class="pre">table_name</span> <span class="pre">=&gt;</span> <span class="pre">...,</span> <span class="pre">partition_columns</span> <span class="pre">=&gt;</span> <span class="pre">ARRAY[...],</span> <span class="pre">partition_values</span> <span class="pre">=&gt;</span> <span class="pre">ARRAY[...])</span></code></p>
+<p>Flush Hive metadata cache entries connected with selected partition.
+Procedure requires named parameters to be passed.</p>
+</li>
+</ul>
+<h3 id="data-management"><span id="hive-data-management"></span>Data management<a class="headerlink" href="#data-management" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="../language/sql-support.html#sql-data-management"><span class="std std-ref">Data management</span></a> functionality includes support for <code class="docutils literal notranslate"><span class="pre">INSERT</span></code>,
+<code class="docutils literal notranslate"><span class="pre">UPDATE</span></code>, <code class="docutils literal notranslate"><span class="pre">DELETE</span></code>, and <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> statements, with the exact support
+depending on the storage system, file format, and metastore.</p>
+<p>When connecting to a Hive metastore version 3.x, the Hive connector supports
+reading from and writing to insert-only and ACID tables, with full support for
+partitioning and bucketing.</p>
+<p><a class="reference internal" href="../sql/delete.html"><span class="doc">DELETE</span></a> applied to non-transactional tables is only supported if the
+table is partitioned and the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause matches entire partitions.
+Transactional Hive tables with ORC format support “row-by-row” deletion, in
+which the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause may match arbitrary sets of rows.</p>
+<p><a class="reference internal" href="../sql/update.html"><span class="doc">UPDATE</span></a> is only supported for transactional Hive tables with format
+ORC. <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> of partition or bucket columns is not supported.</p>
+<p><a class="reference internal" href="../sql/merge.html"><span class="doc">MERGE</span></a> is only supported for ACID tables.</p>
+<p>ACID tables created with <a class="reference external" href="https://cwiki.apache.org/confluence/display/Hive/Streaming+Data+Ingest">Hive Streaming Ingest</a>
+are not supported.</p>
+<h3 id="schema-and-table-management"><span id="hive-schema-and-table-management"></span>Schema and table management<a class="headerlink" href="#schema-and-table-management" title="Link to this heading">#</a></h3>
+<p>The Hive connector supports querying and manipulating Hive tables and schemas
+(databases). While some uncommon operations must be performed using
+Hive directly, most operations can be performed using Trino.</p>
+<h4 id="schema-evolution">Schema evolution<a class="headerlink" href="#schema-evolution" title="Link to this heading">#</a></h4>
+<p>Hive table partitions can differ from the current table schema. This occurs when
+the data types of columns of a table are changed from the data types of columns
+of preexisting partitions. The Hive connector supports this schema evolution by
+allowing the same conversions as Hive. The following table lists possible data
+type conversions.</p>
+<table class="docutils data align-default" id="id4">
+<caption><span class="caption-text">Hive schema evolution type conversion</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data type</p></th>
+<th class="head"><p>Converted to</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BOOLEAN</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BOOLEAN</span></code>, <code class="docutils literal notranslate"><span class="pre">TINYINT</span></code>, <code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code>, <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>, <code class="docutils literal notranslate"><span class="pre">BIGINT</span></code>, <code class="docutils literal notranslate"><span class="pre">REAL</span></code>, <code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code>, <code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code>, <code class="docutils literal notranslate"><span class="pre">DATE</span></code>, <code class="docutils literal notranslate"><span class="pre">CHAR</span></code> as well as
+narrowing conversions for <code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CHAR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code>, narrowing conversions for <code class="docutils literal notranslate"><span class="pre">CHAR</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TINYINT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code>, <code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code>, <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>, <code class="docutils literal notranslate"><span class="pre">BIGINT</span></code>, <code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code>, <code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code>, <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>, <code class="docutils literal notranslate"><span class="pre">BIGINT</span></code>, <code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code>, <code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code>, <code class="docutils literal notranslate"><span class="pre">BIGINT</span></code>, <code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code>, <code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code>, <code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code>, <code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">REAL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code>, <code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">FLOAT</span></code>, <code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code>, <code class="docutils literal notranslate"><span class="pre">REAL</span></code>, <code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code>, <code class="docutils literal notranslate"><span class="pre">TINYINT</span></code>, <code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code>, <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>, <code class="docutils literal notranslate"><span class="pre">BIGINT</span></code>, as
+well as narrowing and widening conversions for <code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DATE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code>, <code class="docutils literal notranslate"><span class="pre">DATE</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VARBINARY</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Any conversion failure results in null, which is the same behavior
+as Hive. For example, converting the string <code class="docutils literal notranslate"><span class="pre">'foo'</span></code> to a number,
+or converting the string <code class="docutils literal notranslate"><span class="pre">'1234'</span></code> to a <code class="docutils literal notranslate"><span class="pre">TINYINT</span></code> (which has a
+maximum value of <code class="docutils literal notranslate"><span class="pre">127</span></code>).</p>
+<h4 id="avro-schema-evolution"><span id="hive-avro-schema"></span>Avro schema evolution<a class="headerlink" href="#avro-schema-evolution" title="Link to this heading">#</a></h4>
+<p>Trino supports querying and manipulating Hive tables with the Avro storage
+format, which has the schema set based on an Avro schema file/literal. Trino is
+also capable of creating the tables in Trino by inferring the schema from a
+valid Avro schema file located locally, or remotely in HDFS/Web server.</p>
+<p>To specify that the Avro schema should be used for interpreting table data, use
+the <code class="docutils literal notranslate"><span class="pre">avro_schema_url</span></code> table property.</p>
+<p>The schema can be placed in the local file system or remotely in the following
+locations:</p>
+<ul class="simple">
+<li><p>HDFS (e.g. <code class="docutils literal notranslate"><span class="pre">avro_schema_url</span> <span class="pre">=</span> <span class="pre">'hdfs://user/avro/schema/avro_data.avsc'</span></code>)</p></li>
+<li><p>S3 (e.g. <code class="docutils literal notranslate"><span class="pre">avro_schema_url</span> <span class="pre">=</span> <span class="pre">'s3n:///schema_bucket/schema/avro_data.avsc'</span></code>)</p></li>
+<li><p>A web server (e.g. <code class="docutils literal notranslate"><span class="pre">avro_schema_url</span> <span class="pre">=</span> <span class="pre">'http://example.org/schema/avro_data.avsc'</span></code>)</p></li>
+</ul>
+<p>The URL, where the schema is located, must be accessible from the Hive metastore
+and Trino coordinator/worker nodes.</p>
+<p>Alternatively, you can use the table property <code class="docutils literal notranslate"><span class="pre">avro_schema_literal</span></code> to define
+the Avro schema.</p>
+<p>The table created in Trino using the <code class="docutils literal notranslate"><span class="pre">avro_schema_url</span></code> or
+<code class="docutils literal notranslate"><span class="pre">avro_schema_literal</span></code> property behaves the same way as a Hive table with
+<code class="docutils literal notranslate"><span class="pre">avro.schema.url</span></code> or <code class="docutils literal notranslate"><span class="pre">avro.schema.literal</span></code> set.</p>
+<p>Example:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">avro</span><span class="p">.</span><span class="n">avro_data</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="n">id</span><span class="w"> </span><span class="nb">BIGINT</span>
+<span class="w"> </span><span class="p">)</span>
+<span class="k">WITH</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;AVRO&#39;</span><span class="p">,</span>
+<span class="w">   </span><span class="n">avro_schema_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/usr/local/avro_data.avsc&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<p>The columns listed in the DDL (<code class="docutils literal notranslate"><span class="pre">id</span></code> in the above example) is ignored if <code class="docutils literal notranslate"><span class="pre">avro_schema_url</span></code> is specified.
+The table schema matches the schema in the Avro schema file. Before any read operation, the Avro schema is
+accessed so the query result reflects any changes in schema. Thus Trino takes advantage of Avro’s backward compatibility abilities.</p>
+<p>If the schema of the table changes in the Avro schema file, the new schema can still be used to read old data.
+Newly added/renamed fields <em>must</em> have a default value in the Avro schema file.</p>
+<p>The schema evolution behavior is as follows:</p>
+<ul class="simple">
+<li><p>Column added in new schema:
+Data created with an older schema produces a <em>default</em> value when table is using the new schema.</p></li>
+<li><p>Column removed in new schema:
+Data created with an older schema no longer outputs the data from the column that was removed.</p></li>
+<li><p>Column is renamed in the new schema:
+This is equivalent to removing the column and adding a new one, and data created with an older schema
+produces a <em>default</em> value when table is using the new schema.</p></li>
+<li><p>Changing type of column in the new schema:
+If the type coercion is supported by Avro or the Hive connector, then the conversion happens.
+An error is thrown for incompatible types.</p></li>
+</ul>
+<h5 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h5>
+<p>The following operations are not supported when <code class="docutils literal notranslate"><span class="pre">avro_schema_url</span></code> is set:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">TABLE</span> <span class="pre">AS</span></code> is not supported.</p></li>
+<li><p>Bucketing(<code class="docutils literal notranslate"><span class="pre">bucketed_by</span></code>) columns are not supported in <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">TABLE</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ALTER</span> <span class="pre">TABLE</span></code> commands modifying columns are not supported.</p></li>
+</ul>
+<h4 id="alter-table-execute"><span id="hive-alter-table-execute"></span>ALTER TABLE EXECUTE<a class="headerlink" href="#alter-table-execute" title="Link to this heading">#</a></h4>
+<p>The connector supports the following commands for use with <a class="reference internal" href="../sql/alter-table.html#alter-table-execute"><span class="std std-ref">ALTER TABLE EXECUTE</span></a>.</p>
+<h5 id="optimize">optimize<a class="headerlink" href="#optimize" title="Link to this heading">#</a></h5>
+<p>The <code class="docutils literal notranslate"><span class="pre">optimize</span></code> command is used for rewriting the content of the specified
+table so that it is merged into fewer but larger files. If the table is
+partitioned, the data compaction acts separately on each partition selected for
+optimization. This operation improves read performance.</p>
+<p>All files with a size below the optional <code class="docutils literal notranslate"><span class="pre">file_size_threshold</span></code> parameter
+(default value for the threshold is <code class="docutils literal notranslate"><span class="pre">100MB</span></code>) are merged:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_table</span><span class="w"> </span><span class="k">EXECUTE</span><span class="w"> </span><span class="n">optimize</span>
+</code></pre></div>
+</div>
+<p>The following statement merges files in a table that are
+under 128 megabytes in size:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_table</span><span class="w"> </span><span class="k">EXECUTE</span><span class="w"> </span><span class="n">optimize</span><span class="p">(</span><span class="n">file_size_threshold</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;128MB&#39;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>You can use a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause with the columns used to partition the table
+to filter which partitions are optimized:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_partitioned_table</span><span class="w"> </span><span class="k">EXECUTE</span><span class="w"> </span><span class="n">optimize</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">partition_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div>
+</div>
+<p>You can use a more complex <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause to narrow down the scope of the
+<code class="docutils literal notranslate"><span class="pre">optimize</span></code> procedure. The following example casts the timestamp values to
+dates, and uses a comparison to only optimize partitions with data from the year
+2022 or newer:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_table</span><span class="w"> </span><span class="k">EXECUTE</span><span class="w"> </span><span class="n">optimize</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">timestamp_tz</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DATE</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="s1">&#39;2021-12-31&#39;</span>
+</code></pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">optimize</span></code> command is disabled by default, and can be enabled for a
+catalog with the <code class="docutils literal notranslate"><span class="pre">&lt;catalog-name&gt;.non_transactional_optimize_enabled</span></code>
+session property:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="o">&lt;</span><span class="k">catalog_name</span><span class="o">&gt;</span><span class="p">.</span><span class="n">non_transactional_optimize_enabled</span><span class="o">=</span><span class="k">true</span>
+</code></pre></div>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Because Hive tables are non-transactional, take note of the following possible
+outcomes:</p>
+<ul class="simple">
+<li><p>If queries are run against tables that are currently being optimized,
+duplicate rows may be read.</p></li>
+<li><p>In rare cases where exceptions occur during the <code class="docutils literal notranslate"><span class="pre">optimize</span></code> operation,
+a manual cleanup of the table directory is needed. In this situation, refer
+to the Trino logs and query failure messages to see which files must be
+deleted.</p></li>
+</ul>
+</div>
+<h4 id="table-properties"><span id="hive-table-properties"></span>Table properties<a class="headerlink" href="#table-properties" title="Link to this heading">#</a></h4>
+<p>Table properties supply or set metadata for the underlying tables. This
+is key for <a class="reference internal" href="../sql/create-table-as.html"><span class="doc">CREATE TABLE AS</span></a> statements. Table properties are passed
+to the connector using a <a class="reference internal" href="../sql/create-table-as.html"><span class="doc">WITH</span></a> clause:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">tablename</span>
+<span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;CSV&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="n">csv_escape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<table class="docutils data align-default" id="id5">
+<caption><span class="caption-text">Hive connector table properties</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 60.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">auto_purge</span></code></p></td>
+<td><p>Indicates to the configured metastore to perform a purge when a table or
+partition is deleted instead of a soft deletion using the trash.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avro_schema_url</span></code></p></td>
+<td><p>The URI pointing to <a class="reference internal" href="#hive-avro-schema"><span class="std std-ref">Avro schema evolution</span></a> for the table.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bucket_count</span></code></p></td>
+<td><p>The number of buckets to group data into. Only valid if used with
+<code class="docutils literal notranslate"><span class="pre">bucketed_by</span></code>.</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bucketed_by</span></code></p></td>
+<td><p>The bucketing column for the storage table. Only valid if used with
+<code class="docutils literal notranslate"><span class="pre">bucket_count</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bucketing_version</span></code></p></td>
+<td><p>Specifies which Hive bucketing version to use. Valid values are <code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">csv_escape</span></code></p></td>
+<td><p>The CSV escape character. Requires CSV format.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">csv_quote</span></code></p></td>
+<td><p>The CSV quote character. Requires CSV format.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">csv_separator</span></code></p></td>
+<td><p>The CSV separator character. Requires CSV format. You can use other
+separators such as <code class="docutils literal notranslate"><span class="pre">|</span></code> or use Unicode to configure invisible separators such
+tabs with <code class="docutils literal notranslate"><span class="pre">U&amp;'\0009'</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">,</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">external_location</span></code></p></td>
+<td><p>The URI for an external Hive table on S3, Azure Blob Storage, etc. See the
+<a class="reference internal" href="#hive-examples"><span class="std std-ref">Basic usage examples</span></a> for more information.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">format</span></code></p></td>
+<td><p>The table file format. Valid values include <code class="docutils literal notranslate"><span class="pre">ORC</span></code>, <code class="docutils literal notranslate"><span class="pre">PARQUET</span></code>, <code class="docutils literal notranslate"><span class="pre">AVRO</span></code>,
+<code class="docutils literal notranslate"><span class="pre">RCBINARY</span></code>, <code class="docutils literal notranslate"><span class="pre">RCTEXT</span></code>, <code class="docutils literal notranslate"><span class="pre">SEQUENCEFILE</span></code>, <code class="docutils literal notranslate"><span class="pre">JSON</span></code>, <code class="docutils literal notranslate"><span class="pre">OPENX_JSON</span></code>, <code class="docutils literal notranslate"><span class="pre">TEXTFILE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">CSV</span></code>, and <code class="docutils literal notranslate"><span class="pre">REGEX</span></code>. The catalog property <code class="docutils literal notranslate"><span class="pre">hive.storage-format</span></code> sets the
+default value and can change it to a different default.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">null_format</span></code></p></td>
+<td><p>The serialization format for <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value. Requires TextFile, RCText, or
+SequenceFile format.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">orc_bloom_filter_columns</span></code></p></td>
+<td><p>Comma separated list of columns to use for ORC bloom filter. It improves the
+performance of queries using equality predicates, such as <code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">IN</span></code> and
+small range predicates, when reading ORC files. Requires ORC format.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">orc_bloom_filter_fpp</span></code></p></td>
+<td><p>The ORC bloom filters false positive probability. Requires ORC format.</p></td>
+<td><p>0.05</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">partitioned_by</span></code></p></td>
+<td><p>The partitioning column for the storage table. The columns listed in the
+<code class="docutils literal notranslate"><span class="pre">partitioned_by</span></code> clause must be the last columns as defined in the DDL.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parquet_bloom_filter_columns</span></code></p></td>
+<td><p>Comma separated list of columns to use for Parquet bloom filter. It improves
+the performance of queries using equality predicates, such as <code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">IN</span></code> and
+small range predicates, when reading Parquet files. Requires Parquet format.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">skip_footer_line_count</span></code></p></td>
+<td><p>The number of footer lines to ignore when parsing the file for data.
+Requires TextFile or CSV format tables.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skip_header_line_count</span></code></p></td>
+<td><p>The number of header lines to ignore when parsing the file for data.
+Requires TextFile or CSV format tables.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sorted_by</span></code></p></td>
+<td><p>The column to sort by to determine bucketing for row. Only valid if
+<code class="docutils literal notranslate"><span class="pre">bucketed_by</span></code> and <code class="docutils literal notranslate"><span class="pre">bucket_count</span></code> are specified as well.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">textfile_field_separator</span></code></p></td>
+<td><p>Allows the use of custom field separators, such as ‘|’, for TextFile
+formatted tables.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">textfile_field_separator_escape</span></code></p></td>
+<td><p>Allows the use of a custom escape character for TextFile formatted tables.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">transactional</span></code></p></td>
+<td><p>Set this property to <code class="docutils literal notranslate"><span class="pre">true</span></code> to create an ORC ACID transactional table.
+Requires ORC format. This property may be shown as true for insert-only
+tables created using older versions of Hive.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_enabled</span></code></p></td>
+<td><p>Enables partition projection for selected table. Mapped from AWS Athena
+table property
+<a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection-setting-up.html">projection.enabled</a>.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_ignore</span></code></p></td>
+<td><p>Ignore any partition projection properties stored in the metastore for the
+selected table. This is a Trino-only property which allows you to work
+around compatibility issues on a specific table, and if enabled, Trino
+ignores all other configuration options related to partition projection.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_location_template</span></code></p></td>
+<td><p>Projected partition location template, such as <code class="docutils literal notranslate"><span class="pre">s3a://test/name=${name}/</span></code>.
+Mapped from the AWS Athena table property
+<a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection-setting-up.html#partition-projection-specifying-custom-s3-storage-locations">storage.location.template</a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">${table_location}/${partition_name}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">extra_properties</span></code></p></td>
+<td><p>Additional properties added to a Hive table. The properties are not used by
+Trino, and are available in the <code class="docutils literal notranslate"><span class="pre">$properties</span></code> metadata table. The properties
+are not included in the output of <code class="docutils literal notranslate"><span class="pre">SHOW</span> <span class="pre">CREATE</span> <span class="pre">TABLE</span></code> statements.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="metadata-tables"><span id="hive-special-tables"></span>Metadata tables<a class="headerlink" href="#metadata-tables" title="Link to this heading">#</a></h4>
+<p>The raw Hive table properties are available as a hidden table, containing a
+separate column per table property, with a single row containing the property
+values.</p>
+<h5 id="properties-table"><code class="docutils literal notranslate"><span class="pre">$properties</span></code> table<a class="headerlink" href="#properties-table" title="Link to this heading">#</a></h5>
+<p>The properties table name is composed with the table name and <code class="docutils literal notranslate"><span class="pre">$properties</span></code> appended.
+It exposes the parameters of the table in the metastore.</p>
+<p>You can inspect the property names and values with a simple query:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="ss">&quot;page_views$properties&quot;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>       stats_generated_via_stats_task        | auto.purge |       trino_query_id       | trino_version | transactional
+---------------------------------------------+------------+-----------------------------+---------------+---------------
+ workaround for potential lack of HIVE-12730 | false      | 20230705_152456_00001_nfugi | 434           | false
+</code></pre></div>
+</div>
+<h5 id="partitions-table"><code class="docutils literal notranslate"><span class="pre">$partitions</span></code> table<a class="headerlink" href="#partitions-table" title="Link to this heading">#</a></h5>
+<p>The <code class="docutils literal notranslate"><span class="pre">$partitions</span></code> table provides a list of all partition values
+of a partitioned table.</p>
+<p>The following example query returns all partition values from the
+<code class="docutils literal notranslate"><span class="pre">page_views</span></code> table in the <code class="docutils literal notranslate"><span class="pre">web</span></code> schema of the <code class="docutils literal notranslate"><span class="pre">example</span></code> catalog:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="ss">&quot;page_views$partitions&quot;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>     day    | country
+------------+---------
+ 2023-07-01 | POL
+ 2023-07-02 | POL
+ 2023-07-03 | POL
+ 2023-03-01 | USA
+ 2023-03-02 | USA
+</code></pre></div>
+</div>
+<h4 id="column-properties"><span id="hive-column-properties"></span>Column properties<a class="headerlink" href="#column-properties" title="Link to this heading">#</a></h4>
+<table class="docutils data align-default" id="id6">
+<caption><span class="caption-text">Hive connector column properties</span><a class="headerlink" href="#id6" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 60.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_type</span></code></p></td>
+<td><p>Defines the type of partition projection to use on this column. May be used
+only on partition columns. Available types: <code class="docutils literal notranslate"><span class="pre">ENUM</span></code>, <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>, <code class="docutils literal notranslate"><span class="pre">DATE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">INJECTED</span></code>. Mapped from the AWS Athena table property
+<a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection-supported-types.html">projection.${columnName}.type</a>.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_values</span></code></p></td>
+<td><p>Used with <code class="docutils literal notranslate"><span class="pre">partition_projection_type</span></code> set to <code class="docutils literal notranslate"><span class="pre">ENUM</span></code>. Contains a static list
+of values used to generate partitions. Mapped from the AWS Athena table
+property
+<a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection-supported-types.html">projection.${columnName}.values</a>.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_range</span></code></p></td>
+<td><p>Used with <code class="docutils literal notranslate"><span class="pre">partition_projection_type</span></code> set to <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code> or <code class="docutils literal notranslate"><span class="pre">DATE</span></code> to define a
+range. It is a two-element array, describing the minimum and maximum range
+values used to generate partitions. Generation starts from the minimum, then
+increments by the defined <code class="docutils literal notranslate"><span class="pre">partition_projection_interval</span></code> to the maximum.
+For example, the format is <code class="docutils literal notranslate"><span class="pre">['1',</span> <span class="pre">'4']</span></code> for a <code class="docutils literal notranslate"><span class="pre">partition_projection_type</span></code> of
+<code class="docutils literal notranslate"><span class="pre">INTEGER</span></code> and <code class="docutils literal notranslate"><span class="pre">['2001-01-01',</span> <span class="pre">'2001-01-07']</span></code> or <code class="docutils literal notranslate"><span class="pre">['NOW-3DAYS',</span> <span class="pre">'NOW']</span></code> for a
+<code class="docutils literal notranslate"><span class="pre">partition_projection_type</span></code> of <code class="docutils literal notranslate"><span class="pre">DATE</span></code>. Mapped from the AWS Athena table
+property
+<a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection-supported-types.html">projection.${columnName}.range</a>.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_interval</span></code></p></td>
+<td><p>Used with <code class="docutils literal notranslate"><span class="pre">partition_projection_type</span></code> set to <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code> or <code class="docutils literal notranslate"><span class="pre">DATE</span></code>. It
+represents the interval used to generate partitions within the given range
+<code class="docutils literal notranslate"><span class="pre">partition_projection_range</span></code>. Mapped from the AWS Athena table property
+<a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection-supported-types.html">projection.${columnName}.interval</a>.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_digits</span></code></p></td>
+<td><p>Used with <code class="docutils literal notranslate"><span class="pre">partition_projection_type</span></code> set to <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>. The number of digits
+to be used with integer column projection. Mapped from the AWS Athena table
+property
+<a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection-supported-types.html">projection.${columnName}.digits</a>.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_format</span></code></p></td>
+<td><p>Used with <code class="docutils literal notranslate"><span class="pre">partition_projection_type</span></code> set to <code class="docutils literal notranslate"><span class="pre">DATE</span></code>. The date column
+projection format, defined as a string such as <code class="docutils literal notranslate"><span class="pre">yyyy</span> <span class="pre">MM</span></code> or <code class="docutils literal notranslate"><span class="pre">MM-dd-yy</span> <span class="pre">HH:mm:ss</span></code> for use with the <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html">Java DateTimeFormatter
+class</a>.
+Mapped from the AWS Athena table property
+<a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection-supported-types.html">projection.${columnName}.format</a>.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">partition_projection_interval_unit</span></code></p></td>
+<td><p>Used with <code class="docutils literal notranslate"><span class="pre">partition_projection_type=DATA</span></code>. The date column projection range
+interval unit given in <code class="docutils literal notranslate"><span class="pre">partition_projection_interval</span></code>. Mapped from the AWS
+Athena table property
+<a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/partition-projection-supported-types.html">projection.${columnName}.interval.unit</a>.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="metadata-columns"><span id="hive-special-columns"></span>Metadata columns<a class="headerlink" href="#metadata-columns" title="Link to this heading">#</a></h4>
+<p>In addition to the defined columns, the Hive connector automatically exposes
+metadata in a number of hidden columns in each table:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$bucket</span></code>: Bucket number for this row</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$path</span></code>: Full file system path name of the file for this row</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$file_modified_time</span></code>: Date and time of the last modification of the file for this row</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$file_size</span></code>: Size of the file for this row</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$partition</span></code>: Partition name for this row</p></li>
+</ul>
+<p>You can use these columns in your SQL statements like any other column. They
+can be selected directly, or used in conditional statements. For example, you
+can inspect the file size, location and partition for each record:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$path&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$file_size&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$partition&quot;</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">page_views</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>Retrieve all records that belong to files stored in the partition
+<code class="docutils literal notranslate"><span class="pre">ds=2016-08-09/country=US</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$path&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$file_size&quot;</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">page_views</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="ss">&quot;$partition&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ds=2016-08-09/country=US&#39;</span>
+</code></pre></div>
+</div>
+<h3 id="view-management"><span id="hive-sql-view-management"></span>View management<a class="headerlink" href="#view-management" title="Link to this heading">#</a></h3>
+<p>Trino allows reading from Hive materialized views, and can be configured to
+support reading Hive views.</p>
+<h4 id="materialized-views">Materialized views<a class="headerlink" href="#materialized-views" title="Link to this heading">#</a></h4>
+<p>The Hive connector supports reading from Hive materialized views.
+In Trino, these views are presented as regular, read-only tables.</p>
+<h4 id="hive-views"><span id="id1"></span>Hive views<a class="headerlink" href="#hive-views" title="Link to this heading">#</a></h4>
+<p>Hive views are defined in HiveQL and stored in the Hive Metastore Service. They
+are analyzed to allow read access to the data.</p>
+<p>The Hive connector includes support for reading Hive views with three different
+modes.</p>
+<ul class="simple">
+<li><p>Disabled</p></li>
+<li><p>Legacy</p></li>
+<li><p>Experimental</p></li>
+</ul>
+<p>If using Hive views from Trino is required, you must compare results in Hive and
+Trino for each view definition to ensure identical results. Use the experimental
+mode whenever possible. Avoid using the legacy mode. Leave Hive views support
+disabled, if you are not accessing any Hive views from Trino.</p>
+<p>You can configure the behavior in your catalog properties file.</p>
+<p>By default, Hive views are executed with the <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">AS</span> <span class="pre">DEFINER</span></code> security mode.
+Set the  <code class="docutils literal notranslate"><span class="pre">hive.hive-views.run-as-invoker</span></code> catalog configuration property to
+<code class="docutils literal notranslate"><span class="pre">true</span></code> to use <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">AS</span> <span class="pre">INVOKER</span></code> semantics.</p>
+<p><strong>Disabled</strong></p>
+<p>The default behavior is to ignore Hive views. This means that your business
+logic and data encoded in the views is not available in Trino.</p>
+<p><strong>Legacy</strong></p>
+<p>A very simple implementation to execute Hive views, and therefore allow read
+access to the data in Trino, can be enabled with
+<code class="docutils literal notranslate"><span class="pre">hive.hive-views.enabled=true</span></code> and
+<code class="docutils literal notranslate"><span class="pre">hive.hive-views.legacy-translation=true</span></code>.</p>
+<p>For temporary usage of the legacy behavior for a specific catalog, you can set
+the <code class="docutils literal notranslate"><span class="pre">hive_views_legacy_translation</span></code> <a class="reference internal" href="../sql/set-session.html"><span class="doc">catalog session property</span></a> to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<p>This legacy behavior interprets any HiveQL query that defines a view as if it
+is written in SQL. It does not do any translation, but instead relies on the
+fact that HiveQL is very similar to SQL.</p>
+<p>This works for very simple Hive views, but can lead to problems for more complex
+queries. For example, if a HiveQL function has an identical signature but
+different behaviors to the SQL version, the returned results may differ. In more
+extreme cases the queries might fail, or not even be able to be parsed and
+executed.</p>
+<p><strong>Experimental</strong></p>
+<p>The new behavior is better engineered and has the potential to become a lot
+more powerful than the legacy implementation. It can analyze, process, and
+rewrite Hive views and contained expressions and statements.</p>
+<p>It supports the following Hive view functionality:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">[DISTINCT]</span></code> and <code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">ALL</span></code> against Hive views</p></li>
+<li><p>Nested <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clauses</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">current_user()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LATERAL</span> <span class="pre">VIEW</span> <span class="pre">OUTER</span> <span class="pre">EXPLODE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LATERAL</span> <span class="pre">VIEW</span> <span class="pre">[OUTER]</span> <span class="pre">EXPLODE</span></code> on array of struct</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LATERAL</span> <span class="pre">VIEW</span> <span class="pre">json_tuple</span></code></p></li>
+</ul>
+<p>You can enable the experimental behavior with
+<code class="docutils literal notranslate"><span class="pre">hive.hive-views.enabled=true</span></code>. Remove the
+<code class="docutils literal notranslate"><span class="pre">hive.hive-views.legacy-translation</span></code> property or set it to <code class="docutils literal notranslate"><span class="pre">false</span></code> to make
+sure legacy is not enabled.</p>
+<p>Keep in mind that numerous features are not yet implemented when experimenting
+with this feature. The following is an incomplete list of <strong>missing</strong>
+functionality:</p>
+<ul class="simple">
+<li><p>HiveQL <code class="docutils literal notranslate"><span class="pre">current_date</span></code>, <code class="docutils literal notranslate"><span class="pre">current_timestamp</span></code>, and others</p></li>
+<li><p>Hive function calls including <code class="docutils literal notranslate"><span class="pre">translate()</span></code>, window functions, and others</p></li>
+<li><p>Common table expressions and simple case expressions</p></li>
+<li><p>Honor timestamp precision setting</p></li>
+<li><p>Support all Hive data types and correct mapping to Trino types</p></li>
+<li><p>Ability to process custom UDFs</p></li>
+</ul>
+<h2 id="performance">Performance<a class="headerlink" href="#performance" title="Link to this heading">#</a></h2>
+<p>The connector includes a number of performance improvements, detailed in the
+following sections.</p>
+<h3 id="table-statistics"><span id="hive-table-statistics"></span>Table statistics<a class="headerlink" href="#table-statistics" title="Link to this heading">#</a></h3>
+<p>The Hive connector supports collecting and managing <a class="reference internal" href="../optimizer/statistics.html"><span class="doc">table statistics</span></a> to improve query processing performance.</p>
+<p>When writing data, the Hive connector always collects basic statistics
+(<code class="docutils literal notranslate"><span class="pre">numFiles</span></code>, <code class="docutils literal notranslate"><span class="pre">numRows</span></code>, <code class="docutils literal notranslate"><span class="pre">rawDataSize</span></code>, <code class="docutils literal notranslate"><span class="pre">totalSize</span></code>)
+and by default will also collect column level statistics:</p>
+<table class="docutils data align-default" id="id7">
+<caption><span class="caption-text">Available table statistics</span><a class="headerlink" href="#id7" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column type</p></th>
+<th class="head"><p>Collectible statistics</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TINYINT</span></code></p></td>
+<td><p>Number of nulls, number of distinct values, min/max values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code></p></td>
+<td><p>Number of nulls, number of distinct values, min/max values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Number of nulls, number of distinct values, min/max values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p></td>
+<td><p>Number of nulls, number of distinct values, min/max values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code></p></td>
+<td><p>Number of nulls, number of distinct values, min/max values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">REAL</span></code></p></td>
+<td><p>Number of nulls, number of distinct values, min/max values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></p></td>
+<td><p>Number of nulls, number of distinct values, min/max values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DATE</span></code></p></td>
+<td><p>Number of nulls, number of distinct values, min/max values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code></p></td>
+<td><p>Number of nulls, number of distinct values, min/max values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code></p></td>
+<td><p>Number of nulls, number of distinct values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CHAR</span></code></p></td>
+<td><p>Number of nulls, number of distinct values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VARBINARY</span></code></p></td>
+<td><p>Number of nulls</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BOOLEAN</span></code></p></td>
+<td><p>Number of nulls, number of true/false values</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="updating-table-and-partition-statistics"><span id="hive-analyze"></span>Updating table and partition statistics<a class="headerlink" href="#updating-table-and-partition-statistics" title="Link to this heading">#</a></h4>
+<p>If your queries are complex and include joining large data sets,
+running <a class="reference internal" href="../sql/analyze.html"><span class="doc">ANALYZE</span></a> on tables/partitions may improve query performance
+by collecting statistical information about the data.</p>
+<p>When analyzing a partitioned table, the partitions to analyze can be specified
+via the optional <code class="docutils literal notranslate"><span class="pre">partitions</span></code> property, which is an array containing
+the values of the partition keys in the order they are declared in the table schema:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">ANALYZE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">partitions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span>
+<span class="w">        </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;p1_value1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;p1_value2&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;p2_value1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;p2_value2&#39;</span><span class="p">]])</span>
+</code></pre></div>
+</div>
+<p>This query will collect statistics for two partitions with keys
+<code class="docutils literal notranslate"><span class="pre">p1_value1,</span> <span class="pre">p1_value2</span></code> and <code class="docutils literal notranslate"><span class="pre">p2_value1,</span> <span class="pre">p2_value2</span></code>.</p>
+<p>On wide tables, collecting statistics for all columns can be expensive and can have a
+detrimental effect on query planning. It is also typically unnecessary - statistics are
+only useful on specific columns, like join keys, predicates, grouping keys. One can
+specify a subset of columns to be analyzed via the optional <code class="docutils literal notranslate"><span class="pre">columns</span></code> property:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">ANALYZE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">partitions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;p2_value1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;p2_value2&#39;</span><span class="p">]],</span>
+<span class="w">    </span><span class="n">columns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;col_1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;col_2&#39;</span><span class="p">])</span>
+</code></pre></div>
+</div>
+<p>This query collects statistics for columns <code class="docutils literal notranslate"><span class="pre">col_1</span></code> and <code class="docutils literal notranslate"><span class="pre">col_2</span></code> for the partition
+with keys <code class="docutils literal notranslate"><span class="pre">p2_value1,</span> <span class="pre">p2_value2</span></code>.</p>
+<p>Note that if statistics were previously collected for all columns, they must be dropped
+before re-analyzing just a subset:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">drop_stats</span><span class="p">(</span><span class="s1">&#39;schema_name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;table_name&#39;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>You can also drop statistics for selected partitions only:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">drop_stats</span><span class="p">(</span>
+<span class="w">    </span><span class="k">schema_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;schema&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="k">table_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;table&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">partition_values</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;p2_value1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;p2_value2&#39;</span><span class="p">]])</span>
+</code></pre></div>
+</div>
+<h3 id="dynamic-filtering"><span id="hive-dynamic-filtering"></span>Dynamic filtering<a class="headerlink" href="#dynamic-filtering" title="Link to this heading">#</a></h3>
+<p>The Hive connector supports the <a class="reference internal" href="../admin/dynamic-filtering.html"><span class="doc">dynamic filtering</span></a> optimization.
+Dynamic partition pruning is supported for partitioned tables stored in any file format
+for broadcast as well as partitioned joins.
+Dynamic bucket pruning is supported for bucketed tables stored in any file format for
+broadcast joins only.</p>
+<p>For tables stored in ORC or Parquet file format, dynamic filters are also pushed into
+local table scan on worker nodes for broadcast joins. Dynamic filter predicates
+pushed into the ORC and Parquet readers are used to perform stripe or row-group pruning
+and save on disk I/O. Sorting the data within ORC or Parquet files by the columns used in
+join criteria significantly improves the effectiveness of stripe or row-group pruning.
+This is because grouping similar data within the same stripe or row-group
+greatly improves the selectivity of the min/max indexes maintained at stripe or
+row-group level.</p>
+<h4 id="delaying-execution-for-dynamic-filters">Delaying execution for dynamic filters<a class="headerlink" href="#delaying-execution-for-dynamic-filters" title="Link to this heading">#</a></h4>
+<p>It can often be beneficial to wait for the collection of dynamic filters before starting
+a table scan. This extra wait time can potentially result in significant overall savings
+in query and CPU time, if dynamic filtering is able to reduce the amount of scanned data.</p>
+<p>For the Hive connector, a table scan can be delayed for a configured amount of
+time until the collection of dynamic filters by using the configuration property
+<code class="docutils literal notranslate"><span class="pre">hive.dynamic-filtering.wait-timeout</span></code> in the catalog file or the catalog
+session property <code class="docutils literal notranslate"><span class="pre">&lt;hive-catalog&gt;.dynamic_filtering_wait_timeout</span></code>.</p>
+<h3 id="table-redirection"><span id="hive-table-redirection"></span>Table redirection<a class="headerlink" href="#table-redirection" title="Link to this heading">#</a></h3>
+<p>Trino offers the possibility to transparently redirect operations on an existing
+table to the appropriate catalog based on the format of the table and catalog configuration.</p>
+<p>In the context of connectors which depend on a metastore service
+(for example, <a class="reference internal" href="#"><span class="doc">Hive connector</span></a>, <a class="reference internal" href="iceberg.html"><span class="doc">Iceberg connector</span></a> and <a class="reference internal" href="delta-lake.html"><span class="doc">Delta Lake connector</span></a>),
+the metastore (Hive metastore service, <a class="reference external" href="https://aws.amazon.com/glue/">AWS Glue Data Catalog</a>)
+can be used to accustom tables with different table formats.
+Therefore, a metastore database can hold a variety of tables with different table formats.</p>
+<p>As a concrete example, let’s use the following
+simple scenario which makes use of table redirection:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">example_schema</span><span class="p">;</span>
+
+<span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example_table</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>                               Query Plan
+-------------------------------------------------------------------------
+Fragment 0 [SOURCE]
+     ...
+     Output[columnNames = [...]]
+     │   ...
+     └─ TableScan[table = another_catalog:example_schema:example_table]
+            ...
+</code></pre></div>
+</div>
+<p>The output of the <code class="docutils literal notranslate"><span class="pre">EXPLAIN</span></code> statement points out the actual
+catalog which is handling the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> query over the table <code class="docutils literal notranslate"><span class="pre">example_table</span></code>.</p>
+<p>The table redirection functionality works also when using
+fully qualified names for the tables:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example</span><span class="p">.</span><span class="n">example_schema</span><span class="p">.</span><span class="n">example_table</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>                               Query Plan
+-------------------------------------------------------------------------
+Fragment 0 [SOURCE]
+     ...
+     Output[columnNames = [...]]
+     │   ...
+     └─ TableScan[table = another_catalog:example_schema:example_table]
+            ...
+</code></pre></div>
+</div>
+<p>Trino offers table redirection support for the following operations:</p>
+<ul class="simple">
+<li><p>Table read operations</p>
+<ul>
+<li><p><a class="reference internal" href="../sql/select.html"><span class="doc">SELECT</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/describe.html"><span class="doc">DESCRIBE</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/show-stats.html"><span class="doc">SHOW STATS</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/show-create-table.html"><span class="doc">SHOW CREATE TABLE</span></a></p></li>
+</ul>
+</li>
+<li><p>Table write operations</p>
+<ul>
+<li><p><a class="reference internal" href="../sql/insert.html"><span class="doc">INSERT</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/update.html"><span class="doc">UPDATE</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/merge.html"><span class="doc">MERGE</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/delete.html"><span class="doc">DELETE</span></a></p></li>
+</ul>
+</li>
+<li><p>Table management operations</p>
+<ul>
+<li><p><a class="reference internal" href="../sql/alter-table.html"><span class="doc">ALTER TABLE</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/drop-table.html"><span class="doc">DROP TABLE</span></a></p></li>
+<li><p><a class="reference internal" href="../sql/comment.html"><span class="doc">COMMENT</span></a></p></li>
+</ul>
+</li>
+</ul>
+<p>Trino does not offer view redirection support.</p>
+<p>The connector supports redirection from Hive tables to Iceberg, Delta Lake, and
+Hudi tables with the following catalog configuration properties:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hive.iceberg-catalog-name</span></code>: Name of the catalog, configured with the
+<a class="reference internal" href="iceberg.html"><span class="doc std std-doc">Iceberg connector</span></a>, to use for reading Iceberg tables.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hive.delta-lake-catalog-name</span></code>: Name of the catalog, configured with the
+<a class="reference internal" href="delta-lake.html"><span class="doc std std-doc">Delta Lake connector</span></a>, to use for reading Delta Lake tables.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hive.hudi-catalog-name</span></code>: Name of the catalog, configured with the
+<a class="reference internal" href="hudi.html"><span class="doc std std-doc">Hudi connector</span></a>, to use for reading Hudi tables.</p></li>
+</ul>
+<h3 id="file-system-cache">File system cache<a class="headerlink" href="#file-system-cache" title="Link to this heading">#</a></h3>
+<p>The connector supports configuring and using <a class="reference internal" href="../object-storage/file-system-cache.html"><span class="doc std std-doc">file system
+caching</span></a>.</p>
+<h3 id="performance-tuning-configuration-properties"><span id="hive-performance-tuning-configuration"></span>Performance tuning configuration properties<a class="headerlink" href="#performance-tuning-configuration-properties" title="Link to this heading">#</a></h3>
+<p>The following table describes performance tuning properties for the Hive
+connector.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Performance tuning configuration properties are considered expert-level
+features. Altering these properties from their default values is likely to
+cause instability and performance degradation.</p>
+</div>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 50.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-outstanding-splits</span></code></p></td>
+<td><p>The target number of buffered splits for each table scan in a query, before
+the scheduler tries to pause.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-outstanding-splits-size</span></code></p></td>
+<td><p>The maximum size allowed for buffered splits for each table scan in a query,
+before the query fails.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">256</span> <span class="pre">MB</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-splits-per-second</span></code></p></td>
+<td><p>The maximum number of splits generated per second per table scan. This can
+be used to reduce the load on the storage system. By default, there is no
+limit, which results in Trino maximizing the parallelization of data access.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-initial-splits</span></code></p></td>
+<td><p>For each table scan, the coordinator first assigns file sections of up to
+<code class="docutils literal notranslate"><span class="pre">max-initial-split-size</span></code>. After <code class="docutils literal notranslate"><span class="pre">max-initial-splits</span></code> have been assigned,
+<code class="docutils literal notranslate"><span class="pre">max-split-size</span></code> is used for the remaining splits.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">200</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-initial-split-size</span></code></p></td>
+<td><p>The size of a single file section assigned to a worker until
+<code class="docutils literal notranslate"><span class="pre">max-initial-splits</span></code> have been assigned. Smaller splits results in more
+parallelism, which gives a boost to smaller queries.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">32</span> <span class="pre">MB</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hive.max-split-size</span></code></p></td>
+<td><p>The largest size of a single file section assigned to a worker. Smaller
+splits result in more parallelism and thus can decrease latency, but
+also have more overhead and increase load on the system.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">64</span> <span class="pre">MB</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="hive-3-related-limitations">Hive 3-related limitations<a class="headerlink" href="#hive-3-related-limitations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>For security reasons, the <code class="docutils literal notranslate"><span class="pre">sys</span></code> system catalog is not accessible.</p></li>
+<li><p>Hive’s <code class="docutils literal notranslate"><span class="pre">timestamp</span> <span class="pre">with</span> <span class="pre">local</span> <span class="pre">zone</span></code> data type is mapped to
+<code class="docutils literal notranslate"><span class="pre">timestamp</span> <span class="pre">with</span> <span class="pre">time</span> <span class="pre">zone</span></code> with UTC timezone. It only supports reading
+values - writing to tables with columns of this type is not supported.</p></li>
+<li><p>Due to Hive issues <a class="reference external" href="https://issues.apache.org/jira/browse/HIVE-21002">HIVE-21002</a>
+and <a class="reference external" href="https://issues.apache.org/jira/browse/HIVE-22167">HIVE-22167</a>, Trino does
+not correctly read <code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code> values from Parquet, RCBinary, or Avro
+file formats created by Hive 3.1 or later. When reading from these file formats,
+Trino returns different results than Hive.</p></li>
+<li><p>Trino does not support gathering table statistics for Hive transactional tables.
+You must use Hive to gather table statistics with
+<a class="reference external" href="https://cwiki.apache.org/confluence/display/hive/statsdev#StatsDev-ExistingTables%E2%80%93ANALYZE">ANALYZE statement</a>
+after table creation.</p></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="googlesheets.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Google Sheets connector">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Google Sheets connector
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="hudi.html" class="md-footer__link md-footer__link--next" aria-label="Next: Hudi connector">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Hudi connector
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

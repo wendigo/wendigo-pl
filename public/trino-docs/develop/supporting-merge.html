@@ -1,0 +1,1570 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="insert.html">
+      
+      
+        <link rel="next" href="types.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Supporting MERGE - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Supporting MERGE
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../develop.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_13" id="__nav_13_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Developer guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spi-overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SPI overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tests.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Test writing guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="example-http.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example HTTP connector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="example-jdbc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example JDBC connector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="insert.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supporting INSERT and CREATE TABLE AS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supporting MERGE
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="types.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Types
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="table-functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system-access-control.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System access control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="password-authenticator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Password authenticator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="certificate-authenticator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate authenticator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="header-authenticator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Header authenticator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="group-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Group provider
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="event-listener.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Event listener
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="client-protocol.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trino client REST API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="supporting-merge">Supporting <code class="docutils literal notranslate"><span class="pre">MERGE</span></code><a class="headerlink" href="#supporting-merge" title="Link to this heading">#</a></h1>
+<p>The Trino engine provides APIs to support row-level SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>.
+To implement <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>, a connector must provide the following:</p>
+<ul class="simple">
+<li><p>An implementation of <code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink</span></code>, which is typically
+layered on top of a <code class="docutils literal notranslate"><span class="pre">ConnectorPageSink</span></code>.</p></li>
+<li><p>Methods in <code class="docutils literal notranslate"><span class="pre">ConnectorMetadata</span></code> to get a “rowId” column handle, get the
+row change paradigm, and to start and complete the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation.</p></li>
+</ul>
+<p>The Trino engine machinery used to implement SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> is also used to
+support SQL <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> and <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code>. This means that all a connector needs to
+do is implement support for SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>, and the connector gets all the Data
+Modification Language (DML) operations.</p>
+<h2 id="standard-sql-merge">Standard SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code><a class="headerlink" href="#standard-sql-merge" title="Link to this heading">#</a></h2>
+<p>Different query engines support varying definitions of SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>.
+Trino supports the strict SQL specification <code class="docutils literal notranslate"><span class="pre">ISO/IEC</span> <span class="pre">9075</span></code>, published
+in 2016. As a simple example, given tables <code class="docutils literal notranslate"><span class="pre">target_table</span></code> and
+<code class="docutils literal notranslate"><span class="pre">source_table</span></code> defined as:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">customer</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">,</span>
+<span class="w">    </span><span class="n">purchases</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">address</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="p">(</span><span class="n">customer</span><span class="p">,</span><span class="w"> </span><span class="n">purchases</span><span class="p">,</span><span class="w"> </span><span class="n">address</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">...;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">monthly_accounts_update</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">customer</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">,</span>
+<span class="w">    </span><span class="n">purchases</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">address</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">monthly_accounts_update</span><span class="w"> </span><span class="p">(</span><span class="n">customer</span><span class="p">,</span><span class="w"> </span><span class="n">purchases</span><span class="p">,</span><span class="w"> </span><span class="n">address</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">...;</span>
+</code></pre></div>
+</div>
+<p>Here is a possible <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation, from <code class="docutils literal notranslate"><span class="pre">monthly_accounts_update</span></code> to
+<code class="docutils literal notranslate"><span class="pre">accounts</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">MERGE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">monthly_accounts_update</span><span class="w"> </span><span class="n">s</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">customer</span><span class="p">)</span>
+<span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Berkeley&#39;</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">DELETE</span>
+<span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Joe Shmoe&#39;</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">purchases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">purchases</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span>
+<span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">UPDATE</span>
+<span class="w">            </span><span class="k">SET</span><span class="w"> </span><span class="n">purchases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">purchases</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">purchases</span><span class="p">,</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">address</span>
+<span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">INSERT</span><span class="w"> </span><span class="p">(</span><span class="n">customer</span><span class="p">,</span><span class="w"> </span><span class="n">purchases</span><span class="p">,</span><span class="w"> </span><span class="n">address</span><span class="p">)</span>
+<span class="w">            </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">customer</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">purchases</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">address</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> tries to match each <code class="docutils literal notranslate"><span class="pre">WHEN</span></code> clause in source order. When
+a match is found, the corresponding <code class="docutils literal notranslate"><span class="pre">DELETE</span></code>, <code class="docutils literal notranslate"><span class="pre">INSERT</span></code> or <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code>
+is executed and subsequent <code class="docutils literal notranslate"><span class="pre">WHEN</span></code> clauses are ignored.</p>
+<p>SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> supports two operations on the target table and source
+when a row from the source table or query matches a row in the target table:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UPDATE</span></code>, in which the columns in the target row are updated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span></code>, in which the target row is deleted.</p></li>
+</ul>
+<p>In the <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">MATCHED</span></code> case, SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> supports only <code class="docutils literal notranslate"><span class="pre">INSERT</span></code>
+operations. The values inserted are arbitrary but usually come from
+the unmatched row of the source table or query.</p>
+<h2 id="rowchangeparadigm"><code class="docutils literal notranslate"><span class="pre">RowChangeParadigm</span></code><a class="headerlink" href="#rowchangeparadigm" title="Link to this heading">#</a></h2>
+<p>Different connectors have different ways of representing row updates,
+imposed by the underlying storage systems. The  Trino engine classifies
+these different paradigms as elements of the <code class="docutils literal notranslate"><span class="pre">RowChangeParadigm</span></code>
+enumeration, returned by enumeration, returned by method
+<code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.getRowChangeParadigm(...)</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">RowChangeParadigm</span></code> enumeration values are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CHANGE_ONLY_UPDATED_COLUMNS</span></code>, intended for connectors that can update
+individual columns of rows identified by a <code class="docutils literal notranslate"><span class="pre">rowId</span></code>. The corresponding
+merge processor class is <code class="docutils literal notranslate"><span class="pre">ChangeOnlyUpdatedColumnsMergeProcessor</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE_ROW_AND_INSERT_ROW</span></code>, intended for connectors that represent a
+row change as a row deletion paired with a row insertion. The corresponding
+merge processor class is <code class="docutils literal notranslate"><span class="pre">DeleteAndInsertMergeProcessor</span></code>.</p></li>
+</ul>
+<h2 id="overview-of-merge-processing">Overview of <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> processing<a class="headerlink" href="#overview-of-merge-processing" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> statement is processed by creating a <code class="docutils literal notranslate"><span class="pre">RIGHT</span> <span class="pre">JOIN</span></code> between the
+target table and the source, on the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> criteria. The source may be
+a table or an arbitrary query. For each row in the source table or query,
+<code class="docutils literal notranslate"><span class="pre">MERGE</span></code> produces a <code class="docutils literal notranslate"><span class="pre">ROW</span></code> object containing:</p>
+<ul class="simple">
+<li><p>the data column values from the <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> or <code class="docutils literal notranslate"><span class="pre">INSERT</span></code> cases. For the
+<code class="docutils literal notranslate"><span class="pre">DELETE</span></code> cases, only the partition columns, which determine
+partitioning and bucketing, are non-null.</p></li>
+<li><p>a boolean column containing <code class="docutils literal notranslate"><span class="pre">true</span></code> for source rows that matched some
+target row, and <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise.</p></li>
+<li><p>an integer that identifies whether the merge case operation is <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">DELETE</span></code> or <code class="docutils literal notranslate"><span class="pre">INSERT</span></code>, or a source row for which no case matched. If a
+source row doesn’t match any merge case, all data column values except
+those that determine distribution are null, and the operation number
+is -1.</p></li>
+</ul>
+<p>A <code class="docutils literal notranslate"><span class="pre">SearchedCaseExpression</span></code> is constructed from <code class="docutils literal notranslate"><span class="pre">RIGHT</span> <span class="pre">JOIN</span></code> result
+to represent the <code class="docutils literal notranslate"><span class="pre">WHEN</span></code> clauses of the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>. In the example preceding
+the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> is executed as if the <code class="docutils literal notranslate"><span class="pre">SearchedCaseExpression</span></code> were written as:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
+<span class="w"> </span><span class="k">CASE</span>
+<span class="w">   </span><span class="k">WHEN</span><span class="w"> </span><span class="n">present</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Berkeley&#39;</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">       </span><span class="c1">-- Null values for delete; present=true; operation DELETE=2, case_number=0</span>
+<span class="w">       </span><span class="k">row</span><span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="k">true</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">   </span><span class="k">WHEN</span><span class="w"> </span><span class="n">present</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Joe Shmoe&#39;</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">       </span><span class="c1">-- Update column values; present=true; operation UPDATE=3, case_number=1</span>
+<span class="w">       </span><span class="k">row</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">customer</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">purchases</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="k">true</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">   </span><span class="k">WHEN</span><span class="w"> </span><span class="n">present</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">       </span><span class="c1">-- Update column values; present=true; operation UPDATE=3, case_number=2</span>
+<span class="w">       </span><span class="k">row</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">customer</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">purchases</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">purchases</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="k">true</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">   </span><span class="k">WHEN</span><span class="w"> </span><span class="p">(</span><span class="n">present</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">       </span><span class="c1">-- Insert column values; present=false; operation INSERT=1, case_number=3</span>
+<span class="w">       </span><span class="k">row</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">customer</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">purchases</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="k">false</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="w">   </span><span class="k">ELSE</span>
+<span class="w">       </span><span class="c1">-- Null values for no case matched; present=false; operation=-1,</span>
+<span class="w">       </span><span class="c1">--     case_number=-1</span>
+<span class="w">       </span><span class="k">row</span><span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="k">false</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w"> </span><span class="k">END</span>
+<span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="k">true</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">present</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">target_table</span><span class="p">)</span><span class="w"> </span><span class="n">t</span>
+<span class="w">   </span><span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">source_table</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">customer</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>The Trino engine executes the <code class="docutils literal notranslate"><span class="pre">RIGHT</span> <span class="pre">JOIN</span></code> and <code class="docutils literal notranslate"><span class="pre">CASE</span></code> expression,
+and ensures that no target table row matches more than one source expression
+row, and ultimately creates a sequence of pages to be routed to the node that
+runs the <code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink.storeMergedRows(...)</span></code> method.</p>
+<p>Like <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> and <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code>, <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> target table rows are identified by
+a connector-specific <code class="docutils literal notranslate"><span class="pre">rowId</span></code> column handle. For <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>, the <code class="docutils literal notranslate"><span class="pre">rowId</span></code>
+handle is returned by <code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.getMergeRowIdColumnHandle(...)</span></code>.</p>
+<h2 id="merge-redistribution"><code class="docutils literal notranslate"><span class="pre">MERGE</span></code> redistribution<a class="headerlink" href="#merge-redistribution" title="Link to this heading">#</a></h2>
+<p>The Trino <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> implementation allows <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> to change
+the values of columns that determine partitioning and/or bucketing, and so
+it must “redistribute” rows from the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation to the worker
+nodes responsible for writing rows with the merged partitioning and/or
+bucketing columns.</p>
+<p>Since the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> process in general requires redistribution of
+merged rows among Trino nodes, the order of rows in pages to be stored
+are indeterminate. Connectors like Hive that depend on an ascending
+rowId order for deleted rows must sort the deleted rows before storing
+them.</p>
+<p>To ensure that all inserted rows for a given partition end up on a
+single node, the redistribution hash on the partition key/bucket columns
+is applied to the page partition keys. As a result of the hash, all
+rows for a specific partition/bucket hash together, whether they
+were <code class="docutils literal notranslate"><span class="pre">MATCHED</span></code> rows or <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">MATCHED</span></code> rows.</p>
+<p>For connectors whose <code class="docutils literal notranslate"><span class="pre">RowChangeParadigm</span></code> is <code class="docutils literal notranslate"><span class="pre">DELETE_ROW_AND_INSERT_ROW</span></code>,
+inserted rows are distributed using the layout supplied by
+<code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.getInsertLayout()</span></code>. For some connectors, the same
+layout is used for updated rows. Other connectors require a special
+layout for updated rows, supplied by <code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.getUpdateLayout()</span></code>.</p>
+<h3 id="connector-support-for-merge">Connector support for <code class="docutils literal notranslate"><span class="pre">MERGE</span></code><a class="headerlink" href="#connector-support-for-merge" title="Link to this heading">#</a></h3>
+<p>To start <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> processing, the Trino engine calls:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.getMergeRowIdColumnHandle(...)</span></code> to get the
+<code class="docutils literal notranslate"><span class="pre">rowId</span></code> column handle.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.getRowChangeParadigm(...)</span></code> to get the paradigm
+supported by the connector for changing existing table rows.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.beginMerge(...)</span></code> to get the a
+<code class="docutils literal notranslate"><span class="pre">ConnectorMergeTableHandle</span></code> for the merge operation. That
+<code class="docutils literal notranslate"><span class="pre">ConnectorMergeTableHandle</span></code> object contains whatever information the
+connector needs to specify the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.getInsertLayout(...)</span></code>, from which it extracts the
+list of partition or table columns that impact write redistribution.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.getUpdateLayout(...)</span></code>. If that layout is non-empty,
+it is used to distribute updated rows resulting from the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>
+operation.</p></li>
+</ul>
+<p>On nodes that are targets of the hash, the Trino engine calls
+<code class="docutils literal notranslate"><span class="pre">ConnectorPageSinkProvider.createMergeSink(...)</span></code> to create a
+<code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink</span></code>.</p>
+<p>To write out each page of merged rows, the Trino engine calls
+<code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink.storeMergedRows(Page)</span></code>. The <code class="docutils literal notranslate"><span class="pre">storeMergedRows(Page)</span></code>
+method iterates over the rows in the page, performing updates and deletes
+in the <code class="docutils literal notranslate"><span class="pre">MATCHED</span></code> cases, and inserts in the <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">MATCHED</span></code> cases.</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">RowChangeParadigm.DELETE_ROW_AND_INSERT_ROW</span></code>, the engine
+translates <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> operations into a pair of <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> and <code class="docutils literal notranslate"><span class="pre">INSERT</span></code>
+operations before <code class="docutils literal notranslate"><span class="pre">storeMergedRows(Page)</span></code> is called.</p>
+<p>To complete the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation, the Trino engine calls
+<code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.finishMerge(...)</span></code>, passing the table handle
+and a collection of JSON objects encoded as <code class="docutils literal notranslate"><span class="pre">Slice</span></code> instances. These
+objects contain connector-specific information specifying what was changed
+by the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation. Typically this JSON object contains the files
+written and table and partition statistics generated by the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>
+operation. The connector takes appropriate actions, if any.</p>
+<h2 id="rowchangeprocessor-implementation-for-merge"><code class="docutils literal notranslate"><span class="pre">RowChangeProcessor</span></code> implementation for <code class="docutils literal notranslate"><span class="pre">MERGE</span></code><a class="headerlink" href="#rowchangeprocessor-implementation-for-merge" title="Link to this heading">#</a></h2>
+<p>In the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> implementation, each <code class="docutils literal notranslate"><span class="pre">RowChangeParadigm</span></code>
+corresponds to an internal Trino engine class that implements interface
+<code class="docutils literal notranslate"><span class="pre">RowChangeProcessor</span></code>. <code class="docutils literal notranslate"><span class="pre">RowChangeProcessor</span></code> has one interesting method:
+<code class="docutils literal notranslate"><span class="pre">Page</span> <span class="pre">transformPage(Page)</span></code>. The format of the output page depends
+on the <code class="docutils literal notranslate"><span class="pre">RowChangeParadigm</span></code>.</p>
+<p>The connector has no access to the <code class="docutils literal notranslate"><span class="pre">RowChangeProcessor</span></code> instance – it
+is used inside the Trino engine to transform the merge page rows into rows
+to be stored, based on the connector’s choice of <code class="docutils literal notranslate"><span class="pre">RowChangeParadigm</span></code>.</p>
+<p>The page supplied to <code class="docutils literal notranslate"><span class="pre">transformPage()</span></code> consists of:</p>
+<ul class="simple">
+<li><p>The write redistribution columns if any</p></li>
+<li><p>For partitioned or bucketed tables, a long hash value column.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">rowId</span></code> column for the row from the target table if matched, or
+null if not matched</p></li>
+<li><p>The merge case <code class="docutils literal notranslate"><span class="pre">RowBlock</span></code></p></li>
+<li><p>The integer case number block</p></li>
+<li><p>The byte <code class="docutils literal notranslate"><span class="pre">is_distinct</span></code> block, with value 0 if not distinct.</p></li>
+</ul>
+<p>The merge case <code class="docutils literal notranslate"><span class="pre">RowBlock</span></code> has the following layout:</p>
+<ul class="simple">
+<li><p>Blocks for each column in the table, including partition columns, in
+table column order.</p></li>
+<li><p>A block containing the boolean “present” value which is true if the
+source row matched a target row, and false otherwise.</p></li>
+<li><p>A block containing the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> case operation number, encoded as
+<code class="docutils literal notranslate"><span class="pre">INSERT</span></code> = 1, <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> = 2, <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> = 3 and if no <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>
+case matched, -1.</p></li>
+<li><p>A block containing the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> case number, the number starting with 0, for the
+<code class="docutils literal notranslate"><span class="pre">WHEN</span></code> clause that matched for the row, or -1 if no clause
+matched.</p></li>
+</ul>
+<p>The page returned from <code class="docutils literal notranslate"><span class="pre">transformPage</span></code> consists of:</p>
+<ul class="simple">
+<li><p>All table columns, in table column order.</p></li>
+<li><p>The tinyint type merge case operation block.</p></li>
+<li><p>The integer type merge case number block.</p></li>
+<li><p>The rowId block remains unchanged from the provided input page.</p></li>
+<li><p>A byte block containing 1 if the row is an insert derived from an
+update operation, and 0 otherwise. This block is used to correctly
+calculate the count of rows changed for connectors that represent
+updates and deletes plus inserts.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">transformPage</span></code>
+must ensure that there are no rows whose operation number is -1 in
+the page it returns.</p>
+<h2 id="detecting-duplicate-matching-target-rows">Detecting duplicate matching target rows<a class="headerlink" href="#detecting-duplicate-matching-target-rows" title="Link to this heading">#</a></h2>
+<p>The SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> specification requires that in each <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> case,
+a single target table row must match at most one source row, after
+applying the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> case condition expression. The first step
+toward finding these error is done by labeling each row in the target
+table with a unique id, using an <code class="docutils literal notranslate"><span class="pre">AssignUniqueId</span></code> node above the
+target table scan. The projected results from the <code class="docutils literal notranslate"><span class="pre">RIGHT</span> <span class="pre">JOIN</span></code>
+have these unique ids for matched target table rows as well as
+the <code class="docutils literal notranslate"><span class="pre">WHEN</span></code> clause number. A <code class="docutils literal notranslate"><span class="pre">MarkDistinct</span></code> node adds an
+<code class="docutils literal notranslate"><span class="pre">is_distinct</span></code> column which is true if no other row has the same
+unique id and <code class="docutils literal notranslate"><span class="pre">WHEN</span></code> clause number, and false otherwise. If
+any row has <code class="docutils literal notranslate"><span class="pre">is_distinct</span></code> equal to false, a
+<code class="docutils literal notranslate"><span class="pre">MERGE_TARGET_ROW_MULTIPLE_MATCHES</span></code> exception is raised and
+the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation fails.</p>
+<h2 id="connectormergetablehandle-api"><code class="docutils literal notranslate"><span class="pre">ConnectorMergeTableHandle</span></code> API<a class="headerlink" href="#connectormergetablehandle-api" title="Link to this heading">#</a></h2>
+<p>Interface <code class="docutils literal notranslate"><span class="pre">ConnectorMergeTableHandle</span></code> defines one method,
+<code class="docutils literal notranslate"><span class="pre">getTableHandle()</span></code> to retrieve the <code class="docutils literal notranslate"><span class="pre">ConnectorTableHandle</span></code>
+originally passed to <code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.beginMerge()</span></code>.</p>
+<h2 id="connectorpagesinkprovider-api"><code class="docutils literal notranslate"><span class="pre">ConnectorPageSinkProvider</span></code> API<a class="headerlink" href="#connectorpagesinkprovider-api" title="Link to this heading">#</a></h2>
+<p>To support SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>, <code class="docutils literal notranslate"><span class="pre">ConnectorPageSinkProvider</span></code> must implement
+the method that creates the <code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink</span></code>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">createMergeSink</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">ConnectorMergeSink</span><span class="w"> </span><span class="n">createMergeSink</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ConnectorTransactionHandle</span><span class="w"> </span><span class="n">transactionHandle</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="k">session</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ConnectorMergeTableHandle</span><span class="w"> </span><span class="n">mergeHandle</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</li>
+</ul>
+<h2 id="connectormergesink-api"><code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink</span></code> API<a class="headerlink" href="#connectormergesink-api" title="Link to this heading">#</a></h2>
+<p>To support <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>, the connector must define an
+implementation of <code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink</span></code>, usually layered over the
+connector’s <code class="docutils literal notranslate"><span class="pre">ConnectorPageSink</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink</span></code> is created by a call to
+<code class="docutils literal notranslate"><span class="pre">ConnectorPageSinkProvider.createMergeSink()</span></code>.</p>
+<p>The only interesting methods are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">storeMergedRows</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">void</span><span class="w"> </span><span class="n">storeMergedRows</span><span class="p">(</span><span class="n">Page</span><span class="w"> </span><span class="n">page</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>The Trino engine calls the <code class="docutils literal notranslate"><span class="pre">storeMergedRows(Page)</span></code> method of the
+<code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink</span></code> instance returned by
+<code class="docutils literal notranslate"><span class="pre">ConnectorPageSinkProvider.createMergeSink()</span></code>, passing the page
+generated by the <code class="docutils literal notranslate"><span class="pre">RowChangeProcessor.transformPage()</span></code> method.
+That page consists of all table columns, in table column order,
+followed by the <code class="docutils literal notranslate"><span class="pre">TINYINT</span></code> operation column, followed by the <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>
+merge case number column, followed by the rowId column.</p>
+<p>The job of <code class="docutils literal notranslate"><span class="pre">storeMergedRows()</span></code> is iterate over the rows in the page,
+and process them based on the value of the operation column, <code class="docutils literal notranslate"><span class="pre">INSERT</span></code>,
+<code class="docutils literal notranslate"><span class="pre">DELETE</span></code>, <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code>, or ignore the row. By choosing appropriate
+paradigm, the connector can request that the UPDATE operation be
+transformed into <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> and <code class="docutils literal notranslate"><span class="pre">INSERT</span></code> operations.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finish</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">Slice</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">finish</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>The Trino engine calls <code class="docutils literal notranslate"><span class="pre">finish()</span></code> when all the data has been processed by
+a specific <code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink</span></code> instance. The connector returns a future
+containing a collection of <code class="docutils literal notranslate"><span class="pre">Slice</span></code>, representing connector-specific
+information about the rows processed. Usually this includes the row count,
+and might include information like the files or partitions created or
+changed.</p>
+</li>
+</ul>
+<h2 id="connectormetadata-merge-api"><code class="docutils literal notranslate"><span class="pre">ConnectorMetadata</span></code> <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> API<a class="headerlink" href="#connectormetadata-merge-api" title="Link to this heading">#</a></h2>
+<p>A connector implementing <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> must implement these <code class="docutils literal notranslate"><span class="pre">ConnectorMetadata</span></code>
+methods.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">getRowChangeParadigm()</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">RowChangeParadigm</span><span class="w"> </span><span class="n">getRowChangeParadigm</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="k">session</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ConnectorTableHandle</span><span class="w"> </span><span class="n">tableHandle</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>This method is called as the engine starts processing a <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> statement.
+The connector must return a <code class="docutils literal notranslate"><span class="pre">RowChangeParadigm</span></code> enumeration instance. If
+the connector doesn’t support <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>, then it should throw a
+<code class="docutils literal notranslate"><span class="pre">NOT_SUPPORTED</span></code> exception to indicate that SQL <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> isn’t supported by
+the connector. Note that the default implementation already throws this
+exception when the method isn’t implemented.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getMergeRowIdColumnHandle()</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">ColumnHandle</span><span class="w"> </span><span class="n">getMergeRowIdColumnHandle</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="k">session</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ConnectorTableHandle</span><span class="w"> </span><span class="n">tableHandle</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>This method is called in the early stages of query planning for <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>
+statements. The ColumnHandle returned provides the <code class="docutils literal notranslate"><span class="pre">rowId</span></code> used by the
+connector to identify rows to be merged, as well as any other fields of
+the row that the connector needs to complete the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getInsertLayout()</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">ConnectorTableLayout</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getInsertLayout</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="k">session</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ConnectorTableHandle</span><span class="w"> </span><span class="n">tableHandle</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>This method is called during query planning to get the table layout to be
+used for rows inserted by the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation. For some connectors,
+this layout is used for rows deleted as well.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getUpdateLayout()</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">ConnectorTableLayout</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getUpdateLayout</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="k">session</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ConnectorTableHandle</span><span class="w"> </span><span class="n">tableHandle</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>This method is called during query planning to get the table layout to be
+used for rows deleted by the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation. If the optional return
+value is present, the Trino engine uses the layout for updated rows.
+Otherwise, it uses the result of <code class="docutils literal notranslate"><span class="pre">ConnectorMetadata.getInsertLayout</span></code> to
+distribute updated rows.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">beginMerge()</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">ConnectorMergeTableHandle</span><span class="w"> </span><span class="n">beginMerge</span><span class="p">(</span>
+<span class="w">     </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="k">session</span><span class="p">,</span>
+<span class="w">     </span><span class="n">ConnectorTableHandle</span><span class="w"> </span><span class="n">tableHandle</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>As the last step in creating the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> execution plan, the connector’s
+<code class="docutils literal notranslate"><span class="pre">beginMerge()</span></code> method is called, passing the <code class="docutils literal notranslate"><span class="pre">session</span></code>, and the
+<code class="docutils literal notranslate"><span class="pre">tableHandle</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">beginMerge()</span></code> performs any orchestration needed in the connector to
+start processing the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code>. This orchestration varies from connector
+to connector. In the case of Hive connector operating on transactional tables,
+for example, <code class="docutils literal notranslate"><span class="pre">beginMerge()</span></code> checks that the table is transactional and
+starts a Hive Metastore transaction.</p>
+<p><code class="docutils literal notranslate"><span class="pre">beginMerge()</span></code> returns a <code class="docutils literal notranslate"><span class="pre">ConnectorMergeTableHandle</span></code> with any added
+information the connector needs when the handle is passed back to
+<code class="docutils literal notranslate"><span class="pre">finishMerge()</span></code> and the split generation machinery. For most
+connectors, the returned table handle contains at least a flag identifying
+the table handle as a table handle for a <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finishMerge()</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="n">void</span><span class="w"> </span><span class="n">finishMerge</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ConnectorSession</span><span class="w"> </span><span class="k">session</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ConnectorMergeTableHandle</span><span class="w"> </span><span class="n">tableHandle</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">Slice</span><span class="o">&gt;</span><span class="w"> </span><span class="n">fragments</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>During <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> processing, the Trino engine accumulates the <code class="docutils literal notranslate"><span class="pre">Slice</span></code>
+collections returned by <code class="docutils literal notranslate"><span class="pre">ConnectorMergeSink.finish()</span></code>. The engine calls
+<code class="docutils literal notranslate"><span class="pre">finishMerge()</span></code>, passing the table handle and that collection of
+<code class="docutils literal notranslate"><span class="pre">Slice</span></code> fragments. In response, the connector takes appropriate actions
+to complete the <code class="docutils literal notranslate"><span class="pre">MERGE</span></code> operation. Those actions might include
+committing an underlying transaction, if any, or freeing any other
+resources.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="insert.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Supporting INSERT and CREATE TABLE AS">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Supporting INSERT and CREATE TABLE AS
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="types.html" class="md-footer__link md-footer__link--next" aria-label="Next: Types">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Types
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

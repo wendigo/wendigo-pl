@@ -1,0 +1,2119 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="ai.html">
+      
+      
+        <link rel="next" href="binary.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Array functions and operators - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Array functions and operators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../functions.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Functions and operators
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list-by-topic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions by topic
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aggregate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ai.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Array
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bitwise.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bitwise
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="color.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Color
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="comparison.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conditional.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conditional
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conversion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conversion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datetime.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="timezone.time(p) with time zone (Python parameter)">Date and time</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="decimal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Decimal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="geospatial.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Geospatial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hyperloglog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hyper<wbr>Log<wbr>Log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ipaddress.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IP Address
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="json.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    JSON
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lambda.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lambda
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logical.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logical
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Machine learning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="math.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="cosine_similarity.x (Python parameter)">Math</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="qdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quantile digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="regexp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Regular expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="session.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Session
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="setdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Set Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="string.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    String
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="teradata.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Teradata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    T-<wbr>Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="url.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    URL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uuid.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UUID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="window.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Window
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="array-functions-and-operators">Array functions and operators<a class="headerlink" href="#array-functions-and-operators" title="Link to this heading">#</a></h1>
+<p>Array functions and operators use the <a class="reference internal" href="../language/types.html#array-type"><span class="std std-ref">ARRAY type</span></a>. Create an array
+with the data type constructor.</p>
+<p>Create an array of integer numbers:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
+<span class="c1">-- [1, 2, 4]</span>
+</code></pre></div>
+</div>
+<p>Create an array of character values:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bazz&#39;</span><span class="p">];</span>
+<span class="c1">-- [foo, bar, bazz]</span>
+</code></pre></div>
+</div>
+<p>Array elements must use the same type or it must be possible to coerce values to
+a common type. The following example uses integer and decimal values and the
+resulting array contains decimals:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
+<span class="c1">-- [1.0, 1.2, 4.0]</span>
+</code></pre></div>
+</div>
+<p>Null values are allowed:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">];</span>
+<span class="c1">-- [1, 2, NULL, -4, NULL]</span>
+</code></pre></div>
+</div>
+<h2 id="subscript-operator"><span id="id1"></span>Subscript operator: []<a class="headerlink" href="#subscript-operator" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">[]</span></code> operator is used to access an element of an array and is indexed
+starting from one:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">my_array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">first_element</span>
+</code></pre></div>
+</div>
+<p>The following example constructs an array and then accesses the second element:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
+<span class="c1">-- 1.2</span>
+</code></pre></div>
+</div>
+<h2 id="concatenation-operator"><span id="id2"></span>Concatenation operator: ||<a class="headerlink" href="#concatenation-operator" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">||</span></code> operator is used to concatenate an array with an array or an element of the same type:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="c1">-- [1, 2]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="c1">-- [1, 2]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="c1">-- [2, 1]</span>
+</code></pre></div>
+</div>
+<h2 id="array-functions">Array functions<a class="headerlink" href="#array-functions" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="all_match">
+<span class="sig-name descname"><span class="pre">all_match</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#all_match" title="all_match.array(T) (Python parameter)"><span class="n"><span class="pre">array(T)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#all_match" title="all_match.function(T (Python parameter)"><span class="n"><span class="pre">function(T</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#all_match" title="all_match.boolean) (Python parameter)"><span class="n"><span class="pre">boolean)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#all_match" title="Link to this definition">#</a></dt>
+<dd><p>Returns whether all elements of an array match the given predicate. Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if all the elements
+match the predicate (a special case is when the array is empty); <code class="docutils literal notranslate"><span class="pre">false</span></code> if one or more elements don’t
+match; <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if the predicate function returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> for one or more elements and <code class="docutils literal notranslate"><span class="pre">true</span></code> for all
+other elements.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="any_match">
+<span class="sig-name descname"><span class="pre">any_match</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#any_match" title="any_match.array(T) (Python parameter)"><span class="n"><span class="pre">array(T)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#any_match" title="any_match.function(T (Python parameter)"><span class="n"><span class="pre">function(T</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#any_match" title="any_match.boolean) (Python parameter)"><span class="n"><span class="pre">boolean)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#any_match" title="Link to this definition">#</a></dt>
+<dd><p>Returns whether any elements of an array match the given predicate. Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if one or more
+elements match the predicate; <code class="docutils literal notranslate"><span class="pre">false</span></code> if none of the elements matches (a special case is when the
+array is empty); <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if the predicate function returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> for one or more elements and <code class="docutils literal notranslate"><span class="pre">false</span></code>
+for all other elements.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_distinct">
+<span class="sig-name descname"><span class="pre">array_distinct</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_distinct" title="array_distinct.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#array_distinct" title="Link to this definition">#</a></dt>
+<dd><p>Remove duplicate values from the array <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_intersect">
+<span class="sig-name descname"><span class="pre">array_intersect</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_intersect" title="array_intersect.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_intersect" title="array_intersect.y (Python parameter)"><span class="n"><span class="pre">y</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#array_intersect" title="Link to this definition">#</a></dt>
+<dd><p>Returns an array of the elements in the intersection of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, without duplicates.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_union">
+<span class="sig-name descname"><span class="pre">array_union</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_union" title="array_union.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_union" title="array_union.y (Python parameter)"><span class="n"><span class="pre">y</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#array_union" title="Link to this definition">#</a></dt>
+<dd><p>Returns an array of the elements in the union of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, without duplicates.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_except">
+<span class="sig-name descname"><span class="pre">array_except</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_except" title="array_except.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_except" title="array_except.y (Python parameter)"><span class="n"><span class="pre">y</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#array_except" title="Link to this definition">#</a></dt>
+<dd><p>Returns an array of elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> but not in <code class="docutils literal notranslate"><span class="pre">y</span></code>, without duplicates.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_histogram">
+<span class="sig-name descname"><span class="pre">array_histogram</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_histogram" title="array_histogram.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">map&lt;K,</span> <span class="pre">bigint&gt;</span></span></span></span><a class="headerlink" href="#array_histogram" title="Link to this definition">#</a></dt>
+<dd><p>Returns a map where the keys are the unique elements in the input array
+<code class="docutils literal notranslate"><span class="pre">x</span></code> and the values are the number of times that each element appears in
+<code class="docutils literal notranslate"><span class="pre">x</span></code>. Null values are ignored.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">array_histogram</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">]);</span>
+<span class="c1">-- {42=2, 7=1}</span>
+</code></pre></div>
+</div>
+<p>Returns an empty map if the input array has no non-null elements.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">array_histogram</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">]);</span>
+<span class="c1">-- {}</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_join">
+<span class="sig-name descname"><span class="pre">array_join</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_join" title="array_join.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_join" title="array_join.delimiter (Python parameter)"><span class="n"><span class="pre">delimiter</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#array_join" title="Link to this definition">#</a></dt>
+<dd><p>Concatenates the elements of the given array using the delimiter.
+Null elements are omitted in the result.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">array_join</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_join" title="array_join.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_join" title="array_join.delimiter (Python parameter)"><span class="n"><span class="pre">delimiter</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">null_replacement</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span></dt>
+<dd><p>Concatenates the elements of the given array using the delimiter and an optional string to replace nulls.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_max">
+<span class="sig-name descname"><span class="pre">array_max</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_max" title="array_max.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">x</span></span></span></span><a class="headerlink" href="#array_max" title="Link to this definition">#</a></dt>
+<dd><p>Returns the maximum value of input array.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_min">
+<span class="sig-name descname"><span class="pre">array_min</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_min" title="array_min.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">x</span></span></span></span><a class="headerlink" href="#array_min" title="Link to this definition">#</a></dt>
+<dd><p>Returns the minimum value of input array.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_position">
+<span class="sig-name descname"><span class="pre">array_position</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_position" title="array_position.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_position" title="array_position.element (Python parameter)"><span class="n"><span class="pre">element</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#array_position" title="Link to this definition">#</a></dt>
+<dd><p>Returns the position of the first occurrence of the <code class="docutils literal notranslate"><span class="pre">element</span></code> in array <code class="docutils literal notranslate"><span class="pre">x</span></code> (or 0 if not found).</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_remove">
+<span class="sig-name descname"><span class="pre">array_remove</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_remove" title="array_remove.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_remove" title="array_remove.element (Python parameter)"><span class="n"><span class="pre">element</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#array_remove" title="Link to this definition">#</a></dt>
+<dd><p>Remove all elements that equal <code class="docutils literal notranslate"><span class="pre">element</span></code> from array <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="array_sort">
+<span class="sig-name descname"><span class="pre">array_sort</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#array_sort" title="array_sort.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#array_sort" title="Link to this definition">#</a></dt>
+<dd><p>Sorts and returns the array <code class="docutils literal notranslate"><span class="pre">x</span></code>. The elements of <code class="docutils literal notranslate"><span class="pre">x</span></code> must be orderable.
+Null elements will be placed at the end of the returned array.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">array_sort</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">array(T)</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">function(T</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">int))</span> <span class="pre">-&gt;</span> <span class="pre">array(T</span></span></em></span><span class="sig-paren">)</span></dt>
+<dd><p>Sorts and returns the <code class="docutils literal notranslate"><span class="pre">array</span></code> based on the given comparator <code class="docutils literal notranslate"><span class="pre">function</span></code>.
+The comparator will take two nullable arguments representing two nullable
+elements of the <code class="docutils literal notranslate"><span class="pre">array</span></code>. It returns -1, 0, or 1 as the first nullable
+element is less than, equal to, or greater than the second nullable element.
+If the comparator function returns other values (including <code class="docutils literal notranslate"><span class="pre">NULL</span></code>), the
+query will fail and raise an error.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">array_sort</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span>
+<span class="w">                  </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)));</span>
+<span class="c1">-- [5, 3, 2, 2, 1]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">array_sort</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;bc&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ab&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dc&#39;</span><span class="p">],</span>
+<span class="w">                  </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)));</span>
+<span class="c1">-- [&#39;dc&#39;, &#39;bc&#39;, &#39;ab&#39;]</span>
+
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">array_sort</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span>
+<span class="w">                  </span><span class="c1">-- sort null first with descending order</span>
+<span class="w">                  </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
+<span class="w">                                 </span><span class="k">WHEN</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                                 </span><span class="k">WHEN</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                                 </span><span class="k">WHEN</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">                                 </span><span class="k">ELSE</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="k">END</span><span class="p">);</span>
+<span class="c1">-- [null, null, 5, 3, 2, 2, 1]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">array_sort</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span>
+<span class="w">                  </span><span class="c1">-- sort null last with descending order</span>
+<span class="w">                  </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                                 </span><span class="k">WHEN</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
+<span class="w">                                 </span><span class="k">WHEN</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                                 </span><span class="k">WHEN</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">                                 </span><span class="k">ELSE</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="k">END</span><span class="p">);</span>
+<span class="c1">-- [5, 3, 2, 2, 1, null, null]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">array_sort</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;abcd&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;abc&#39;</span><span class="p">],</span>
+<span class="w">                  </span><span class="c1">-- sort by string length</span>
+<span class="w">                  </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="k">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">length</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                               </span><span class="k">IF</span><span class="p">(</span><span class="k">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">length</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)));</span>
+<span class="c1">-- [&#39;a&#39;, &#39;abc&#39;, &#39;abcd&#39;]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">array_sort</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]],</span>
+<span class="w">                  </span><span class="c1">-- sort by array length</span>
+<span class="w">                  </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="k">cardinality</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">cardinality</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                               </span><span class="k">IF</span><span class="p">(</span><span class="k">cardinality</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">cardinality</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)));</span>
+<span class="c1">-- [[1, 2], [2, 3, 1], [4, 2, 1, 4]]</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="arrays_overlap">
+<span class="sig-name descname"><span class="pre">arrays_overlap</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#arrays_overlap" title="arrays_overlap.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#arrays_overlap" title="arrays_overlap.y (Python parameter)"><span class="n"><span class="pre">y</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#arrays_overlap" title="Link to this definition">#</a></dt>
+<dd><p>Tests if arrays <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> have any non-null elements in common.
+Returns null if there are no non-null elements in common but either array contains null.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="cardinality">
+<span class="sig-name descname"><span class="pre">cardinality</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#cardinality" title="cardinality.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#cardinality" title="Link to this definition">#</a></dt>
+<dd><p>Returns the cardinality (size) of the array <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">concat</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">array1</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">array2</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="string.html#concat" title="concat.... (Python parameter)"><span class="n"><span class="pre">...</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">arrayN</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span></dt>
+<dd><p>Concatenates the arrays <code class="docutils literal notranslate"><span class="pre">array1</span></code>, <code class="docutils literal notranslate"><span class="pre">array2</span></code>, <code class="docutils literal notranslate"><span class="pre">...</span></code>, <code class="docutils literal notranslate"><span class="pre">arrayN</span></code>.
+This function provides the same functionality as the SQL-standard concatenation operator (<code class="docutils literal notranslate"><span class="pre">||</span></code>).</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="combinations">
+<span class="sig-name descname"><span class="pre">combinations</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#combinations" title="combinations.array(T) (Python parameter)"><span class="n"><span class="pre">array(T)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#combinations" title="combinations.n) -&gt; array(array(T) (Python parameter)"><span class="n"><span class="pre">n)</span> <span class="pre">-&gt;</span> <span class="pre">array(array(T)</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#combinations" title="Link to this definition">#</a></dt>
+<dd><p>Returns n-element sub-groups of input array. If the input array has no duplicates,
+<code class="docutils literal notranslate"><span class="pre">combinations</span></code> returns n-element subsets.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">combinations</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="c1">-- [[&#39;foo&#39;, &#39;bar&#39;], [&#39;foo&#39;, &#39;baz&#39;], [&#39;bar&#39;, &#39;baz&#39;]]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">combinations</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="c1">-- [[1, 2], [1, 3], [2, 3]]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">combinations</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="c1">-- [[1, 2], [1, 2], [2, 2]]</span>
+</code></pre></div>
+</div>
+<p>Order of sub-groups is deterministic but unspecified. Order of elements within
+a sub-group deterministic but unspecified. <code class="docutils literal notranslate"><span class="pre">n</span></code> must be not be greater than 5,
+and the total size of sub-groups generated must be smaller than 100,000.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#contains" title="contains.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#contains" title="contains.element (Python parameter)"><span class="n"><span class="pre">element</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#contains" title="Link to this definition">#</a></dt>
+<dd><p>Returns true if the array <code class="docutils literal notranslate"><span class="pre">x</span></code> contains the <code class="docutils literal notranslate"><span class="pre">element</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="contains_sequence">
+<span class="sig-name descname"><span class="pre">contains_sequence</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#contains_sequence" title="contains_sequence.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#contains_sequence" title="contains_sequence.seq (Python parameter)"><span class="n"><span class="pre">seq</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#contains_sequence" title="Link to this definition">#</a></dt>
+<dd><p>Return true if array <code class="docutils literal notranslate"><span class="pre">x</span></code> contains all of array <code class="docutils literal notranslate"><span class="pre">seq</span></code> as a subsequence (all values in the same consecutive order).</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="element_at">
+<span class="sig-name descname"><span class="pre">element_at</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#element_at" title="element_at.array(E) (Python parameter)"><span class="n"><span class="pre">array(E)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#element_at" title="element_at.index (Python parameter)"><span class="n"><span class="pre">index</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">E</span></span></span></span><a class="headerlink" href="#element_at" title="Link to this definition">#</a></dt>
+<dd><p>Returns element of <code class="docutils literal notranslate"><span class="pre">array</span></code> at given <code class="docutils literal notranslate"><span class="pre">index</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">index</span></code> &gt; 0, this function provides the same functionality as the SQL-standard subscript operator (<code class="docutils literal notranslate"><span class="pre">[]</span></code>),
+except that the function returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> when accessing an <code class="docutils literal notranslate"><span class="pre">index</span></code> larger than array length, whereas
+the subscript operator would fail in such a case.
+If <code class="docutils literal notranslate"><span class="pre">index</span></code> &lt; 0, <code class="docutils literal notranslate"><span class="pre">element_at</span></code> accesses elements from the last to the first.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#filter" title="filter.array(T) (Python parameter)"><span class="n"><span class="pre">array(T)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#filter" title="filter.function(T (Python parameter)"><span class="n"><span class="pre">function(T</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#filter" title="filter.boolean)) -&gt; array(T (Python parameter)"><span class="n"><span class="pre">boolean))</span> <span class="pre">-&gt;</span> <span class="pre">array(T</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#filter" title="Link to this definition">#</a></dt>
+<dd><p>Constructs an array from those elements of <code class="docutils literal notranslate"><span class="pre">array</span></code> for which <code class="docutils literal notranslate"><span class="pre">function</span></code> returns true:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[],</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">true</span><span class="p">);</span>
+<span class="c1">-- []</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="c1">-- [5, 7]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span>
+<span class="c1">-- [5, 7]</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="flatten">
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#flatten" title="flatten.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#flatten" title="Link to this definition">#</a></dt>
+<dd><p>Flattens an <code class="docutils literal notranslate"><span class="pre">array(array(T))</span></code> to an <code class="docutils literal notranslate"><span class="pre">array(T)</span></code> by concatenating the contained arrays.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ngrams">
+<span class="sig-name descname"><span class="pre">ngrams</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ngrams" title="ngrams.array(T) (Python parameter)"><span class="n"><span class="pre">array(T)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ngrams" title="ngrams.n) -&gt; array(array(T) (Python parameter)"><span class="n"><span class="pre">n)</span> <span class="pre">-&gt;</span> <span class="pre">array(array(T)</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#ngrams" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">n</span></code>-grams (sub-sequences of adjacent <code class="docutils literal notranslate"><span class="pre">n</span></code> elements) for the <code class="docutils literal notranslate"><span class="pre">array</span></code>.
+The order of the <code class="docutils literal notranslate"><span class="pre">n</span></code>-grams in the result is unspecified.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">ngrams</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="c1">-- [[&#39;foo&#39;, &#39;bar&#39;], [&#39;bar&#39;, &#39;baz&#39;], [&#39;baz&#39;, &#39;foo&#39;]]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ngrams</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="c1">-- [[&#39;foo&#39;, &#39;bar&#39;, &#39;baz&#39;], [&#39;bar&#39;, &#39;baz&#39;, &#39;foo&#39;]]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ngrams</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="p">],</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<span class="c1">-- [[&#39;foo&#39;, &#39;bar&#39;, &#39;baz&#39;, &#39;foo&#39;]]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ngrams</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="p">],</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="c1">-- [[&#39;foo&#39;, &#39;bar&#39;, &#39;baz&#39;, &#39;foo&#39;]]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ngrams</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="c1">-- [[1, 2], [2, 3], [3, 4]]</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="none_match">
+<span class="sig-name descname"><span class="pre">none_match</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#none_match" title="none_match.array(T) (Python parameter)"><span class="n"><span class="pre">array(T)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#none_match" title="none_match.function(T (Python parameter)"><span class="n"><span class="pre">function(T</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#none_match" title="none_match.boolean) (Python parameter)"><span class="n"><span class="pre">boolean)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#none_match" title="Link to this definition">#</a></dt>
+<dd><p>Returns whether no elements of an array match the given predicate. Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if none of the elements
+matches the predicate (a special case is when the array is empty); <code class="docutils literal notranslate"><span class="pre">false</span></code> if one or more elements match;
+<code class="docutils literal notranslate"><span class="pre">NULL</span></code> if the predicate function returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> for one or more elements and <code class="docutils literal notranslate"><span class="pre">false</span></code> for all other elements.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="reduce">
+<span class="sig-name descname"><span class="pre">reduce</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#reduce" title="reduce.array(T) (Python parameter)"><span class="n"><span class="pre">array(T)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#reduce" title="reduce.initialState S (Python parameter)"><span class="n"><span class="pre">initialState</span> <span class="pre">S</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#reduce" title="reduce.inputFunction(S (Python parameter)"><span class="n"><span class="pre">inputFunction(S</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#reduce" title="reduce.T (Python parameter)"><span class="n"><span class="pre">T</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#reduce" title="reduce.S) (Python parameter)"><span class="n"><span class="pre">S)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#reduce" title="reduce.outputFunction(S (Python parameter)"><span class="n"><span class="pre">outputFunction(S</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#reduce" title="reduce.R) (Python parameter)"><span class="n"><span class="pre">R)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">R</span></span></span></span><a class="headerlink" href="#reduce" title="Link to this definition">#</a></dt>
+<dd><p>Returns a single value reduced from <code class="docutils literal notranslate"><span class="pre">array</span></code>. <code class="docutils literal notranslate"><span class="pre">inputFunction</span></code> will
+be invoked for each element in <code class="docutils literal notranslate"><span class="pre">array</span></code> in order. In addition to taking
+the element, <code class="docutils literal notranslate"><span class="pre">inputFunction</span></code> takes the current state, initially
+<code class="docutils literal notranslate"><span class="pre">initialState</span></code>, and returns the new state. <code class="docutils literal notranslate"><span class="pre">outputFunction</span></code> will be
+invoked to turn the final state into the result value. It may be the
+identity function (<code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">-&gt;</span> <span class="pre">i</span></code>).</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<span class="w">              </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="c1">-- 0</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<span class="w">              </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="c1">-- 75</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<span class="w">              </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="c1">-- NULL</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">coalesce</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
+<span class="w">              </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="c1">-- 75</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">),</span>
+<span class="w">              </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="c1">-- 75</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">2147483647</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="nb">BIGINT</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<span class="w">              </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="c1">-- 2147483648</span>
+
+<span class="c1">-- calculates arithmetic average</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">],</span>
+<span class="w">              </span><span class="k">CAST</span><span class="p">(</span><span class="k">ROW</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">ROW</span><span class="p">(</span><span class="k">sum</span><span class="w"> </span><span class="n">DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">)),</span>
+<span class="w">              </span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="k">ROW</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="k">sum</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="k">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span>
+<span class="w">                             </span><span class="k">ROW</span><span class="p">(</span><span class="k">sum</span><span class="w"> </span><span class="n">DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">)),</span>
+<span class="w">              </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="k">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="k">sum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="k">count</span><span class="p">));</span>
+<span class="c1">-- 10.25</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="repeat">
+<span class="sig-name descname"><span class="pre">repeat</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#repeat" title="repeat.element (Python parameter)"><span class="n"><span class="pre">element</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#repeat" title="repeat.count (Python parameter)"><span class="n"><span class="pre">count</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#repeat" title="Link to this definition">#</a></dt>
+<dd><p>Repeat <code class="docutils literal notranslate"><span class="pre">element</span></code> for <code class="docutils literal notranslate"><span class="pre">count</span></code> times.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">x</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span></dt>
+<dd><p>Returns an array which has the reversed order of array <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="sequence">
+<span class="sig-name descname"><span class="pre">sequence</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.start (Python parameter)"><span class="n"><span class="pre">start</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.stop (Python parameter)"><span class="n"><span class="pre">stop</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#sequence" title="Link to this definition">#</a></dt>
+<dd><p>Generate a sequence of integers from <code class="docutils literal notranslate"><span class="pre">start</span></code> to <code class="docutils literal notranslate"><span class="pre">stop</span></code>, incrementing
+by <code class="docutils literal notranslate"><span class="pre">1</span></code> if <code class="docutils literal notranslate"><span class="pre">start</span></code> is less than or equal to <code class="docutils literal notranslate"><span class="pre">stop</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">sequence</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.start (Python parameter)"><span class="n"><span class="pre">start</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.stop (Python parameter)"><span class="n"><span class="pre">stop</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">step</span></span></em></span><span class="sig-paren">)</span></dt>
+<dd><p>Generate a sequence of integers from <code class="docutils literal notranslate"><span class="pre">start</span></code> to <code class="docutils literal notranslate"><span class="pre">stop</span></code>, incrementing by <code class="docutils literal notranslate"><span class="pre">step</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">sequence</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.start (Python parameter)"><span class="n"><span class="pre">start</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.stop (Python parameter)"><span class="n"><span class="pre">stop</span></span></a></em></span><span class="sig-paren">)</span></dt>
+<dd><p>Generate a sequence of dates from <code class="docutils literal notranslate"><span class="pre">start</span></code> date to <code class="docutils literal notranslate"><span class="pre">stop</span></code> date, incrementing
+by <code class="docutils literal notranslate"><span class="pre">1</span></code> day if <code class="docutils literal notranslate"><span class="pre">start</span></code> date is less than or equal to <code class="docutils literal notranslate"><span class="pre">stop</span></code> date, otherwise <code class="docutils literal notranslate"><span class="pre">-1</span></code> day.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">sequence</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.start (Python parameter)"><span class="n"><span class="pre">start</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.stop (Python parameter)"><span class="n"><span class="pre">stop</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">step</span></span></em></span><span class="sig-paren">)</span></dt>
+<dd><p>Generate a sequence of dates from <code class="docutils literal notranslate"><span class="pre">start</span></code> to <code class="docutils literal notranslate"><span class="pre">stop</span></code>, incrementing by <code class="docutils literal notranslate"><span class="pre">step</span></code>.
+The type of <code class="docutils literal notranslate"><span class="pre">step</span></code> can be either <code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">DAY</span> <span class="pre">TO</span> <span class="pre">SECOND</span></code> or <code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">YEAR</span> <span class="pre">TO</span> <span class="pre">MONTH</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">sequence</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.start (Python parameter)"><span class="n"><span class="pre">start</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#sequence" title="sequence.stop (Python parameter)"><span class="n"><span class="pre">stop</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">step</span></span></em></span><span class="sig-paren">)</span></dt>
+<dd><p>Generate a sequence of timestamps from <code class="docutils literal notranslate"><span class="pre">start</span></code> to <code class="docutils literal notranslate"><span class="pre">stop</span></code>, incrementing by <code class="docutils literal notranslate"><span class="pre">step</span></code>.
+The type of <code class="docutils literal notranslate"><span class="pre">step</span></code> can be either <code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">DAY</span> <span class="pre">TO</span> <span class="pre">SECOND</span></code> or <code class="docutils literal notranslate"><span class="pre">INTERVAL</span> <span class="pre">YEAR</span> <span class="pre">TO</span> <span class="pre">MONTH</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="shuffle">
+<span class="sig-name descname"><span class="pre">shuffle</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#shuffle" title="shuffle.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#shuffle" title="Link to this definition">#</a></dt>
+<dd><p>Generate a random permutation of the given array <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="slice">
+<span class="sig-name descname"><span class="pre">slice</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#slice" title="slice.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#slice" title="slice.start (Python parameter)"><span class="n"><span class="pre">start</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#slice" title="slice.length (Python parameter)"><span class="n"><span class="pre">length</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#slice" title="Link to this definition">#</a></dt>
+<dd><p>Subsets array <code class="docutils literal notranslate"><span class="pre">x</span></code> starting from index <code class="docutils literal notranslate"><span class="pre">start</span></code> (or starting from the end
+if <code class="docutils literal notranslate"><span class="pre">start</span></code> is negative) with a length of <code class="docutils literal notranslate"><span class="pre">length</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="trim_array">
+<span class="sig-name descname"><span class="pre">trim_array</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#trim_array" title="trim_array.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#trim_array" title="trim_array.n (Python parameter)"><span class="n"><span class="pre">n</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">array</span></span></span></span><a class="headerlink" href="#trim_array" title="Link to this definition">#</a></dt>
+<dd><p>Remove <code class="docutils literal notranslate"><span class="pre">n</span></code> elements from the end of array:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">trim_array</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">],</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="c1">-- [1, 2, 3]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">trim_array</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="c1">-- [1, 2]</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#transform" title="transform.array(T) (Python parameter)"><span class="n"><span class="pre">array(T)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#transform" title="transform.function(T (Python parameter)"><span class="n"><span class="pre">function(T</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#transform" title="transform.U)) -&gt; array(U (Python parameter)"><span class="n"><span class="pre">U))</span> <span class="pre">-&gt;</span> <span class="pre">array(U</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#transform" title="Link to this definition">#</a></dt>
+<dd><p>Returns an array that is the result of applying <code class="docutils literal notranslate"><span class="pre">function</span></code> to each element of <code class="docutils literal notranslate"><span class="pre">array</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">transform</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[],</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="c1">-- []</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">transform</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="c1">-- [6, 7]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">transform</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">coalesce</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="c1">-- [6, 1, 7]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">transform</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;z&#39;</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">);</span>
+<span class="c1">-- [&#39;x0&#39;, &#39;abc0&#39;, &#39;z0&#39;]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="k">transform</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">]],</span>
+<span class="w">                 </span><span class="n">a</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">));</span>
+<span class="c1">-- [[1, 2], [3]]</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="euclidean_distance">
+<span class="sig-name descname"><span class="pre">euclidean_distance</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#euclidean_distance" title="euclidean_distance.array(double) (Python parameter)"><span class="n"><span class="pre">array(double)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#euclidean_distance" title="euclidean_distance.array(double) (Python parameter)"><span class="n"><span class="pre">array(double)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#euclidean_distance" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the euclidean distance:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">euclidean_distance</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">3</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">.</span><span class="mi">0</span><span class="p">]);</span>
+<span class="c1">-- 2.8284271247461903</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="dot_product">
+<span class="sig-name descname"><span class="pre">dot_product</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#dot_product" title="dot_product.array(double) (Python parameter)"><span class="n"><span class="pre">array(double)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#dot_product" title="dot_product.array(double) (Python parameter)"><span class="n"><span class="pre">array(double)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#dot_product" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the dot product:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">dot_product</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">3</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">.</span><span class="mi">0</span><span class="p">]);</span>
+<span class="c1">-- 11.0</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="zip">
+<span class="sig-name descname"><span class="pre">zip</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="pre">array1,</span> <span class="pre">array2[,</span> <span class="pre">...])</span> <span class="pre">-&gt;</span> <span class="pre">array(row</span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#zip" title="Link to this definition">#</a></dt>
+<dd><p>Merges the given arrays, element-wise, into a single array of rows. The M-th element of
+the N-th argument will be the N-th field of the M-th output element.
+If the arguments have an uneven length, missing values are filled with <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">zip</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;1b&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;3b&#39;</span><span class="p">]);</span>
+<span class="c1">-- [ROW(1, &#39;1b&#39;), ROW(2, null), ROW(null, &#39;3b&#39;)]</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="zip_with">
+<span class="sig-name descname"><span class="pre">zip_with</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#zip_with" title="zip_with.array(T) (Python parameter)"><span class="n"><span class="pre">array(T)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#zip_with" title="zip_with.array(U) (Python parameter)"><span class="n"><span class="pre">array(U)</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#zip_with" title="zip_with.function(T (Python parameter)"><span class="n"><span class="pre">function(T</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#zip_with" title="zip_with.U (Python parameter)"><span class="n"><span class="pre">U</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#zip_with" title="zip_with.R)) -&gt; array(R (Python parameter)"><span class="n"><span class="pre">R))</span> <span class="pre">-&gt;</span> <span class="pre">array(R</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#zip_with" title="Link to this definition">#</a></dt>
+<dd><p>Merges the two given arrays, element-wise, into a single array using <code class="docutils literal notranslate"><span class="pre">function</span></code>.
+If one array is shorter, nulls are appended at the end to match the length of the
+longer array, before applying <code class="docutils literal notranslate"><span class="pre">function</span></code>.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">zip_with</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;c&#39;</span><span class="p">],</span>
+<span class="w">                </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">));</span>
+<span class="c1">-- [ROW(&#39;a&#39;, 1), ROW(&#39;b&#39;, 3), ROW(&#39;c&#39;, 5)]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">zip_with</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">],</span>
+<span class="w">                </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+<span class="c1">-- [4, 6]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">zip_with</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;c&#39;</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;e&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;f&#39;</span><span class="p">],</span>
+<span class="w">                </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">));</span>
+<span class="c1">-- [&#39;ad&#39;, &#39;be&#39;, &#39;cf&#39;]</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">zip_with</span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;f&#39;</span><span class="p">],</span>
+<span class="w">                </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">coalesce</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">));</span>
+<span class="c1">-- [&#39;a&#39;, null, &#39;f&#39;]</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="ai.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: AI functions">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                AI functions
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="binary.html" class="md-footer__link md-footer__link--next" aria-label="Next: Binary functions and operators">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Binary functions and operators
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,2249 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="decimal.html">
+      
+      
+        <link rel="next" href="hyperloglog.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Geospatial functions - Trino 476-SNAPSHOT Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../_static/trino.css?v=c5cc3cca" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-header__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Trino 476-SNAPSHOT Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Geospatial functions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Trino 476-SNAPSHOT Documentation" class="md-nav__button md-logo" aria-label="Trino 476-SNAPSHOT Documentation" data-md-component="logo">
+      <img src="../_static/trino.svg" alt="logo">
+    </a>
+    Trino 476-SNAPSHOT Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trinodb/trino" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trino
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query optimizer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../functions.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Functions and operators
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Functions and operators
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions and operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list-by-topic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of functions by topic
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aggregate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ai.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="array.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bitwise.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bitwise
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="color.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Color
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="comparison.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conditional.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conditional
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conversion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conversion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datetime.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="timezone.time(p) with time zone (Python parameter)">Date and time</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="decimal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Decimal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Geospatial
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hyperloglog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hyper<wbr>Log<wbr>Log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ipaddress.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IP Address
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="json.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    JSON
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lambda.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lambda
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logical.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logical
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Machine learning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="math.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="cosine_similarity.x (Python parameter)">Math</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="qdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quantile digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="regexp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Regular expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="session.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Session
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="setdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Set Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="string.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    String
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="teradata.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Teradata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tdigest.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    T-<wbr>Digest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="url.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    URL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uuid.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UUID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="window.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Window
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User-<wbr>defined functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL language
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL statement syntax
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="geospatial-functions">Geospatial functions<a class="headerlink" href="#geospatial-functions" title="Link to this heading">#</a></h1>
+<p>Trino Geospatial functions that begin with the <code class="docutils literal notranslate"><span class="pre">ST_</span></code> prefix support the SQL/MM specification
+and are compliant with the Open Geospatial Consortium’s (OGC) OpenGIS Specifications.
+As such, many Trino Geospatial functions require, or more accurately, assume that
+geometries that are operated on are both simple and valid. For example, it does not
+make sense to calculate the area of a polygon that has a hole defined outside the
+polygon, or to construct a polygon from a non-simple boundary line.</p>
+<p>Trino Geospatial functions support the Well-Known Text (WKT) and Well-Known Binary (WKB) form of spatial objects:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">POINT</span> <span class="pre">(0</span> <span class="pre">0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LINESTRING</span> <span class="pre">(0</span> <span class="pre">0,</span> <span class="pre">1</span> <span class="pre">1,</span> <span class="pre">1</span> <span class="pre">2)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POLYGON</span> <span class="pre">((0</span> <span class="pre">0,</span> <span class="pre">4</span> <span class="pre">0,</span> <span class="pre">4</span> <span class="pre">4,</span> <span class="pre">0</span> <span class="pre">4,</span> <span class="pre">0</span> <span class="pre">0),</span> <span class="pre">(1</span> <span class="pre">1,</span> <span class="pre">2</span> <span class="pre">1,</span> <span class="pre">2</span> <span class="pre">2,</span> <span class="pre">1</span> <span class="pre">2,</span> <span class="pre">1</span> <span class="pre">1))</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MULTIPOINT</span> <span class="pre">(0</span> <span class="pre">0,</span> <span class="pre">1</span> <span class="pre">2)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MULTILINESTRING</span> <span class="pre">((0</span> <span class="pre">0,</span> <span class="pre">1</span> <span class="pre">1,</span> <span class="pre">1</span> <span class="pre">2),</span> <span class="pre">(2</span> <span class="pre">3,</span> <span class="pre">3</span> <span class="pre">2,</span> <span class="pre">5</span> <span class="pre">4))</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MULTIPOLYGON</span> <span class="pre">(((0</span> <span class="pre">0,</span> <span class="pre">4</span> <span class="pre">0,</span> <span class="pre">4</span> <span class="pre">4,</span> <span class="pre">0</span> <span class="pre">4,</span> <span class="pre">0</span> <span class="pre">0),</span> <span class="pre">(1</span> <span class="pre">1,</span> <span class="pre">2</span> <span class="pre">1,</span> <span class="pre">2</span> <span class="pre">2,</span> <span class="pre">1</span> <span class="pre">2,</span> <span class="pre">1</span> <span class="pre">1)),</span> <span class="pre">((-1</span> <span class="pre">-1,</span> <span class="pre">-1</span> <span class="pre">-2,</span> <span class="pre">-2</span> <span class="pre">-2,</span> <span class="pre">-2</span> <span class="pre">-1,</span> <span class="pre">-1</span> <span class="pre">-1)))</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GEOMETRYCOLLECTION</span> <span class="pre">(POINT(2</span> <span class="pre">3),</span> <span class="pre">LINESTRING</span> <span class="pre">(2</span> <span class="pre">3,</span> <span class="pre">3</span> <span class="pre">4))</span></code></p></li>
+</ul>
+<p>Use <a class="reference internal" href="#ST_GeometryFromText" title="ST_GeometryFromText (Python function) — Returns a geometry type object from WKT representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_GeometryFromText()</span></code></a> and <a class="reference internal" href="#ST_GeomFromBinary" title="ST_GeomFromBinary (Python function) — Returns a geometry type object from WKB or EWKB representation."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_GeomFromBinary()</span></code></a> functions to create geometry
+objects from WKT or WKB.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SphericalGeography</span></code> type provides native support for spatial features represented on
+<em>geographic</em> coordinates (sometimes called <em>geodetic</em> coordinates, or <em>lat/lon</em>, or <em>lon/lat</em>).
+Geographic coordinates are spherical coordinates expressed in angular units (degrees).</p>
+<p>The basis for the <code class="docutils literal notranslate"><span class="pre">Geometry</span></code> type is a plane. The shortest path between two points on the plane is a
+straight line. That means calculations on geometries (areas, distances, lengths, intersections, etc.)
+can be calculated using cartesian mathematics and straight line vectors.</p>
+<p>The basis for the <code class="docutils literal notranslate"><span class="pre">SphericalGeography</span></code> type is a sphere. The shortest path between two points on the
+sphere is a great circle arc. That means that calculations on geographies (areas, distances,
+lengths, intersections, etc.) must be calculated on the sphere, using more complicated mathematics.
+More accurate measurements that take the actual spheroidal shape of the world into account are not
+supported.</p>
+<p>Values returned by the measurement functions <a class="reference internal" href="#ST_Distance" title="ST_Distance (Python function) — Returns the great-circle distance in meters between two SphericalGeography points."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Distance()</span></code></a> and <a class="reference internal" href="#ST_Length" title="ST_Length (Python function) — Returns the length of a linestring or multi-linestring using Euclidean measurement on a two-dimensional plane (based on spatial ref) in projected units."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Length()</span></code></a> are in the unit of meters;
+values returned by <a class="reference internal" href="#ST_Area" title="ST_Area (Python function) — Returns the 2D Euclidean area of a geometry."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_Area()</span></code></a> are in square meters.</p>
+<p>Use <a class="reference internal" href="#to_spherical_geography" title="to_spherical_geography (Python function) — Converts a Geometry object to a SphericalGeography object on the sphere of the Earth's radius. This function is only applicable to POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON geometries defined in 2D space, or GEOMETRYCOLLECTION of such geometries. For each point of the input geometry, it verifies that point.x is within [-180.0, 180.0] and point.y is within [-90.0, 90.0], and uses them as (longitude, latitude) degrees to construct the shape of the SphericalGeography result."><code class="xref py py-func docutils literal notranslate"><span class="pre">to_spherical_geography()</span></code></a> function to convert a geometry object to geography object.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">ST_Distance(ST_Point(-71.0882,</span> <span class="pre">42.3607),</span> <span class="pre">ST_Point(-74.1197,</span> <span class="pre">40.6976))</span></code> returns
+<code class="docutils literal notranslate"><span class="pre">3.4577</span></code> in the unit of the passed-in values on the Euclidean plane, while
+<code class="docutils literal notranslate"><span class="pre">ST_Distance(to_spherical_geography(ST_Point(-71.0882,</span> <span class="pre">42.3607)),</span> <span class="pre">to_spherical_geography(ST_Point(-74.1197,</span> <span class="pre">40.6976)))</span></code>
+returns <code class="docutils literal notranslate"><span class="pre">312822.179</span></code> in meters.</p>
+<h2 id="constructors">Constructors<a class="headerlink" href="#constructors" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_AsBinary">
+<span class="sig-name descname"><span class="pre">ST_AsBinary</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_AsBinary" title="ST_AsBinary.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varbinary</span></span></span></span><a class="headerlink" href="#ST_AsBinary" title="Link to this definition">#</a></dt>
+<dd><p>Returns the WKB representation of the geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_AsText">
+<span class="sig-name descname"><span class="pre">ST_AsText</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_AsText" title="ST_AsText.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#ST_AsText" title="Link to this definition">#</a></dt>
+<dd><p>Returns the WKT representation of the geometry. For empty geometries,
+<code class="docutils literal notranslate"><span class="pre">ST_AsText(ST_LineFromText('LINESTRING</span> <span class="pre">EMPTY'))</span></code> will produce <code class="docutils literal notranslate"><span class="pre">'MULTILINESTRING</span> <span class="pre">EMPTY'</span></code>
+and <code class="docutils literal notranslate"><span class="pre">ST_AsText(ST_Polygon('POLYGON</span> <span class="pre">EMPTY'))</span></code> will produce <code class="docutils literal notranslate"><span class="pre">'MULTIPOLYGON</span> <span class="pre">EMPTY'</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_GeometryFromText">
+<span class="sig-name descname"><span class="pre">ST_GeometryFromText</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_GeometryFromText" title="ST_GeometryFromText.varchar (Python parameter)"><span class="n"><span class="pre">varchar</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_GeometryFromText" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry type object from WKT representation.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_GeomFromBinary">
+<span class="sig-name descname"><span class="pre">ST_GeomFromBinary</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_GeomFromBinary" title="ST_GeomFromBinary.varbinary (Python parameter)"><span class="n"><span class="pre">varbinary</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_GeomFromBinary" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry type object from WKB or EWKB representation.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_GeomFromKML">
+<span class="sig-name descname"><span class="pre">ST_GeomFromKML</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_GeomFromKML" title="ST_GeomFromKML.varchar (Python parameter)"><span class="n"><span class="pre">varchar</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_GeomFromKML" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry type object from KML representation.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="geometry_from_hadoop_shape">
+<span class="sig-name descname"><span class="pre">geometry_from_hadoop_shape</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#geometry_from_hadoop_shape" title="geometry_from_hadoop_shape.varbinary (Python parameter)"><span class="n"><span class="pre">varbinary</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#geometry_from_hadoop_shape" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry type object from Spatial Framework for Hadoop representation.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_LineFromText">
+<span class="sig-name descname"><span class="pre">ST_LineFromText</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_LineFromText" title="ST_LineFromText.varchar (Python parameter)"><span class="n"><span class="pre">varchar</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">LineString</span></span></span></span><a class="headerlink" href="#ST_LineFromText" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry type linestring object from WKT representation.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_LineString">
+<span class="sig-name descname"><span class="pre">ST_LineString</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_LineString" title="ST_LineString.array(Point) (Python parameter)"><span class="n"><span class="pre">array(Point)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">LineString</span></span></span></span><a class="headerlink" href="#ST_LineString" title="Link to this definition">#</a></dt>
+<dd><p>Returns a LineString formed from an array of points. If there are fewer than
+two non-empty points in the input array, an empty LineString will be returned.
+Array elements must not be <code class="docutils literal notranslate"><span class="pre">NULL</span></code> or the same as the previous element.
+The returned geometry may not be simple, e.g. may self-intersect or may contain
+duplicate vertexes depending on the input.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_MultiPoint">
+<span class="sig-name descname"><span class="pre">ST_MultiPoint</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_MultiPoint" title="ST_MultiPoint.array(Point) (Python parameter)"><span class="n"><span class="pre">array(Point)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">MultiPoint</span></span></span></span><a class="headerlink" href="#ST_MultiPoint" title="Link to this definition">#</a></dt>
+<dd><p>Returns a MultiPoint geometry object formed from the specified points. Returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if input array is empty.
+Array elements must not be <code class="docutils literal notranslate"><span class="pre">NULL</span></code> or empty.
+The returned geometry may not be simple and may contain duplicate points if input array has duplicates.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Point">
+<span class="sig-name descname"><span class="pre">ST_Point</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Point" title="ST_Point.lon (Python parameter)"><span class="n"><span class="pre">lon</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">double</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Point" title="ST_Point.lat (Python parameter)"><span class="n"><span class="pre">lat</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">double</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Point</span></span></span></span><a class="headerlink" href="#ST_Point" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry type point object with the given coordinate values.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Polygon">
+<span class="sig-name descname"><span class="pre">ST_Polygon</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Polygon" title="ST_Polygon.varchar (Python parameter)"><span class="n"><span class="pre">varchar</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Polygon</span></span></span></span><a class="headerlink" href="#ST_Polygon" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry type polygon object from WKT representation.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="to_spherical_geography">
+<span class="sig-name descname"><span class="pre">to_spherical_geography</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#to_spherical_geography" title="to_spherical_geography.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">SphericalGeography</span></span></span></span><a class="headerlink" href="#to_spherical_geography" title="Link to this definition">#</a></dt>
+<dd><p>Converts a Geometry object to a SphericalGeography object on the sphere of the Earth’s radius. This
+function is only applicable to <code class="docutils literal notranslate"><span class="pre">POINT</span></code>, <code class="docutils literal notranslate"><span class="pre">MULTIPOINT</span></code>, <code class="docutils literal notranslate"><span class="pre">LINESTRING</span></code>, <code class="docutils literal notranslate"><span class="pre">MULTILINESTRING</span></code>,
+<code class="docutils literal notranslate"><span class="pre">POLYGON</span></code>, <code class="docutils literal notranslate"><span class="pre">MULTIPOLYGON</span></code> geometries defined in 2D space, or <code class="docutils literal notranslate"><span class="pre">GEOMETRYCOLLECTION</span></code> of such
+geometries. For each point of the input geometry, it verifies that <code class="docutils literal notranslate"><span class="pre">point.x</span></code> is within
+<code class="docutils literal notranslate"><span class="pre">[-180.0,</span> <span class="pre">180.0]</span></code> and <code class="docutils literal notranslate"><span class="pre">point.y</span></code> is within <code class="docutils literal notranslate"><span class="pre">[-90.0,</span> <span class="pre">90.0]</span></code>, and uses them as (longitude, latitude)
+degrees to construct the shape of the <code class="docutils literal notranslate"><span class="pre">SphericalGeography</span></code> result.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="to_geometry">
+<span class="sig-name descname"><span class="pre">to_geometry</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#to_geometry" title="to_geometry.SphericalGeography (Python parameter)"><span class="n"><span class="pre">SphericalGeography</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#to_geometry" title="Link to this definition">#</a></dt>
+<dd><p>Converts a SphericalGeography object to a Geometry object.</p>
+</dd></dl>
+
+<h2 id="relationship-tests">Relationship tests<a class="headerlink" href="#relationship-tests" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Contains">
+<span class="sig-name descname"><span class="pre">ST_Contains</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Contains" title="ST_Contains.geometryA (Python parameter)"><span class="n"><span class="pre">geometryA</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Contains" title="ST_Contains.geometryB (Python parameter)"><span class="n"><span class="pre">geometryB</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_Contains" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if and only if no points of the second geometry lie in the exterior
+of the first geometry, and at least one point of the interior of the first geometry
+lies in the interior of the second geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Crosses">
+<span class="sig-name descname"><span class="pre">ST_Crosses</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Crosses" title="ST_Crosses.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Crosses" title="ST_Crosses.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_Crosses" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the supplied geometries have some, but not all, interior points in common.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Disjoint">
+<span class="sig-name descname"><span class="pre">ST_Disjoint</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Disjoint" title="ST_Disjoint.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Disjoint" title="ST_Disjoint.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_Disjoint" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the give geometries do not <em>spatially intersect</em> –
+if they do not share any space together.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Equals">
+<span class="sig-name descname"><span class="pre">ST_Equals</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Equals" title="ST_Equals.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Equals" title="ST_Equals.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_Equals" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the given geometries represent the same geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Intersects">
+<span class="sig-name descname"><span class="pre">ST_Intersects</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Intersects" title="ST_Intersects.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Intersects" title="ST_Intersects.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_Intersects" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the given geometries spatially intersect in two dimensions
+(share any portion of space) and <code class="docutils literal notranslate"><span class="pre">false</span></code> if they do not (they are disjoint).</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Overlaps">
+<span class="sig-name descname"><span class="pre">ST_Overlaps</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Overlaps" title="ST_Overlaps.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Overlaps" title="ST_Overlaps.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_Overlaps" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the given geometries share space, are of the same dimension,
+but are not completely contained by each other.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Relate">
+<span class="sig-name descname"><span class="pre">ST_Relate</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Relate" title="ST_Relate.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Relate" title="ST_Relate.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_Relate" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if first geometry is spatially related to second geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Touches">
+<span class="sig-name descname"><span class="pre">ST_Touches</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Touches" title="ST_Touches.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Touches" title="ST_Touches.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_Touches" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the given geometries have at least one point in common,
+but their interiors do not intersect.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Within">
+<span class="sig-name descname"><span class="pre">ST_Within</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Within" title="ST_Within.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Within" title="ST_Within.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_Within" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if first geometry is completely inside second geometry.</p>
+</dd></dl>
+
+<h2 id="operations">Operations<a class="headerlink" href="#operations" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="geometry_nearest_points">
+<span class="sig-name descname"><span class="pre">geometry_nearest_points</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#geometry_nearest_points" title="geometry_nearest_points.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#geometry_nearest_points" title="geometry_nearest_points.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#geometry_nearest_points" title="Link to this definition">#</a></dt>
+<dd><p>Returns the points on each geometry nearest the other.  If either geometry
+is empty, return <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.  Otherwise, return a row of two Points that have
+the minimum distance of any two points on the geometries.  The first Point
+will be from the first Geometry argument, the second from the second Geometry
+argument.  If there are multiple pairs with the minimum distance, one pair
+is chosen arbitrarily.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="geometry_union">
+<span class="sig-name descname"><span class="pre">geometry_union</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#geometry_union" title="geometry_union.array(Geometry) (Python parameter)"><span class="n"><span class="pre">array(Geometry)</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#geometry_union" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry that represents the point set union of the input geometries. Performance
+of this function, in conjunction with <a class="reference internal" href="aggregate.html#array_agg" title="array_agg (Python function) — Returns an array created from the input x elements."><code class="xref py py-func docutils literal notranslate"><span class="pre">array_agg()</span></code></a> to first aggregate the input geometries,
+may be better than <a class="reference internal" href="#geometry_union_agg" title="geometry_union_agg (Python function) — Returns a geometry that represents the point set union of all input geometries."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_union_agg()</span></code></a>, at the expense of higher memory utilization.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Boundary">
+<span class="sig-name descname"><span class="pre">ST_Boundary</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Boundary" title="ST_Boundary.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_Boundary" title="Link to this definition">#</a></dt>
+<dd><p>Returns the closure of the combinatorial boundary of this geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Buffer">
+<span class="sig-name descname"><span class="pre">ST_Buffer</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Buffer" title="ST_Buffer.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Buffer" title="ST_Buffer.distance (Python parameter)"><span class="n"><span class="pre">distance</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_Buffer" title="Link to this definition">#</a></dt>
+<dd><p>Returns the geometry that represents all points whose distance from the specified geometry
+is less than or equal to the specified distance. If the points of the geometry are extremely
+close together (<code class="docutils literal notranslate"><span class="pre">delta</span> <span class="pre">&lt;</span> <span class="pre">1e-8</span></code>), this might return an empty geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Difference">
+<span class="sig-name descname"><span class="pre">ST_Difference</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Difference" title="ST_Difference.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Difference" title="ST_Difference.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_Difference" title="Link to this definition">#</a></dt>
+<dd><p>Returns the geometry value that represents the point set difference of the given geometries.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Envelope">
+<span class="sig-name descname"><span class="pre">ST_Envelope</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Envelope" title="ST_Envelope.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_Envelope" title="Link to this definition">#</a></dt>
+<dd><p>Returns the bounding rectangular polygon of a geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_EnvelopeAsPts">
+<span class="sig-name descname"><span class="pre">ST_EnvelopeAsPts</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_EnvelopeAsPts" title="ST_EnvelopeAsPts.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#ST_EnvelopeAsPts" title="Link to this definition">#</a></dt>
+<dd><p>Returns an array of two points: the lower left and upper right corners of the bounding
+rectangular polygon of a geometry. Returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if input geometry is empty.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_ExteriorRing">
+<span class="sig-name descname"><span class="pre">ST_ExteriorRing</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_ExteriorRing" title="ST_ExteriorRing.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_ExteriorRing" title="Link to this definition">#</a></dt>
+<dd><p>Returns a line string representing the exterior ring of the input polygon.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Intersection">
+<span class="sig-name descname"><span class="pre">ST_Intersection</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Intersection" title="ST_Intersection.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Intersection" title="ST_Intersection.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_Intersection" title="Link to this definition">#</a></dt>
+<dd><p>Returns the geometry value that represents the point set intersection of two geometries.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_SymDifference">
+<span class="sig-name descname"><span class="pre">ST_SymDifference</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_SymDifference" title="ST_SymDifference.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_SymDifference" title="ST_SymDifference.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_SymDifference" title="Link to this definition">#</a></dt>
+<dd><p>Returns the geometry value that represents the point set symmetric difference of two geometries.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Union">
+<span class="sig-name descname"><span class="pre">ST_Union</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Union" title="ST_Union.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Union" title="ST_Union.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_Union" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry that represents the point set union of the input geometries.</p>
+<p>See also:  <a class="reference internal" href="#geometry_union" title="geometry_union (Python function) — Returns a geometry that represents the point set union of the input geometries. Performance of this function, in conjunction with array_agg() to first aggregate the input geometries, may be better than geometry_union_agg(), at the expense of higher memory utilization."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_union()</span></code></a>, <a class="reference internal" href="#geometry_union_agg" title="geometry_union_agg (Python function) — Returns a geometry that represents the point set union of all input geometries."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_union_agg()</span></code></a></p>
+</dd></dl>
+
+<h2 id="accessors">Accessors<a class="headerlink" href="#accessors" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Area">
+<span class="sig-name descname"><span class="pre">ST_Area</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Area" title="ST_Area.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ST_Area" title="Link to this definition">#</a></dt>
+<dd><p>Returns the 2D Euclidean area of a geometry.</p>
+<p>For Point and LineString types, returns 0.0.
+For GeometryCollection types, returns the sum of the areas of the individual
+geometries.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">ST_Area</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">SphericalGeography</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span></dt>
+<dd><p>Returns the area of a polygon or multi-polygon in square meters using a spherical model for Earth.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Centroid">
+<span class="sig-name descname"><span class="pre">ST_Centroid</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Centroid" title="ST_Centroid.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_Centroid" title="Link to this definition">#</a></dt>
+<dd><p>Returns the point value that is the mathematical centroid of a geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_ConvexHull">
+<span class="sig-name descname"><span class="pre">ST_ConvexHull</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_ConvexHull" title="ST_ConvexHull.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_ConvexHull" title="Link to this definition">#</a></dt>
+<dd><p>Returns the minimum convex geometry that encloses all input geometries.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_CoordDim">
+<span class="sig-name descname"><span class="pre">ST_CoordDim</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_CoordDim" title="ST_CoordDim.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#ST_CoordDim" title="Link to this definition">#</a></dt>
+<dd><p>Returns the coordinate dimension of the geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Dimension">
+<span class="sig-name descname"><span class="pre">ST_Dimension</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Dimension" title="ST_Dimension.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#ST_Dimension" title="Link to this definition">#</a></dt>
+<dd><p>Returns the inherent dimension of this geometry object, which must be
+less than or equal to the coordinate dimension.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">ST_Distance</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Distance" title="ST_Distance.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Distance" title="ST_Distance.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Geometry</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span></dt>
+<dd><p>Returns the 2-dimensional cartesian minimum distance (based on spatial ref)
+between two geometries in projected units.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="ST_Distance">
+<span class="sig-name descname"><span class="pre">ST_Distance</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Distance" title="ST_Distance.first (Python parameter)"><span class="n"><span class="pre">first</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">SphericalGeography</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Distance" title="ST_Distance.second (Python parameter)"><span class="n"><span class="pre">second</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">SphericalGeography</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ST_Distance" title="Link to this definition">#</a></dt>
+<dd><p>Returns the great-circle distance in meters between two SphericalGeography points.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_GeometryN">
+<span class="sig-name descname"><span class="pre">ST_GeometryN</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_GeometryN" title="ST_GeometryN.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_GeometryN" title="ST_GeometryN.index (Python parameter)"><span class="n"><span class="pre">index</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_GeometryN" title="Link to this definition">#</a></dt>
+<dd><p>Returns the geometry element at a given index (indices start at 1).
+If the geometry is a collection of geometries (e.g., GEOMETRYCOLLECTION or MULTI*),
+returns the geometry at a given index.
+If the given index is less than 1 or greater than the total number of elements in the collection,
+returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.
+Use <a class="reference internal" href="#ST_NumGeometries" title="ST_NumGeometries (Python function) — Returns the number of geometries in the collection. If the geometry is a collection of geometries (e.g., GEOMETRYCOLLECTION or MULTI*), returns the number of geometries, for single geometries returns 1, for empty geometries returns 0."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_NumGeometries()</span></code></a> to find out the total number of elements.
+Singular geometries (e.g., POINT, LINESTRING, POLYGON), are treated as collections of one element.
+Empty geometries are treated as empty collections.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_InteriorRingN">
+<span class="sig-name descname"><span class="pre">ST_InteriorRingN</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_InteriorRingN" title="ST_InteriorRingN.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_InteriorRingN" title="ST_InteriorRingN.index (Python parameter)"><span class="n"><span class="pre">index</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#ST_InteriorRingN" title="Link to this definition">#</a></dt>
+<dd><p>Returns the interior ring element at the specified index (indices start at 1). If
+the given index is less than 1 or greater than the total number of interior rings
+in the input geometry, returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. The input geometry must be a polygon.
+Use <a class="reference internal" href="#ST_NumInteriorRing" title="ST_NumInteriorRing (Python function) — Returns the cardinality of the collection of interior rings of a polygon."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_NumInteriorRing()</span></code></a> to find out the total number of elements.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_GeometryType">
+<span class="sig-name descname"><span class="pre">ST_GeometryType</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_GeometryType" title="ST_GeometryType.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#ST_GeometryType" title="Link to this definition">#</a></dt>
+<dd><p>Returns the type of the geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_IsClosed">
+<span class="sig-name descname"><span class="pre">ST_IsClosed</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_IsClosed" title="ST_IsClosed.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_IsClosed" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the linestring’s start and end points are coincident.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_IsEmpty">
+<span class="sig-name descname"><span class="pre">ST_IsEmpty</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_IsEmpty" title="ST_IsEmpty.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_IsEmpty" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if this Geometry is an empty geometrycollection, polygon, point etc.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_IsSimple">
+<span class="sig-name descname"><span class="pre">ST_IsSimple</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_IsSimple" title="ST_IsSimple.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_IsSimple" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if this Geometry has no anomalous geometric points, such as self intersection or self tangency.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_IsRing">
+<span class="sig-name descname"><span class="pre">ST_IsRing</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_IsRing" title="ST_IsRing.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_IsRing" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if and only if the line is closed and simple.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_IsValid">
+<span class="sig-name descname"><span class="pre">ST_IsValid</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_IsValid" title="ST_IsValid.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">boolean</span></span></span></span><a class="headerlink" href="#ST_IsValid" title="Link to this definition">#</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if and only if the input geometry is well-formed.
+Use <a class="reference internal" href="#geometry_invalid_reason" title="geometry_invalid_reason (Python function) — Returns the reason for why the input geometry is not valid. Returns NULL if the input is valid."><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry_invalid_reason()</span></code></a> to determine why the geometry is not well-formed.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Length">
+<span class="sig-name descname"><span class="pre">ST_Length</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Length" title="ST_Length.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ST_Length" title="Link to this definition">#</a></dt>
+<dd><p>Returns the length of a linestring or multi-linestring using Euclidean measurement on a
+two-dimensional plane (based on spatial ref) in projected units.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">ST_Length</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">SphericalGeography</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span></dt>
+<dd><p>Returns the length of a linestring or multi-linestring on a spherical model of the Earth.
+This is equivalent to the sum of great-circle distances between adjacent points on the linestring.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_PointN">
+<span class="sig-name descname"><span class="pre">ST_PointN</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_PointN" title="ST_PointN.LineString (Python parameter)"><span class="n"><span class="pre">LineString</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_PointN" title="ST_PointN.index (Python parameter)"><span class="n"><span class="pre">index</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Point</span></span></span></span><a class="headerlink" href="#ST_PointN" title="Link to this definition">#</a></dt>
+<dd><p>Returns the vertex of a linestring at a given index (indices start at 1).
+If the given index is less than 1 or greater than the total number of elements in the collection,
+returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.
+Use <a class="reference internal" href="#ST_NumPoints" title="ST_NumPoints (Python function) — Returns the number of points in a geometry. This is an extension to the SQL/MM ST_NumPoints function which only applies to point and linestring."><code class="xref py py-func docutils literal notranslate"><span class="pre">ST_NumPoints()</span></code></a> to find out the total number of elements.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Points">
+<span class="sig-name descname"><span class="pre">ST_Points</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Points" title="ST_Points.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#ST_Points" title="Link to this definition">#</a></dt>
+<dd><p>Returns an array of points in a linestring.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_XMax">
+<span class="sig-name descname"><span class="pre">ST_XMax</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_XMax" title="ST_XMax.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ST_XMax" title="Link to this definition">#</a></dt>
+<dd><p>Returns X maxima of a bounding box of a geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_YMax">
+<span class="sig-name descname"><span class="pre">ST_YMax</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_YMax" title="ST_YMax.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ST_YMax" title="Link to this definition">#</a></dt>
+<dd><p>Returns Y maxima of a bounding box of a geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_XMin">
+<span class="sig-name descname"><span class="pre">ST_XMin</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_XMin" title="ST_XMin.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ST_XMin" title="Link to this definition">#</a></dt>
+<dd><p>Returns X minima of a bounding box of a geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_YMin">
+<span class="sig-name descname"><span class="pre">ST_YMin</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_YMin" title="ST_YMin.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ST_YMin" title="Link to this definition">#</a></dt>
+<dd><p>Returns Y minima of a bounding box of a geometry.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_StartPoint">
+<span class="sig-name descname"><span class="pre">ST_StartPoint</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_StartPoint" title="ST_StartPoint.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">point</span></span></span></span><a class="headerlink" href="#ST_StartPoint" title="Link to this definition">#</a></dt>
+<dd><p>Returns the first point of a LineString geometry as a Point.
+This is a shortcut for <code class="docutils literal notranslate"><span class="pre">ST_PointN(geometry,</span> <span class="pre">1)</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="simplify_geometry">
+<span class="sig-name descname"><span class="pre">simplify_geometry</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#simplify_geometry" title="simplify_geometry.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#simplify_geometry" title="simplify_geometry.double (Python parameter)"><span class="n"><span class="pre">double</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#simplify_geometry" title="Link to this definition">#</a></dt>
+<dd><p>Returns a “simplified” version of the input geometry using the Douglas-Peucker algorithm.
+Will avoid creating derived geometries (polygons in particular) that are invalid.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_EndPoint">
+<span class="sig-name descname"><span class="pre">ST_EndPoint</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_EndPoint" title="ST_EndPoint.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">point</span></span></span></span><a class="headerlink" href="#ST_EndPoint" title="Link to this definition">#</a></dt>
+<dd><p>Returns the last point of a LineString geometry as a Point.
+This is a shortcut for <code class="docutils literal notranslate"><span class="pre">ST_PointN(geometry,</span> <span class="pre">ST_NumPoints(geometry))</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_X">
+<span class="sig-name descname"><span class="pre">ST_X</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_X" title="ST_X.Point (Python parameter)"><span class="n"><span class="pre">Point</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ST_X" title="Link to this definition">#</a></dt>
+<dd><p>Returns the X coordinate of the point.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Y">
+<span class="sig-name descname"><span class="pre">ST_Y</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Y" title="ST_Y.Point (Python parameter)"><span class="n"><span class="pre">Point</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#ST_Y" title="Link to this definition">#</a></dt>
+<dd><p>Returns the Y coordinate of the point.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_InteriorRings">
+<span class="sig-name descname"><span class="pre">ST_InteriorRings</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_InteriorRings" title="ST_InteriorRings.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#ST_InteriorRings" title="Link to this definition">#</a></dt>
+<dd><p>Returns an array of all interior rings found in the input geometry, or an empty
+array if the polygon has no interior rings. Returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if the input geometry
+is empty. The input geometry must be a polygon.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_NumGeometries">
+<span class="sig-name descname"><span class="pre">ST_NumGeometries</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_NumGeometries" title="ST_NumGeometries.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#ST_NumGeometries" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of geometries in the collection.
+If the geometry is a collection of geometries (e.g., GEOMETRYCOLLECTION or MULTI*),
+returns the number of geometries,
+for single geometries returns 1,
+for empty geometries returns 0.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_Geometries">
+<span class="sig-name descname"><span class="pre">ST_Geometries</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_Geometries" title="ST_Geometries.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#ST_Geometries" title="Link to this definition">#</a></dt>
+<dd><p>Returns an array of geometries in the specified collection. Returns a one-element array
+if the input geometry is not a multi-geometry. Returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if input geometry is empty.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_NumPoints">
+<span class="sig-name descname"><span class="pre">ST_NumPoints</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_NumPoints" title="ST_NumPoints.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#ST_NumPoints" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of points in a geometry. This is an extension to the SQL/MM
+<code class="docutils literal notranslate"><span class="pre">ST_NumPoints</span></code> function which only applies to point and linestring.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="ST_NumInteriorRing">
+<span class="sig-name descname"><span class="pre">ST_NumInteriorRing</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#ST_NumInteriorRing" title="ST_NumInteriorRing.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">bigint</span></span></span></span><a class="headerlink" href="#ST_NumInteriorRing" title="Link to this definition">#</a></dt>
+<dd><p>Returns the cardinality of the collection of interior rings of a polygon.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="line_interpolate_point">
+<span class="sig-name descname"><span class="pre">line_interpolate_point</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#line_interpolate_point" title="line_interpolate_point.LineString (Python parameter)"><span class="n"><span class="pre">LineString</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#line_interpolate_point" title="line_interpolate_point.double (Python parameter)"><span class="n"><span class="pre">double</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#line_interpolate_point" title="Link to this definition">#</a></dt>
+<dd><p>Returns a Point interpolated along a LineString at the fraction given. The fraction
+must be between 0 and 1, inclusive.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="line_interpolate_points">
+<span class="sig-name descname"><span class="pre">line_interpolate_points</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#line_interpolate_points" title="line_interpolate_points.LineString (Python parameter)"><span class="n"><span class="pre">LineString</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#line_interpolate_points" title="line_interpolate_points.double (Python parameter)"><span class="n"><span class="pre">double</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#line_interpolate_points" title="line_interpolate_points.repeated (Python parameter)"><span class="n"><span class="pre">repeated</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#line_interpolate_points" title="Link to this definition">#</a></dt>
+<dd><p>Returns an array of Points interpolated along a LineString. The fraction must be
+between 0 and 1, inclusive.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="line_locate_point">
+<span class="sig-name descname"><span class="pre">line_locate_point</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#line_locate_point" title="line_locate_point.LineString (Python parameter)"><span class="n"><span class="pre">LineString</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#line_locate_point" title="line_locate_point.Point (Python parameter)"><span class="n"><span class="pre">Point</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#line_locate_point" title="Link to this definition">#</a></dt>
+<dd><p>Returns a float between 0 and 1 representing the location of the closest point on
+the LineString to the given Point, as a fraction of total 2d line length.</p>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if a LineString or a Point is empty or <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="geometry_invalid_reason">
+<span class="sig-name descname"><span class="pre">geometry_invalid_reason</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#geometry_invalid_reason" title="geometry_invalid_reason.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#geometry_invalid_reason" title="Link to this definition">#</a></dt>
+<dd><p>Returns the reason for why the input geometry is not valid.
+Returns <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if the input is valid.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="great_circle_distance">
+<span class="sig-name descname"><span class="pre">great_circle_distance</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#great_circle_distance" title="great_circle_distance.latitude1 (Python parameter)"><span class="n"><span class="pre">latitude1</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#great_circle_distance" title="great_circle_distance.longitude1 (Python parameter)"><span class="n"><span class="pre">longitude1</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#great_circle_distance" title="great_circle_distance.latitude2 (Python parameter)"><span class="n"><span class="pre">latitude2</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#great_circle_distance" title="great_circle_distance.longitude2 (Python parameter)"><span class="n"><span class="pre">longitude2</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">double</span></span></span></span><a class="headerlink" href="#great_circle_distance" title="Link to this definition">#</a></dt>
+<dd><p>Returns the great-circle distance between two points on Earth’s surface in kilometers.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="to_geojson_geometry">
+<span class="sig-name descname"><span class="pre">to_geojson_geometry</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#to_geojson_geometry" title="to_geojson_geometry.SphericalGeography (Python parameter)"><span class="n"><span class="pre">SphericalGeography</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#to_geojson_geometry" title="Link to this definition">#</a></dt>
+<dd><p>Returns the GeoJSON encoded defined by the input spherical geography.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="from_geojson_geometry">
+<span class="sig-name descname"><span class="pre">from_geojson_geometry</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_geojson_geometry" title="from_geojson_geometry.varchar (Python parameter)"><span class="n"><span class="pre">varchar</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">SphericalGeography</span></span></span></span><a class="headerlink" href="#from_geojson_geometry" title="Link to this definition">#</a></dt>
+<dd><p>Returns the spherical geography type object from the GeoJSON representation stripping non geometry key/values.
+Feature and FeatureCollection are not supported.</p>
+</dd></dl>
+
+<h2 id="aggregations">Aggregations<a class="headerlink" href="#aggregations" title="Link to this heading">#</a></h2>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="convex_hull_agg">
+<span class="sig-name descname"><span class="pre">convex_hull_agg</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#convex_hull_agg" title="convex_hull_agg.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#convex_hull_agg" title="Link to this definition">#</a></dt>
+<dd><p>Returns the minimum convex geometry that encloses all input geometries.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="geometry_union_agg">
+<span class="sig-name descname"><span class="pre">geometry_union_agg</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#geometry_union_agg" title="geometry_union_agg.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#geometry_union_agg" title="Link to this definition">#</a></dt>
+<dd><p>Returns a geometry that represents the point set union of all input geometries.</p>
+</dd></dl>
+
+<h2 id="bing-tiles">Bing tiles<a class="headerlink" href="#bing-tiles" title="Link to this heading">#</a></h2>
+<p>These functions convert between geometries and
+<a class="reference external" href="https://msdn.microsoft.com/library/bb259689.aspx">Bing tiles</a>.</p>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="bing_tile">
+<span class="sig-name descname"><span class="pre">bing_tile</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile" title="bing_tile.x (Python parameter)"><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile" title="bing_tile.y (Python parameter)"><span class="n"><span class="pre">y</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile" title="bing_tile.zoom_level (Python parameter)"><span class="n"><span class="pre">zoom_level</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">BingTile</span></span></span></span><a class="headerlink" href="#bing_tile" title="Link to this definition">#</a></dt>
+<dd><p>Creates a Bing tile object from XY coordinates and a zoom level.
+Zoom levels from 1 to 23 are supported.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">bing_tile</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">quadKey</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">BingTile</span></span></span></span></dt>
+<dd><p>Creates a Bing tile object from a quadkey.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="bing_tile_at">
+<span class="sig-name descname"><span class="pre">bing_tile_at</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile_at" title="bing_tile_at.latitude (Python parameter)"><span class="n"><span class="pre">latitude</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile_at" title="bing_tile_at.longitude (Python parameter)"><span class="n"><span class="pre">longitude</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile_at" title="bing_tile_at.zoom_level (Python parameter)"><span class="n"><span class="pre">zoom_level</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">BingTile</span></span></span></span><a class="headerlink" href="#bing_tile_at" title="Link to this definition">#</a></dt>
+<dd><p>Returns a Bing tile at a given zoom level containing a point at a given latitude
+and longitude. Latitude must be within <code class="docutils literal notranslate"><span class="pre">[-85.05112878,</span> <span class="pre">85.05112878]</span></code> range.
+Longitude must be within <code class="docutils literal notranslate"><span class="pre">[-180,</span> <span class="pre">180]</span></code> range. Zoom levels from 1 to 23 are supported.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="bing_tiles_around">
+<span class="sig-name descname"><span class="pre">bing_tiles_around</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tiles_around" title="bing_tiles_around.latitude (Python parameter)"><span class="n"><span class="pre">latitude</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tiles_around" title="bing_tiles_around.longitude (Python parameter)"><span class="n"><span class="pre">longitude</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tiles_around" title="bing_tiles_around.zoom_level (Python parameter)"><span class="n"><span class="pre">zoom_level</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#bing_tiles_around" title="Link to this definition">#</a></dt>
+<dd><p>Returns a collection of Bing tiles that surround the point specified
+by the latitude and longitude arguments at a given zoom level.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">bing_tiles_around</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tiles_around" title="bing_tiles_around.latitude (Python parameter)"><span class="n"><span class="pre">latitude</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tiles_around" title="bing_tiles_around.longitude (Python parameter)"><span class="n"><span class="pre">longitude</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tiles_around" title="bing_tiles_around.zoom_level (Python parameter)"><span class="n"><span class="pre">zoom_level</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">radius_in_km</span></span></em></span><span class="sig-paren">)</span></dt>
+<dd><p>Returns a minimum set of Bing tiles at specified zoom level that cover a circle of specified
+radius in km around a specified (latitude, longitude) point.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="bing_tile_coordinates">
+<span class="sig-name descname"><span class="pre">bing_tile_coordinates</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile_coordinates" title="bing_tile_coordinates.tile (Python parameter)"><span class="n"><span class="pre">tile</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">row&lt;x,</span> <span class="pre">y&gt;</span></span></span></span><a class="headerlink" href="#bing_tile_coordinates" title="Link to this definition">#</a></dt>
+<dd><p>Returns the XY coordinates of a given Bing tile.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="bing_tile_polygon">
+<span class="sig-name descname"><span class="pre">bing_tile_polygon</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile_polygon" title="bing_tile_polygon.tile (Python parameter)"><span class="n"><span class="pre">tile</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#bing_tile_polygon" title="Link to this definition">#</a></dt>
+<dd><p>Returns the polygon representation of a given Bing tile.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="bing_tile_quadkey">
+<span class="sig-name descname"><span class="pre">bing_tile_quadkey</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile_quadkey" title="bing_tile_quadkey.tile (Python parameter)"><span class="n"><span class="pre">tile</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#bing_tile_quadkey" title="Link to this definition">#</a></dt>
+<dd><p>Returns the quadkey of a given Bing tile.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="bing_tile_zoom_level">
+<span class="sig-name descname"><span class="pre">bing_tile_zoom_level</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#bing_tile_zoom_level" title="bing_tile_zoom_level.tile (Python parameter)"><span class="n"><span class="pre">tile</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">tinyint</span></span></span></span><a class="headerlink" href="#bing_tile_zoom_level" title="Link to this definition">#</a></dt>
+<dd><p>Returns the zoom level of a given Bing tile.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="geometry_to_bing_tiles">
+<span class="sig-name descname"><span class="pre">geometry_to_bing_tiles</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#geometry_to_bing_tiles" title="geometry_to_bing_tiles.geometry (Python parameter)"><span class="n"><span class="pre">geometry</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#geometry_to_bing_tiles" title="geometry_to_bing_tiles.zoom_level (Python parameter)"><span class="n"><span class="pre">zoom_level</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#geometry_to_bing_tiles" title="Link to this definition">#</a></dt>
+<dd><p>Returns the minimum set of Bing tiles that fully covers a given geometry at
+a given zoom level. Zoom levels from 1 to 23 are supported.</p>
+</dd></dl>
+
+<h2 id="encoded-polylines">Encoded polylines<a class="headerlink" href="#encoded-polylines" title="Link to this heading">#</a></h2>
+<p>These functions convert between geometries and
+<a class="reference external" href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">encoded polylines</a>.</p>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="to_encoded_polyline">
+<span class="sig-name descname"><span class="pre">to_encoded_polyline</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#to_encoded_polyline" title="to_encoded_polyline.Geometry (Python parameter)"><span class="n"><span class="pre">Geometry</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">varchar</span></span></span></span><a class="headerlink" href="#to_encoded_polyline" title="Link to this definition">#</a></dt>
+<dd><p>Encodes a linestring or multipoint to a polyline.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="from_encoded_polyline">
+<span class="sig-name descname"><span class="pre">from_encoded_polyline</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#from_encoded_polyline" title="from_encoded_polyline.varchar (Python parameter)"><span class="n"><span class="pre">varchar</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">Geometry</span></span></span></span><a class="headerlink" href="#from_encoded_polyline" title="Link to this definition">#</a></dt>
+<dd><p>Decodes a polyline to a linestring.</p>
+</dd></dl>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="decimal.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Decimal functions and operators">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Decimal functions and operators
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="hyperloglog.html" class="md-footer__link md-footer__link--next" aria-label="Next: HyperLogLog functions">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                HyperLogLog functions
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tabs.link", "content.tooltipsnavigation.expand", "navigation.footer", "navigation.sections", "navigation.top", "navigation.tracking", "search.share", "search.suggest", "toc.integrate", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>
