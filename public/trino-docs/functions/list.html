@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-functions/list" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">List of functions and operators | Trino documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://trino.io/trino-docs/functions/list"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="List of functions and operators | Trino documentation"><meta data-rh="true" name="description" content="\#"><meta data-rh="true" property="og:description" content="\#"><link data-rh="true" rel="icon" href="/trino-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://trino.io/trino-docs/functions/list"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/functions/list" hreflang="en"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/functions/list" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Functions and operators","item":"https://trino.io/trino-docs/functions"},{"@type":"ListItem","position":2,"name":"List of functions and operators","item":"https://trino.io/trino-docs/functions/list"}]}</script><link rel="stylesheet" href="/trino-docs/assets/css/styles.48b9a735.css">
+<script src="/trino-docs/assets/js/runtime~main.cae17608.js" defer="defer"></script>
+<script src="/trino-docs/assets/js/main.51814df2.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/trino-docs/img/trino.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/trino-docs/"><div class="navbar__logo"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Trino dev Documentation</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">dev</a><ul class="dropdown__menu"><li><a href="https://trino.io/docs/" target="_blank" rel="noopener noreferrer" class="dropdown__link">All versions<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><a href="https://github.com/trinodb/trino" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/"><span class="linkLabel_WmDU">Home</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/overview"><span class="categoryLinkLabel_W154">Overview</span></a><button aria-label="Expand sidebar category &#x27;Overview&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/installation"><span class="categoryLinkLabel_W154">Installation</span></a><button aria-label="Expand sidebar category &#x27;Installation&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/client"><span class="categoryLinkLabel_W154">Clients</span></a><button aria-label="Expand sidebar category &#x27;Clients&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/security"><span class="categoryLinkLabel_W154">Security</span></a><button aria-label="Expand sidebar category &#x27;Security&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/admin"><span class="categoryLinkLabel_W154">Administration</span></a><button aria-label="Expand sidebar category &#x27;Administration&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/optimizer"><span class="categoryLinkLabel_W154">Query optimizer</span></a><button aria-label="Expand sidebar category &#x27;Query optimizer&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/connector"><span class="categoryLinkLabel_W154">Connectors</span></a><button aria-label="Expand sidebar category &#x27;Connectors&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/object-storage"><span class="categoryLinkLabel_W154">Object storage</span></a><button aria-label="Expand sidebar category &#x27;Object storage&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/trino-docs/functions"><span class="categoryLinkLabel_W154">Functions and operators</span></a><button aria-label="Collapse sidebar category &#x27;Functions and operators&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/trino-docs/functions/list"><span class="linkLabel_WmDU">List of functions and operators</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/list-by-topic"><span class="linkLabel_WmDU">List of functions by topic</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/aggregate"><span class="linkLabel_WmDU">Aggregate</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/ai"><span class="linkLabel_WmDU">AI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/array"><span class="linkLabel_WmDU">Array</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/binary"><span class="linkLabel_WmDU">Binary</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/bitwise"><span class="linkLabel_WmDU">Bitwise</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/color"><span class="linkLabel_WmDU">Color</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/comparison"><span class="linkLabel_WmDU">Comparison</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/conditional"><span class="linkLabel_WmDU">Conditional</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/conversion"><span class="linkLabel_WmDU">Conversion</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/datasketches"><span class="linkLabel_WmDU">DataSketches</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/datetime"><span class="linkLabel_WmDU">Date and time</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/decimal"><span class="linkLabel_WmDU">Decimal</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/geospatial"><span class="linkLabel_WmDU">Geospatial</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/hyperloglog"><span class="linkLabel_WmDU">HyperLogLog</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/ipaddress"><span class="linkLabel_WmDU">IP Address</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/json"><span class="linkLabel_WmDU">JSON</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/lambda"><span class="linkLabel_WmDU">Lambda</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/logical"><span class="linkLabel_WmDU">Logical</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/ml"><span class="linkLabel_WmDU">Machine learning</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/map"><span class="linkLabel_WmDU">Map</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/math"><span class="linkLabel_WmDU">Math</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/qdigest"><span class="linkLabel_WmDU">Quantile digest</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/row"><span class="linkLabel_WmDU">Row</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/regexp"><span class="linkLabel_WmDU">Regular expression</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/session"><span class="linkLabel_WmDU">Session</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/setdigest"><span class="linkLabel_WmDU">Set Digest</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/string"><span class="linkLabel_WmDU">String</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/system"><span class="linkLabel_WmDU">System</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/table"><span class="linkLabel_WmDU">Table</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/teradata"><span class="linkLabel_WmDU">Teradata</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/tdigest"><span class="linkLabel_WmDU">T-Digest</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/url"><span class="linkLabel_WmDU">URL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/uuid"><span class="linkLabel_WmDU">UUID</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/variant"><span class="linkLabel_WmDU">Variant</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/window"><span class="linkLabel_WmDU">Window</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/udf"><span class="categoryLinkLabel_W154">User-defined functions</span></a><button aria-label="Expand sidebar category &#x27;User-defined functions&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/language"><span class="categoryLinkLabel_W154">SQL language</span></a><button aria-label="Expand sidebar category &#x27;SQL language&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/sql"><span class="categoryLinkLabel_W154">SQL statement syntax</span></a><button aria-label="Expand sidebar category &#x27;SQL statement syntax&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/develop"><span class="categoryLinkLabel_W154">Developer guide</span></a><button aria-label="Expand sidebar category &#x27;Developer guide&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/glossary"><span class="linkLabel_WmDU">Glossary</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/appendix"><span class="categoryLinkLabel_W154">Appendix</span></a><button aria-label="Expand sidebar category &#x27;Appendix&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/release"><span class="categoryLinkLabel_W154">Release notes</span></a><button aria-label="Expand sidebar category &#x27;Release notes&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/trino-docs/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/trino-docs/functions"><span>Functions and operators</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">List of functions and operators</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>List of functions and operators</h1></header>
+<h2>#</h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/array#subscript-operator">[] substring operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#concatenation-operator">|| concatenation operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#comparison-operators">&lt; comparison operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#comparison-operators">&gt; comparison operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#comparison-operators">&lt;= comparison operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#comparison-operators">&gt;= comparison operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#comparison-operators">= comparison operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#comparison-operators">&lt;&gt; comparison operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#comparison-operators">!= comparison operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/lambda#lambda-expressions">-&gt; lambda expression</a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#mathematical-operators">+ mathematical operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#mathematical-operators">- mathematical operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#mathematical-operators">* mathematical operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#mathematical-operators">/ mathematical operator</a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#mathematical-operators">% mathematical operator</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a">A<a href="#a" class="hash-link" aria-label="Direct link to A" title="Direct link to A" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/math#abs"><code>abs()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#acos"><code>acos()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#quantified-comparison-predicates">ALL</a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#all_match"><code>all_match()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/logical#logical-operators">AND</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#quantified-comparison-predicates">ANY</a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#any_match"><code>any_match()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#any_value"><code>any_value()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#approx_distinct"><code>approx_distinct()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#approx_most_frequent"><code>approx_most_frequent()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#approx_percentile"><code>approx_percentile()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#approx_set"><code>approx_set()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#arbitrary"><code>arbitrary()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#array_agg"><code>array_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_distinct"><code>array_distinct()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_except"><code>array_except()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_first"><code>array_first()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_histogram"><code>array_histogram()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_intersect"><code>array_intersect()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_join"><code>array_join()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_last"><code>array_last()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_max"><code>array_max()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_min"><code>array_min()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_position"><code>array_position()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_remove"><code>array_remove()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_sort"><code>array_sort()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#array_union"><code>array_union()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#arrays_overlap"><code>arrays_overlap()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#asin"><code>asin()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#at-time-zone-operator">AT TIME ZONE</a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#at_timezone"><code>at_timezone()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#atan"><code>atan()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#atan2"><code>atan2()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#avg"><code>avg()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="b">B<a href="#b" class="hash-link" aria-label="Direct link to B" title="Direct link to B" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/color#bar"><code>bar()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#beta_cdf"><code>beta_cdf()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#range-operator">BETWEEN</a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#bing_tile"><code>bing_tile()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#bing_tile_at"><code>bing_tile_at()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#bing_tile_coordinates"><code>bing_tile_coordinates()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#bing_tile_polygon"><code>bing_tile_polygon()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#bing_tile_quadkey"><code>bing_tile_quadkey()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#bing_tile_zoom_level"><code>bing_tile_zoom_level()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#bing_tiles_around"><code>bing_tiles_around()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/bitwise#bit_count"><code>bit_count()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/bitwise#bitwise_and"><code>bitwise_and()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#bitwise_and_agg"><code>bitwise_and_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/bitwise#bitwise_left_shift"><code>bitwise_left_shift()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/bitwise#bitwise_not"><code>bitwise_not()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/bitwise#bitwise_or"><code>bitwise_or()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#bitwise_or_agg"><code>bitwise_or_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/bitwise#bitwise_right_shift"><code>bitwise_right_shift()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/bitwise#bitwise_right_shift_arithmetic"><code>bitwise_right_shift_arithmetic()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/bitwise#bitwise_xor"><code>bitwise_xor()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#bool_and"><code>bool_and()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#bool_or"><code>bool_or()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="c">C<a href="#c" class="hash-link" aria-label="Direct link to C" title="Direct link to C" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/array#cardinality"><code>cardinality()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/conditional#case-expression">CASE</a></li>
+<li class=""><a class="" href="/trino-docs/functions/conversion#cast"><code>cast()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#cbrt"><code>cbrt()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#ceil"><code>ceil()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#ceiling"><code>ceiling()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/teradata#char2hexint"><code>char2hexint()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#checksum"><code>checksum()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#chr"><code>chr()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/ml#classify"><code>classify()</code></a></li>
+<li class=""><a class="" href="/trino-docs/sql/match-recognize#classifier-function">classifier</a></li>
+<li class=""><a class="" href="/trino-docs/functions/conditional#coalesce-function">coalesce</a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#codepoint"><code>codepoint()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/color#color"><code>color()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#combinations"><code>combinations()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#concat"><code>concat()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#concat_ws"><code>concat_ws()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#contains"><code>contains()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#contains_sequence"><code>contains_sequence()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#convex_hull_agg"><code>convex_hull_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#corr"><code>corr()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#cos"><code>cos()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#cosh"><code>cosh()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#cosine_distance"><code>cosine_distance()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#cosine_similarity"><code>cosine_similarity()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#count"><code>count()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#count_if"><code>count_if()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#covar_pop"><code>covar_pop()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#covar_samp"><code>covar_samp()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#crc32"><code>crc32()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/window#cume_dist"><code>cume_dist()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#current_date"><code>current_date</code></a></li>
+<li class=""><code>current_groups()</code></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#current_time"><code>current_time</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#current_timestamp"><code>current_timestamp</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#current_timezone"><code>current_timezone()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/session#current_user"><code>current_user</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="d">D<a href="#d" class="hash-link" aria-label="Direct link to D" title="Direct link to D" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/datetime#date"><code>date()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#date_add"><code>date_add()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#date_diff"><code>date_diff()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#date_format"><code>date_format()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#date_parse"><code>date_parse()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#date_trunc"><code>date_trunc()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#day"><code>day()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#day_of_month"><code>day_of_month()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#day_of_week"><code>day_of_week()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#day_of_year"><code>day_of_year()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/decimal#decimal-literal">DECIMAL</a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#degrees"><code>degrees()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/window#dense_rank"><code>dense_rank()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#dow"><code>dow()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#doy"><code>doy()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="e">E<a href="#e" class="hash-link" aria-label="Direct link to E" title="Direct link to E" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/math#e"><code>e()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#element_at"><code>element_at()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/hyperloglog#empty_approx_set"><code>empty_approx_set()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#ends_with"><code>ends_with()</code></a></li>
+<li class=""><code>evaluate_classifier_predictions</code></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#every"><code>every()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/table#exclude_columns"><code>exclude_columns()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#extract"><code>extract()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#exp"><code>exp()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="f">F<a href="#f" class="hash-link" aria-label="Direct link to F" title="Direct link to F" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/ml#features"><code>features()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#filter"><code>filter()</code></a></li>
+<li class=""><a class="" href="/trino-docs/sql/match-recognize#logical-navigation-functions">first</a></li>
+<li class=""><a class="" href="/trino-docs/functions/window#first_value"><code>first_value()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#flatten"><code>flatten()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#floor"><code>floor()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/conversion#format"><code>format()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#format_datetime"><code>format_datetime()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/conversion#format_number"><code>format_number()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#from_base"><code>from_base()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#from_base32"><code>from_base32()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#from_base64"><code>from_base64()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#from_base64url"><code>from_base64url()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#from_big_endian_32"><code>from_big_endian_32()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#from_big_endian_64"><code>from_big_endian_64()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#from_encoded_polyline"><code>from_encoded_polyline()</code></a></li>
+<li class=""><code>from_geojson_geometry</code></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#from_hex"><code>from_hex()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#from_ieee754_32"><code>from_ieee754_32()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#from_ieee754_64"><code>from_ieee754_64()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#from_iso8601_date"><code>from_iso8601_date()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#from_iso8601_timestamp"><code>from_iso8601_timestamp()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#from_iso8601_timestamp_nanos"><code>from_iso8601_timestamp_nanos()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#from_unixtime"><code>from_unixtime()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#from_unixtime_nanos"><code>from_unixtime_nanos()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#from_utf8"><code>from_utf8()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="g">G<a href="#g" class="hash-link" aria-label="Direct link to G" title="Direct link to G" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#geometric_mean"><code>geometric_mean()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#geometry_collect_agg"><code>geometry_collect_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#geometry_from_hadoop_shape"><code>geometry_from_hadoop_shape()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#geometry_invalid_reason"><code>geometry_invalid_reason()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#geometry_nearest_points"><code>geometry_nearest_points()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#geometry_to_bing_tiles"><code>geometry_to_bing_tiles()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#geometry_union"><code>geometry_union()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#geometry_union_agg"><code>geometry_union_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#great_circle_distance"><code>great_circle_distance()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#greatest"><code>greatest()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="h">H<a href="#h" class="hash-link" aria-label="Direct link to H" title="Direct link to H" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/string#hamming_distance"><code>hamming_distance()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/setdigest#hash_counts"><code>hash_counts()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#histogram"><code>histogram()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#hmac_md5"><code>hmac_md5()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#hmac_sha1"><code>hmac_sha1()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#hmac_sha256"><code>hmac_sha256()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#hmac_sha512"><code>hmac_sha512()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#hour"><code>hour()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#human_readable_seconds"><code>human_readable_seconds()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="i">I<a href="#i" class="hash-link" aria-label="Direct link to I" title="Direct link to I" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/conditional#if-expression">if</a></li>
+<li class=""><a class="" href="/trino-docs/functions/teradata#index"><code>index()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#infinity"><code>infinity()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/setdigest#intersection_cardinality"><code>intersection_cardinality()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#inverse_beta_cdf"><code>inverse_beta_cdf()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#inverse_normal_cdf"><code>inverse_normal_cdf()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#is_finite"><code>is_finite()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#is_infinite"><code>is_infinite()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#is_json_scalar"><code>is_json_scalar()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#is_nan"><code>is_nan()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#is-distinct-operator">IS NOT DISTINCT</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#is-null-operator">IS NOT NULL</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#is-distinct-operator">IS DISTINCT</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#is-null-operator">IS NULL</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="j">J<a href="#j" class="hash-link" aria-label="Direct link to J" title="Direct link to J" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/setdigest#jaccard_index"><code>jaccard_index()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json-array">json_array()</a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json_array_contains"><code>json_array_contains()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json_array_get"><code>json_array_get()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json_array_length"><code>json_array_length()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json-exists">json_exists()</a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json_extract"><code>json_extract()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json_extract_scalar"><code>json_extract_scalar()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json_format"><code>json_format()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json-object">json_object()</a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json_parse"><code>json_parse()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json-query">json_query()</a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json_size"><code>json_size()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/json#json-value">json_value()</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="k">K<a href="#k" class="hash-link" aria-label="Direct link to K" title="Direct link to K" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#kurtosis"><code>kurtosis()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="l">L<a href="#l" class="hash-link" aria-label="Direct link to L" title="Direct link to L" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/window#lag"><code>lag()</code></a></li>
+<li class=""><a class="" href="/trino-docs/sql/match-recognize#logical-navigation-functions">last</a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#last_day_of_month"><code>last_day_of_month()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/window#last_value"><code>last_value()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/window#lead"><code>lead()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/ml#learn_classifier"><code>learn_classifier()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/ml#learn_libsvm_classifier"><code>learn_libsvm_classifier()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/ml#learn_libsvm_regressor"><code>learn_libsvm_regressor()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/ml#learn_regressor"><code>learn_regressor()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#least"><code>least()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#length"><code>length()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#levenshtein_distance"><code>levenshtein_distance()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#line_interpolate_point"><code>line_interpolate_point()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#line_interpolate_points"><code>line_interpolate_points()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#line_locate_point"><code>line_locate_point()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#listagg"><code>listagg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#ln"><code>ln()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#localtime"><code>localtime</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#localtimestamp"><code>localtimestamp</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#log"><code>log()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#log10"><code>log10()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#log2"><code>log2()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#lower"><code>lower()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#lpad"><code>lpad()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#ltrim"><code>ltrim()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#luhn_check"><code>luhn_check()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="m">M<a href="#m" class="hash-link" aria-label="Direct link to M" title="Direct link to M" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/setdigest#make_set_digest"><code>make_set_digest()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#map"><code>map()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#map_agg"><code>map_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#map_concat"><code>map_concat()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#map_entries"><code>map_entries()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#map_filter"><code>map_filter()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#map_from_entries"><code>map_from_entries()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#map_keys"><code>map_keys()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#map_union"><code>map_union()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#map_values"><code>map_values()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#map_zip_with"><code>map_zip_with()</code></a></li>
+<li class=""><a class="" href="/trino-docs/sql/match-recognize#match-number-function">match_number</a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#max"><code>max()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#max_by"><code>max_by()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#md5"><code>md5()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#merge"><code>merge()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/setdigest#merge_set_digest"><code>merge_set_digest()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#millisecond"><code>millisecond()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#min"><code>min()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#min_by"><code>min_by()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#minute"><code>minute()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#mod"><code>mod()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#month"><code>month()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#multimap_agg"><code>multimap_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#multimap_from_entries"><code>multimap_from_entries()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#murmur3"><code>murmur3()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="n">N<a href="#n" class="hash-link" aria-label="Direct link to N" title="Direct link to N" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/math#nan"><code>nan()</code></a></li>
+<li class=""><a class="" href="/trino-docs/sql/match-recognize#physical-navigation-functions">next</a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#ngrams"><code>ngrams()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#none_match"><code>none_match()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#normal_cdf"><code>normal_cdf()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#normalize"><code>normalize()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/logical#logical-operators">NOT</a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#range-operator">NOT BETWEEN</a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#now"><code>now()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/window#nth_value"><code>nth_value()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/window#ntile"><code>ntile()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/conditional#nullif-function">nullif</a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#numeric_histogram"><code>numeric_histogram()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o">O<a href="#o" class="hash-link" aria-label="Direct link to O" title="Direct link to O" translate="no">​</a></h2>
+<ul>
+<li class=""><code>objectid</code></li>
+<li class=""><a class="" href="/trino-docs/connector/mongodb#objectid_timestamp"><code>objectid_timestamp()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/logical#logical-operators">OR</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="p">P<a href="#p" class="hash-link" aria-label="Direct link to P" title="Direct link to P" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/datetime#parse_datetime"><code>parse_datetime()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#parse_duration"><code>parse_duration()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/conversion#parse_data_size"><code>parse_data_size()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/window#percent_rank"><code>percent_rank()</code></a></li>
+<li class=""><a class="" href="/trino-docs/sql/match-recognize#permute-function">permute</a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#pi"><code>pi()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#position"><code>position()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#pow"><code>pow()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#power"><code>power()</code></a></li>
+<li class=""><a class="" href="/trino-docs/sql/match-recognize#physical-navigation-functions">prev</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="q">Q<a href="#q" class="hash-link" aria-label="Direct link to Q" title="Direct link to Q" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#qdigest_agg"><code>qdigest_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#quarter"><code>quarter()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="r">R<a href="#r" class="hash-link" aria-label="Direct link to R" title="Direct link to R" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/math#radians"><code>radians()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#rand"><code>rand()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#random"><code>random()</code></a></li>
+<li class=""><a class="" href="/trino-docs/connector/faker#random_string"><code>random_string()</code></a>, catalog function of the <a class="" href="/trino-docs/connector/faker">Faker connector</a></li>
+<li class=""><a class="" href="/trino-docs/functions/window#rank"><code>rank()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#reduce"><code>reduce()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#reduce_agg"><code>reduce_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/regexp#regexp_count"><code>regexp_count()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/regexp#regexp_extract"><code>regexp_extract()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/regexp#regexp_extract_all"><code>regexp_extract_all()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/regexp#regexp_like"><code>regexp_like()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/regexp#regexp_position"><code>regexp_position()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/regexp#regexp_replace"><code>regexp_replace()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/regexp#regexp_split"><code>regexp_split()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/ml#regress"><code>regress()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#regr_intercept"><code>regr_intercept()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#regr_slope"><code>regr_slope()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/color#render"><code>render()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#repeat"><code>repeat()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#replace"><code>replace()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#reverse"><code>reverse()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/color#rgb"><code>rgb()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#round"><code>round()</code></a></li>
+<li class=""><code>ROW::fields()</code></li>
+<li class=""><a class="" href="/trino-docs/functions/window#row_number"><code>row_number()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#rpad"><code>rpad()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#rtrim"><code>rtrim()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="s">S<a href="#s" class="hash-link" aria-label="Direct link to S" title="Direct link to S" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/datetime#second"><code>second()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#sequence"><code>sequence()</code></a> (scalar function)</li>
+<li class=""><a class="" href="/trino-docs/functions/table#sequence-table-function">sequence()</a> (table function)</li>
+<li class=""><a class="" href="/trino-docs/functions/binary#sha1"><code>sha1()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#sha256"><code>sha256()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#sha512"><code>sha512()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#shuffle"><code>shuffle()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#sign"><code>sign()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#simplify_geometry"><code>simplify_geometry()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#sin"><code>sin()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#sinh"><code>sinh()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#skewness"><code>skewness()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#slice"><code>slice()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/comparison#quantified-comparison-predicates">SOME</a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#soundex"><code>soundex()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#spatial_partitioning"><code>spatial_partitioning()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#spatial_partitions"><code>spatial_partitions()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#split"><code>split()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#split_part"><code>split_part()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#split_to_map"><code>split_to_map()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#split_to_multimap"><code>split_to_multimap()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#spooky_hash_v2_32"><code>spooky_hash_v2_32()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#spooky_hash_v2_64"><code>spooky_hash_v2_64()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#sqrt"><code>sqrt()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_area"><code>ST_Area()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_asbinary"><code>ST_AsBinary()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_asewkb"><code>ST_AsEWKB()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_asewkt"><code>ST_AsEWKT()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_astext"><code>ST_AsText()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_boundary"><code>ST_Boundary()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_buffer"><code>ST_Buffer()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_centroid"><code>ST_Centroid()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_collect"><code>ST_Collect()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_contains"><code>ST_Contains()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_convexhull"><code>ST_ConvexHull()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_coorddim"><code>ST_CoordDim()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_crosses"><code>ST_Crosses()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_difference"><code>ST_Difference()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_dimension"><code>ST_Dimension()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_disjoint"><code>ST_Disjoint()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_distance"><code>ST_Distance()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_endpoint"><code>ST_EndPoint()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_envelope"><code>ST_Envelope()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_envelopeaspts"><code>ST_EnvelopeAsPts()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_equals"><code>ST_Equals()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_exteriorring"><code>ST_ExteriorRing()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_force2d"><code>ST_Force2D()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_force3d"><code>ST_Force3D()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_geometries"><code>ST_Geometries()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_geometryfromtext"><code>ST_GeometryFromText()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_geometryn"><code>ST_GeometryN()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_geometrytype"><code>ST_GeometryType()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_geomfrombinary"><code>ST_GeomFromBinary()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_geomfromewkt"><code>ST_GeomFromEWKT()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_geomfromkml"><code>ST_GeomFromKML()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_interiorringn"><code>ST_InteriorRingN()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_interiorrings"><code>ST_InteriorRings()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_intersection"><code>ST_Intersection()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_intersects"><code>ST_Intersects()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_isclosed"><code>ST_IsClosed()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_isempty"><code>ST_IsEmpty()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_isring"><code>ST_IsRing()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_issimple"><code>ST_IsSimple()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_isvalid"><code>ST_IsValid()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_length"><code>ST_Length()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_linefromtext"><code>ST_LineFromText()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_linemerge"><code>ST_LineMerge()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_linestring"><code>ST_LineString()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_makeline"><code>ST_MakeLine()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_makepolygon"><code>ST_MakePolygon()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_minimumboundingcircle"><code>ST_MinimumBoundingCircle()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_multi"><code>ST_Multi()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_multipoint"><code>ST_MultiPoint()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_normalize"><code>ST_Normalize()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_numgeometries"><code>ST_NumGeometries()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_numinteriorring"><code>ST_NumInteriorRing()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_numpoints"><code>ST_NumPoints()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_orientedenvelope"><code>ST_OrientedEnvelope()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_overlaps"><code>ST_Overlaps()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_point"><code>ST_Point()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_pointn"><code>ST_PointN()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_pointonsurface"><code>ST_PointOnSurface()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_points"><code>ST_Points()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_polygon"><code>ST_Polygon()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_polygonize"><code>ST_Polygonize()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_relate"><code>ST_Relate()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_reduceprecision"><code>ST_ReducePrecision()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_setsrid"><code>ST_SetSRID()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_srid"><code>ST_SRID()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_startpoint"><code>ST_StartPoint()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_symdifference"><code>ST_SymDifference()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_touches"><code>ST_Touches()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_transform"><code>ST_Transform()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_union"><code>ST_Union()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_voronoipolygons"><code>ST_VoronoiPolygons()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_within"><code>ST_Within()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_x"><code>ST_X()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_xmax"><code>ST_XMax()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_xmin"><code>ST_XMin()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_y"><code>ST_Y()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_ymax"><code>ST_YMax()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_ymin"><code>ST_YMin()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#st_z"><code>ST_Z()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#starts_with"><code>starts_with()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#stddev"><code>stddev()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#stddev_pop"><code>stddev_pop()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#stddev_samp"><code>stddev_samp()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#strpos"><code>strpos()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#substr"><code>substr()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#substring"><code>substring()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#sum"><code>sum()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="t">T<a href="#t" class="hash-link" aria-label="Direct link to T" title="Direct link to T" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/math#tan"><code>tan()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#tanh"><code>tanh()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#tdigest_agg"><code>tdigest_agg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datasketches#theta_sketch_cardinality"><code>theta_sketch_cardinality()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datasketches#theta_sketch_union"><code>theta_sketch_union()</code></a></li>
+<li class=""><a class="" href="/trino-docs/connector/mongodb#timestamp_objectid"><code>timestamp_objectid()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#timezone"><code>timezone()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#timezone_hour"><code>timezone_hour()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#timezone_minute"><code>timezone_minute()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#title_case"><code>title_case()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#to_base"><code>to_base()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#to_base32"><code>to_base32()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#to_base64"><code>to_base64()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#to_base64url"><code>to_base64url()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#to_big_endian_32"><code>to_big_endian_32()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#to_big_endian_64"><code>to_big_endian_64()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/teradata#to_char"><code>to_char()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/teradata#to_date"><code>to_date()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#to_encoded_polyline"><code>to_encoded_polyline()</code></a></li>
+<li class=""><code>to_geojson_geometry</code></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#to_geometry"><code>to_geometry()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#to_hex"><code>to_hex()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#to_ieee754_32"><code>to_ieee754_32()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/binary#to_ieee754_64"><code>to_ieee754_64()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#to_iso8601"><code>to_iso8601()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#to_milliseconds"><code>to_milliseconds()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/geospatial#to_spherical_geography"><code>to_spherical_geography()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/teradata#to_timestamp"><code>to_timestamp()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#to_unixtime"><code>to_unixtime()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#to_utf8"><code>to_utf8()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#transform"><code>transform()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#transform_keys"><code>transform_keys()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/map#transform_values"><code>transform_values()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#translate"><code>translate()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#trim"><code>trim()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#trim_array"><code>trim_array()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#truncate"><code>truncate()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/conditional#try-function">try</a></li>
+<li class=""><a class="" href="/trino-docs/functions/conversion#try_cast"><code>try_cast()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/conversion#typeof"><code>typeof()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="u">U<a href="#u" class="hash-link" aria-label="Direct link to U" title="Direct link to U" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/string#upper"><code>upper()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/url#url_decode"><code>url_decode()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/url#url_encode"><code>url_encode()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/url#url_extract_fragment"><code>url_extract_fragment()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/url#url_extract_host"><code>url_extract_host()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/url#url_extract_parameter"><code>url_extract_parameter()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/url#url_extract_path"><code>url_extract_path()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/url#url_extract_protocol"><code>url_extract_protocol()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/url#url_extract_port"><code>url_extract_port()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/url#url_extract_query"><code>url_extract_query()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/uuid#uuid"><code>uuid()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="v">V<a href="#v" class="hash-link" aria-label="Direct link to V" title="Direct link to V" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/qdigest#value_at_quantile"><code>value_at_quantile()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/qdigest#values_at_quantiles"><code>values_at_quantiles()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#var_pop"><code>var_pop()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#var_samp"><code>var_samp()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#variance"><code>variance()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/system#version"><code>version()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="w">W<a href="#w" class="hash-link" aria-label="Direct link to W" title="Direct link to W" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/datetime#week"><code>week()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#week_of_year"><code>week_of_year()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#width_bucket"><code>width_bucket()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#wilson_interval_lower"><code>wilson_interval_lower()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/math#wilson_interval_upper"><code>wilson_interval_upper()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#with_timezone"><code>with_timezone()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/string#word_stem"><code>word_stem()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="x">X<a href="#x" class="hash-link" aria-label="Direct link to X" title="Direct link to X" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/binary#xxhash64"><code>xxhash64()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="y">Y<a href="#y" class="hash-link" aria-label="Direct link to Y" title="Direct link to Y" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/datetime#year"><code>year()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#year_of_week"><code>year_of_week()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/datetime#yow"><code>yow()</code></a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="z">Z<a href="#z" class="hash-link" aria-label="Direct link to Z" title="Direct link to Z" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/array#zip"><code>zip()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/array#zip_with"><code>zip_with()</code></a></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/trinodb/trino/edit/master/docs/docusaurus/docs/functions/list.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/trino-docs/functions"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Functions and operators</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/trino-docs/functions/list-by-topic"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">List of functions by topic</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#" class="table-of-contents__link toc-highlight">#</a></li><li><a href="#a" class="table-of-contents__link toc-highlight">A</a></li><li><a href="#b" class="table-of-contents__link toc-highlight">B</a></li><li><a href="#c" class="table-of-contents__link toc-highlight">C</a></li><li><a href="#d" class="table-of-contents__link toc-highlight">D</a></li><li><a href="#e" class="table-of-contents__link toc-highlight">E</a></li><li><a href="#f" class="table-of-contents__link toc-highlight">F</a></li><li><a href="#g" class="table-of-contents__link toc-highlight">G</a></li><li><a href="#h" class="table-of-contents__link toc-highlight">H</a></li><li><a href="#i" class="table-of-contents__link toc-highlight">I</a></li><li><a href="#j" class="table-of-contents__link toc-highlight">J</a></li><li><a href="#k" class="table-of-contents__link toc-highlight">K</a></li><li><a href="#l" class="table-of-contents__link toc-highlight">L</a></li><li><a href="#m" class="table-of-contents__link toc-highlight">M</a></li><li><a href="#n" class="table-of-contents__link toc-highlight">N</a></li><li><a href="#o" class="table-of-contents__link toc-highlight">O</a></li><li><a href="#p" class="table-of-contents__link toc-highlight">P</a></li><li><a href="#q" class="table-of-contents__link toc-highlight">Q</a></li><li><a href="#r" class="table-of-contents__link toc-highlight">R</a></li><li><a href="#s" class="table-of-contents__link toc-highlight">S</a></li><li><a href="#t" class="table-of-contents__link toc-highlight">T</a></li><li><a href="#u" class="table-of-contents__link toc-highlight">U</a></li><li><a href="#v" class="table-of-contents__link toc-highlight">V</a></li><li><a href="#w" class="table-of-contents__link toc-highlight">W</a></li><li><a href="#x" class="table-of-contents__link toc-highlight">X</a></li><li><a href="#y" class="table-of-contents__link toc-highlight">Y</a></li><li><a href="#z" class="table-of-contents__link toc-highlight">Z</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

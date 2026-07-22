@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-connector/redis" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Redis connector | Trino documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://trino.io/trino-docs/connector/redis"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Redis connector | Trino documentation"><meta data-rh="true" name="description" content="The Redis connector allows querying of live data stored in Redis. This can be"><meta data-rh="true" property="og:description" content="The Redis connector allows querying of live data stored in Redis. This can be"><link data-rh="true" rel="icon" href="/trino-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://trino.io/trino-docs/connector/redis"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/connector/redis" hreflang="en"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/connector/redis" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Connectors","item":"https://trino.io/trino-docs/connector"},{"@type":"ListItem","position":2,"name":"Redis","item":"https://trino.io/trino-docs/connector/redis"}]}</script><link rel="stylesheet" href="/trino-docs/assets/css/styles.48b9a735.css">
+<script src="/trino-docs/assets/js/runtime~main.cae17608.js" defer="defer"></script>
+<script src="/trino-docs/assets/js/main.51814df2.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/trino-docs/img/trino.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/trino-docs/"><div class="navbar__logo"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Trino dev Documentation</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">dev</a><ul class="dropdown__menu"><li><a href="https://trino.io/docs/" target="_blank" rel="noopener noreferrer" class="dropdown__link">All versions<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><a href="https://github.com/trinodb/trino" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/"><span class="linkLabel_WmDU">Home</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/overview"><span class="categoryLinkLabel_W154">Overview</span></a><button aria-label="Expand sidebar category &#x27;Overview&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/installation"><span class="categoryLinkLabel_W154">Installation</span></a><button aria-label="Expand sidebar category &#x27;Installation&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/client"><span class="categoryLinkLabel_W154">Clients</span></a><button aria-label="Expand sidebar category &#x27;Clients&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/security"><span class="categoryLinkLabel_W154">Security</span></a><button aria-label="Expand sidebar category &#x27;Security&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/admin"><span class="categoryLinkLabel_W154">Administration</span></a><button aria-label="Expand sidebar category &#x27;Administration&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/optimizer"><span class="categoryLinkLabel_W154">Query optimizer</span></a><button aria-label="Expand sidebar category &#x27;Query optimizer&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/trino-docs/connector"><span class="categoryLinkLabel_W154">Connectors</span></a><button aria-label="Collapse sidebar category &#x27;Connectors&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/bigquery"><span class="linkLabel_WmDU">BigQuery</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/blackhole"><span class="linkLabel_WmDU">Black Hole</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/cassandra"><span class="linkLabel_WmDU">Cassandra</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/clickhouse"><span class="linkLabel_WmDU">ClickHouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/delta-lake"><span class="linkLabel_WmDU">Delta Lake</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/druid"><span class="linkLabel_WmDU">Druid</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/duckdb"><span class="linkLabel_WmDU">DuckDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/exasol"><span class="linkLabel_WmDU">Exasol</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/faker"><span class="linkLabel_WmDU">Faker</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/googlesheets"><span class="linkLabel_WmDU">Google Sheets</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/hive"><span class="linkLabel_WmDU">Hive</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/hudi"><span class="linkLabel_WmDU">Hudi</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/iceberg"><span class="linkLabel_WmDU">Iceberg</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/ignite"><span class="linkLabel_WmDU">Ignite</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/jmx"><span class="linkLabel_WmDU">JMX</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/trino-docs/connector/kafka"><span class="categoryLinkLabel_W154">Kafka</span></a><button aria-label="Expand sidebar category &#x27;Kafka&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/lakehouse"><span class="linkLabel_WmDU">Lakehouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/loki"><span class="linkLabel_WmDU">Loki</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/mariadb"><span class="linkLabel_WmDU">MariaDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/memory"><span class="linkLabel_WmDU">Memory</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/opensearch"><span class="linkLabel_WmDU">OpenSearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/oracle"><span class="linkLabel_WmDU">Oracle</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/pinot"><span class="linkLabel_WmDU">Pinot</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/postgresql"><span class="linkLabel_WmDU">PostgreSQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/prometheus"><span class="linkLabel_WmDU">Prometheus</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/trino-docs/connector/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/redshift"><span class="linkLabel_WmDU">Redshift</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/singlestore"><span class="linkLabel_WmDU">SingleStore</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/snowflake"><span class="linkLabel_WmDU">Snowflake</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/sqlserver"><span class="linkLabel_WmDU">SQL Server</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/system"><span class="linkLabel_WmDU">System</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/thrift"><span class="linkLabel_WmDU">Thrift</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/tpcds"><span class="linkLabel_WmDU">TPC-DS</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/tpch"><span class="linkLabel_WmDU">TPC-H</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/removed"><span class="linkLabel_WmDU">404 - Connector removed</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/object-storage"><span class="categoryLinkLabel_W154">Object storage</span></a><button aria-label="Expand sidebar category &#x27;Object storage&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/functions"><span class="categoryLinkLabel_W154">Functions and operators</span></a><button aria-label="Expand sidebar category &#x27;Functions and operators&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/udf"><span class="categoryLinkLabel_W154">User-defined functions</span></a><button aria-label="Expand sidebar category &#x27;User-defined functions&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/language"><span class="categoryLinkLabel_W154">SQL language</span></a><button aria-label="Expand sidebar category &#x27;SQL language&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/sql"><span class="categoryLinkLabel_W154">SQL statement syntax</span></a><button aria-label="Expand sidebar category &#x27;SQL statement syntax&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/develop"><span class="categoryLinkLabel_W154">Developer guide</span></a><button aria-label="Expand sidebar category &#x27;Developer guide&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/glossary"><span class="linkLabel_WmDU">Glossary</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/appendix"><span class="categoryLinkLabel_W154">Appendix</span></a><button aria-label="Expand sidebar category &#x27;Appendix&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/release"><span class="categoryLinkLabel_W154">Release notes</span></a><button aria-label="Expand sidebar category &#x27;Release notes&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/trino-docs/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/trino-docs/connector"><span>Connectors</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Redis</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Redis connector</h1></header>
+<img decoding="async" loading="lazy" src="../images/redis.png" class="connector-logo img_ev3q">
+<p>The Redis connector allows querying of live data stored in <a href="https://redis.io/" target="_blank" rel="noopener noreferrer" class="">Redis</a>. This can be
+used to join data between different systems like Redis and Hive.</p>
+<p>Each Redis key/value pair is presented as a single row in Trino. Rows can be
+broken down into cells by using table definition files.</p>
+<p>Currently, only Redis key of string and zset types are supported, only Redis value of
+string and hash types are supported.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="requirements">Requirements<a href="#requirements" class="hash-link" aria-label="Direct link to Requirements" title="Direct link to Requirements" translate="no">​</a></h2>
+<p>Requirements for using the connector in a catalog to connect to a Redis data
+source are:</p>
+<ul>
+<li class="">Redis 5.0.14 or higher (Redis Cluster is not supported)</li>
+<li class="">Network access, by default on port 6379, from the Trino coordinator and
+workers to Redis.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuration">Configuration<a href="#configuration" class="hash-link" aria-label="Direct link to Configuration" title="Direct link to Configuration" translate="no">​</a></h2>
+<p>To configure the Redis connector, create a catalog properties file
+<code>etc/catalog/example.properties</code> with the following content, replacing the
+properties as appropriate:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">connector.name=redis</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">redis.table-names=schema1.table1,schema1.table2</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">redis.nodes=host:port</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="multiple-redis-servers">Multiple Redis servers<a href="#multiple-redis-servers" class="hash-link" aria-label="Direct link to Multiple Redis servers" title="Direct link to Multiple Redis servers" translate="no">​</a></h3>
+<p>You can have as many catalogs as you need. If you have additional
+Redis servers, simply add another properties file to <code>etc/catalog</code>
+with a different name, making sure it ends in <code>.properties</code>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuration-properties">Configuration properties<a href="#configuration-properties" class="hash-link" aria-label="Direct link to Configuration properties" title="Direct link to Configuration properties" translate="no">​</a></h2>
+<p>The following configuration properties are available:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th></tr></thead><tbody><tr><td><code>redis.table-names</code></td><td>List of all tables provided by the catalog</td></tr><tr><td><code>redis.default-schema</code></td><td>Default schema name for tables</td></tr><tr><td><code>redis.nodes</code></td><td>Location of the Redis server</td></tr><tr><td><code>redis.scan-count</code></td><td>Redis parameter for scanning of the keys</td></tr><tr><td><code>redis.max-keys-per-fetch</code></td><td>Get values associated with the specified number of keys in the redis command such as MGET(key...)</td></tr><tr><td><code>redis.key-prefix-schema-table</code></td><td>Redis keys have schema-name:table-name prefix</td></tr><tr><td><code>redis.key-delimiter</code></td><td>Delimiter separating schema_name and table_name if redis.key-prefix-schema-table is used</td></tr><tr><td><code>redis.table-description-dir</code></td><td>Directory containing table description files</td></tr><tr><td><code>redis.table-description-cache-ttl</code></td><td>The cache time for table description files</td></tr><tr><td><code>redis.hide-internal-columns</code></td><td>Controls whether internal columns are part of the table schema or not</td></tr><tr><td><code>redis.database-index</code></td><td>Redis database index</td></tr><tr><td><code>redis.user</code></td><td>Redis server username</td></tr><tr><td><code>redis.password</code></td><td>Redis server password</td></tr><tr><td><code>redis.tls.enabled</code></td><td>Whether TLS security is enabled</td></tr><tr><td><code>redis.tls.keystore-path</code></td><td>Path to the <a class="" href="/trino-docs/security/inspect-jks">JKS</a> or PKCS12 key store file</td></tr><tr><td><code>redis.tls.keystore-password</code></td><td>Password for the key store</td></tr><tr><td><code>redis.tls.truststore-path</code></td><td>Path to the <a class="" href="/trino-docs/security/inspect-jks">JKS</a> or PKCS12 trust store file</td></tr><tr><td><code>redis.tls.truststore-password</code></td><td>Password for the trust store</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redistable-names"><code>redis.table-names</code><a href="#redistable-names" class="hash-link" aria-label="Direct link to redistable-names" title="Direct link to redistable-names" translate="no">​</a></h3>
+<p>Comma-separated list of all tables provided by this catalog. A table name
+can be unqualified (simple name) and is placed into the default schema
+(see below), or qualified with a schema name (<code>&lt;schema-name&gt;.&lt;table-name&gt;</code>).</p>
+<p>For each table defined, a table description file (see below) may
+exist. If no table description file exists, the
+table only contains internal columns (see below).</p>
+<p>This property is optional; the connector relies on the table description files
+specified in the <code>redis.table-description-dir</code> property.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redisdefault-schema"><code>redis.default-schema</code><a href="#redisdefault-schema" class="hash-link" aria-label="Direct link to redisdefault-schema" title="Direct link to redisdefault-schema" translate="no">​</a></h3>
+<p>Defines the schema which will contain all tables that were defined without
+a qualifying schema name.</p>
+<p>This property is optional; the default is <code>default</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redisnodes"><code>redis.nodes</code><a href="#redisnodes" class="hash-link" aria-label="Direct link to redisnodes" title="Direct link to redisnodes" translate="no">​</a></h3>
+<p>The <code>hostname:port</code> pair for the Redis server.</p>
+<p>This property is required; there is no default.</p>
+<p>Redis Cluster is not supported.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redisscan-count"><code>redis.scan-count</code><a href="#redisscan-count" class="hash-link" aria-label="Direct link to redisscan-count" title="Direct link to redisscan-count" translate="no">​</a></h3>
+<p>The internal COUNT parameter for the Redis SCAN command when connector is using
+SCAN to find keys for the data. This parameter can be used to tune performance
+of the Redis connector.</p>
+<p>This property is optional; the default is <code>100</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redismax-keys-per-fetch"><code>redis.max-keys-per-fetch</code><a href="#redismax-keys-per-fetch" class="hash-link" aria-label="Direct link to redismax-keys-per-fetch" title="Direct link to redismax-keys-per-fetch" translate="no">​</a></h3>
+<p>The internal number of keys for the Redis MGET command and Pipeline HGETALL command
+when connector is using these commands to find values of keys. This parameter can be
+used to tune performance of the Redis connector.</p>
+<p>This property is optional; the default is <code>100</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rediskey-prefix-schema-table"><code>redis.key-prefix-schema-table</code><a href="#rediskey-prefix-schema-table" class="hash-link" aria-label="Direct link to rediskey-prefix-schema-table" title="Direct link to rediskey-prefix-schema-table" translate="no">​</a></h3>
+<p>If true, only keys prefixed with the <code>schema-name:table-name</code> are scanned
+for a table, and all other keys are filtered out.  If false, all keys are
+scanned.</p>
+<p>This property is optional; the default is <code>false</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rediskey-delimiter"><code>redis.key-delimiter</code><a href="#rediskey-delimiter" class="hash-link" aria-label="Direct link to rediskey-delimiter" title="Direct link to rediskey-delimiter" translate="no">​</a></h3>
+<p>The character used for separating <code>schema-name</code> and <code>table-name</code> when
+<code>redis.key-prefix-schema-table</code> is <code>true</code></p>
+<p>This property is optional; the default is <code>:</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redistable-description-dir"><code>redis.table-description-dir</code><a href="#redistable-description-dir" class="hash-link" aria-label="Direct link to redistable-description-dir" title="Direct link to redistable-description-dir" translate="no">​</a></h3>
+<p>References a folder within Trino deployment that holds one or more JSON
+files, which must end with <code>.json</code> and contain table description files.</p>
+<p>Note that the table description files will only be used by the Trino coordinator
+node.</p>
+<p>This property is optional; the default is <code>etc/redis</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redistable-description-cache-ttl"><code>redis.table-description-cache-ttl</code><a href="#redistable-description-cache-ttl" class="hash-link" aria-label="Direct link to redistable-description-cache-ttl" title="Direct link to redistable-description-cache-ttl" translate="no">​</a></h3>
+<p>The Redis connector dynamically loads the table description files after waiting
+for the time specified by this property. Therefore, there is no need to update
+the <code>redis.table-names</code> property and restart the Trino service when adding,
+updating, or deleting a file end with <code>.json</code> to <code>redis.table-description-dir</code>
+folder.</p>
+<p>This property is optional; the default is <code>5m</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redishide-internal-columns"><code>redis.hide-internal-columns</code><a href="#redishide-internal-columns" class="hash-link" aria-label="Direct link to redishide-internal-columns" title="Direct link to redishide-internal-columns" translate="no">​</a></h3>
+<p>In addition to the data columns defined in a table description file, the
+connector maintains a number of additional columns for each table. If
+these columns are hidden, they can still be used in queries, but they do not
+show up in <code>DESCRIBE &lt;table-name&gt;</code> or <code>SELECT *</code>.</p>
+<p>This property is optional; the default is <code>true</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redisdatabase-index"><code>redis.database-index</code><a href="#redisdatabase-index" class="hash-link" aria-label="Direct link to redisdatabase-index" title="Direct link to redisdatabase-index" translate="no">​</a></h3>
+<p>The Redis database to query.</p>
+<p>This property is optional; the default is <code>0</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redisuser"><code>redis.user</code><a href="#redisuser" class="hash-link" aria-label="Direct link to redisuser" title="Direct link to redisuser" translate="no">​</a></h3>
+<p>The username for Redis server.</p>
+<p>This property is optional; the default is <code>null</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redispassword"><code>redis.password</code><a href="#redispassword" class="hash-link" aria-label="Direct link to redispassword" title="Direct link to redispassword" translate="no">​</a></h3>
+<p>The password for password-protected Redis server.</p>
+<p>This property is optional; the default is <code>null</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redistlsenabled"><code>redis.tls.enabled</code><a href="#redistlsenabled" class="hash-link" aria-label="Direct link to redistlsenabled" title="Direct link to redistlsenabled" translate="no">​</a></h3>
+<p>Enable TLS for the Redis connection.</p>
+<p>This property is optional; the default is <code>false</code>.</p>
+<p>When TLS is enabled, the connector uses the JVM default trust store unless
+<code>redis.tls.truststore-path</code> is set.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redistlskeystore-path"><code>redis.tls.keystore-path</code><a href="#redistlskeystore-path" class="hash-link" aria-label="Direct link to redistlskeystore-path" title="Direct link to redistlskeystore-path" translate="no">​</a></h3>
+<p>Path to the <a class="" href="/trino-docs/security/inspect-jks">JKS</a> or PKCS12 key store file
+used to authenticate the client to the Redis server (only required for
+mTLS).</p>
+<p>This property is optional; there is no default.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redistlskeystore-password"><code>redis.tls.keystore-password</code><a href="#redistlskeystore-password" class="hash-link" aria-label="Direct link to redistlskeystore-password" title="Direct link to redistlskeystore-password" translate="no">​</a></h3>
+<p>Password for the key store referenced by <code>redis.tls.keystore-path</code>.</p>
+<p>This property is optional; there is no default.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redistlstruststore-path"><code>redis.tls.truststore-path</code><a href="#redistlstruststore-path" class="hash-link" aria-label="Direct link to redistlstruststore-path" title="Direct link to redistlstruststore-path" translate="no">​</a></h3>
+<p>Path to the <a class="" href="/trino-docs/security/inspect-jks">JKS</a> or PKCS12 trust store file
+containing the certificate(s) used to verify the Redis server&#x27;s TLS
+certificate.</p>
+<p>This property is optional; there is no default.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redistlstruststore-password"><code>redis.tls.truststore-password</code><a href="#redistlstruststore-password" class="hash-link" aria-label="Direct link to redistlstruststore-password" title="Direct link to redistlstruststore-password" translate="no">​</a></h3>
+<p>Password for the trust store referenced by <code>redis.tls.truststore-path</code>.</p>
+<p>This property is optional; there is no default.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="internal-columns">Internal columns<a href="#internal-columns" class="hash-link" aria-label="Direct link to Internal columns" title="Direct link to Internal columns" translate="no">​</a></h2>
+<p>For each defined table, the connector maintains the following columns:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Column name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>_key</code></td><td>VARCHAR</td><td>Redis key.</td></tr><tr><td><code>_value</code></td><td>VARCHAR</td><td>Redis value corresponding to the key.</td></tr><tr><td><code>_key_length</code></td><td>BIGINT</td><td>Number of bytes in the key.</td></tr><tr><td><code>_value_length</code></td><td>BIGINT</td><td>Number of bytes in the value.</td></tr><tr><td><code>_key_corrupt</code></td><td>BOOLEAN</td><td>True if the decoder could not decode the key for this row. When true, data columns mapped from the key should be treated as invalid.</td></tr><tr><td><code>_value_corrupt</code></td><td>BOOLEAN</td><td>True if the decoder could not decode the message for this row. When true, data columns mapped from the value should be treated as invalid.</td></tr></tbody></table>
+<p>For tables without a table definition file, the <code>_key_corrupt</code> and
+<code>_value_corrupt</code> columns are <code>false</code>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="table-definition-files">Table definition files<a href="#table-definition-files" class="hash-link" aria-label="Direct link to Table definition files" title="Direct link to Table definition files" translate="no">​</a></h2>
+<p>With the Redis connector it is possible to further reduce Redis key/value pairs into
+granular cells, provided the key/value string follows a particular format. This process
+defines new columns that can be further queried from Trino.</p>
+<p>A table definition file consists of a JSON definition for a table. The
+name of the file can be arbitrary, but must end in <code>.json</code>.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">{</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    &quot;tableName&quot;: ...,</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    &quot;schemaName&quot;: ...,</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    &quot;key&quot;: {</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        &quot;dataFormat&quot;: ...,</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        &quot;fields&quot;: [</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">            ...</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        ]</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    },</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    &quot;value&quot;: {</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        &quot;dataFormat&quot;: ...,</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        &quot;fields&quot;: [</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">            ...</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">       ]</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    }</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">}</span><br></div></code></pre></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>Required</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>tableName</code></td><td>required</td><td>string</td><td>Trino table name defined by this file.</td></tr><tr><td><code>schemaName</code></td><td>optional</td><td>string</td><td>Schema which will contain the table. If omitted, the default schema name is used.</td></tr><tr><td><code>key</code></td><td>optional</td><td>JSON object</td><td>Field definitions for data columns mapped to the value key.</td></tr><tr><td><code>value</code></td><td>optional</td><td>JSON object</td><td>Field definitions for data columns mapped to the value itself.</td></tr></tbody></table>
+<p>Please refer to the <a class="" href="/trino-docs/connector/kafka">Kafka connector</a> page for the description of the <code>dataFormat</code> as well as various available decoders.</p>
+<p>In addition to the above Kafka types, the Redis connector supports <code>hash</code> type for the <code>value</code> field which represent data stored in the Redis hash.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">{</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    &quot;tableName&quot;: ...,</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    &quot;schemaName&quot;: ...,</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    &quot;value&quot;: {</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        &quot;dataFormat&quot;: &quot;hash&quot;,</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        &quot;fields&quot;: [</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">            ...</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">       ]</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    }</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">}</span><br></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-mapping">Type mapping<a href="#type-mapping" class="hash-link" aria-label="Direct link to Type mapping" title="Direct link to Type mapping" translate="no">​</a></h2>
+<p>Because Trino and Redis each support types that the other does not, this
+connector <a class="" href="/trino-docs/language/types#type-mapping-overview">maps some types</a> when reading data. Type
+mapping depends on the RAW, CSV, JSON, and AVRO file formats.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="row-decoding">Row decoding<a href="#row-decoding" class="hash-link" aria-label="Direct link to Row decoding" title="Direct link to Row decoding" translate="no">​</a></h3>
+<p>A decoder is used to map data to table columns.</p>
+<p>The connector contains the following decoders:</p>
+<ul>
+<li class=""><code>raw</code>: Message is not interpreted; ranges of raw message bytes are mapped
+to table columns.</li>
+<li class=""><code>csv</code>: Message is interpreted as comma separated message, and fields are
+mapped to table columns.</li>
+<li class=""><code>json</code>: Message is parsed as JSON, and JSON fields are mapped to table
+columns.</li>
+<li class=""><code>avro</code>: Message is parsed based on an Avro schema, and Avro fields are
+mapped to table columns.</li>
+</ul>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>If no table definition file exists for a table, the <code>dummy</code> decoder is
+used, which does not expose any columns.</p></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="raw-decoder">Raw decoder<a href="#raw-decoder" class="hash-link" aria-label="Direct link to Raw decoder" title="Direct link to Raw decoder" translate="no">​</a></h4>
+<p>The raw decoder supports reading of raw byte-based values from message or key,
+and converting it into Trino columns.</p>
+<p>For fields, the following attributes are supported:</p>
+<ul>
+<li class=""><code>dataFormat</code> - Selects the width of the data type converted.</li>
+<li class=""><code>type</code> - Trino data type. See the following table for a list of supported
+data types.</li>
+<li class=""><code>mapping</code> - <code>&lt;start&gt;[:&lt;end&gt;]</code> - Start and end position of bytes to convert
+(optional).</li>
+</ul>
+<p>The <code>dataFormat</code> attribute selects the number of bytes converted. If absent,
+<code>BYTE</code> is assumed. All values are signed.</p>
+<p>Supported values are:</p>
+<ul>
+<li class=""><code>BYTE</code> - one byte</li>
+<li class=""><code>SHORT</code> - two bytes (big-endian)</li>
+<li class=""><code>INT</code> - four bytes (big-endian)</li>
+<li class=""><code>LONG</code> - eight bytes (big-endian)</li>
+<li class=""><code>FLOAT</code> - four bytes (IEEE 754 format)</li>
+<li class=""><code>DOUBLE</code> - eight bytes (IEEE 754 format)</li>
+</ul>
+<p>The <code>type</code> attribute defines the Trino data type on which the value is mapped.</p>
+<p>Depending on the Trino type assigned to a column, different values of dataFormat
+can be used:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Trino data type</th><th>Allowed <code>dataFormat</code> values</th></tr></thead><tbody><tr><td><code>BIGINT</code></td><td><code>BYTE</code>, <code>SHORT</code>, <code>INT</code>, <code>LONG</code></td></tr><tr><td><code>INTEGER</code></td><td><code>BYTE</code>, <code>SHORT</code>, <code>INT</code></td></tr><tr><td><code>SMALLINT</code></td><td><code>BYTE</code>, <code>SHORT</code></td></tr><tr><td><code>DOUBLE</code></td><td><code>DOUBLE</code>, <code>FLOAT</code></td></tr><tr><td><code>BOOLEAN</code></td><td><code>BYTE</code>, <code>SHORT</code>, <code>INT</code>, <code>LONG</code></td></tr><tr><td><code>VARCHAR</code> / <code>VARCHAR(x)</code></td><td><code>BYTE</code></td></tr></tbody></table>
+<p>No other types are supported.</p>
+<p>The <code>mapping</code> attribute specifies the range of the bytes in a key or message
+used for decoding. It can be one or two numbers separated by a colon
+(<code>&lt;start&gt;[:&lt;end&gt;]</code>).</p>
+<p>If only a start position is given:</p>
+<ul>
+<li class="">For fixed width types, the column uses the appropriate number of bytes for
+the specified <code>dataFormat</code> (see above).</li>
+<li class="">When the <code>VARCHAR</code> value is decoded, all bytes from the start position to
+the end of the message is used.</li>
+</ul>
+<p>If start and end position are given:</p>
+<ul>
+<li class="">For fixed width types, the size must be equal to the number of bytes used by
+specified <code>dataFormat</code>.</li>
+<li class="">For the <code>VARCHAR</code> data type all bytes between start (inclusive) and end
+(exclusive) are used.</li>
+</ul>
+<p>If no <code>mapping</code> attribute is specified, it is equivalent to setting the start
+position to 0 and leaving the end position undefined.</p>
+<p>The decoding scheme of numeric data types (<code>BIGINT</code>, <code>INTEGER</code>,
+<code>SMALLINT</code>, <code>TINYINT</code>, <code>DOUBLE</code>) is straightforward. A sequence of bytes
+is read from input message and decoded according to either:</p>
+<ul>
+<li class="">big-endian encoding (for integer types)</li>
+<li class="">IEEE 754 format for (for <code>DOUBLE</code>).</li>
+</ul>
+<p>The length of a decoded byte sequence is implied by the <code>dataFormat</code>.</p>
+<p>For the <code>VARCHAR</code> data type, a sequence of bytes is interpreted according to
+UTF-8 encoding.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="csv-decoder">CSV decoder<a href="#csv-decoder" class="hash-link" aria-label="Direct link to CSV decoder" title="Direct link to CSV decoder" translate="no">​</a></h4>
+<p>The CSV decoder converts the bytes representing a message or key into a string
+using UTF-8 encoding, and interprets the result as a link of comma-separated
+values.</p>
+<p>For fields, the <code>type</code> and <code>mapping</code> attributes must be defined:</p>
+<ul>
+<li class=""><code>type</code> - Trino data type. See the following table for a list of supported
+data types.</li>
+<li class=""><code>mapping</code> - The index of the field in the CSV record.</li>
+</ul>
+<p>The <code>dataFormat</code> and <code>formatHint</code> attributes are not supported and must be
+omitted.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Trino data type</th><th>Decoding rules</th></tr></thead><tbody><tr><td><code>BIGINT</code>, <code>INTEGER</code>, <code>SMALLINT</code>, <code>TINYINT</code></td><td>Decoded using Java <code>Long.parseLong()</code></td></tr><tr><td><code>DOUBLE</code></td><td>Decoded using Java <code>Double.parseDouble()</code></td></tr><tr><td><code>BOOLEAN</code></td><td>&quot;true&quot; character sequence maps to <code>true</code>. Other character sequences map to <code>false</code></td></tr><tr><td><code>VARCHAR</code> / <code>VARCHAR(x)</code></td><td>Used as is</td></tr></tbody></table>
+<p>No other types are supported.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="json-decoder">JSON decoder<a href="#json-decoder" class="hash-link" aria-label="Direct link to JSON decoder" title="Direct link to JSON decoder" translate="no">​</a></h4>
+<p>The JSON decoder converts the bytes representing a message or key into
+Javascript Object Notation (JSON) according to <a href="https://datatracker.ietf.org/doc/html/rfc4627" target="_blank" rel="noopener noreferrer" class="">RFC 4627</a>. The message or key
+must convert into a JSON object, not an array or simple type.</p>
+<p>For fields, the following attributes are supported:</p>
+<ul>
+<li class=""><code>type</code> - Trino data type of column.</li>
+<li class=""><code>dataFormat</code> - Field decoder to be used for column.</li>
+<li class=""><code>mapping</code> - Slash-separated list of field names to select a field from the
+JSON object.</li>
+<li class=""><code>formatHint</code> - Only for <code>custom-date-time</code>.</li>
+</ul>
+<p>The JSON decoder supports multiple field decoders with <code>_default</code> being used
+for standard table columns and a number of decoders for date and time-based
+types.</p>
+<p>The following table lists Trino data types, which can be used in <code>type</code> and
+matching field decoders, and specified via <code>dataFormat</code> attribute:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Trino data type</th><th>Allowed <code>dataFormat</code> values</th></tr></thead><tbody><tr><td><code>BIGINT</code>, <code>INTEGER</code>, <code>SMALLINT</code>, <code>TINYINT</code>, <code>DOUBLE</code>, <code>BOOLEAN</code>, <code>VARCHAR</code>, <code>VARCHAR(x)</code></td><td>Default field decoder (omitted <code>dataFormat</code> attribute)</td></tr><tr><td><code>DATE</code></td><td><code>custom-date-time</code>, <code>iso8601</code></td></tr><tr><td><code>TIME</code></td><td><code>custom-date-time</code>, <code>iso8601</code>, <code>milliseconds-since-epoch</code>, <code>seconds-since-epoch</code></td></tr><tr><td><code>TIME WITH TIME ZONE</code></td><td><code>custom-date-time</code>, <code>iso8601</code></td></tr><tr><td><code>TIMESTAMP</code></td><td><code>custom-date-time</code>, <code>iso8601</code>, <code>rfc2822</code>, <code>milliseconds-since-epoch</code>, <code>seconds-since-epoch</code></td></tr><tr><td><code>TIMESTAMP WITH TIME ZONE</code></td><td><code>custom-date-time</code>, <code>iso8601</code>, <code>rfc2822</code>, <code>milliseconds-since-epoch</code>, <code>seconds-since-epoch</code></td></tr></tbody></table>
+<p>No other types are supported.</p>
+<h5 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-field-decoder">Default field decoder<a href="#default-field-decoder" class="hash-link" aria-label="Direct link to Default field decoder" title="Direct link to Default field decoder" translate="no">​</a></h5>
+<p>This is the standard field decoder. It supports all the Trino physical data
+types. A field value is transformed under JSON conversion rules into boolean,
+long, double, or string values. This decoder should be used for columns that are
+not date or time based.</p>
+<h5 class="anchor anchorTargetStickyNavbar_Vzrq" id="date-and-time-decoders">Date and time decoders<a href="#date-and-time-decoders" class="hash-link" aria-label="Direct link to Date and time decoders" title="Direct link to Date and time decoders" translate="no">​</a></h5>
+<p>To convert values from JSON objects to Trino <code>DATE</code>, <code>TIME</code>, <code>TIME WITH TIME ZONE</code>, <code>TIMESTAMP</code> or <code>TIMESTAMP WITH TIME ZONE</code> columns, select
+special decoders using the <code>dataFormat</code> attribute of a field definition.</p>
+<ul>
+<li class=""><code>iso8601</code> - Text based, parses a text field as an ISO 8601 timestamp.</li>
+<li class=""><code>rfc2822</code> - Text based, parses a text field as an <a href="https://datatracker.ietf.org/doc/html/rfc2822" target="_blank" rel="noopener noreferrer" class="">RFC 2822</a> timestamp.</li>
+<li class=""><code>custom-date-time</code> - Text based, parses a text field according to Joda
+format pattern specified via <code>formatHint</code> attribute. The format pattern
+should conform to
+<a href="https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html" target="_blank" rel="noopener noreferrer" class="">https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html</a>.</li>
+<li class=""><code>milliseconds-since-epoch</code> - Number-based, interprets a text or number as
+number of milliseconds since the epoch.</li>
+<li class=""><code>seconds-since-epoch</code> - Number-based, interprets a text or number as number
+of milliseconds since the epoch.</li>
+</ul>
+<p>For <code>TIMESTAMP WITH TIME ZONE</code> and <code>TIME WITH TIME ZONE</code> data types, if
+timezone information is present in decoded value, it is used as a Trino value.
+Otherwise, the result time zone is set to <code>UTC</code>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="avro-decoder">Avro decoder<a href="#avro-decoder" class="hash-link" aria-label="Direct link to Avro decoder" title="Direct link to Avro decoder" translate="no">​</a></h4>
+<p>The Avro decoder converts the bytes representing a message or key in Avro format
+based on a schema. The message must have the Avro schema embedded. Trino does
+not support schemaless Avro decoding.</p>
+<p>The <code>dataSchema</code> must be defined for any key or message using <code>Avro</code>
+decoder. <code>Avro</code> decoder should point to the location of a valid Avro
+schema file of the message which must be decoded. This location can be a remote
+web server (e.g.: <code>dataSchema: &#x27;http://example.org/schema/avro_data.avsc&#x27;</code>) or
+local file system(e.g.: <code>dataSchema: &#x27;/usr/local/schema/avro_data.avsc&#x27;</code>). The
+decoder fails if this location is not accessible from the Trino cluster.</p>
+<p>The following attributes are supported:</p>
+<ul>
+<li class=""><code>name</code> - Name of the column in the Trino table.</li>
+<li class=""><code>type</code> - Trino data type of column.</li>
+<li class=""><code>mapping</code> - A slash-separated list of field names to select a field from the
+Avro schema. If the field specified in <code>mapping</code> does not exist in the
+original Avro schema, a read operation returns <code>NULL</code>.</li>
+</ul>
+<p>The following table lists the supported Trino types that can be used in <code>type</code>
+for the equivalent Avro field types:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Trino data type</th><th>Allowed Avro data type</th></tr></thead><tbody><tr><td><code>BIGINT</code></td><td><code>INT</code>, <code>LONG</code></td></tr><tr><td><code>DOUBLE</code></td><td><code>DOUBLE</code>, <code>FLOAT</code></td></tr><tr><td><code>BOOLEAN</code></td><td><code>BOOLEAN</code></td></tr><tr><td><code>VARCHAR</code> / <code>VARCHAR(x)</code></td><td><code>STRING</code></td></tr><tr><td><code>VARBINARY</code></td><td><code>FIXED</code>, <code>BYTES</code></td></tr><tr><td><code>ARRAY</code></td><td><code>ARRAY</code></td></tr><tr><td><code>MAP</code></td><td><code>MAP</code></td></tr></tbody></table>
+<p>No other types are supported.</p>
+<h5 class="anchor anchorTargetStickyNavbar_Vzrq" id="avro-schema-evolution">Avro schema evolution<a href="#avro-schema-evolution" class="hash-link" aria-label="Direct link to Avro schema evolution" title="Direct link to Avro schema evolution" translate="no">​</a></h5>
+<p>The Avro decoder supports schema evolution with backward compatibility. With
+backward compatibility, a newer schema can be used to read Avro data created
+with an older schema. Any change in the Avro schema must also be reflected in
+Trino&#x27;s topic definition file. Newly added or renamed fields must have a
+default value in the Avro schema file.</p>
+<p>The schema evolution behavior is as follows:</p>
+<ul>
+<li class="">Column added in new schema: Data created with an older schema produces a
+<em>default</em> value when the table is using the new schema.</li>
+<li class="">Column removed in new schema: Data created with an older schema no longer
+outputs the data from the column that was removed.</li>
+<li class="">Column is renamed in the new schema: This is equivalent to removing the column
+and adding a new one, and data created with an older schema produces a
+<em>default</em> value when the table is using the new schema.</li>
+<li class="">Changing type of column in the new schema: If the type coercion is supported
+by Avro, then the conversion happens. An error is thrown for incompatible
+types.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="redis-sql-support">SQL support<a href="#redis-sql-support" class="hash-link" aria-label="Direct link to SQL support" title="Direct link to SQL support" translate="no">​</a></h2>
+<p>The connector provides <a class="" href="/trino-docs/language/sql-support#sql-globally-available">globally available</a> and
+<a class="" href="/trino-docs/language/sql-support#sql-read-operations">read operation</a> statements to access data and
+metadata in Redis.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="performance">Performance<a href="#performance" class="hash-link" aria-label="Direct link to Performance" title="Direct link to Performance" translate="no">​</a></h2>
+<p>The connector includes a number of performance improvements, detailed in the
+following sections.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="redis-pushdown">Pushdown<a href="#redis-pushdown" class="hash-link" aria-label="Direct link to Pushdown" title="Direct link to Pushdown" translate="no">​</a></h3>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>The connector performs pushdown where performance may be improved, but in
+order to preserve correctness an operation may not be pushed down. When
+pushdown of an operation may result in better performance but risks
+correctness, the connector prioritizes correctness.</p></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="redis-predicate-pushdown">Predicate pushdown support<a href="#redis-predicate-pushdown" class="hash-link" aria-label="Direct link to Predicate pushdown support" title="Direct link to Predicate pushdown support" translate="no">​</a></h4>
+<p>The connector supports pushdown of keys of <code>string</code> type only, the <code>zset</code>
+type is not supported. Key pushdown is not supported when multiple key fields
+are defined in the table definition file.</p>
+<p>The connector supports pushdown of equality predicates, such as <code>IN</code> or <code>=</code>.
+Inequality predicates, such as <code>!=</code>, and range predicates, such as <code>&gt;</code>,
+<code>&lt;</code>, or <code>BETWEEN</code> are not pushed down.</p>
+<p>In the following example, the predicate of the first query is not pushed down
+since <code>&gt;</code> is a range predicate. The other queries are pushed down:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token comment" style="color:rgb(105, 112, 152);font-style:italic">-- Not pushed down</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token keyword" style="font-style:italic">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">*</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"> nation </span><span class="token keyword" style="font-style:italic">WHERE</span><span class="token plain"> redis_key </span><span class="token operator" style="color:rgb(137, 221, 255)">&gt;</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&#x27;CANADA&#x27;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token comment" style="color:rgb(105, 112, 152);font-style:italic">-- Pushed down</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token keyword" style="font-style:italic">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">*</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"> nation </span><span class="token keyword" style="font-style:italic">WHERE</span><span class="token plain"> redis_key </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&#x27;CANADA&#x27;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token keyword" style="font-style:italic">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">*</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"> nation </span><span class="token keyword" style="font-style:italic">WHERE</span><span class="token plain"> redis_key </span><span class="token operator" style="color:rgb(137, 221, 255)">IN</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(199, 146, 234)">(</span><span class="token string" style="color:rgb(195, 232, 141)">&#x27;CANADA&#x27;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&#x27;POLAND&#x27;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">)</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><br></div></code></pre></div></div></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/trinodb/trino/edit/master/docs/docusaurus/docs/connector/redis.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/trino-docs/connector/prometheus"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Prometheus</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/trino-docs/connector/redshift"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Redshift</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#requirements" class="table-of-contents__link toc-highlight">Requirements</a></li><li><a href="#configuration" class="table-of-contents__link toc-highlight">Configuration</a><ul><li><a href="#multiple-redis-servers" class="table-of-contents__link toc-highlight">Multiple Redis servers</a></li></ul></li><li><a href="#configuration-properties" class="table-of-contents__link toc-highlight">Configuration properties</a><ul><li><a href="#redistable-names" class="table-of-contents__link toc-highlight"><code>redis.table-names</code></a></li><li><a href="#redisdefault-schema" class="table-of-contents__link toc-highlight"><code>redis.default-schema</code></a></li><li><a href="#redisnodes" class="table-of-contents__link toc-highlight"><code>redis.nodes</code></a></li><li><a href="#redisscan-count" class="table-of-contents__link toc-highlight"><code>redis.scan-count</code></a></li><li><a href="#redismax-keys-per-fetch" class="table-of-contents__link toc-highlight"><code>redis.max-keys-per-fetch</code></a></li><li><a href="#rediskey-prefix-schema-table" class="table-of-contents__link toc-highlight"><code>redis.key-prefix-schema-table</code></a></li><li><a href="#rediskey-delimiter" class="table-of-contents__link toc-highlight"><code>redis.key-delimiter</code></a></li><li><a href="#redistable-description-dir" class="table-of-contents__link toc-highlight"><code>redis.table-description-dir</code></a></li><li><a href="#redistable-description-cache-ttl" class="table-of-contents__link toc-highlight"><code>redis.table-description-cache-ttl</code></a></li><li><a href="#redishide-internal-columns" class="table-of-contents__link toc-highlight"><code>redis.hide-internal-columns</code></a></li><li><a href="#redisdatabase-index" class="table-of-contents__link toc-highlight"><code>redis.database-index</code></a></li><li><a href="#redisuser" class="table-of-contents__link toc-highlight"><code>redis.user</code></a></li><li><a href="#redispassword" class="table-of-contents__link toc-highlight"><code>redis.password</code></a></li><li><a href="#redistlsenabled" class="table-of-contents__link toc-highlight"><code>redis.tls.enabled</code></a></li><li><a href="#redistlskeystore-path" class="table-of-contents__link toc-highlight"><code>redis.tls.keystore-path</code></a></li><li><a href="#redistlskeystore-password" class="table-of-contents__link toc-highlight"><code>redis.tls.keystore-password</code></a></li><li><a href="#redistlstruststore-path" class="table-of-contents__link toc-highlight"><code>redis.tls.truststore-path</code></a></li><li><a href="#redistlstruststore-password" class="table-of-contents__link toc-highlight"><code>redis.tls.truststore-password</code></a></li></ul></li><li><a href="#internal-columns" class="table-of-contents__link toc-highlight">Internal columns</a></li><li><a href="#table-definition-files" class="table-of-contents__link toc-highlight">Table definition files</a></li><li><a href="#type-mapping" class="table-of-contents__link toc-highlight">Type mapping</a><ul><li><a href="#row-decoding" class="table-of-contents__link toc-highlight">Row decoding</a></li></ul></li><li><a href="#redis-sql-support" class="table-of-contents__link toc-highlight">SQL support</a></li><li><a href="#performance" class="table-of-contents__link toc-highlight">Performance</a><ul><li><a href="#redis-pushdown" class="table-of-contents__link toc-highlight">Pushdown</a></li></ul></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

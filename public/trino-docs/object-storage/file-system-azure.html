@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-object-storage/file-system-azure" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Azure Storage file system support | Trino documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://trino.io/trino-docs/object-storage/file-system-azure"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Azure Storage file system support | Trino documentation"><meta data-rh="true" name="description" content="Trino includes a native implementation to access [Azure Data Lake Storage"><meta data-rh="true" property="og:description" content="Trino includes a native implementation to access [Azure Data Lake Storage"><link data-rh="true" rel="icon" href="/trino-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://trino.io/trino-docs/object-storage/file-system-azure"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/object-storage/file-system-azure" hreflang="en"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/object-storage/file-system-azure" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Object storage","item":"https://trino.io/trino-docs/object-storage"},{"@type":"ListItem","position":2,"name":"Azure Storage file system support","item":"https://trino.io/trino-docs/object-storage/file-system-azure"}]}</script><link rel="stylesheet" href="/trino-docs/assets/css/styles.48b9a735.css">
+<script src="/trino-docs/assets/js/runtime~main.cae17608.js" defer="defer"></script>
+<script src="/trino-docs/assets/js/main.51814df2.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/trino-docs/img/trino.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/trino-docs/"><div class="navbar__logo"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Trino dev Documentation</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">dev</a><ul class="dropdown__menu"><li><a href="https://trino.io/docs/" target="_blank" rel="noopener noreferrer" class="dropdown__link">All versions<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><a href="https://github.com/trinodb/trino" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/"><span class="linkLabel_WmDU">Home</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/overview"><span class="categoryLinkLabel_W154">Overview</span></a><button aria-label="Expand sidebar category &#x27;Overview&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/installation"><span class="categoryLinkLabel_W154">Installation</span></a><button aria-label="Expand sidebar category &#x27;Installation&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/client"><span class="categoryLinkLabel_W154">Clients</span></a><button aria-label="Expand sidebar category &#x27;Clients&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/security"><span class="categoryLinkLabel_W154">Security</span></a><button aria-label="Expand sidebar category &#x27;Security&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/admin"><span class="categoryLinkLabel_W154">Administration</span></a><button aria-label="Expand sidebar category &#x27;Administration&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/optimizer"><span class="categoryLinkLabel_W154">Query optimizer</span></a><button aria-label="Expand sidebar category &#x27;Query optimizer&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/connector"><span class="categoryLinkLabel_W154">Connectors</span></a><button aria-label="Expand sidebar category &#x27;Connectors&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/trino-docs/object-storage"><span class="categoryLinkLabel_W154">Object storage</span></a><button aria-label="Collapse sidebar category &#x27;Object storage&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/trino-docs/object-storage/file-system-azure"><span class="linkLabel_WmDU">Azure Storage file system support</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/object-storage/file-system-gcs"><span class="linkLabel_WmDU">Google Cloud Storage file system support</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/object-storage/file-system-s3"><span class="linkLabel_WmDU">S3 file system support</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/object-storage/file-system-local"><span class="linkLabel_WmDU">Local file system support</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/object-storage/file-system-hdfs"><span class="linkLabel_WmDU">HDFS file system support</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/object-storage/file-system-alluxio"><span class="linkLabel_WmDU">Alluxio file system support</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/object-storage/file-system-cache"><span class="linkLabel_WmDU">File system cache</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/object-storage/metastores"><span class="linkLabel_WmDU">Metastores</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/object-storage/file-formats"><span class="linkLabel_WmDU">Object storage file formats</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/functions"><span class="categoryLinkLabel_W154">Functions and operators</span></a><button aria-label="Expand sidebar category &#x27;Functions and operators&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/udf"><span class="categoryLinkLabel_W154">User-defined functions</span></a><button aria-label="Expand sidebar category &#x27;User-defined functions&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/language"><span class="categoryLinkLabel_W154">SQL language</span></a><button aria-label="Expand sidebar category &#x27;SQL language&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/sql"><span class="categoryLinkLabel_W154">SQL statement syntax</span></a><button aria-label="Expand sidebar category &#x27;SQL statement syntax&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/develop"><span class="categoryLinkLabel_W154">Developer guide</span></a><button aria-label="Expand sidebar category &#x27;Developer guide&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/glossary"><span class="linkLabel_WmDU">Glossary</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/appendix"><span class="categoryLinkLabel_W154">Appendix</span></a><button aria-label="Expand sidebar category &#x27;Appendix&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/release"><span class="categoryLinkLabel_W154">Release notes</span></a><button aria-label="Expand sidebar category &#x27;Release notes&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/trino-docs/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/trino-docs/object-storage"><span>Object storage</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Azure Storage file system support</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Azure Storage file system support</h1></header>
+<p>Trino includes a native implementation to access <a href="https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-overview#about-azure-data-lake-storage-gen2" target="_blank" rel="noopener noreferrer" class="">Azure Data Lake Storage
+Gen2</a>
+with a catalog using the Delta Lake, Hive, Hudi, or Iceberg connectors.</p>
+<p>Enable the native implementation with <code>fs.azure.enabled=true</code> in your
+catalog properties file. Additionally, the Azure storage account must have
+hierarchical namespace enabled.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="general-configuration">General configuration<a href="#general-configuration" class="hash-link" aria-label="Direct link to General configuration" title="Direct link to General configuration" translate="no">​</a></h2>
+<p>Use the following properties to configure general aspects of Azure Storage file
+system support:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property</th><th>Description</th></tr></thead><tbody><tr><td><code>fs.azure.enabled</code></td><td>Activate the native implementation for Azure Storage support. Defaults to <code>false</code>. Set to <code>true</code> to use Azure Storage and enable all other properties.</td></tr><tr><td><code>azure.auth-type</code></td><td>Authentication type to use for Azure Storage access. Defaults to <code>DEFAULT</code> which loads from environment variables if configured or <a href="#azure-user-assigned-managed-identity-authentication" class="">Azure Storage file system support</a>. Use <code>ACCESS_KEY</code> for <a href="#azure-access-key-authentication" class="">Azure Storage file system support</a> or and <code>OAUTH</code> for <a href="#azure-oauth-authentication" class="">Azure Storage file system support</a>.</td></tr><tr><td><code>azure.endpoint</code></td><td>Hostname suffix of the Azure storage endpoint. Defaults to <code>core.windows.net</code> for the global Azure cloud. Use <code>core.usgovcloudapi.net</code> for the Azure US Government cloud, <code>core.cloudapi.de</code> for the Azure Germany cloud, or <code>core.chinacloudapi.cn</code> for the Azure China cloud.</td></tr><tr><td><code>azure.read-block-size</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-data-size">Data size</a> for blocks during read operations. Defaults to <code>4MB</code>.</td></tr><tr><td><code>azure.write-block-size</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-data-size">Data size</a> for blocks during write operations. Defaults to <code>4MB</code>.</td></tr><tr><td><code>azure.max-write-concurrency</code></td><td>Maximum number of concurrent write operations. Defaults to 8.</td></tr><tr><td><code>azure.max-single-upload-size</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-data-size">Data size</a> Defaults to <code>4MB</code>.</td></tr><tr><td><code>azure.max-http-requests</code></td><td>Maximum <a class="" href="/trino-docs/admin/properties#prop-type-integer">integer</a> number of concurrent HTTP requests to Azure from every node. Defaults to double the number of processors on the node. Minimum <code>1</code>. Use this property to reduce the number of requests when you encounter rate limiting issues.</td></tr><tr><td><code>azure.connection-pool-max-idle-time</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-duration">Duration</a> that a connection can remain idle in the connection pool before it is closed. Defaults to <code>5m</code>.</td></tr><tr><td><code>azure.http-request-timeout</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-duration">Duration</a> for HTTP request timeouts, including the time taken by the Azure SDK to retry a request. Defaults to <code>10m</code>.</td></tr><tr><td><code>azure.application-id</code></td><td>Specify the application identifier appended to the <code>User-Agent</code> header for all requests sent to Azure Storage. Defaults to <code>Trino</code>.</td></tr><tr><td><code>azure.multipart-write-enabled</code></td><td>Enable multipart writes for large files. Defaults to <code>false</code>.</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="azure-user-assigned-managed-identity-authentication">User-assigned managed identity authentication<a href="#azure-user-assigned-managed-identity-authentication" class="hash-link" aria-label="Direct link to User-assigned managed identity authentication" title="Direct link to User-assigned managed identity authentication" translate="no">​</a></h2>
+<p>Use the following properties to configure <a href="https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/" target="_blank" rel="noopener noreferrer" class="">user-assigned managed
+identity</a>
+authentication to Azure Storage:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property</th><th>Description</th></tr></thead><tbody><tr><td><code>azure.auth-type</code></td><td>Must be set to <code>DEFAULT</code>.</td></tr><tr><td><code>azure.user-assigned-managed-identity.client-id</code></td><td>Specifies the client ID of user-assigned managed identity.</td></tr><tr><td><code>azure.user-assigned-managed-identity.resource-id</code></td><td>Specifies the resource ID of user-assigned managed identity.</td></tr></tbody></table>
+<p>Only one of <code>azure.user-assigned-managed-identity.client-id</code> or <code>azure.user-assigned-managed-identity.resource-id</code> can be
+specified.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="azure-access-key-authentication">Access key authentication<a href="#azure-access-key-authentication" class="hash-link" aria-label="Direct link to Access key authentication" title="Direct link to Access key authentication" translate="no">​</a></h2>
+<p>Use the following properties to configure access key authentication to Azure
+Storage:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property</th><th>Description</th></tr></thead><tbody><tr><td><code>azure.auth-type</code></td><td>Must be set to <code>ACCESS_KEY</code>.</td></tr><tr><td><code>azure.access-key</code></td><td>The decrypted access key for the Azure Storage account. Requires authentication type <code>ACCESSS_KEY</code>.</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="azure-oauth-authentication">OAuth 2.0 authentication<a href="#azure-oauth-authentication" class="hash-link" aria-label="Direct link to OAuth 2.0 authentication" title="Direct link to OAuth 2.0 authentication" translate="no">​</a></h2>
+<p>Use the following properties to configure OAuth 2.0 authentication to Azure
+Storage:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property</th><th>Description</th></tr></thead><tbody><tr><td><code>azure.auth-type</code></td><td>Must be set to <code>OAUTH</code>.</td></tr><tr><td><code>azure.oauth.tenant-id</code></td><td>Tenant ID for Azure authentication.</td></tr><tr><td><code>azure.oauth.endpoint</code></td><td>The endpoint URL for OAuth 2.0 authentication.</td></tr><tr><td><code>azure.oauth.client-id</code></td><td>The OAuth 2.0 service principal&#x27;s client or application ID.</td></tr><tr><td><code>azure.oauth.secret</code></td><td>A OAuth 2.0 client secret for the service principal.</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="access-multiple-storage-accounts">Access multiple storage accounts<a href="#access-multiple-storage-accounts" class="hash-link" aria-label="Direct link to Access multiple storage accounts" title="Direct link to Access multiple storage accounts" translate="no">​</a></h2>
+<p>To allow Trino to access multiple Azure storage accounts from a single
+catalog configuration, you can use <a href="#azure-oauth-authentication" class="">Azure Storage file system support</a> with
+an Azure service principal. The following steps describe how to create
+a service principal in Azure and assign an IAM role granting access to the
+storage accounts:</p>
+<ul>
+<li class="">Create a service principal in Azure Active Directory using Azure
+<strong>App Registrations</strong> and save the client secret.</li>
+<li class="">Assign access to the storage accounts from the account&#x27;s
+<strong>Access Control (IAM)</strong> section. You can add <strong>Role Assignments</strong> and
+select appropriate roles, such as <strong>Storage Blob Data Contributor</strong>.</li>
+<li class="">Assign access using the option <strong>User, group, or service principal</strong> and
+select the service principal created. Save to finalize the role
+assignment.</li>
+</ul>
+<p>Once you create the service principal and configure the storage accounts
+use the <strong>Client ID</strong>, <strong>Secret</strong> and <strong>Tenant ID</strong> values from the
+application registration, to configure the catalog using properties from
+<a href="#azure-oauth-authentication" class="">Azure Storage file system support</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="fs-legacy-azure-migration">Migration from legacy Azure Storage file system<a href="#fs-legacy-azure-migration" class="hash-link" aria-label="Direct link to Migration from legacy Azure Storage file system" title="Direct link to Migration from legacy Azure Storage file system" translate="no">​</a></h2>
+<p>Previous Trino releases included a legacy Azure Storage file system
+implementation used by catalogs configured with <code>fs.hadoop.enabled</code> and
+<code>hive.azure.*</code> properties. That legacy support has been removed. Use the
+native Azure file system implementation.</p>
+<p>To migrate a catalog to use the native file system implementation for Azure,
+make the following edits to your catalog configuration:</p>
+<ol>
+<li class="">Add the <code>fs.azure.enabled=true</code> catalog configuration property.</li>
+<li class="">If your catalog enabled <code>fs.hadoop.enabled</code> only for legacy Azure Storage
+access, remove that property.</li>
+<li class="">Configure the <code>azure.auth-type</code> catalog configuration property.</li>
+<li class="">Refer to the following table to rename your existing legacy catalog
+configuration properties to the corresponding native configuration
+properties. Supported configuration values are identical unless otherwise
+noted.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Legacy property</th><th>Native property</th><th>Notes</th></tr></thead><tbody><tr><td><code>hive.azure.abfs-access-key</code></td><td><code>azure.access-key</code></td><td></td></tr><tr><td><code>hive.azure.abfs.oauth.endpoint</code></td><td><code>azure.oauth.endpoint</code></td><td>Also see <code>azure.oauth.tenant-id</code> in <a href="#azure-oauth-authentication" class="">Azure Storage file system support</a>.</td></tr><tr><td><code>hive.azure.abfs.oauth.client-id</code></td><td><code>azure.oauth.client-id</code></td><td></td></tr><tr><td><code>hive.azure.abfs.oauth.secret</code></td><td><code>azure.oauth.secret</code></td><td></td></tr><tr><td><code>hive.azure.abfs.oauth2.passthrough</code></td><td><code>azure.use-oauth-passthrough-token</code></td><td></td></tr></tbody></table>
+<ol start="5">
+<li class="">
+<p>Remove the following legacy configuration properties if they exist in your
+catalog configuration:</p>
+<ul>
+<li class=""><code>hive.azure.abfs-storage-account</code></li>
+<li class=""><code>hive.azure.wasb-access-key</code></li>
+<li class=""><code>hive.azure.wasb-storage-account</code></li>
+</ul>
+</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/trinodb/trino/edit/master/docs/docusaurus/docs/object-storage/file-system-azure.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/trino-docs/object-storage"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Object storage</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/trino-docs/object-storage/file-system-gcs"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Google Cloud Storage file system support</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#general-configuration" class="table-of-contents__link toc-highlight">General configuration</a></li><li><a href="#azure-user-assigned-managed-identity-authentication" class="table-of-contents__link toc-highlight">User-assigned managed identity authentication</a></li><li><a href="#azure-access-key-authentication" class="table-of-contents__link toc-highlight">Access key authentication</a></li><li><a href="#azure-oauth-authentication" class="table-of-contents__link toc-highlight">OAuth 2.0 authentication</a></li><li><a href="#access-multiple-storage-accounts" class="table-of-contents__link toc-highlight">Access multiple storage accounts</a></li><li><a href="#fs-legacy-azure-migration" class="table-of-contents__link toc-highlight">Migration from legacy Azure Storage file system</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

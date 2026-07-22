@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-admin/fault-tolerant-execution" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Fault-tolerant execution | Trino documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://trino.io/trino-docs/admin/fault-tolerant-execution"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Fault-tolerant execution | Trino documentation"><meta data-rh="true" name="description" content="By default, if a Trino node lacks the resources to execute a task or"><meta data-rh="true" property="og:description" content="By default, if a Trino node lacks the resources to execute a task or"><link data-rh="true" rel="icon" href="/trino-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://trino.io/trino-docs/admin/fault-tolerant-execution"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/admin/fault-tolerant-execution" hreflang="en"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/admin/fault-tolerant-execution" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Administration","item":"https://trino.io/trino-docs/admin"},{"@type":"ListItem","position":2,"name":"Fault-tolerant execution","item":"https://trino.io/trino-docs/admin/fault-tolerant-execution"}]}</script><link rel="stylesheet" href="/trino-docs/assets/css/styles.48b9a735.css">
+<script src="/trino-docs/assets/js/runtime~main.cae17608.js" defer="defer"></script>
+<script src="/trino-docs/assets/js/main.51814df2.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/trino-docs/img/trino.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/trino-docs/"><div class="navbar__logo"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Trino dev Documentation</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">dev</a><ul class="dropdown__menu"><li><a href="https://trino.io/docs/" target="_blank" rel="noopener noreferrer" class="dropdown__link">All versions<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><a href="https://github.com/trinodb/trino" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/"><span class="linkLabel_WmDU">Home</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/overview"><span class="categoryLinkLabel_W154">Overview</span></a><button aria-label="Expand sidebar category &#x27;Overview&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/installation"><span class="categoryLinkLabel_W154">Installation</span></a><button aria-label="Expand sidebar category &#x27;Installation&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/client"><span class="categoryLinkLabel_W154">Clients</span></a><button aria-label="Expand sidebar category &#x27;Clients&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/security"><span class="categoryLinkLabel_W154">Security</span></a><button aria-label="Expand sidebar category &#x27;Security&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/trino-docs/admin"><span class="categoryLinkLabel_W154">Administration</span></a><button aria-label="Collapse sidebar category &#x27;Administration&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/web-interface"><span class="linkLabel_WmDU">Web UI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/logging"><span class="linkLabel_WmDU">Logging</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/tuning"><span class="linkLabel_WmDU">Tuning Trino</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/jmx"><span class="linkLabel_WmDU">Monitoring with JMX</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/opentelemetry"><span class="linkLabel_WmDU">Observability with OpenTelemetry</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/openmetrics"><span class="linkLabel_WmDU">Trino metrics with OpenMetrics</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/trino-docs/admin/properties"><span class="categoryLinkLabel_W154">Properties reference</span></a><button aria-label="Expand sidebar category &#x27;Properties reference&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/spill"><span class="linkLabel_WmDU">Spill to disk</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/resource-groups"><span class="linkLabel_WmDU">Resource groups</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/session-property-managers"><span class="linkLabel_WmDU">Session property managers</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/dist-sort"><span class="linkLabel_WmDU">Distributed sort</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/dynamic-filtering"><span class="linkLabel_WmDU">Dynamic filtering</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/graceful-shutdown"><span class="linkLabel_WmDU">Graceful shutdown</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/trino-docs/admin/fault-tolerant-execution"><span class="linkLabel_WmDU">Fault-tolerant execution</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/event-listeners-http"><span class="linkLabel_WmDU">HTTP event listener</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/event-listeners-kafka"><span class="linkLabel_WmDU">Kafka event listener</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/event-listeners-mysql"><span class="linkLabel_WmDU">MySQL event listener</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/event-listeners-openlineage"><span class="linkLabel_WmDU">OpenLineage event listener</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/admin/properties"><span class="linkLabel_WmDU">Properties reference</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/optimizer"><span class="categoryLinkLabel_W154">Query optimizer</span></a><button aria-label="Expand sidebar category &#x27;Query optimizer&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/connector"><span class="categoryLinkLabel_W154">Connectors</span></a><button aria-label="Expand sidebar category &#x27;Connectors&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/object-storage"><span class="categoryLinkLabel_W154">Object storage</span></a><button aria-label="Expand sidebar category &#x27;Object storage&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/functions"><span class="categoryLinkLabel_W154">Functions and operators</span></a><button aria-label="Expand sidebar category &#x27;Functions and operators&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/udf"><span class="categoryLinkLabel_W154">User-defined functions</span></a><button aria-label="Expand sidebar category &#x27;User-defined functions&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/language"><span class="categoryLinkLabel_W154">SQL language</span></a><button aria-label="Expand sidebar category &#x27;SQL language&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/sql"><span class="categoryLinkLabel_W154">SQL statement syntax</span></a><button aria-label="Expand sidebar category &#x27;SQL statement syntax&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/develop"><span class="categoryLinkLabel_W154">Developer guide</span></a><button aria-label="Expand sidebar category &#x27;Developer guide&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/glossary"><span class="linkLabel_WmDU">Glossary</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/appendix"><span class="categoryLinkLabel_W154">Appendix</span></a><button aria-label="Expand sidebar category &#x27;Appendix&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/release"><span class="categoryLinkLabel_W154">Release notes</span></a><button aria-label="Expand sidebar category &#x27;Release notes&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/trino-docs/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/trino-docs/admin"><span>Administration</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Fault-tolerant execution</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Fault-tolerant execution</h1></header>
+<p>By default, if a Trino node lacks the resources to execute a task or
+otherwise fails during query execution, the query fails and must be run again
+manually. The longer the runtime of a query, the more likely it is to be
+susceptible to such failures.</p>
+<p>Fault-tolerant execution is a mechanism in Trino that enables a cluster to
+mitigate query failures by retrying queries or their component tasks in
+the event of failure. With fault-tolerant execution enabled, intermediate
+exchange data is spooled and can be re-used by another worker in the event of a
+worker outage or other fault during query execution.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Fault tolerance does not apply to broken queries or other user error. For
+example, Trino does not spend resources retrying a query that fails because
+its SQL cannot be parsed.</p><p>For a step-by-step guide explaining how to configure a Trino cluster with
+fault-tolerant execution to improve query processing resilience, read
+<a class="" href="/trino-docs/installation/query-resiliency">Improve query processing resilience</a>.</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuration">Configuration<a href="#configuration" class="hash-link" aria-label="Direct link to Configuration" title="Direct link to Configuration" translate="no">​</a></h2>
+<p>Fault-tolerant execution is turned off by default. To enable the feature, set the
+<code>retry-policy</code> configuration property to either <code>QUERY</code> or <code>TASK</code>
+depending on the desired <a href="#fte-retry-policy" class="">retry policy</a>.</p>
+<div class="language-properties codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-properties codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token key attr-name" style="color:rgb(255, 203, 107)">retry-policy</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">QUERY</span><br></div></code></pre></div></div>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Setting <code>retry-policy</code> may cause queries to fail with connectors that do not
+explicitly support fault-tolerant execution, resulting in a &quot;This connector
+does not support query retries&quot; error message.</p><p>Support for fault-tolerant execution of SQL statements varies on a
+per-connector basis, with more details in the documentation for each
+connector. The following connectors support fault-tolerant execution:</p><ul>
+<li class=""><a class="" href="/trino-docs/connector/bigquery#bigquery-fte-support">BigQuery connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/delta-lake#delta-lake-fte-support">Delta Lake connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/hive#hive-fte-support">Hive connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/iceberg#iceberg-fte-support">Iceberg connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/mariadb#mariadb-fte-support">MariaDB connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/mongodb#mongodb-fte-support">MongoDB connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/mysql#mysql-fte-support">MySQL connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/oracle#oracle-fte-support">Oracle connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/postgresql#postgresql-fte-support">PostgreSQL connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/redshift#redshift-fte-support">Redshift connector</a></li>
+<li class=""><a class="" href="/trino-docs/connector/sqlserver#sqlserver-fte-support">SQL Server connector</a></li>
+</ul></div></div>
+<p>The following configuration properties control the behavior of fault-tolerant
+execution on a Trino cluster:</p>
+<p><strong>Fault-tolerant execution configuration properties</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th><th>Default value</th></tr></thead><tbody><tr><td><code>retry-policy</code></td><td>Configures what is retried in the event of failure, either <code>QUERY</code> to retry the whole query, or <code>TASK</code> to retry tasks individually if they fail. See <a href="#fte-retry-policy" class="">retry policy</a> for more information. Use the equivalent session property <code>retry_policy</code> only on clusters configured for fault-tolerant execution and typically only to deactivate with <code>NONE</code>, since switching between modes on a cluster is not tested.</td><td><code>NONE</code></td></tr><tr><td><code>retry-policy.allowed</code></td><td>List of retry policies that are allowed to be configured for a cluster. This property is used to prevent a user from configuring a retry policy that is not meant to be used on the given cluster.</td><td><code>NONE</code>, <code>QUERY</code>, <code>TASK</code></td></tr><tr><td><code>exchange.deduplication-buffer-size</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-data-size">Data size</a> of the coordinator&#x27;s in-memory buffer used by fault-tolerant execution to store output of query <a class="" href="/trino-docs/overview/concepts#trino-concept-stage">stages</a>. If this buffer is filled during query execution, the query fails with a &quot;Exchange manager must be configured for the failure recovery capabilities to be fully functional&quot; error message unless an <a href="#fte-exchange-manager" class="">exchange manager</a> is configured.</td><td><code>32MB</code></td></tr><tr><td><code>fault-tolerant-execution.exchange-encryption-enabled</code></td><td>Enable encryption of spooling data, see <a href="#fte-encryption" class="">Encryption</a> for details. Setting this property to false is not recommended if Trino processes sensitive data.</td><td><code>true</code></td></tr></tbody></table>
+<p>Find further related properties in <a class="" href="/trino-docs/admin/properties">Properties reference</a>, specifically in
+<a class="" href="/trino-docs/admin/properties-resource-management">Resource management properties</a> and <a class="" href="/trino-docs/admin/properties-exchange">Exchange properties</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="fte-retry-policy">Retry policy<a href="#fte-retry-policy" class="hash-link" aria-label="Direct link to Retry policy" title="Direct link to Retry policy" translate="no">​</a></h2>
+<p>The <code>retry-policy</code> configuration property, or the <code>retry_policy</code> session
+property, designates whether Trino retries entire queries or a query&#x27;s
+individual tasks in the event of failure.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="query">QUERY<a href="#query" class="hash-link" aria-label="Direct link to QUERY" title="Direct link to QUERY" translate="no">​</a></h3>
+<p>A <code>QUERY</code> retry policy instructs Trino to automatically retry a query in the
+event of an error occurring on a worker node. A <code>QUERY</code> retry policy is
+recommended when the majority of the Trino cluster&#x27;s workload consists of many
+small queries.</p>
+<p>By default Trino does not implement fault tolerance for queries whose result set
+exceeds 32MB in size, such as <a class="" href="/trino-docs/sql/select">SELECT</a> statements that return a very
+large data set to the user. This limit can be increased by modifying the
+<code>exchange.deduplication-buffer-size</code> configuration property to be greater than
+the default value of <code>32MB</code>, but this results in higher memory usage on the
+coordinator.</p>
+<p>To enable fault-tolerant execution on queries with a larger result set, it is
+strongly recommended to configure an <a href="#fte-exchange-manager" class="">exchange manager</a> that utilizes external storage for spooled data and
+therefore allows for storage of spilled data beyond the in-memory buffer size.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="task">TASK<a href="#task" class="hash-link" aria-label="Direct link to TASK" title="Direct link to TASK" translate="no">​</a></h3>
+<p>A <code>TASK</code> retry policy instructs Trino to retry individual query <a class="" href="/trino-docs/overview/concepts#trino-concept-task">tasks</a> in the event of failure. You must configure an
+<a href="#fte-exchange-manager" class="">exchange manager</a> to use the task retry policy.
+This policy is recommended when executing large batch queries, as the cluster
+can more efficiently retry smaller tasks within the query rather than retry the
+whole query.</p>
+<p>When a cluster is configured with a <code>TASK</code> retry policy, some relevant
+configuration properties have their default values changed to follow best
+practices for a fault-tolerant cluster. However, this automatic change does not
+affect clusters that have these properties manually configured. If you have
+any of the following properties configured in the <code>config.properties</code> file on
+a cluster with a <code>TASK</code> retry policy, it is strongly recommended to set the
+<code>task.low-memory-killer.policy</code>
+<a class="" href="/trino-docs/admin/properties-query-management">query management property</a> to
+<code>total-reservation-on-blocked-nodes</code>, or queries may need to be manually killed
+if the cluster runs out of memory.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>A <code>TASK</code> retry policy is best suited for large batch queries, but this
+policy can result in higher latency for short-running queries executed in high
+volume. As a best practice, it is recommended to run a dedicated cluster
+with a <code>TASK</code> retry policy for large batch queries, separate from another
+cluster that handles short queries.</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="fte-encryption">Encryption<a href="#fte-encryption" class="hash-link" aria-label="Direct link to Encryption" title="Direct link to Encryption" translate="no">​</a></h2>
+<p>Trino encrypts data before spooling it to storage. This prevents access to query
+data by anyone besides the Trino cluster that wrote it, including administrators
+of the storage system. A new encryption key is randomly generated for every
+query, and the key is discarded once a query is completed.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="advanced-configuration">Advanced configuration<a href="#advanced-configuration" class="hash-link" aria-label="Direct link to Advanced configuration" title="Direct link to Advanced configuration" translate="no">​</a></h2>
+<p>You can further configure fault-tolerant execution with the following
+configuration properties. The default values for these properties should work
+for most deployments, but you can change these values for testing or
+troubleshooting purposes.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="retry-limits">Retry limits<a href="#retry-limits" class="hash-link" aria-label="Direct link to Retry limits" title="Direct link to Retry limits" translate="no">​</a></h3>
+<p>The following configuration properties control the thresholds at which
+queries/tasks are no longer retried in the event of repeated failures:</p>
+<p><strong>Fault tolerance retry limit configuration properties</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th><th>Default value</th><th>Retry policy</th></tr></thead><tbody><tr><td><code>query-retry-attempts</code></td><td>Maximum number of times Trino may attempt to retry a query before declaring the query as failed.</td><td><code>4</code></td><td>Only <code>QUERY</code></td></tr><tr><td><code>task-retry-attempts-per-task</code></td><td>Maximum number of times Trino may attempt to retry a single task before declaring the query as failed.</td><td><code>4</code></td><td>Only <code>TASK</code></td></tr><tr><td><code>retry-initial-delay</code></td><td>Minimum <a class="" href="/trino-docs/admin/properties#prop-type-duration">time</a> that a failed query or task must wait before it is retried. May be overridden with the <code>retry_initial_delay</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session property</a>.</td><td><code>10s</code></td><td><code>QUERY</code> and <code>TASK</code></td></tr><tr><td><code>retry-max-delay</code></td><td>Maximum <a class="" href="/trino-docs/admin/properties#prop-type-duration">time</a> that a failed query or task must wait before it is retried. Wait time is increased on each subsequent failure. May be overridden with the <code>retry_max_delay</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session property</a>.</td><td><code>1m</code></td><td><code>QUERY</code> and <code>TASK</code></td></tr><tr><td><code>retry-delay-scale-factor</code></td><td>Factor by which retry delay is increased on each query or task failure. May be overridden with the <code>retry_delay_scale_factor</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session property</a>.</td><td><code>2.0</code></td><td><code>QUERY</code> and <code>TASK</code></td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="task-sizing">Task sizing<a href="#task-sizing" class="hash-link" aria-label="Direct link to Task sizing" title="Direct link to Task sizing" translate="no">​</a></h3>
+<p>With a <code>TASK</code> retry policy, it is important to manage the amount of data
+processed in each task. If tasks are too small, the management of task
+coordination can take more processing time and resources than executing the task
+itself. If tasks are too large, then a single task may require more resources
+than are available on any one node and therefore prevent the query from
+completing.</p>
+<p>Trino supports limited automatic task sizing. If issues are occurring
+during fault-tolerant task execution, you can configure the following
+configuration properties to manually control task sizing. These configuration
+properties only apply to a <code>TASK</code> retry policy.</p>
+<p><strong>Task sizing configuration properties</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th><th>Default value</th></tr></thead><tbody><tr><td><code>fault-tolerant-execution-standard-split-size</code></td><td>Standard <a class="" href="/trino-docs/overview/concepts#trino-concept-splits">split</a> <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> processed by tasks that read data from source tables. Value is interpreted with split weight taken into account. If the weight of splits produced by a catalog denotes that they are lighter or heavier than &quot;standard&quot; split, then the number of splits processed by a single task is adjusted accordingly.<br>May be overridden for the current session with the <code>fault_tolerant_execution_standard_split_size</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session property</a>.</td><td><code>64MB</code></td></tr><tr><td><code>fault-tolerant-execution-max-task-split-count</code></td><td>Maximum number of <a class="" href="/trino-docs/overview/concepts#trino-concept-splits">splits</a> processed by a single task. This value is not split weight-adjusted and serves as protection against situations where catalogs report an incorrect split weight.<br>May be overridden for the current session with the <code>fault_tolerant_execution_max_task_split_count</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session property</a>.</td><td><code>2048</code></td></tr><tr><td><code>fault-tolerant-execution-arbitrary-distribution-compute-task-target-size-growth-period</code></td><td>The number of tasks created for any given non-writer stage of arbitrary distribution before task size is increased.</td><td><code>64</code></td></tr><tr><td><code>fault-tolerant-execution-arbitrary-distribution-compute-task-target-size-growth-factor</code></td><td>Growth factor for adaptive sizing of non-writer tasks of arbitrary distribution for fault-tolerant execution. Lower bound is 1.0. For every task size increase, new task target size is old task target size multiplied by this growth factor.</td><td><code>1.26</code></td></tr><tr><td><code>fault-tolerant-execution-arbitrary-distribution-compute-task-target-size-min</code></td><td>Initial/minimum target input <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> for non-writer tasks of arbitrary distribution of fault-tolerant execution.</td><td><code>512MB</code></td></tr><tr><td><code>fault-tolerant-execution-arbitrary-distribution-compute-task-target-size-max</code></td><td>Maximum target input <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> for each non-writer task of arbitrary distribution of fault-tolerant execution.</td><td><code>50GB</code></td></tr><tr><td><code>fault-tolerant-execution-arbitrary-distribution-write-task-target-size-growth-period</code></td><td>The number of tasks created for any given writer stage of arbitrary distribution before task size is increased.</td><td><code>64</code></td></tr><tr><td><code>fault-tolerant-execution-arbitrary-distribution-write-task-target-size-growth-factor</code></td><td>Growth factor for adaptive sizing of writer tasks of arbitrary distribution for fault-tolerant execution. Lower bound is 1.0. For every task size increase, new task target size is old task target size multiplied by this growth factor.</td><td><code>1.26</code></td></tr><tr><td><code>fault-tolerant-execution-arbitrary-distribution-write-task-target-size-min</code></td><td>Initial/minimum target input <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> for writer tasks of arbitrary distribution of fault-tolerant execution.</td><td><code>4GB</code></td></tr><tr><td><code>fault-tolerant-execution-arbitrary-distribution-write-task-target-size-max</code></td><td>Maximum target input <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> for writer tasks of arbitrary distribution of fault-tolerant execution.</td><td><code>50GB</code></td></tr><tr><td><code>fault-tolerant-execution-hash-distribution-compute-task-target-size</code></td><td>Target input <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> for non-writer tasks of hash distribution of fault-tolerant execution.</td><td><code>512MB</code></td></tr><tr><td><code>fault-tolerant-execution-hash-distribution-write-task-target-size</code></td><td>Target input <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> of writer tasks of hash distribution of fault-tolerant execution.</td><td><code>4GB</code></td></tr><tr><td><code>fault-tolerant-execution-hash-distribution-write-task-target-max-count</code></td><td>Soft upper bound on number of writer tasks in a stage of hash distribution of fault-tolerant execution.</td><td><code>2000</code></td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="node-allocation">Node allocation<a href="#node-allocation" class="hash-link" aria-label="Direct link to Node allocation" title="Direct link to Node allocation" translate="no">​</a></h3>
+<p>With a <code>TASK</code> retry policy, nodes are allocated to tasks based on available
+memory and estimated memory usage. If task failure occurs due to exceeding
+available memory on a node, the task is restarted with a request to allocate the
+full node for its execution.</p>
+<p>The initial task memory-requirements estimation is static and configured with
+the <code>fault-tolerant-execution-task-memory</code> configuration property. This property only
+applies to a <code>TASK</code> retry policy.</p>
+<p><strong>Node allocation configuration properties</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th><th>Default value</th></tr></thead><tbody><tr><td><code>fault-tolerant-execution-task-memory</code></td><td>Initial task memory <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> estimation used for bin-packing when allocating nodes for tasks. May be overridden for the current session with the <code>fault_tolerant_execution_task_memory</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session property</a>.</td><td><code>5GB</code></td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="other-tuning">Other tuning<a href="#other-tuning" class="hash-link" aria-label="Direct link to Other tuning" title="Direct link to Other tuning" translate="no">​</a></h3>
+<p>The following additional configuration property can be used to manage
+fault-tolerant execution:</p>
+<p><strong>Other fault-tolerant execution configuration properties</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th><th>Default value</th><th>Retry policy</th></tr></thead><tbody><tr><td><code>fault-tolerant-execution-task-descriptor-storage-max-memory</code></td><td>Maximum <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> of memory to be used to store task descriptors for fault-tolerant queries on coordinator. Extra memory is needed to be able to reschedule tasks in case of a failure.</td><td>(JVM heap size * 0.15)</td><td>Only <code>TASK</code></td></tr><tr><td><code>fault-tolerant-execution-max-partition-count</code></td><td>Maximum number of partitions to use for distributed joins and aggregations, similar in function to the <code>query.max-hash-partition-count</code> <a class="" href="/trino-docs/admin/properties-query-management">query management property</a>. It is not recommended to increase this property value higher than the default of <code>50</code>, which may result in instability and poor performance. May be overridden for the current session with the <code>fault_tolerant_execution_max_partition_count</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session property</a>.</td><td><code>50</code></td><td>Only <code>TASK</code></td></tr><tr><td><code>fault-tolerant-execution-min-partition-count</code></td><td>Minimum number of partitions to use for distributed joins and aggregations, similar in function to the <code>query.min-hash-partition-count</code> <a class="" href="/trino-docs/admin/properties-query-management">query management property</a>. May be overridden for the current session with the <code>fault_tolerant_execution_min_partition_count</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session property</a>.</td><td><code>4</code></td><td>Only <code>TASK</code></td></tr><tr><td><code>fault-tolerant-execution-min-partition-count-for-write</code></td><td>Minimum number of partitions to use for distributed joins and aggregations in write queries, similar in function to the <code>query.min-hash-partition-count-for-write</code> <a class="" href="/trino-docs/admin/properties-query-management">query management property</a>. May be overridden for the current session with the <code>fault_tolerant_execution_min_partition_count_for_write</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session property</a>.</td><td><code>50</code></td><td>Only <code>TASK</code></td></tr><tr><td><code>max-tasks-waiting-for-node-per-query</code></td><td>Allow for up to configured number of tasks to wait for node allocation per query, before pausing scheduling for other tasks from this query.</td><td><code>50</code></td><td>Only <code>TASK</code></td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="fte-exchange-manager">Exchange manager<a href="#fte-exchange-manager" class="hash-link" aria-label="Direct link to Exchange manager" title="Direct link to Exchange manager" translate="no">​</a></h2>
+<p>Exchange spooling is responsible for storing and managing spooled data for
+fault-tolerant execution. You can configure a filesystem-based exchange manager
+that stores spooled data in a specified location, such as <a href="#fte-exchange-aws-s3" class="">AWS S3</a> and S3-compatible systems, <a href="#fte-exchange-azure-blob" class="">Azure Blob Storage</a>, <a href="#fte-exchange-gcs" class="">Google Cloud Storage</a>,
+or <a href="#fte-exchange-hdfs" class="">HDFS</a>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuration-1">Configuration<a href="#configuration-1" class="hash-link" aria-label="Direct link to Configuration" title="Direct link to Configuration" translate="no">​</a></h3>
+<p>To configure an exchange manager, create a new
+<code>etc/exchange-manager.properties</code> configuration file on the coordinator and
+all worker nodes. In this file, set the <code>exchange-manager.name</code> configuration
+property to <code>filesystem</code> or <code>hdfs</code>, and set additional configuration properties as needed
+for your storage solution.</p>
+<p>You can also specify the location of the exchange manager configuration file
+in <code>config.properties</code> with the <code>exchange-manager.config-file</code> property.
+When this property is set, Trino loads the exchange manager configuration
+from the specified path instead of the default <code>etc/exchange-manager.properties</code>.</p>
+<p>The following table lists the available configuration properties for
+<code>exchange-manager.properties</code>, their default values, and which file systems
+the property may be configured for:</p>
+<p><strong>Exchange manager configuration properties</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th><th>Default value</th><th>Supported filesystem</th></tr></thead><tbody><tr><td><code>exchange.base-directories</code></td><td>Comma-separated list of URI locations that the exchange manager uses to store spooling data.</td><td></td><td>Any</td></tr><tr><td><code>exchange.max-page-storage-size</code></td><td>Max storage size of a page written to a sink, including the page itself and its size.</td><td><code>16MB</code></td><td>Any</td></tr><tr><td><code>exchange.sink-buffer-pool-min-size</code></td><td>The minimum buffer pool size for an exchange sink. The larger the buffer pool size, the larger the write parallelism and memory usage.</td><td><code>10</code></td><td>Any</td></tr><tr><td><code>exchange.sink-buffers-per-partition</code></td><td>The number of buffers per partition in the buffer pool. The larger the buffer pool size, the larger the write parallelism and memory usage.</td><td><code>2</code></td><td>Any</td></tr><tr><td><code>exchange.sink-max-file-size</code></td><td>Max <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> of files written by exchange sinks.</td><td><code>1GB</code></td><td>Any</td></tr><tr><td><code>exchange.source-concurrent-readers</code></td><td>Number of concurrent readers to read from spooling storage. The larger the number of concurrent readers, the larger the read parallelism and memory usage.</td><td><code>4</code></td><td>Any</td></tr><tr><td><code>exchange.s3.aws-access-key</code></td><td>AWS access key to use. Required for a connection to AWS S3 and GCS, can be ignored for other S3 storage systems.</td><td></td><td>AWS S3, GCS</td></tr><tr><td><code>exchange.s3.aws-secret-key</code></td><td>AWS secret key to use. Required for a connection to AWS S3 and GCS, can be ignored for other S3 storage systems.</td><td></td><td>AWS S3, GCS</td></tr><tr><td><code>exchange.s3.iam-role</code></td><td>IAM role to assume.</td><td></td><td>AWS S3, GCS</td></tr><tr><td><code>exchange.s3.external-id</code></td><td>External ID for the IAM role trust policy.</td><td></td><td>AWS S3, GCS</td></tr><tr><td><code>exchange.s3.region</code></td><td>Region of the S3 bucket.</td><td></td><td>AWS S3, GCS</td></tr><tr><td><code>exchange.s3.endpoint</code></td><td>S3 storage endpoint server if using an S3-compatible storage system that is not AWS. If using AWS S3, this can be ignored unless HTTPS is required by an AWS bucket policy. If TLS is required, then this property can be set to an https endpoint such as <code>https://s3.us-east-1.amazonaws.com</code>. Note that TLS is redundant due to <a href="#fte-encryption" class="">automatic encryption</a>. If using GCS, set it to <code>https://storage.googleapis.com</code>.</td><td></td><td>Any S3-compatible storage</td></tr><tr><td><code>exchange.s3.max-error-retries</code></td><td>Maximum number of times the exchange manager&#x27;s S3 client should retry a request.</td><td><code>10</code></td><td>Any S3-compatible storage</td></tr><tr><td><code>exchange.s3.path-style-access</code></td><td>Enables using <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html#path-style-access" target="_blank" rel="noopener noreferrer" class="">path-style access</a> for all requests to S3.</td><td><code>false</code></td><td>Any S3-compatible storage</td></tr><tr><td><code>exchange.s3.upload.part-size</code></td><td>Part <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> for S3 multi-part upload.</td><td><code>5MB</code></td><td>Any S3-compatible storage</td></tr><tr><td><code>exchange.gcs.json-key-file-path</code></td><td>Path to the JSON file that contains your Google Cloud Platform service account key. Not to be set together with <code>exchange.gcs.json-key</code></td><td></td><td>GCS</td></tr><tr><td><code>exchange.gcs.json-key</code></td><td>Your Google Cloud Platform service account key in JSON format. Not to be set together with <code>exchange.gcs.json-key-file-path</code></td><td></td><td>GCS</td></tr><tr><td><code>exchange.azure.endpoint</code></td><td>Azure blob endpoint used to access the spooling container. Not to be set together with <code>exchange.azure.connection-string</code></td><td></td><td>Azure Blob Storage</td></tr><tr><td><code>exchange.azure.connection-string</code></td><td>Connection string used to access the spooling container. Not to be set together with <code>exchange.azure.endpoint</code></td><td></td><td>Azure Blob Storage</td></tr><tr><td><code>exchange.azure.block-size</code></td><td>Block <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> for Azure block blob parallel upload.</td><td><code>4MB</code></td><td>Azure Blob Storage</td></tr><tr><td><code>exchange.azure.max-error-retries</code></td><td>Maximum number of times the exchange manager&#x27;s Azure client should retry a request.</td><td><code>10</code></td><td>Azure Blob Storage</td></tr><tr><td><code>exchange.azure.max-connections</code></td><td>Maximum number of concurrent HTTP connections in the Azure storage connection pool.</td><td><code>500</code></td><td>Azure Blob Storage</td></tr><tr><td><code>exchange.azure.pending-acquire-max-count</code></td><td>Maximum number of pending connection acquire requests in the Azure storage connection pool.</td><td><code>1000</code></td><td>Azure Blob Storage</td></tr><tr><td><code>exchange.azure.connection-acquisition-timeout</code></td><td>Maximum time to wait for a connection to be acquired from the Azure storage connection pool.</td><td><code>1m</code></td><td>Azure Blob Storage</td></tr><tr><td><code>exchange.hdfs.block-size</code></td><td>Block <a class="" href="/trino-docs/admin/properties#prop-type-data-size">data size</a> for HDFS storage.</td><td><code>4MB</code></td><td>HDFS</td></tr><tr><td><code>exchange.hdfs.skip-directory-scheme-validation</code></td><td>Skip directory scheme validation to support Hadoop-compatible file system.</td><td>false</td><td>HDFS</td></tr><tr><td><code>hdfs.config.resources</code></td><td>Comma-separated list of paths to HDFS configuration files, for example <code>/etc/hdfs-site.xml</code>. The files must exist on all nodes in the Trino cluster.</td><td></td><td>HDFS</td></tr></tbody></table>
+<p>To reduce the exchange manager&#x27;s overall I/O load, the
+<a class="" href="/trino-docs/admin/properties-exchange#prop-exchange-compression-codec">Exchange properties</a> configuration property defaults to <code>LZ4</code>. In
+addition, <a class="" href="/trino-docs/admin/properties-general#file-compression">General properties</a> is automatically performed and some details can
+be configured.</p>
+<p>It is also recommended to configure a bucket lifecycle rule to automatically
+expire abandoned objects in the event of a node crash.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="fte-exchange-aws-s3">AWS S3<a href="#fte-exchange-aws-s3" class="hash-link" aria-label="Direct link to AWS S3" title="Direct link to AWS S3" translate="no">​</a></h4>
+<p>The following example <code>exchange-manager.properties</code> configuration specifies an
+AWS S3 bucket as the spooling storage destination. Note that the destination
+does not have to be in AWS, but can be any S3-compatible storage system. While
+the exchange manager is designed to support S3-compatible storage systems, only
+AWS S3 and MinIO are tested for compatibility. For other storage systems,
+perform your own testing and consult your vendor for more information.</p>
+<div class="language-properties codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-properties codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange-manager.name</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">filesystem</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.base-directories</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">s3://exchange-spooling-bucket</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.s3.region</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">us-west-1</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.s3.aws-access-key</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">example-access-key</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.s3.aws-secret-key</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">example-secret-key</span><br></div></code></pre></div></div>
+<p>You can configure multiple S3 buckets for the exchange manager to distribute
+spooled data across buckets, reducing the I/O load on any one bucket. If a query
+fails with the error message
+&quot;software.amazon.awssdk.services.s3.model.S3Exception: Please reduce your
+request rate&quot;, this indicates that the workload is I/O intensive, and you should
+specify multiple S3 buckets in <code>exchange.base-directories</code> to balance the
+load:</p>
+<div class="language-properties codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-properties codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.base-directories</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">s3://exchange-spooling-bucket-1,s3://exchange-spooling-bucket-2</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="fte-exchange-azure-blob">Azure Blob Storage<a href="#fte-exchange-azure-blob" class="hash-link" aria-label="Direct link to Azure Blob Storage" title="Direct link to Azure Blob Storage" translate="no">​</a></h4>
+<p>The following example <code>exchange-manager.properties</code> configuration specifies an
+Azure Blob Storage container as the spooling storage destination. You must use
+Azure Blob Storage, not Azure Data Lake Storage or any other hierarchical
+storage option in Azure.</p>
+<div class="language-properties codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-properties codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange-manager.name</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">filesystem</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.base-directories</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">abfs://container_name@account_name.dfs.core.windows.net</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.azure.connection-string</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">connection-string</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="fte-exchange-gcs">Google Cloud Storage<a href="#fte-exchange-gcs" class="hash-link" aria-label="Direct link to Google Cloud Storage" title="Direct link to Google Cloud Storage" translate="no">​</a></h4>
+<p>To enable exchange spooling on GCS in Trino, change the request endpoint to the
+<code>https://storage.googleapis.com</code> Google storage URI, and configure your AWS
+access/secret keys to use the GCS HMAC keys. If you deploy Trino on GCP, you
+must either create a service account with access to your spooling bucket or
+configure the key path to your GCS credential file.</p>
+<p>For more information on GCS&#x27;s S3 compatibility, refer to the <a href="https://cloud.google.com/storage/docs/aws-simple-migration" target="_blank" rel="noopener noreferrer" class="">Google Cloud
+documentation on S3 migration</a>.</p>
+<p>The following example <code>exchange-manager.properties</code> configuration specifies a
+GCS bucket as the spooling storage destination.</p>
+<div class="language-properties codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-properties codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange-manager.name</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">filesystem</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.base-directories</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">gs://exchange-spooling-bucket</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.s3.region</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">us-west-1</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.s3.aws-access-key</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">example-access-key</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.s3.aws-secret-key</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">example-secret-key</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.s3.endpoint</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">https://storage.googleapis.com</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.gcs.json-key-file-path</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">/path/to/gcs_keyfile.json</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="fte-exchange-hdfs">HDFS<a href="#fte-exchange-hdfs" class="hash-link" aria-label="Direct link to HDFS" title="Direct link to HDFS" translate="no">​</a></h4>
+<p>The following <code>exchange-manager.properties</code> configuration example specifies HDFS
+as the spooling storage destination.</p>
+<div class="language-properties codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-properties codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange-manager.name</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">hdfs</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.base-directories</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">hadoop-master:9000/exchange-spooling-directory</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">hdfs.config.resources</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">/usr/lib/hadoop/etc/hadoop/core-site.xml</span><br></div></code></pre></div></div>
+<p>When you want use Hadoop-compatible file system as the spooling storage location,
+you should enable <code>exchange.hdfs.skip-directory-scheme-validation</code> in <code>exchange-manager.properties</code>
+when configure <code>exchange.base-directories</code> with a specific scheme instead of <code>hdfs</code> and the following steps
+may be necessary.</p>
+<ol>
+<li class="">Configure the <code>AbstractFileSystem</code> implementation in <code>core-site.xml</code>.</li>
+<li class="">Add the relevant client JAR files into the directory <code>${Trino_HOME}/plugin/exchange-hdfs</code>
+on all Trino cluster nodes.</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="fte-exchange-local-filesystem">Local filesystem storage<a href="#fte-exchange-local-filesystem" class="hash-link" aria-label="Direct link to Local filesystem storage" title="Direct link to Local filesystem storage" translate="no">​</a></h4>
+<p>The following example <code>exchange-manager.properties</code> configuration specifies a
+local directory, <code>/tmp/trino-exchange-manager</code>, as the spooling storage
+destination.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>It is only recommended to use a local filesystem for exchange in standalone,
+non-production clusters. A local directory can only be used for exchange in
+a distributed cluster if the exchange directory is shared and accessible
+from all nodes.</p></div></div>
+<div class="language-properties codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-properties codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange-manager.name</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">filesystem</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">exchange.base-directories</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">/tmp/trino-exchange-manager</span><br></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="adaptive-plan-optimizations">Adaptive plan optimizations<a href="#adaptive-plan-optimizations" class="hash-link" aria-label="Direct link to Adaptive plan optimizations" title="Direct link to Adaptive plan optimizations" translate="no">​</a></h2>
+<p>Fault-tolerant execution mode offers several adaptive plan
+optimizations that adjust query execution plans dynamically based on
+runtime statistics. For more information, see
+<a class="" href="/trino-docs/optimizer/adaptive-plan-optimizations">Adaptive plan optimizations</a>.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/trinodb/trino/edit/master/docs/docusaurus/docs/admin/fault-tolerant-execution.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/trino-docs/admin/graceful-shutdown"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Graceful shutdown</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/trino-docs/admin/event-listeners-http"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">HTTP event listener</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#configuration" class="table-of-contents__link toc-highlight">Configuration</a></li><li><a href="#fte-retry-policy" class="table-of-contents__link toc-highlight">Retry policy</a><ul><li><a href="#query" class="table-of-contents__link toc-highlight">QUERY</a></li><li><a href="#task" class="table-of-contents__link toc-highlight">TASK</a></li></ul></li><li><a href="#fte-encryption" class="table-of-contents__link toc-highlight">Encryption</a></li><li><a href="#advanced-configuration" class="table-of-contents__link toc-highlight">Advanced configuration</a><ul><li><a href="#retry-limits" class="table-of-contents__link toc-highlight">Retry limits</a></li><li><a href="#task-sizing" class="table-of-contents__link toc-highlight">Task sizing</a></li><li><a href="#node-allocation" class="table-of-contents__link toc-highlight">Node allocation</a></li><li><a href="#other-tuning" class="table-of-contents__link toc-highlight">Other tuning</a></li></ul></li><li><a href="#fte-exchange-manager" class="table-of-contents__link toc-highlight">Exchange manager</a><ul><li><a href="#configuration-1" class="table-of-contents__link toc-highlight">Configuration</a></li></ul></li><li><a href="#adaptive-plan-optimizations" class="table-of-contents__link toc-highlight">Adaptive plan optimizations</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

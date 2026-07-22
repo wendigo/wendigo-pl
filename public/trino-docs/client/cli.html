@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-client/cli" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Command line interface | Trino documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://trino.io/trino-docs/client/cli"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Command line interface | Trino documentation"><meta data-rh="true" name="description" content="The Trino CLI provides a terminal-based, interactive shell for running"><meta data-rh="true" property="og:description" content="The Trino CLI provides a terminal-based, interactive shell for running"><link data-rh="true" rel="icon" href="/trino-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://trino.io/trino-docs/client/cli"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/client/cli" hreflang="en"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/client/cli" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Clients","item":"https://trino.io/trino-docs/client"},{"@type":"ListItem","position":2,"name":"Command line interface","item":"https://trino.io/trino-docs/client/cli"}]}</script><link rel="stylesheet" href="/trino-docs/assets/css/styles.48b9a735.css">
+<script src="/trino-docs/assets/js/runtime~main.cae17608.js" defer="defer"></script>
+<script src="/trino-docs/assets/js/main.51814df2.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/trino-docs/img/trino.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/trino-docs/"><div class="navbar__logo"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Trino dev Documentation</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">dev</a><ul class="dropdown__menu"><li><a href="https://trino.io/docs/" target="_blank" rel="noopener noreferrer" class="dropdown__link">All versions<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><a href="https://github.com/trinodb/trino" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/"><span class="linkLabel_WmDU">Home</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/overview"><span class="categoryLinkLabel_W154">Overview</span></a><button aria-label="Expand sidebar category &#x27;Overview&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/installation"><span class="categoryLinkLabel_W154">Installation</span></a><button aria-label="Expand sidebar category &#x27;Installation&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/trino-docs/client"><span class="categoryLinkLabel_W154">Clients</span></a><button aria-label="Collapse sidebar category &#x27;Clients&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/client/client-protocol"><span class="linkLabel_WmDU">Client protocol</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/trino-docs/client/cli"><span class="linkLabel_WmDU">Command line interface</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/client/jdbc"><span class="linkLabel_WmDU">JDBC driver</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/security"><span class="categoryLinkLabel_W154">Security</span></a><button aria-label="Expand sidebar category &#x27;Security&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/admin"><span class="categoryLinkLabel_W154">Administration</span></a><button aria-label="Expand sidebar category &#x27;Administration&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/optimizer"><span class="categoryLinkLabel_W154">Query optimizer</span></a><button aria-label="Expand sidebar category &#x27;Query optimizer&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/connector"><span class="categoryLinkLabel_W154">Connectors</span></a><button aria-label="Expand sidebar category &#x27;Connectors&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/object-storage"><span class="categoryLinkLabel_W154">Object storage</span></a><button aria-label="Expand sidebar category &#x27;Object storage&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/functions"><span class="categoryLinkLabel_W154">Functions and operators</span></a><button aria-label="Expand sidebar category &#x27;Functions and operators&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/udf"><span class="categoryLinkLabel_W154">User-defined functions</span></a><button aria-label="Expand sidebar category &#x27;User-defined functions&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/language"><span class="categoryLinkLabel_W154">SQL language</span></a><button aria-label="Expand sidebar category &#x27;SQL language&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/sql"><span class="categoryLinkLabel_W154">SQL statement syntax</span></a><button aria-label="Expand sidebar category &#x27;SQL statement syntax&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/develop"><span class="categoryLinkLabel_W154">Developer guide</span></a><button aria-label="Expand sidebar category &#x27;Developer guide&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/glossary"><span class="linkLabel_WmDU">Glossary</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/appendix"><span class="categoryLinkLabel_W154">Appendix</span></a><button aria-label="Expand sidebar category &#x27;Appendix&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/release"><span class="categoryLinkLabel_W154">Release notes</span></a><button aria-label="Expand sidebar category &#x27;Release notes&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/trino-docs/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/trino-docs/client"><span>Clients</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Command line interface</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Command line interface</h1></header>
+<p>The Trino CLI provides a terminal-based, interactive shell for running
+queries. The CLI is a
+<a href="http://skife.org/java/unix/2011/06/20/really_executable_jars.html" target="_blank" rel="noopener noreferrer" class="">self-executing</a>
+JAR file, which means it acts like a normal UNIX executable.</p>
+<p>The CLI uses the <a class="" href="/trino-docs/client/client-protocol">Client protocol</a> over HTTP/HTTPS to communicate with
+the coordinator on the cluster.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="requirements">Requirements<a href="#requirements" class="hash-link" aria-label="Direct link to Requirements" title="Direct link to Requirements" translate="no">​</a></h2>
+<p>The Trino CLI has the following requirements:</p>
+<ul>
+<li class="">Java version 11 or higher available on the path. Java 22 or higher is
+recommended for improved decompression performance.</li>
+<li class="">Network access over HTTP/HTTPS to the coordinator of the Trino cluster.</li>
+<li class="">Network access to the configured object storage, if the
+<a href="#cli-spooling-protocol" class="">Command line interface</a> is enabled.</li>
+</ul>
+<p>The CLI version should be identical to the version of the Trino cluster, or
+newer. Older versions typically work, but only a subset is regularly tested.
+Versions before 350 are not supported.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-installation">Installation<a href="#cli-installation" class="hash-link" aria-label="Direct link to Installation" title="Direct link to Installation" translate="no">​</a></h2>
+<p>Download {download_gh}<code>cli</code>, rename it to <code>trino</code>, make it executable with
+<code>chmod +x</code>, and run it to show the version of the CLI:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">./trino --version</span><br></div></code></pre></div></div>
+<p>Run the CLI with <code>--help</code> or <code>-h</code> to see all available options.</p>
+<p>Windows users, and users unable to execute the preceding steps, can use the
+equivalent <code>java</code> command with the <code>-jar</code> option to run the CLI, and show
+the version:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">java -jar trino-cli-*-executable.jar --version</span><br></div></code></pre></div></div>
+<p>The syntax can be used for the examples in the following sections. In addition,
+using the <code>java</code> command allows you to add configuration options for the Java
+runtime with the <code>-D</code> syntax. You can use this for debugging and
+troubleshooting, such as when <a href="#cli-kerberos-debug" class="">specifying additional Kerberos debug options</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="running-the-cli">Running the CLI<a href="#running-the-cli" class="hash-link" aria-label="Direct link to Running the CLI" title="Direct link to Running the CLI" translate="no">​</a></h2>
+<p>The minimal command to start the CLI in interactive mode specifies the URL of
+the coordinator in the Trino cluster:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">./trino http://trino.example.com:8080</span><br></div></code></pre></div></div>
+<p>If successful, you will get a prompt to execute commands. Use the <code>help</code>
+command to see a list of supported commands. Use the <code>clear</code> command to clear
+the terminal. To stop and exit the CLI, run <code>exit</code> or <code>quit</code>.:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">trino&gt; help</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Supported commands:</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">QUIT</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">EXIT</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">CLEAR</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">EXPLAIN [ ( option [, ...] ) ] &lt;query&gt;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    options: FORMAT { TEXT | GRAPHVIZ | JSON }</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">            TYPE { LOGICAL | DISTRIBUTED | VALIDATE | IO }</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">DESCRIBE &lt;table&gt;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">SHOW COLUMNS FROM &lt;table&gt;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">SHOW FUNCTIONS</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">SHOW CATALOGS [LIKE &lt;pattern&gt;]</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">SHOW SCHEMAS [FROM &lt;catalog&gt;] [LIKE &lt;pattern&gt;]</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">SHOW TABLES [FROM &lt;schema&gt;] [LIKE &lt;pattern&gt;]</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">USE [&lt;catalog&gt;.]&lt;schema&gt;</span><br></div></code></pre></div></div>
+<p>You can now run SQL statements. After processing, the CLI will show results and
+statistics.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">trino&gt; SELECT count(*) FROM tpch.tiny.nation;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">_col0</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-------</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    25</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">(1 row)</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Query 20220324_213359_00007_w6hbk, FINISHED, 1 node</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Splits: 13 total, 13 done (100.00%)</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">2.92 [25 rows, 0B] [8 rows/s, 0B/s]</span><br></div></code></pre></div></div>
+<p>As part of starting the CLI, you can set the default catalog and schema. This
+allows you to query tables directly without specifying catalog and schema.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">./trino http://trino.example.com:8080/tpch/tiny</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">trino:tiny&gt; SHOW TABLES;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  Table</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">----------</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">customer</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">lineitem</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">nation</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">orders</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">part</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">partsupp</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">region</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">supplier</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">(8 rows)</span><br></div></code></pre></div></div>
+<p>You can also set the default catalog and schema with the <a class="" href="/trino-docs/sql/use">USE</a>
+statement.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">trino&gt; USE tpch.tiny;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">USE</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">trino:tiny&gt;</span><br></div></code></pre></div></div>
+<p>Many other options are available to further configure the CLI in interactive
+mode:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td><code>--catalog</code></td><td>Sets the default catalog. Optionally also use <code>--schema</code> to set the default schema. You can change the default catalog and default schema with<a class="" href="/trino-docs/sql/use">USE</a>.</td></tr><tr><td><code>--client-info</code></td><td>Adds arbitrary text as extra information about the client.</td></tr><tr><td><code>--client-request-timeout</code></td><td>Sets the duration for query processing, after which, the client request is terminated. Defaults to <code>2m</code>.</td></tr><tr><td><code>--client-tags</code></td><td>Adds extra tags information about the client and the CLI user. Separate multiple tags with commas. The tags can be used as input for <a class="" href="/trino-docs/admin/resource-groups">Resource groups</a>.</td></tr><tr><td><code>--debug</code></td><td>Enables display of debug information during CLI usage for <a href="#cli-troubleshooting" class="">Command line interface</a>. Displays more information about query processing statistics.</td></tr><tr><td><code>--decimal-data-size</code></td><td>Show data size and rate in base 10 (kB, MB, etc.) rather than the default base 2 (KiB, MiB, etc.).</td></tr><tr><td><code>--disable-auto-suggestion</code></td><td>Disables autocomplete suggestions.</td></tr><tr><td><code>--disable-compression</code></td><td>Disables compression of query results.</td></tr><tr><td><code>--editing-mode</code></td><td>Sets key bindings in the CLI to be compatible with VI or EMACS editors. Defaults to <code>EMACS</code>.</td></tr><tr><td><code>--extra-credential</code></td><td>Extra credentials (property can be used multiple times; format is key=value)</td></tr><tr><td><code>--extra-header</code></td><td>HTTP header to add to the authenticated HTTP requests (property can be used multiple times; format is key=value).</td></tr><tr><td><code>--http-proxy</code></td><td>Configures the URL of the HTTP proxy to connect to Trino.</td></tr><tr><td><code>--history-file</code></td><td>Path to the <a href="#cli-history" class="">history file</a>. Defaults to <code>~/.trino_history</code>.</td></tr><tr><td><code>--network-logging</code></td><td>Configures the level of detail provided for network logging of the CLI. Defaults to <code>NONE</code>, other options are <code>BASIC</code>, <code>HEADERS</code>, or <code>BODY</code>.</td></tr><tr><td><code>--output-format-interactive=&lt;format&gt;</code></td><td>Specify the <a href="#cli-output-format" class="">format</a> to use for printing query results. Defaults to <code>ALIGNED</code>.</td></tr><tr><td><code>--pager=&lt;pager&gt;</code></td><td>Path to the pager program used to display the query results. Set to an empty value to completely disable pagination. Defaults to <code>less</code> with a carefully selected set of options.</td></tr><tr><td><code>--no-progress</code></td><td>Do not show query processing progress.</td></tr><tr><td><code>--path</code></td><td>Set the default <a class="" href="/trino-docs/sql/set-path">SQL path</a> for the session. Useful for setting a catalog and schema location for <a class="" href="/trino-docs/udf/introduction#udf-catalog">Introduction to UDFs</a>.</td></tr><tr><td><code>--password</code></td><td>Prompts for a password. Use if your Trino server requires password authentication. You can set the <code>TRINO_PASSWORD</code> environment variable with the password value to avoid the prompt. For more information, see <a href="#cli-username-password-auth" class="">Command line interface</a>.</td></tr><tr><td><code>--schema</code></td><td>Sets the default schema. Must be combined with <code>--catalog</code>. You can change the default catalog and default schema with <a class="" href="/trino-docs/sql/use">USE</a>.</td></tr><tr><td><code>--server</code></td><td>The HTTP/HTTPS address and port of the Trino coordinator. The port must be set to the port the Trino coordinator is listening for connections on. Port 80 for HTTP and Port 443 for HTTPS can be omitted. Trino server location defaults to <code>http://localhost:8080</code>. Can only be set if URL is not specified.</td></tr><tr><td><code>--session</code></td><td>Sets one or more <a class="" href="/trino-docs/sql/set-session#session-properties-definition">session properties</a>. Property can be used multiple times with the format <code>session_property_name=value</code>.</td></tr><tr><td><code>--socks-proxy</code></td><td>Configures the URL of the SOCKS proxy to connect to Trino.</td></tr><tr><td><code>--source</code></td><td>Specifies the name of the application or source connecting to Trino. Defaults to <code>trino-cli</code>. The value can be used as input for <a class="" href="/trino-docs/admin/resource-groups">Resource groups</a>.</td></tr><tr><td><code>--theme=&lt;theme&gt;</code></td><td>Selects the color theme for styled output. Options are <code>AUTO</code>, <code>DARK</code>, <code>LIGHT</code>, <code>NONE</code>, <code>SOLARIZED_DARK</code>, <code>SOLARIZED_LIGHT</code>, <code>DRACULA</code>, <code>NORD</code>, or <code>GRUVBOX_DARK</code>. Defaults to <code>AUTO</code>, which uses <code>DARK</code> for an interactive terminal and disables color for a non-interactive terminal or when the <code>NO_COLOR</code> environment variable is set. An explicit value other than <code>AUTO</code> always applies, even when <code>NO_COLOR</code> is set. Use <code>NONE</code> to disable color. The named schemes use 24-bit color, which is approximated on terminals without truecolor support.</td></tr><tr><td><code>--timezone</code></td><td>Sets the time zone for the session using the <a href="https://wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="noopener noreferrer" class="">time zone name</a>. Defaults to the timezone set on your workstation.</td></tr><tr><td><code>--user</code></td><td>Sets the username for <a href="#cli-username-password-auth" class="">Command line interface</a>. Defaults to your operating system username. You can override the default username, if your cluster uses a different username or authentication mechanism.</td></tr></tbody></table>
+<p>Most of the options can also be set as parameters in the URL. This means
+a JDBC URL can be used in the CLI after removing the <code>jdbc:</code> prefix.
+However, the same parameter may not be specified using both methods.
+See <a class="" href="/trino-docs/client/jdbc">the JDBC driver parameter reference</a>
+to find out URL parameter names. For example:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">./trino &#x27;https://trino.example.com?SSL=true&amp;SSLVerification=FULL&amp;clientInfo=extra&#x27;</span><br></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-tls">TLS/HTTPS<a href="#cli-tls" class="hash-link" aria-label="Direct link to TLS/HTTPS" title="Direct link to TLS/HTTPS" translate="no">​</a></h2>
+<p>Trino is typically available with an HTTPS URL. This means that all network
+traffic between the CLI and Trino uses TLS. <a class="" href="/trino-docs/security/tls">TLS configuration</a> is common, since it is a requirement for <a href="#cli-authentication" class="">any authentication</a>.</p>
+<p>Use the HTTPS URL to connect to the server:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">./trino https://trino.example.com</span><br></div></code></pre></div></div>
+<p>The recommended TLS implementation is to use a globally trusted certificate. In
+this case, no other options are necessary, since the JVM running the CLI
+recognizes these certificates.</p>
+<p>Use the options from the following table to further configure TLS and
+certificate usage:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td><code>--insecure</code></td><td>Skip certificate validation when connecting with TLS/HTTPS (should only be used for debugging).</td></tr><tr><td><code>--keystore-path</code></td><td>The location of the Java Keystore file that contains the certificate of the server to connect with TLS.</td></tr><tr><td><code>--keystore-password</code></td><td>The password for the keystore. This must match the password you specified when creating the keystore.</td></tr><tr><td><code>--keystore-type</code></td><td>Determined by the keystore file format. The default keystore type is JKS. This advanced option is only necessary if you use a custom Java Cryptography Architecture (JCA) provider implementation.</td></tr><tr><td><code>--use-system-keystore</code></td><td>Use a client certificate obtained from the system keystore of the operating system. Windows and macOS are supported. For other operating systems, the default Java keystore is used. The keystore type can be overridden using <code>--keystore-type</code>.</td></tr><tr><td><code>--truststore-password</code></td><td>The password for the truststore. This must match the password you specified when creating the truststore.</td></tr><tr><td><code>--truststore-path</code></td><td>The location of the Java truststore file that will be used to secure TLS.</td></tr><tr><td><code>--truststore-type</code></td><td>Determined by the truststore file format. The default keystore type is JKS. This advanced option is only necessary if you use a custom Java Cryptography Architecture (JCA) provider implementation.</td></tr><tr><td><code>--use-system-truststore</code></td><td>Verify the server certificate using the system truststore of the operating system. Windows and macOS are supported. For other operating systems, the default Java truststore is used. The truststore type can be overridden using <code>--truststore-type</code>.</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-authentication">Authentication<a href="#cli-authentication" class="hash-link" aria-label="Direct link to Authentication" title="Direct link to Authentication" translate="no">​</a></h2>
+<p>The Trino CLI supports many <a class="" href="/trino-docs/security/authentication-types">Authentication types</a> detailed in
+the following sections:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-username-password-auth">Username and password authentication<a href="#cli-username-password-auth" class="hash-link" aria-label="Direct link to Username and password authentication" title="Direct link to Username and password authentication" translate="no">​</a></h3>
+<p>Username and password authentication is typically configured in a cluster using
+the <code>PASSWORD</code> <a class="" href="/trino-docs/security/authentication-types">authentication type</a>,
+for example with <a class="" href="/trino-docs/security/ldap">LDAP authentication</a> or <a class="" href="/trino-docs/security/password-file">Password file authentication</a>.</p>
+<p>The following code example connects to the server, establishes your username,
+and prompts the CLI for your password:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">./trino https://trino.example.com --user=exampleusername --password</span><br></div></code></pre></div></div>
+<p>Alternatively, set the password as the value of the <code>TRINO_PASSWORD</code>
+environment variable. Typically use single quotes to avoid problems with
+special characters such as <code>$</code>:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">export TRINO_PASSWORD=&#x27;LongSecurePassword123!@#&#x27;</span><br></div></code></pre></div></div>
+<p>If the <code>TRINO_PASSWORD</code> environment variable is set, you are not prompted
+to provide a password to connect with the CLI.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">./trino https://trino.example.com --user=exampleusername --password</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-external-sso-auth">External authentication - SSO<a href="#cli-external-sso-auth" class="hash-link" aria-label="Direct link to External authentication - SSO" title="Direct link to External authentication - SSO" translate="no">​</a></h3>
+<p>Use the <code>--external-authentication</code> option for browser-based SSO
+authentication, as detailed in <a class="" href="/trino-docs/security/oauth2">OAuth 2.0 authentication</a>. With this configuration,
+the CLI displays a URL that you must open in a web browser for authentication.</p>
+<p>The detailed behavior is as follows:</p>
+<ul>
+<li class="">Start the CLI with the <code>--external-authentication</code> option and execute a
+query.</li>
+<li class="">The CLI starts and connects to Trino.</li>
+<li class="">A message appears in the CLI directing you to open a browser with a specified
+URL when the first query is submitted.</li>
+<li class="">Open the URL in a browser and follow through the authentication process.</li>
+<li class="">The CLI automatically receives a token.</li>
+<li class="">When successfully authenticated in the browser, the CLI proceeds to execute
+the query.</li>
+<li class="">Further queries in the CLI session do not require additional logins while the
+authentication token remains valid. Token expiration depends on the external
+authentication type configuration.</li>
+<li class="">Expired tokens force you to log in again.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-certificate-auth">Certificate authentication<a href="#cli-certificate-auth" class="hash-link" aria-label="Direct link to Certificate authentication" title="Direct link to Certificate authentication" translate="no">​</a></h3>
+<p>Use the following CLI arguments to connect to a cluster that uses
+<a class="" href="/trino-docs/security/certificate">certificate authentication</a>.</p>
+<p><strong>CLI options for certificate authentication</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td><code>--keystore-path=&lt;path&gt;</code></td><td>Absolute or relative path to a <a class="" href="/trino-docs/security/inspect-pem">PEM</a> or <a class="" href="/trino-docs/security/inspect-jks">JKS</a> file, which must contain a certificate that is trusted by the Trino cluster you are connecting to.</td></tr><tr><td><code>--keystore-password=&lt;password&gt;</code></td><td>Only required if the keystore has a password.</td></tr></tbody></table>
+<p>The truststore related options are independent of client certificate
+authentication with the CLI; instead, they control the client&#x27;s trust of the
+server&#x27;s certificate.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-jwt-auth">JWT authentication<a href="#cli-jwt-auth" class="hash-link" aria-label="Direct link to JWT authentication" title="Direct link to JWT authentication" translate="no">​</a></h3>
+<p>To access a Trino cluster configured to use <a class="" href="/trino-docs/security/jwt">JWT authentication</a>, use the
+<code>--access-token=&lt;token&gt;</code> option to pass a JWT to the server.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-kerberos-auth">Kerberos authentication<a href="#cli-kerberos-auth" class="hash-link" aria-label="Direct link to Kerberos authentication" title="Direct link to Kerberos authentication" translate="no">​</a></h3>
+<p>The Trino CLI can connect to a Trino cluster that has <a class="" href="/trino-docs/security/kerberos">Kerberos authentication</a>
+enabled.</p>
+<p>Invoking the CLI with Kerberos support enabled requires a number of additional
+command line options. You also need the <a class="" href="/trino-docs/security/kerberos#server-kerberos-principals">Kerberos configuration files</a> for your user on the machine running the CLI. The
+simplest way to invoke the CLI is with a wrapper script:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">#!/bin/bash</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">./trino \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --server https://trino.example.com \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --krb5-config-path /etc/krb5.conf \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --krb5-principal someuser@EXAMPLE.COM \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --krb5-keytab-path /home/someuser/someuser.keytab \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --krb5-remote-service-name trino</span><br></div></code></pre></div></div>
+<p>When using Kerberos authentication, access to the Trino coordinator must be
+through <a class="" href="/trino-docs/security/tls">TLS and HTTPS</a>.</p>
+<p>The following table lists the available options for Kerberos authentication:</p>
+<p><strong>CLI options for Kerberos authentication</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td><code>--krb5-config-path</code></td><td>Path to Kerberos configuration files.</td></tr><tr><td><code>--krb5-credential-cache-path</code></td><td>Kerberos credential cache path.</td></tr><tr><td><code>--krb5-disable-remote-service-hostname-canonicalization</code></td><td>Disable service hostname canonicalization using the DNS reverse lookup.</td></tr><tr><td><code>--krb5-keytab-path</code></td><td>The location of the keytab that can be used to authenticate the principal specified by <code>--krb5-principal</code>.</td></tr><tr><td><code>--krb5-principal</code></td><td>The principal to use when authenticating to the coordinator.</td></tr><tr><td><code>--krb5-remote-service-name</code></td><td>Trino coordinator Kerberos service name.</td></tr><tr><td><code>--krb5-service-principal-pattern</code></td><td>Remote kerberos service principal pattern. Defaults to <code>${SERVICE}@${HOST}</code>.</td></tr></tbody></table>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-kerberos-debug">Additional Kerberos debugging information<a href="#cli-kerberos-debug" class="hash-link" aria-label="Direct link to Additional Kerberos debugging information" title="Direct link to Additional Kerberos debugging information" translate="no">​</a></h4>
+<p>You can enable additional Kerberos debugging information for the Trino CLI
+process by passing <code>-Dsun.security.krb5.debug=true</code>,
+<code>-Dtrino.client.debugKerberos=true</code>, and
+<code>-Djava.security.debug=gssloginconfig,configfile,configparser,logincontext</code>
+as a JVM argument when <a href="#cli-installation" class="">starting the CLI process</a>:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">java \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  -Dsun.security.krb5.debug=true \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  -Djava.security.debug=gssloginconfig,configfile,configparser,logincontext \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  -Dtrino.client.debugKerberos=true \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  -jar trino-cli-*-executable.jar \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --server https://trino.example.com \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --krb5-config-path /etc/krb5.conf \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --krb5-principal someuser@EXAMPLE.COM \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --krb5-keytab-path /home/someuser/someuser.keytab \</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  --krb5-remote-service-name trino</span><br></div></code></pre></div></div>
+<p>For help with interpreting Kerberos debugging messages, see <a class="" href="/trino-docs/security/kerberos#kerberos-debug">additional resources</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="pagination">Pagination<a href="#pagination" class="hash-link" aria-label="Direct link to Pagination" title="Direct link to Pagination" translate="no">​</a></h2>
+<p>By default, the results of queries are paginated using the <code>less</code> program
+which is configured with a carefully selected set of options. This behavior
+can be overridden by setting the <code>--pager</code> option or
+the <code>TRINO_PAGER</code> environment variable to the name of a different program
+such as <code>more</code> or <a href="https://github.com/okbob/pspg" target="_blank" rel="noopener noreferrer" class="">pspg</a>,
+or it can be set to an empty value to completely disable pagination.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-history">History<a href="#cli-history" class="hash-link" aria-label="Direct link to History" title="Direct link to History" translate="no">​</a></h2>
+<p>The CLI keeps a history of your previously used commands. You can access your
+history by scrolling or searching. Use the up and down arrows to scroll and
+<kbd>Control</kbd>+<kbd>S</kbd> and <kbd>Control</kbd>+<kbd>R</kbd> to search. To execute a query again,
+press <kbd>Enter</kbd>.</p>
+<p>By default, you can locate the Trino history file in <code>~/.trino_history</code>.
+Use the <code>--history-file</code> option or the <code>TRINO_HISTORY_FILE</code> environment variable
+to change the default.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="auto-suggestion">Auto suggestion<a href="#auto-suggestion" class="hash-link" aria-label="Direct link to Auto suggestion" title="Direct link to Auto suggestion" translate="no">​</a></h3>
+<p>The CLI generates autocomplete suggestions based on command history.</p>
+<p>Press <kbd>→</kbd> to accept the suggestion and replace the current command line
+buffer. Press <kbd>Ctrl</kbd>+<kbd>→</kbd> (<kbd>Option</kbd>+<kbd>→</kbd> on Mac) to accept only the next
+keyword. Continue typing to reject the suggestion.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuration-file">Configuration file<a href="#configuration-file" class="hash-link" aria-label="Direct link to Configuration file" title="Direct link to Configuration file" translate="no">​</a></h2>
+<p>The CLI can read default values for all options from a file. It uses the first
+file found from the ordered list of locations:</p>
+<ul>
+<li class="">File path set as value of the <code>TRINO_CONFIG</code> environment variable.</li>
+<li class=""><code>.trino_config</code> in the current users home directory.</li>
+<li class=""><code>$XDG_CONFIG_HOME/trino/config</code>.</li>
+</ul>
+<p>For example, you could create separate configuration files with different
+authentication options, like <code>kerberos-cli.properties</code> and <code>ldap-cli.properties</code>.
+Assuming they&#x27;re located in the current directory, you can set the
+<code>TRINO_CONFIG</code> environment variable for a single invocation of the CLI by
+adding it before the <code>trino</code> command:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">TRINO_CONFIG=kerberos-cli.properties trino https://first-cluster.example.com:8443</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">TRINO_CONFIG=ldap-cli.properties trino https://second-cluster.example.com:8443</span><br></div></code></pre></div></div>
+<p>In the preceding example, the default configuration files are not used.</p>
+<p>You can use all supported options without the <code>--</code> prefix in the configuration
+properties file. Options that normally don&#x27;t take an argument are boolean, so
+set them to either <code>true</code> or <code>false</code>. For example:</p>
+<div class="language-properties codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-properties codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token key attr-name" style="color:rgb(255, 203, 107)">output-format-interactive</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">AUTO</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">timezone</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">Europe/Warsaw</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">user</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">trino-client</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">network-logging</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">BASIC</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token key attr-name" style="color:rgb(255, 203, 107)">krb5-disable-remote-service-hostname-canonicalization</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">true</span><br></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="batch-mode">Batch mode<a href="#batch-mode" class="hash-link" aria-label="Direct link to Batch mode" title="Direct link to Batch mode" translate="no">​</a></h2>
+<p>Running the Trino CLI with the <code>--execute</code>, <code>--file</code>, or passing queries to
+the standard input uses the batch (non-interactive) mode. In this mode
+the CLI does not report progress, and exits after processing the supplied
+queries. Results are printed in <code>CSV</code> format by default. You can configure
+other formats and redirect the output to a file.</p>
+<p>The following options are available to further configure the CLI in batch
+mode:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td><code>--execute=&lt;execute&gt;</code></td><td>Execute specified statements and exit.</td></tr><tr><td><code>-f</code>, <code>--file=&lt;file&gt;</code></td><td>Execute statements from file and exit.</td></tr><tr><td><code>--ignore-errors</code></td><td>Continue processing in batch mode when an error occurs. Default is to exit immediately.</td></tr><tr><td><code>--output-format=&lt;format&gt;</code></td><td>Specify the <a href="#cli-output-format" class="">format</a> to use for printing query results. Defaults to <code>CSV</code>.</td></tr><tr><td><code>--progress</code></td><td>Show query progress in batch mode. It does not affect the output, which, for example can be safely redirected to a file.</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="examples">Examples<a href="#examples" class="hash-link" aria-label="Direct link to Examples" title="Direct link to Examples" translate="no">​</a></h3>
+<p>Consider the following command run as shown, or with the
+<code>--output-format=CSV</code> option, which is the default for non-interactive usage:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">trino --execute &#x27;SELECT nationkey, name, regionkey FROM tpch.sf1.nation LIMIT 3&#x27;</span><br></div></code></pre></div></div>
+<p>The output is as follows:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">&quot;0&quot;,&quot;ALGERIA&quot;,&quot;0&quot;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">&quot;1&quot;,&quot;ARGENTINA&quot;,&quot;1&quot;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">&quot;2&quot;,&quot;BRAZIL&quot;,&quot;1&quot;</span><br></div></code></pre></div></div>
+<p>The output with the <code>--output-format=JSON</code> option:</p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token punctuation" style="color:rgb(199, 146, 234)">{</span><span class="token property">&quot;nationkey&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token number" style="color:rgb(247, 140, 108)">0</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token property">&quot;name&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token string" style="color:rgb(195, 232, 141)">&quot;ALGERIA&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token property">&quot;regionkey&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token number" style="color:rgb(247, 140, 108)">0</span><span class="token punctuation" style="color:rgb(199, 146, 234)">}</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token punctuation" style="color:rgb(199, 146, 234)">{</span><span class="token property">&quot;nationkey&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token number" style="color:rgb(247, 140, 108)">1</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token property">&quot;name&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token string" style="color:rgb(195, 232, 141)">&quot;ARGENTINA&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token property">&quot;regionkey&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token number" style="color:rgb(247, 140, 108)">1</span><span class="token punctuation" style="color:rgb(199, 146, 234)">}</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token punctuation" style="color:rgb(199, 146, 234)">{</span><span class="token property">&quot;nationkey&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token number" style="color:rgb(247, 140, 108)">2</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token property">&quot;name&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token string" style="color:rgb(195, 232, 141)">&quot;BRAZIL&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token property">&quot;regionkey&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token number" style="color:rgb(247, 140, 108)">1</span><span class="token punctuation" style="color:rgb(199, 146, 234)">}</span><br></div></code></pre></div></div>
+<p>The output with the <code>--output-format=ALIGNED</code> option, which is the default
+for interactive usage:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">nationkey |   name    | regionkey</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">----------+-----------+----------</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        0 | ALGERIA   |         0</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        1 | ARGENTINA |         1</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">        2 | BRAZIL    |         1</span><br></div></code></pre></div></div>
+<p>The output with the <code>--output-format=VERTICAL</code> option:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">-[ RECORD 1 ]--------</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">nationkey | 0</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">name      | ALGERIA</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">regionkey | 0</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-[ RECORD 2 ]--------</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">nationkey | 1</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">name      | ARGENTINA</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">regionkey | 1</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-[ RECORD 3 ]--------</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">nationkey | 2</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">name      | BRAZIL</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">regionkey | 1</span><br></div></code></pre></div></div>
+<p>The preceding command with <code>--output-format=NULL</code> produces no output.
+However, if you have an error in the query, such as incorrectly using
+<code>region</code> instead of <code>regionkey</code>, the command has an exit status of 1
+and displays an error message (which is unaffected by the output format):</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Query 20200707_170726_00030_2iup9 failed: line 1:25: Column &#x27;region&#x27; cannot be resolved</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">SELECT nationkey, name, region FROM tpch.sf1.nation LIMIT 3</span><br></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-spooling-protocol">Spooling protocol<a href="#cli-spooling-protocol" class="hash-link" aria-label="Direct link to Spooling protocol" title="Direct link to Spooling protocol" translate="no">​</a></h2>
+<p>The Trino CLI automatically uses the spooling protocol to improve throughput
+for client interactions with higher data transfer demands, if the
+<a class="" href="/trino-docs/client/client-protocol#protocol-spooling">Client protocol</a> is configured on the cluster.</p>
+<p>Optionally use the <code>--encoding</code> option to configure a different desired
+encoding, compared to the default on the cluster. The available values are
+<code>json+zstd</code> (recommended) for JSON with Zstandard compression, and <code>json+lz4</code>
+for JSON with LZ4 compression, and <code>json</code> for uncompressed JSON.</p>
+<p>The CLI process must have network access to the spooling object storage.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-output-format">Output formats<a href="#cli-output-format" class="hash-link" aria-label="Direct link to Output formats" title="Direct link to Output formats" translate="no">​</a></h2>
+<p>The Trino CLI provides the options <code>--output-format</code>
+and <code>--output-format-interactive</code> to control how the output is displayed.
+The available options shown in the following table must be entered
+in uppercase. The default value is <code>ALIGNED</code> in interactive mode,
+and <code>CSV</code> in non-interactive mode.</p>
+<p><strong>Output format options</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td><code>CSV</code></td><td>Comma-separated values, each value quoted. No header row.</td></tr><tr><td><code>CSV_HEADER</code></td><td>Comma-separated values, quoted with header row.</td></tr><tr><td><code>CSV_UNQUOTED</code></td><td>Comma-separated values without quotes.</td></tr><tr><td><code>CSV_HEADER_UNQUOTED</code></td><td>Comma-separated values with header row but no quotes.</td></tr><tr><td><code>TSV</code></td><td>Tab-separated values.</td></tr><tr><td><code>TSV_HEADER</code></td><td>Tab-separated values with header row.</td></tr><tr><td><code>JSON</code></td><td>Output rows emitted as JSON objects with name-value pairs.</td></tr><tr><td><code>ALIGNED</code></td><td>Output emitted as an ASCII character table with values.</td></tr><tr><td><code>VERTICAL</code></td><td>Output emitted as record-oriented top-down lines, one per value.</td></tr><tr><td><code>AUTO</code></td><td>Same as <code>ALIGNED</code> if output would fit the current terminal width, and <code>VERTICAL</code> otherwise.</td></tr><tr><td><code>MARKDOWN</code></td><td>Output emitted as a Markdown table.</td></tr><tr><td><code>NULL</code></td><td>Suppresses normal query results. This can be useful during development to test a query&#x27;s shell return code or to see whether it results in error messages.</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-troubleshooting">Troubleshooting<a href="#cli-troubleshooting" class="hash-link" aria-label="Direct link to Troubleshooting" title="Direct link to Troubleshooting" translate="no">​</a></h2>
+<p>If something goes wrong, you see an error message:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">$ trino</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">trino&gt; select count(*) from tpch.tiny.nations;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Query 20200804_201646_00003_f5f6c failed: line 1:22: Table &#x27;tpch.tiny.nations&#x27; does not exist</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">select count(*) from tpch.tiny.nations</span><br></div></code></pre></div></div>
+<p>To view debug information, including the stack trace for failures, use the
+<code>--debug</code> option:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">$ trino --debug</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">trino&gt; select count(*) from tpch.tiny.nations;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Query 20200804_201629_00002_f5f6c failed: line 1:22: Table &#x27;tpch.tiny.nations&#x27; does not exist</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">io.trino.spi.TrinoException: line 1:22: Table &#x27;tpch.tiny.nations&#x27; does not exist</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">at io.trino.sql.analyzer.SemanticExceptions.semanticException(SemanticExceptions.java:48)</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">at io.trino.sql.analyzer.SemanticExceptions.semanticException(SemanticExceptions.java:43)</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">...</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">at java.base/java.lang.Thread.run(Thread.java:834)</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">select count(*) from tpch.tiny.nations</span><br></div></code></pre></div></div></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/trinodb/trino/edit/master/docs/docusaurus/docs/client/cli.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/trino-docs/client/client-protocol"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Client protocol</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/trino-docs/client/jdbc"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">JDBC driver</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#requirements" class="table-of-contents__link toc-highlight">Requirements</a></li><li><a href="#cli-installation" class="table-of-contents__link toc-highlight">Installation</a></li><li><a href="#running-the-cli" class="table-of-contents__link toc-highlight">Running the CLI</a></li><li><a href="#cli-tls" class="table-of-contents__link toc-highlight">TLS/HTTPS</a></li><li><a href="#cli-authentication" class="table-of-contents__link toc-highlight">Authentication</a><ul><li><a href="#cli-username-password-auth" class="table-of-contents__link toc-highlight">Username and password authentication</a></li><li><a href="#cli-external-sso-auth" class="table-of-contents__link toc-highlight">External authentication - SSO</a></li><li><a href="#cli-certificate-auth" class="table-of-contents__link toc-highlight">Certificate authentication</a></li><li><a href="#cli-jwt-auth" class="table-of-contents__link toc-highlight">JWT authentication</a></li><li><a href="#cli-kerberos-auth" class="table-of-contents__link toc-highlight">Kerberos authentication</a></li></ul></li><li><a href="#pagination" class="table-of-contents__link toc-highlight">Pagination</a></li><li><a href="#cli-history" class="table-of-contents__link toc-highlight">History</a><ul><li><a href="#auto-suggestion" class="table-of-contents__link toc-highlight">Auto suggestion</a></li></ul></li><li><a href="#configuration-file" class="table-of-contents__link toc-highlight">Configuration file</a></li><li><a href="#batch-mode" class="table-of-contents__link toc-highlight">Batch mode</a><ul><li><a href="#examples" class="table-of-contents__link toc-highlight">Examples</a></li></ul></li><li><a href="#cli-spooling-protocol" class="table-of-contents__link toc-highlight">Spooling protocol</a></li><li><a href="#cli-output-format" class="table-of-contents__link toc-highlight">Output formats</a></li><li><a href="#cli-troubleshooting" class="table-of-contents__link toc-highlight">Troubleshooting</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-functions/geospatial" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Geospatial functions | Trino documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://trino.io/trino-docs/functions/geospatial"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Geospatial functions | Trino documentation"><meta data-rh="true" name="description" content="Trino Geospatial functions that begin with the ST_ prefix support the SQL/MM specification"><meta data-rh="true" property="og:description" content="Trino Geospatial functions that begin with the ST_ prefix support the SQL/MM specification"><link data-rh="true" rel="icon" href="/trino-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://trino.io/trino-docs/functions/geospatial"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/functions/geospatial" hreflang="en"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/functions/geospatial" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Functions and operators","item":"https://trino.io/trino-docs/functions"},{"@type":"ListItem","position":2,"name":"Geospatial","item":"https://trino.io/trino-docs/functions/geospatial"}]}</script><link rel="stylesheet" href="/trino-docs/assets/css/styles.48b9a735.css">
+<script src="/trino-docs/assets/js/runtime~main.cae17608.js" defer="defer"></script>
+<script src="/trino-docs/assets/js/main.51814df2.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/trino-docs/img/trino.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/trino-docs/"><div class="navbar__logo"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Trino dev Documentation</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">dev</a><ul class="dropdown__menu"><li><a href="https://trino.io/docs/" target="_blank" rel="noopener noreferrer" class="dropdown__link">All versions<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><a href="https://github.com/trinodb/trino" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/"><span class="linkLabel_WmDU">Home</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/overview"><span class="categoryLinkLabel_W154">Overview</span></a><button aria-label="Expand sidebar category &#x27;Overview&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/installation"><span class="categoryLinkLabel_W154">Installation</span></a><button aria-label="Expand sidebar category &#x27;Installation&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/client"><span class="categoryLinkLabel_W154">Clients</span></a><button aria-label="Expand sidebar category &#x27;Clients&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/security"><span class="categoryLinkLabel_W154">Security</span></a><button aria-label="Expand sidebar category &#x27;Security&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/admin"><span class="categoryLinkLabel_W154">Administration</span></a><button aria-label="Expand sidebar category &#x27;Administration&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/optimizer"><span class="categoryLinkLabel_W154">Query optimizer</span></a><button aria-label="Expand sidebar category &#x27;Query optimizer&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/connector"><span class="categoryLinkLabel_W154">Connectors</span></a><button aria-label="Expand sidebar category &#x27;Connectors&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/object-storage"><span class="categoryLinkLabel_W154">Object storage</span></a><button aria-label="Expand sidebar category &#x27;Object storage&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/trino-docs/functions"><span class="categoryLinkLabel_W154">Functions and operators</span></a><button aria-label="Collapse sidebar category &#x27;Functions and operators&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/list"><span class="linkLabel_WmDU">List of functions and operators</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/list-by-topic"><span class="linkLabel_WmDU">List of functions by topic</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/aggregate"><span class="linkLabel_WmDU">Aggregate</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/ai"><span class="linkLabel_WmDU">AI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/array"><span class="linkLabel_WmDU">Array</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/binary"><span class="linkLabel_WmDU">Binary</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/bitwise"><span class="linkLabel_WmDU">Bitwise</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/color"><span class="linkLabel_WmDU">Color</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/comparison"><span class="linkLabel_WmDU">Comparison</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/conditional"><span class="linkLabel_WmDU">Conditional</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/conversion"><span class="linkLabel_WmDU">Conversion</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/datasketches"><span class="linkLabel_WmDU">DataSketches</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/datetime"><span class="linkLabel_WmDU">Date and time</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/decimal"><span class="linkLabel_WmDU">Decimal</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/trino-docs/functions/geospatial"><span class="linkLabel_WmDU">Geospatial</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/hyperloglog"><span class="linkLabel_WmDU">HyperLogLog</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/ipaddress"><span class="linkLabel_WmDU">IP Address</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/json"><span class="linkLabel_WmDU">JSON</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/lambda"><span class="linkLabel_WmDU">Lambda</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/logical"><span class="linkLabel_WmDU">Logical</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/ml"><span class="linkLabel_WmDU">Machine learning</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/map"><span class="linkLabel_WmDU">Map</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/math"><span class="linkLabel_WmDU">Math</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/qdigest"><span class="linkLabel_WmDU">Quantile digest</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/row"><span class="linkLabel_WmDU">Row</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/regexp"><span class="linkLabel_WmDU">Regular expression</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/session"><span class="linkLabel_WmDU">Session</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/setdigest"><span class="linkLabel_WmDU">Set Digest</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/string"><span class="linkLabel_WmDU">String</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/system"><span class="linkLabel_WmDU">System</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/table"><span class="linkLabel_WmDU">Table</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/teradata"><span class="linkLabel_WmDU">Teradata</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/tdigest"><span class="linkLabel_WmDU">T-Digest</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/url"><span class="linkLabel_WmDU">URL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/uuid"><span class="linkLabel_WmDU">UUID</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/variant"><span class="linkLabel_WmDU">Variant</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/functions/window"><span class="linkLabel_WmDU">Window</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/udf"><span class="categoryLinkLabel_W154">User-defined functions</span></a><button aria-label="Expand sidebar category &#x27;User-defined functions&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/language"><span class="categoryLinkLabel_W154">SQL language</span></a><button aria-label="Expand sidebar category &#x27;SQL language&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/sql"><span class="categoryLinkLabel_W154">SQL statement syntax</span></a><button aria-label="Expand sidebar category &#x27;SQL statement syntax&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/develop"><span class="categoryLinkLabel_W154">Developer guide</span></a><button aria-label="Expand sidebar category &#x27;Developer guide&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/glossary"><span class="linkLabel_WmDU">Glossary</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/appendix"><span class="categoryLinkLabel_W154">Appendix</span></a><button aria-label="Expand sidebar category &#x27;Appendix&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/release"><span class="categoryLinkLabel_W154">Release notes</span></a><button aria-label="Expand sidebar category &#x27;Release notes&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/trino-docs/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/trino-docs/functions"><span>Functions and operators</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Geospatial</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Geospatial functions</h1></header>
+<p>Trino Geospatial functions that begin with the <code>ST_</code> prefix support the SQL/MM specification
+and are compliant with the Open Geospatial Consortium’s (OGC) OpenGIS Specifications.
+As such, many Trino Geospatial functions require, or more accurately, assume that
+geometries that are operated on are both simple and valid. For example, it does not
+make sense to calculate the area of a polygon that has a hole defined outside the
+polygon, or to construct a polygon from a non-simple boundary line.</p>
+<p>Trino Geospatial functions support Well-Known Text (WKT), Extended Well-Known
+Text (EWKT), Well-Known Binary (WKB), and Extended Well-Known Binary (EWKB)
+forms of spatial objects:</p>
+<ul>
+<li class=""><code>POINT (0 0)</code></li>
+<li class=""><code>LINESTRING (0 0, 1 1, 1 2)</code></li>
+<li class=""><code>POLYGON ((0 0, 4 0, 4 4, 0 4, 0 0), (1 1, 2 1, 2 2, 1 2, 1 1))</code></li>
+<li class=""><code>MULTIPOINT (0 0, 1 2)</code></li>
+<li class=""><code>MULTILINESTRING ((0 0, 1 1, 1 2), (2 3, 3 2, 5 4))</code></li>
+<li class=""><code>MULTIPOLYGON (((0 0, 4 0, 4 4, 0 4, 0 0), (1 1, 2 1, 2 2, 1 2, 1 1)), ((-1 -1, -1 -2, -2 -2, -2 -1, -1 -1)))</code></li>
+<li class=""><code>GEOMETRYCOLLECTION (POINT(2 3), LINESTRING (2 3, 3 4))</code></li>
+</ul>
+<p>Use <a href="#st_geometryfromtext" class=""><code>ST_GeometryFromText()</code></a> and <a href="#st_geomfrombinary" class=""><code>ST_GeomFromBinary()</code></a> functions to create geometry
+objects from WKT or WKB.</p>
+<p>The <code>SphericalGeography</code> type provides native support for spatial features represented on
+<em>geographic</em> coordinates (sometimes called <em>geodetic</em> coordinates, or <em>lat/lon</em>, or <em>lon/lat</em>).
+Geographic coordinates are spherical coordinates expressed in angular units (degrees).</p>
+<p>The basis for the <code>Geometry</code> type is a plane. The shortest path between two points on the plane is a
+straight line. That means calculations on geometries (areas, distances, lengths, intersections, etc.)
+can be calculated using cartesian mathematics and straight line vectors.
+Geometry values can include Z coordinates and SRID metadata. Trino preserves Z
+coordinates and SRIDs in geometry values and supported format round trips, but
+geometry calculations are planar and use the X and Y coordinates.
+Functions that compare two <code>Geometry</code> values require matching SRIDs when both
+values have non-zero SRIDs. An SRID of <code>0</code> means the SRID is unspecified.</p>
+<p>The basis for the <code>SphericalGeography</code> type is a sphere. The shortest path between two points on the
+sphere is a great circle arc. That means that calculations on geographies (areas, distances,
+lengths, intersections, etc.) must be calculated on the sphere, using more complicated mathematics.
+More accurate measurements that take the actual spheroidal shape of the world into account are not
+supported.</p>
+<p>For <code>Geometry</code>, values returned by measurement functions such as
+<a href="#st_distance" class=""><code>ST_Distance()</code></a>, <a href="#st_length" class=""><code>ST_Length()</code></a>, and <a href="#st_area" class=""><code>ST_Area()</code></a> are in the units of
+the input coordinates. For <code>SphericalGeography</code>, distance and length are in
+meters and area is in square meters.</p>
+<p>Use <a href="#to_spherical_geography" class=""><code>to_spherical_geography()</code></a> function to convert a geometry object to geography object.</p>
+<p>For example, <code>ST_Distance(ST_Point(-71.0882, 42.3607), ST_Point(-74.1197, 40.6976))</code> returns
+<code>3.4577</code> in the unit of the passed-in values on the Euclidean plane, while
+<code>ST_Distance(to_spherical_geography(ST_Point(-71.0882, 42.3607)), to_spherical_geography(ST_Point(-74.1197, 40.6976)))</code>
+returns <code>312822.179</code> in meters.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="constructors">Constructors<a href="#constructors" class="hash-link" aria-label="Direct link to Constructors" title="Direct link to Constructors" translate="no">​</a></h2>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_asbinary"><code>ST_AsBinary(Geometry) -&gt; varbinary</code><a href="#st_asbinary" class="hash-link" aria-label="Direct link to st_asbinary" title="Direct link to st_asbinary" translate="no">​</a></h4>
+<p>Returns the ISO WKB representation of the geometry. WKB output does not carry SRID
+metadata, so reading this value back with <a href="#st_geomfrombinary" class=""><code>ST_GeomFromBinary()</code></a> produces a
+geometry with SRID <code>0</code>. Z coordinates are preserved when present. Use
+<a href="#st_asewkb" class=""><code>ST_AsEWKB()</code></a> when SRID metadata must be preserved.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_asewkb"><code>ST_AsEWKB(Geometry) -&gt; varbinary</code><a href="#st_asewkb" class="hash-link" aria-label="Direct link to st_asewkb" title="Direct link to st_asewkb" translate="no">​</a></h4>
+<p>Returns the EWKB representation of the geometry, including the SRID when it is
+non-zero.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_astext"><code>ST_AsText(Geometry) -&gt; varchar</code><a href="#st_astext" class="hash-link" aria-label="Direct link to st_astext" title="Direct link to st_astext" translate="no">​</a></h4>
+<p>Returns the WKT representation of the geometry. For empty geometries,
+<code>ST_AsText(ST_LineFromText(&#x27;LINESTRING EMPTY&#x27;))</code> will produce <code>&#x27;MULTILINESTRING EMPTY&#x27;</code>
+and <code>ST_AsText(ST_Polygon(&#x27;POLYGON EMPTY&#x27;))</code> will produce <code>&#x27;MULTIPOLYGON EMPTY&#x27;</code>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_asewkt"><code>ST_AsEWKT(Geometry) -&gt; varchar</code><a href="#st_asewkt" class="hash-link" aria-label="Direct link to st_asewkt" title="Direct link to st_asewkt" translate="no">​</a></h4>
+<p>Returns the EWKT representation of the geometry, including the SRID when it is
+non-zero.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_geometryfromtext"><code>ST_GeometryFromText(varchar) -&gt; Geometry</code><a href="#st_geometryfromtext" class="hash-link" aria-label="Direct link to st_geometryfromtext" title="Direct link to st_geometryfromtext" translate="no">​</a></h4>
+<p>Returns a geometry type object from WKT representation.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_geomfrombinary"><code>ST_GeomFromBinary(varbinary) -&gt; Geometry</code><a href="#st_geomfrombinary" class="hash-link" aria-label="Direct link to st_geomfrombinary" title="Direct link to st_geomfrombinary" translate="no">​</a></h4>
+<p>Returns a geometry type object from a WKB or EWKB representation. WKB inputs
+produce geometries with SRID <code>0</code>; EWKB inputs preserve the encoded SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_geomfromewkt"><code>ST_GeomFromEWKT(varchar) -&gt; Geometry</code><a href="#st_geomfromewkt" class="hash-link" aria-label="Direct link to st_geomfromewkt" title="Direct link to st_geomfromewkt" translate="no">​</a></h4>
+<p>Returns a geometry type object from EWKT representation. EWKT accepts WKT with
+an optional <code>SRID=&lt;srid&gt;;</code> prefix.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_geomfromkml"><code>ST_GeomFromKML(varchar) -&gt; Geometry</code><a href="#st_geomfromkml" class="hash-link" aria-label="Direct link to st_geomfromkml" title="Direct link to st_geomfromkml" translate="no">​</a></h4>
+<p>Returns a geometry type object from KML representation.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="geometry_from_hadoop_shape"><code>geometry_from_hadoop_shape(varbinary) -&gt; Geometry</code><a href="#geometry_from_hadoop_shape" class="hash-link" aria-label="Direct link to geometry_from_hadoop_shape" title="Direct link to geometry_from_hadoop_shape" translate="no">​</a></h4>
+<p>Returns a geometry type object from Spatial Framework for Hadoop representation.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_linefromtext"><code>ST_LineFromText(varchar) -&gt; LineString</code><a href="#st_linefromtext" class="hash-link" aria-label="Direct link to st_linefromtext" title="Direct link to st_linefromtext" translate="no">​</a></h4>
+<p>Returns a geometry type linestring object from WKT representation.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_linestring"><code>ST_LineString(array(Point)) -&gt; LineString</code><a href="#st_linestring" class="hash-link" aria-label="Direct link to st_linestring" title="Direct link to st_linestring" translate="no">​</a></h4>
+<p>Returns a LineString formed from an array of points. If there are fewer than
+two non-empty points in the input array, an empty LineString will be returned.
+Array elements must not be <code>NULL</code> or have the same X, Y, and Z coordinates as
+the previous element.
+The returned geometry may not be simple, e.g. may self-intersect or may contain
+duplicate vertexes depending on the input. The returned geometry preserves input
+Z coordinates and uses the non-zero SRID from the input points. Inputs with
+different non-zero SRIDs fail.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_collect"><code>ST_Collect(array(Geometry)) -&gt; Geometry</code><a href="#st_collect" class="hash-link" aria-label="Direct link to st_collect" title="Direct link to st_collect" translate="no">​</a></h4>
+<p>Returns a multi-geometry or geometry collection containing the input geometries.
+<code>NULL</code> array elements are ignored. The returned geometry preserves input Z
+coordinates and uses the non-zero SRID from the input geometries. Inputs with
+different non-zero SRIDs fail.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_makeline"><code>ST_MakeLine(array(Geometry)) -&gt; LineString</code><a href="#st_makeline" class="hash-link" aria-label="Direct link to st_makeline" title="Direct link to st_makeline" translate="no">​</a></h4>
+<p>Returns a LineString formed from an array of points or linestrings. Empty
+geometries are ignored, and a coordinate with the same X, Y, and Z values at the
+boundary of two inputs is included only once. Array elements must not be <code>NULL</code>.
+The returned geometry preserves input Z coordinates and uses the non-zero SRID
+from the input geometries. Inputs with different non-zero SRIDs fail.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_makepolygon"><code>ST_MakePolygon(LineString) -&gt; Polygon</code><a href="#st_makepolygon" class="hash-link" aria-label="Direct link to st_makepolygon" title="Direct link to st_makepolygon" translate="no">​</a></h4>
+<p>Returns a polygon formed from a closed LineString shell. The returned geometry
+preserves the input Z coordinates and SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_makepolygonlinestring-arraylinestring---polygon"><code>ST_MakePolygon(LineString, array(LineString)) -&gt; Polygon</code><a href="#st_makepolygonlinestring-arraylinestring---polygon" class="hash-link" aria-label="Direct link to st_makepolygonlinestring-arraylinestring---polygon" title="Direct link to st_makepolygonlinestring-arraylinestring---polygon" translate="no">​</a></h4>
+<p>Returns a polygon formed from a closed LineString shell and an array of closed
+LineString holes. Empty holes are ignored. The returned geometry preserves input
+Z coordinates and uses the non-zero SRID from the shell and holes. Inputs with
+different non-zero SRIDs fail.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_multipoint"><code>ST_MultiPoint(array(Point)) -&gt; MultiPoint</code><a href="#st_multipoint" class="hash-link" aria-label="Direct link to st_multipoint" title="Direct link to st_multipoint" translate="no">​</a></h4>
+<p>Returns a MultiPoint geometry object formed from the specified points. Returns <code>NULL</code> if input array is empty.
+Array elements must not be <code>NULL</code> or empty.
+The returned geometry may not be simple and may contain duplicate points if input array has duplicates.
+The returned geometry preserves input Z coordinates and uses the non-zero SRID
+from the input points. Inputs with different non-zero SRIDs fail.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_multi"><code>ST_Multi(Geometry) -&gt; Geometry</code><a href="#st_multi" class="hash-link" aria-label="Direct link to st_multi" title="Direct link to st_multi" translate="no">​</a></h4>
+<p>Returns a multi-geometry for a Point, LineString, or Polygon input. Multi-geometry
+and geometry collection inputs are returned unchanged. The returned geometry
+preserves the input Z coordinates and SRID. Empty Point, LineString, and Polygon
+inputs produce an empty multi-geometry of the corresponding type.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_point"><code>ST_Point(x: double, y: double) -&gt; Point</code><a href="#st_point" class="hash-link" aria-label="Direct link to st_point" title="Direct link to st_point" translate="no">​</a></h4>
+<p>Returns a geometry type point object with the given coordinate values.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_pointx-double-y-double-srid-integer---point"><code>ST_Point(x: double, y: double, srid: integer) -&gt; Point</code><a href="#st_pointx-double-y-double-srid-integer---point" class="hash-link" aria-label="Direct link to st_pointx-double-y-double-srid-integer---point" title="Direct link to st_pointx-double-y-double-srid-integer---point" translate="no">​</a></h4>
+<p>Returns a two-dimensional point with the given X and Y coordinate values and
+SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_pointx-double-y-double-z-double---point"><code>ST_Point(x: double, y: double, z: double) -&gt; Point</code><a href="#st_pointx-double-y-double-z-double---point" class="hash-link" aria-label="Direct link to st_pointx-double-y-double-z-double---point" title="Direct link to st_pointx-double-y-double-z-double---point" translate="no">​</a></h4>
+<p>Returns a geometry type point object with the given X, Y, and Z coordinate
+values. The Z coordinate must be finite.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>The SQL type of the third argument selects between the three-argument
+overloads. An <code>INTEGER</code> third argument is interpreted as the SRID, while a
+<code>DOUBLE</code> third argument is interpreted as the Z coordinate. Cast the argument
+explicitly when necessary. For example, use <code>ST_Point(1, 2, DOUBLE &#x27;3&#x27;)</code> to
+construct a point with Z coordinate <code>3</code>.</p></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_pointx-double-y-double-z-double-srid-integer---point"><code>ST_Point(x: double, y: double, z: double, srid: integer) -&gt; Point</code><a href="#st_pointx-double-y-double-z-double-srid-integer---point" class="hash-link" aria-label="Direct link to st_pointx-double-y-double-z-double-srid-integer---point" title="Direct link to st_pointx-double-y-double-z-double-srid-integer---point" translate="no">​</a></h4>
+<p>Returns a geometry type point object with the given X, Y, and Z coordinate
+values and SRID. The Z coordinate must be finite.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_polygon"><code>ST_Polygon(varchar) -&gt; Polygon</code><a href="#st_polygon" class="hash-link" aria-label="Direct link to st_polygon" title="Direct link to st_polygon" translate="no">​</a></h4>
+<p>Returns a geometry type polygon object from WKT representation.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="to_spherical_geography"><code>to_spherical_geography(Geometry) -&gt; SphericalGeography</code><a href="#to_spherical_geography" class="hash-link" aria-label="Direct link to to_spherical_geography" title="Direct link to to_spherical_geography" translate="no">​</a></h4>
+<p>Converts a Geometry object to a SphericalGeography object on the sphere of the Earth&#x27;s radius. This
+function is only applicable to <code>POINT</code>, <code>MULTIPOINT</code>, <code>LINESTRING</code>, <code>MULTILINESTRING</code>,
+<code>POLYGON</code>, <code>MULTIPOLYGON</code> geometries defined in 2D space, or <code>GEOMETRYCOLLECTION</code> of such
+geometries. For each point of the input geometry, it verifies that <code>point.x</code> is within
+<code>[-180.0, 180.0]</code> and <code>point.y</code> is within <code>[-90.0, 90.0]</code>, and uses them as (longitude, latitude)
+degrees to construct the shape of the <code>SphericalGeography</code> result. SRID and Z
+metadata are not part of the <code>SphericalGeography</code> value.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="to_geometry"><code>to_geometry(SphericalGeography) -&gt; Geometry</code><a href="#to_geometry" class="hash-link" aria-label="Direct link to to_geometry" title="Direct link to to_geometry" translate="no">​</a></h4>
+<p>Converts a SphericalGeography object to a Geometry object.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="relationship-tests">Relationship tests<a href="#relationship-tests" class="hash-link" aria-label="Direct link to Relationship tests" title="Direct link to Relationship tests" translate="no">​</a></h2>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_contains"><code>ST_Contains(geometryA: Geometry, geometryB: Geometry) -&gt; boolean</code><a href="#st_contains" class="hash-link" aria-label="Direct link to st_contains" title="Direct link to st_contains" translate="no">​</a></h4>
+<p>Returns <code>true</code> if and only if no points of the second geometry lie in the exterior
+of the first geometry, and at least one point of the interior of the first geometry
+lies in the interior of the second geometry.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_crosses"><code>ST_Crosses(first: Geometry, second: Geometry) -&gt; boolean</code><a href="#st_crosses" class="hash-link" aria-label="Direct link to st_crosses" title="Direct link to st_crosses" translate="no">​</a></h4>
+<p>Returns <code>true</code> if the supplied geometries have some, but not all, interior points in common.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_disjoint"><code>ST_Disjoint(first: Geometry, second: Geometry) -&gt; boolean</code><a href="#st_disjoint" class="hash-link" aria-label="Direct link to st_disjoint" title="Direct link to st_disjoint" translate="no">​</a></h4>
+<p>Returns <code>true</code> if the give geometries do not <em>spatially intersect</em> --
+if they do not share any space together.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_equals"><code>ST_Equals(first: Geometry, second: Geometry) -&gt; boolean</code><a href="#st_equals" class="hash-link" aria-label="Direct link to st_equals" title="Direct link to st_equals" translate="no">​</a></h4>
+<p>Returns <code>true</code> if the given geometries represent the same geometry.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_intersects"><code>ST_Intersects(first: Geometry, second: Geometry) -&gt; boolean</code><a href="#st_intersects" class="hash-link" aria-label="Direct link to st_intersects" title="Direct link to st_intersects" translate="no">​</a></h4>
+<p>Returns <code>true</code> if the given geometries spatially intersect in two dimensions
+(share any portion of space) and <code>false</code> if they do not (they are disjoint).</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_overlaps"><code>ST_Overlaps(first: Geometry, second: Geometry) -&gt; boolean</code><a href="#st_overlaps" class="hash-link" aria-label="Direct link to st_overlaps" title="Direct link to st_overlaps" translate="no">​</a></h4>
+<p>Returns <code>true</code> if the given geometries share space, are of the same dimension,
+but are not completely contained by each other.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_relate"><code>ST_Relate(first: Geometry, second: Geometry) -&gt; boolean</code><a href="#st_relate" class="hash-link" aria-label="Direct link to st_relate" title="Direct link to st_relate" translate="no">​</a></h4>
+<p>Returns <code>true</code> if first geometry is spatially related to second geometry.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_touches"><code>ST_Touches(first: Geometry, second: Geometry) -&gt; boolean</code><a href="#st_touches" class="hash-link" aria-label="Direct link to st_touches" title="Direct link to st_touches" translate="no">​</a></h4>
+<p>Returns <code>true</code> if the given geometries have at least one point in common,
+but their interiors do not intersect.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_within"><code>ST_Within(first: Geometry, second: Geometry) -&gt; boolean</code><a href="#st_within" class="hash-link" aria-label="Direct link to st_within" title="Direct link to st_within" translate="no">​</a></h4>
+<p>Returns <code>true</code> if first geometry is completely inside second geometry.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="operations">Operations<a href="#operations" class="hash-link" aria-label="Direct link to Operations" title="Direct link to Operations" translate="no">​</a></h2>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="geometry_nearest_points"><code>geometry_nearest_points(first: Geometry, second: Geometry) -&gt; row(Point, Point)</code><a href="#geometry_nearest_points" class="hash-link" aria-label="Direct link to geometry_nearest_points" title="Direct link to geometry_nearest_points" translate="no">​</a></h4>
+<p>Returns the points on each geometry nearest the other.  If either geometry
+is empty, return <code>NULL</code>.  Otherwise, return a row of two Points that have
+the minimum distance of any two points on the geometries.  The first Point
+will be from the first Geometry argument, the second from the second Geometry
+argument.  If there are multiple pairs with the minimum distance, one pair
+is chosen arbitrarily. The calculation is planar and uses the X and Y
+coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="geometry_union"><code>geometry_union(array(Geometry)) -&gt; Geometry</code><a href="#geometry_union" class="hash-link" aria-label="Direct link to geometry_union" title="Direct link to geometry_union" translate="no">​</a></h4>
+<p>Returns a geometry that represents the point set union of the input geometries. Performance
+of this function, in conjunction with <a class="" href="/trino-docs/functions/aggregate#array_agg"><code>array_agg()</code></a> to first aggregate the input geometries,
+may be better than <a href="#geometry_union_agg" class=""><code>geometry_union_agg()</code></a>, at the expense of higher memory utilization.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_boundary"><code>ST_Boundary(Geometry) -&gt; Geometry</code><a href="#st_boundary" class="hash-link" aria-label="Direct link to st_boundary" title="Direct link to st_boundary" translate="no">​</a></h4>
+<p>Returns the closure of the combinatorial boundary of this geometry.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_buffer"><code>ST_Buffer(Geometry, distance) -&gt; Geometry</code><a href="#st_buffer" class="hash-link" aria-label="Direct link to st_buffer" title="Direct link to st_buffer" translate="no">​</a></h4>
+<p>Returns the geometry that represents all points whose distance from the specified geometry
+is less than or equal to the specified distance. If the points of the geometry are extremely
+close together (<code>delta &lt; 1e-8</code>), this might return an empty geometry.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_force2d"><code>ST_Force2D(Geometry) -&gt; Geometry</code><a href="#st_force2d" class="hash-link" aria-label="Direct link to st_force2d" title="Direct link to st_force2d" translate="no">​</a></h4>
+<p>Returns the input geometry with Z coordinates removed. The returned geometry
+preserves the input SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_force3d"><code>ST_Force3D(Geometry) -&gt; Geometry</code><a href="#st_force3d" class="hash-link" aria-label="Direct link to st_force3d" title="Direct link to st_force3d" translate="no">​</a></h4>
+<p>Returns the input geometry with missing Z coordinates set to <code>0.0</code>. Existing Z
+coordinates are preserved, and the returned geometry preserves the input SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_force3dgeometry-z---geometry"><code>ST_Force3D(Geometry, z) -&gt; Geometry</code><a href="#st_force3dgeometry-z---geometry" class="hash-link" aria-label="Direct link to st_force3dgeometry-z---geometry" title="Direct link to st_force3dgeometry-z---geometry" translate="no">​</a></h4>
+<p>Returns the input geometry with missing Z coordinates set to the specified value.
+Existing Z coordinates are preserved, and the returned geometry preserves the
+input SRID. The specified Z value must be finite.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_difference"><code>ST_Difference(first: Geometry, second: Geometry) -&gt; Geometry</code><a href="#st_difference" class="hash-link" aria-label="Direct link to st_difference" title="Direct link to st_difference" translate="no">​</a></h4>
+<p>Returns the geometry value that represents the point set difference of the given geometries.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_envelope"><code>ST_Envelope(Geometry) -&gt; Geometry</code><a href="#st_envelope" class="hash-link" aria-label="Direct link to st_envelope" title="Direct link to st_envelope" translate="no">​</a></h4>
+<p>Returns the bounding rectangular polygon of a geometry. The envelope is
+computed from X and Y coordinates, preserves the input SRID, and returns a
+two-dimensional geometry.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_envelopeaspts"><code>ST_EnvelopeAsPts(Geometry) -&gt; array(Geometry)</code><a href="#st_envelopeaspts" class="hash-link" aria-label="Direct link to st_envelopeaspts" title="Direct link to st_envelopeaspts" translate="no">​</a></h4>
+<p>Returns an array of two points: the lower left and upper right corners of the bounding
+rectangular polygon of a geometry. The points are computed from X and Y
+coordinates and preserve the input SRID, but do not include Z values. Returns
+<code>NULL</code> if input geometry is empty.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_exteriorring"><code>ST_ExteriorRing(Geometry) -&gt; Geometry</code><a href="#st_exteriorring" class="hash-link" aria-label="Direct link to st_exteriorring" title="Direct link to st_exteriorring" translate="no">​</a></h4>
+<p>Returns a line string representing the exterior ring of the input polygon.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_intersection"><code>ST_Intersection(first: Geometry, second: Geometry) -&gt; Geometry</code><a href="#st_intersection" class="hash-link" aria-label="Direct link to st_intersection" title="Direct link to st_intersection" translate="no">​</a></h4>
+<p>Returns the geometry value that represents the point set intersection of two geometries.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_linemerge"><code>ST_LineMerge(Geometry) -&gt; Geometry</code><a href="#st_linemerge" class="hash-link" aria-label="Direct link to st_linemerge" title="Direct link to st_linemerge" translate="no">​</a></h4>
+<p>Returns a LineString or MultiLineString formed by merging connected linework.
+The returned geometry preserves the input SRID and any Z coordinates provided by
+JTS for retained vertices. Input other than a LineString or MultiLineString
+produces an empty GeometryCollection.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_normalize"><code>ST_Normalize(Geometry) -&gt; Geometry</code><a href="#st_normalize" class="hash-link" aria-label="Direct link to st_normalize" title="Direct link to st_normalize" translate="no">​</a></h4>
+<p>Returns the canonical normalized representation of the input geometry. The
+returned geometry preserves the input SRID and Z coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_polygonize"><code>ST_Polygonize(array(Geometry)) -&gt; Geometry</code><a href="#st_polygonize" class="hash-link" aria-label="Direct link to st_polygonize" title="Direct link to st_polygonize" translate="no">​</a></h4>
+<p>Returns polygons formed from the input linework. <code>NULL</code> array elements are
+ignored. The returned geometry uses the non-zero SRID from the input geometries.
+Inputs with different non-zero SRIDs fail.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_reduceprecision"><code>ST_ReducePrecision(Geometry, gridSize) -&gt; Geometry</code><a href="#st_reduceprecision" class="hash-link" aria-label="Direct link to st_reduceprecision" title="Direct link to st_reduceprecision" translate="no">​</a></h4>
+<p>Returns the input geometry with coordinates rounded to the specified grid size.
+The grid size must be finite and positive. The returned geometry preserves the
+input SRID and any Z coordinates provided by JTS for retained vertices.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_symdifference"><code>ST_SymDifference(first: Geometry, second: Geometry) -&gt; Geometry</code><a href="#st_symdifference" class="hash-link" aria-label="Direct link to st_symdifference" title="Direct link to st_symdifference" translate="no">​</a></h4>
+<p>Returns the geometry value that represents the point set symmetric difference of two geometries.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_union"><code>ST_Union(first: Geometry, second: Geometry) -&gt; Geometry</code><a href="#st_union" class="hash-link" aria-label="Direct link to st_union" title="Direct link to st_union" translate="no">​</a></h4>
+<p>Returns a geometry that represents the point set union of the input geometries.</p>
+<p>See also:  <a href="#geometry_union" class=""><code>geometry_union()</code></a>, <a href="#geometry_union_agg" class=""><code>geometry_union_agg()</code></a></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_voronoipolygons"><code>ST_VoronoiPolygons(Geometry) -&gt; Geometry</code><a href="#st_voronoipolygons" class="hash-link" aria-label="Direct link to st_voronoipolygons" title="Direct link to st_voronoipolygons" translate="no">​</a></h4>
+<p>Returns Voronoi polygons from the vertices of the input geometry. The returned
+geometry preserves the input SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_voronoipolygonsgeometry-tolerance---geometry"><code>ST_VoronoiPolygons(Geometry, tolerance) -&gt; Geometry</code><a href="#st_voronoipolygonsgeometry-tolerance---geometry" class="hash-link" aria-label="Direct link to st_voronoipolygonsgeometry-tolerance---geometry" title="Direct link to st_voronoipolygonsgeometry-tolerance---geometry" translate="no">​</a></h4>
+<p>Returns Voronoi polygons from the vertices of the input geometry using the
+specified tolerance. The tolerance must be finite and non-negative. The returned
+geometry preserves the input SRID.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="accessors">Accessors<a href="#accessors" class="hash-link" aria-label="Direct link to Accessors" title="Direct link to Accessors" translate="no">​</a></h2>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_area"><code>ST_Area(Geometry) -&gt; double</code><a href="#st_area" class="hash-link" aria-label="Direct link to st_area" title="Direct link to st_area" translate="no">​</a></h4>
+<p>Returns the 2D Euclidean area of a geometry.</p>
+<p>For Point and LineString types, returns 0.0.
+For GeometryCollection types, returns the sum of the areas of the individual
+geometries.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_areasphericalgeography---double"><code>ST_Area(SphericalGeography) -&gt; double</code><a href="#st_areasphericalgeography---double" class="hash-link" aria-label="Direct link to st_areasphericalgeography---double" title="Direct link to st_areasphericalgeography---double" translate="no">​</a></h4>
+<p>Returns the area of a polygon or multi-polygon in square meters using a spherical model for Earth.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_centroid"><code>ST_Centroid(Geometry) -&gt; Geometry</code><a href="#st_centroid" class="hash-link" aria-label="Direct link to st_centroid" title="Direct link to st_centroid" translate="no">​</a></h4>
+<p>Returns the point value that is the mathematical centroid of a geometry.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_convexhull"><code>ST_ConvexHull(Geometry) -&gt; Geometry</code><a href="#st_convexhull" class="hash-link" aria-label="Direct link to st_convexhull" title="Direct link to st_convexhull" translate="no">​</a></h4>
+<p>Returns the minimum convex geometry that encloses all input geometries.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_minimumboundingcircle"><code>ST_MinimumBoundingCircle(Geometry) -&gt; Geometry</code><a href="#st_minimumboundingcircle" class="hash-link" aria-label="Direct link to st_minimumboundingcircle" title="Direct link to st_minimumboundingcircle" translate="no">​</a></h4>
+<p>Returns the minimum bounding circle enclosing the geometry. The returned geometry
+preserves the input SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_orientedenvelope"><code>ST_OrientedEnvelope(Geometry) -&gt; Geometry</code><a href="#st_orientedenvelope" class="hash-link" aria-label="Direct link to st_orientedenvelope" title="Direct link to st_orientedenvelope" translate="no">​</a></h4>
+<p>Returns the minimum-area rotated rectangle enclosing the geometry. The returned
+geometry preserves the input SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_coorddim"><code>ST_CoordDim(Geometry) -&gt; tinyint</code><a href="#st_coorddim" class="hash-link" aria-label="Direct link to st_coorddim" title="Direct link to st_coorddim" translate="no">​</a></h4>
+<p>Returns the coordinate dimension of the geometry.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_dimension"><code>ST_Dimension(Geometry) -&gt; tinyint</code><a href="#st_dimension" class="hash-link" aria-label="Direct link to st_dimension" title="Direct link to st_dimension" translate="no">​</a></h4>
+<p>Returns the inherent dimension of this geometry object, which must be
+less than or equal to the coordinate dimension.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_distance"><code>ST_Distance(first: Geometry, second: Geometry) -&gt; double</code><a href="#st_distance" class="hash-link" aria-label="Direct link to st_distance" title="Direct link to st_distance" translate="no">​</a></h4>
+<p>Returns the 2-dimensional cartesian minimum distance (based on spatial ref)
+between two geometries in projected units.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_distancefirst-sphericalgeography-second-sphericalgeography---double"><code>ST_Distance(first: SphericalGeography, second: SphericalGeography) -&gt; double</code><a href="#st_distancefirst-sphericalgeography-second-sphericalgeography---double" class="hash-link" aria-label="Direct link to st_distancefirst-sphericalgeography-second-sphericalgeography---double" title="Direct link to st_distancefirst-sphericalgeography-second-sphericalgeography---double" translate="no">​</a></h4>
+<p>Returns the great-circle distance in meters between two SphericalGeography points.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_geometryn"><code>ST_GeometryN(Geometry, index) -&gt; Geometry</code><a href="#st_geometryn" class="hash-link" aria-label="Direct link to st_geometryn" title="Direct link to st_geometryn" translate="no">​</a></h4>
+<p>Returns the geometry element at a given index (indices start at 1).
+If the geometry is a collection of geometries (e.g., GEOMETRYCOLLECTION or MULTI*),
+returns the geometry at a given index.
+If the given index is less than 1 or greater than the total number of elements in the collection,
+returns <code>NULL</code>.
+Use <a href="#st_numgeometries" class=""><code>ST_NumGeometries()</code></a> to find out the total number of elements.
+Singular geometries (e.g., POINT, LINESTRING, POLYGON), are treated as collections of one element.
+Empty geometries are treated as empty collections.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_interiorringn"><code>ST_InteriorRingN(Geometry, index) -&gt; Geometry</code><a href="#st_interiorringn" class="hash-link" aria-label="Direct link to st_interiorringn" title="Direct link to st_interiorringn" translate="no">​</a></h4>
+<p>Returns the interior ring element at the specified index (indices start at 1). If
+the given index is less than 1 or greater than the total number of interior rings
+in the input geometry, returns <code>NULL</code>. The input geometry must be a polygon.
+Use <a href="#st_numinteriorring" class=""><code>ST_NumInteriorRing()</code></a> to find out the total number of elements.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_geometrytype"><code>ST_GeometryType(Geometry) -&gt; varchar</code><a href="#st_geometrytype" class="hash-link" aria-label="Direct link to st_geometrytype" title="Direct link to st_geometrytype" translate="no">​</a></h4>
+<p>Returns the type of the geometry.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_isclosed"><code>ST_IsClosed(Geometry) -&gt; boolean</code><a href="#st_isclosed" class="hash-link" aria-label="Direct link to st_isclosed" title="Direct link to st_isclosed" translate="no">​</a></h4>
+<p>Returns <code>true</code> if the linestring&#x27;s start and end points are coincident in the X
+and Y coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_isempty"><code>ST_IsEmpty(Geometry) -&gt; boolean</code><a href="#st_isempty" class="hash-link" aria-label="Direct link to st_isempty" title="Direct link to st_isempty" translate="no">​</a></h4>
+<p>Returns <code>true</code> if this Geometry is an empty geometrycollection, polygon, point etc.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_issimple"><code>ST_IsSimple(Geometry) -&gt; boolean</code><a href="#st_issimple" class="hash-link" aria-label="Direct link to st_issimple" title="Direct link to st_issimple" translate="no">​</a></h4>
+<p>Returns <code>true</code> if this Geometry has no anomalous geometric points, such as self
+intersection or self tangency. The simplicity check is planar and uses the X and
+Y coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_isring"><code>ST_IsRing(Geometry) -&gt; boolean</code><a href="#st_isring" class="hash-link" aria-label="Direct link to st_isring" title="Direct link to st_isring" translate="no">​</a></h4>
+<p>Returns <code>true</code> if and only if the line is closed and simple in the X and Y
+coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_isvalid"><code>ST_IsValid(Geometry) -&gt; boolean</code><a href="#st_isvalid" class="hash-link" aria-label="Direct link to st_isvalid" title="Direct link to st_isvalid" translate="no">​</a></h4>
+<p>Returns <code>true</code> if and only if the input geometry is well-formed.
+Use <a href="#geometry_invalid_reason" class=""><code>geometry_invalid_reason()</code></a> to determine why the geometry is not well-formed.
+The validity check is planar and uses the X and Y coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_length"><code>ST_Length(Geometry) -&gt; double</code><a href="#st_length" class="hash-link" aria-label="Direct link to st_length" title="Direct link to st_length" translate="no">​</a></h4>
+<p>Returns the length of a linestring or multi-linestring using Euclidean measurement on a
+two-dimensional plane (based on spatial ref) in projected units.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_lengthsphericalgeography---double"><code>ST_Length(SphericalGeography) -&gt; double</code><a href="#st_lengthsphericalgeography---double" class="hash-link" aria-label="Direct link to st_lengthsphericalgeography---double" title="Direct link to st_lengthsphericalgeography---double" translate="no">​</a></h4>
+<p>Returns the length of a linestring or multi-linestring on a spherical model of the Earth.
+This is equivalent to the sum of great-circle distances between adjacent points on the linestring.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_pointn"><code>ST_PointN(LineString, index) -&gt; Point</code><a href="#st_pointn" class="hash-link" aria-label="Direct link to st_pointn" title="Direct link to st_pointn" translate="no">​</a></h4>
+<p>Returns the vertex of a linestring at a given index (indices start at 1).
+If the given index is less than 1 or greater than the total number of elements in the collection,
+returns <code>NULL</code>.
+Use <a href="#st_numpoints" class=""><code>ST_NumPoints()</code></a> to find out the total number of elements.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_points"><code>ST_Points(Geometry) -&gt; array(Point)</code><a href="#st_points" class="hash-link" aria-label="Direct link to st_points" title="Direct link to st_points" translate="no">​</a></h4>
+<p>Returns an array of points in a linestring.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_pointonsurface"><code>ST_PointOnSurface(Geometry) -&gt; Geometry</code><a href="#st_pointonsurface" class="hash-link" aria-label="Direct link to st_pointonsurface" title="Direct link to st_pointonsurface" translate="no">​</a></h4>
+<p>Returns a point guaranteed to lie on the surface of the input geometry, or
+<code>NULL</code> if the input geometry is empty. The returned point preserves the input
+SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_xmax"><code>ST_XMax(Geometry) -&gt; double</code><a href="#st_xmax" class="hash-link" aria-label="Direct link to st_xmax" title="Direct link to st_xmax" translate="no">​</a></h4>
+<p>Returns the maximum X coordinate of the bounding box of a geometry. The
+bounding box is computed from X and Y coordinates; SRID and Z metadata do not
+affect the result.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_ymax"><code>ST_YMax(Geometry) -&gt; double</code><a href="#st_ymax" class="hash-link" aria-label="Direct link to st_ymax" title="Direct link to st_ymax" translate="no">​</a></h4>
+<p>Returns the maximum Y coordinate of the bounding box of a geometry. The
+bounding box is computed from X and Y coordinates; SRID and Z metadata do not
+affect the result.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_xmin"><code>ST_XMin(Geometry) -&gt; double</code><a href="#st_xmin" class="hash-link" aria-label="Direct link to st_xmin" title="Direct link to st_xmin" translate="no">​</a></h4>
+<p>Returns the minimum X coordinate of the bounding box of a geometry. The
+bounding box is computed from X and Y coordinates; SRID and Z metadata do not
+affect the result.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_ymin"><code>ST_YMin(Geometry) -&gt; double</code><a href="#st_ymin" class="hash-link" aria-label="Direct link to st_ymin" title="Direct link to st_ymin" translate="no">​</a></h4>
+<p>Returns the minimum Y coordinate of the bounding box of a geometry. The
+bounding box is computed from X and Y coordinates; SRID and Z metadata do not
+affect the result.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_startpoint"><code>ST_StartPoint(Geometry) -&gt; point</code><a href="#st_startpoint" class="hash-link" aria-label="Direct link to st_startpoint" title="Direct link to st_startpoint" translate="no">​</a></h4>
+<p>Returns the first point of a LineString geometry as a Point.
+This is a shortcut for <code>ST_PointN(geometry, 1)</code>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_srid"><code>ST_SRID(Geometry) -&gt; integer</code><a href="#st_srid" class="hash-link" aria-label="Direct link to st_srid" title="Direct link to st_srid" translate="no">​</a></h4>
+<p>Returns the spatial reference identifier of the geometry. SRID <code>0</code> means the
+SRID is unspecified.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_setsrid"><code>ST_SetSRID(Geometry, srid) -&gt; Geometry</code><a href="#st_setsrid" class="hash-link" aria-label="Direct link to st_setsrid" title="Direct link to st_setsrid" translate="no">​</a></h4>
+<p>Returns the input geometry with updated SRID metadata. This function does not
+transform coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_transform"><code>ST_Transform(Geometry, srid) -&gt; Geometry</code><a href="#st_transform" class="hash-link" aria-label="Direct link to st_transform" title="Direct link to st_transform" translate="no">​</a></h4>
+<p>Transforms the coordinates of the input geometry from its source SRID to the
+target EPSG SRID. The input geometry must have a non-zero SRID; use
+<code>ST_SetSRID</code> first if the geometry&#x27;s source SRID is known but unspecified in the
+value.</p>
+<p>The target SRID must be non-zero, and only two-dimensional CRS definitions are
+currently supported. A non-empty geometry with Z coordinates cannot be
+transformed between different SRIDs and causes an error. Use
+<a href="#st_transformxy" class=""><code>ST_TransformXY()</code></a> to transform only X and Y while preserving Z unchanged.
+The returned geometry has the target SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_transformxy"><code>ST_TransformXY(Geometry, srid) -&gt; Geometry</code><a href="#st_transformxy" class="hash-link" aria-label="Direct link to st_transformxy" title="Direct link to st_transformxy" translate="no">​</a></h4>
+<p>Transforms the X and Y coordinates of the input geometry from its source SRID
+to the target EPSG SRID while preserving Z coordinates unchanged. The source
+and target SRIDs must be non-zero and identify supported two-dimensional CRS
+definitions. The returned geometry has the target SRID.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="simplify_geometry"><code>simplify_geometry(Geometry, double) -&gt; Geometry</code><a href="#simplify_geometry" class="hash-link" aria-label="Direct link to simplify_geometry" title="Direct link to simplify_geometry" translate="no">​</a></h4>
+<p>Returns a &quot;simplified&quot; version of the input geometry using the Douglas-Peucker algorithm.
+Will avoid creating derived geometries (polygons in particular) that are invalid.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_endpoint"><code>ST_EndPoint(Geometry) -&gt; point</code><a href="#st_endpoint" class="hash-link" aria-label="Direct link to st_endpoint" title="Direct link to st_endpoint" translate="no">​</a></h4>
+<p>Returns the last point of a LineString geometry as a Point.
+This is a shortcut for <code>ST_PointN(geometry, ST_NumPoints(geometry))</code>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_x"><code>ST_X(Point) -&gt; double</code><a href="#st_x" class="hash-link" aria-label="Direct link to st_x" title="Direct link to st_x" translate="no">​</a></h4>
+<p>Returns the X coordinate of the point, or <code>NULL</code> if the point is empty.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_y"><code>ST_Y(Point) -&gt; double</code><a href="#st_y" class="hash-link" aria-label="Direct link to st_y" title="Direct link to st_y" translate="no">​</a></h4>
+<p>Returns the Y coordinate of the point, or <code>NULL</code> if the point is empty.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_z"><code>ST_Z(Point) -&gt; double</code><a href="#st_z" class="hash-link" aria-label="Direct link to st_z" title="Direct link to st_z" translate="no">​</a></h4>
+<p>Returns the Z coordinate of the point, or <code>NULL</code> if the point is empty or does
+not have a Z coordinate.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_interiorrings"><code>ST_InteriorRings(Geometry) -&gt; array(Geometry)</code><a href="#st_interiorrings" class="hash-link" aria-label="Direct link to st_interiorrings" title="Direct link to st_interiorrings" translate="no">​</a></h4>
+<p>Returns an array of all interior rings found in the input geometry, or an empty
+array if the polygon has no interior rings. Returns <code>NULL</code> if the input geometry
+is empty. The input geometry must be a polygon. Returned rings preserve the
+input geometry&#x27;s SRID and Z coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_numgeometries"><code>ST_NumGeometries(Geometry) -&gt; bigint</code><a href="#st_numgeometries" class="hash-link" aria-label="Direct link to st_numgeometries" title="Direct link to st_numgeometries" translate="no">​</a></h4>
+<p>Returns the number of geometries in the collection.
+If the geometry is a collection of geometries (e.g., GEOMETRYCOLLECTION or MULTI*),
+returns the number of geometries,
+for single geometries returns 1,
+for empty geometries returns 0.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_geometries"><code>ST_Geometries(Geometry) -&gt; array(Geometry)</code><a href="#st_geometries" class="hash-link" aria-label="Direct link to st_geometries" title="Direct link to st_geometries" translate="no">​</a></h4>
+<p>Returns an array of geometries in the specified collection. Returns a one-element array
+if the input geometry is not a multi-geometry. Returns <code>NULL</code> if input geometry is empty.
+Returned geometries preserve the input geometry&#x27;s SRID and Z coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_numpoints"><code>ST_NumPoints(Geometry) -&gt; bigint</code><a href="#st_numpoints" class="hash-link" aria-label="Direct link to st_numpoints" title="Direct link to st_numpoints" translate="no">​</a></h4>
+<p>Returns the number of points in a geometry. This is an extension to the SQL/MM
+<code>ST_NumPoints</code> function which only applies to point and linestring.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="st_numinteriorring"><code>ST_NumInteriorRing(Geometry) -&gt; bigint</code><a href="#st_numinteriorring" class="hash-link" aria-label="Direct link to st_numinteriorring" title="Direct link to st_numinteriorring" translate="no">​</a></h4>
+<p>Returns the cardinality of the collection of interior rings of a polygon.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="line_interpolate_point"><code>line_interpolate_point(LineString, double) -&gt; Geometry</code><a href="#line_interpolate_point" class="hash-link" aria-label="Direct link to line_interpolate_point" title="Direct link to line_interpolate_point" translate="no">​</a></h4>
+<p>Returns a Point interpolated along a LineString at the fraction given. The fraction
+must be between 0 and 1, inclusive. The returned point preserves the input
+geometry&#x27;s SRID and uses the Z coordinate provided by JTS when available.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="line_interpolate_points"><code>line_interpolate_points(LineString, double, repeated) -&gt; array(Geometry)</code><a href="#line_interpolate_points" class="hash-link" aria-label="Direct link to line_interpolate_points" title="Direct link to line_interpolate_points" translate="no">​</a></h4>
+<p>Returns an array of Points interpolated along a LineString. The fraction must be
+between 0 and 1, inclusive. Returned points preserve the input geometry&#x27;s SRID
+and use the Z coordinates provided by JTS when available.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="line_locate_point"><code>line_locate_point(LineString, Point) -&gt; double</code><a href="#line_locate_point" class="hash-link" aria-label="Direct link to line_locate_point" title="Direct link to line_locate_point" translate="no">​</a></h4>
+<p>Returns a float between 0 and 1 representing the location of the closest point on
+the LineString to the given Point, as a fraction of total 2d line length.
+Inputs with different non-zero SRIDs fail.</p>
+<p>Returns <code>NULL</code> if a LineString or a Point is empty or <code>NULL</code>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="geometry_invalid_reason"><code>geometry_invalid_reason(Geometry) -&gt; varchar</code><a href="#geometry_invalid_reason" class="hash-link" aria-label="Direct link to geometry_invalid_reason" title="Direct link to geometry_invalid_reason" translate="no">​</a></h4>
+<p>Returns the reason for why the input geometry is not valid.
+Returns <code>NULL</code> if the input is valid.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="great_circle_distance"><code>great_circle_distance(latitude1, longitude1, latitude2, longitude2) -&gt; double</code><a href="#great_circle_distance" class="hash-link" aria-label="Direct link to great_circle_distance" title="Direct link to great_circle_distance" translate="no">​</a></h4>
+<p>Returns the great-circle distance between two points on Earth&#x27;s surface in kilometers.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="to_geojson_geometry"><code>to_geojson_geometry(SphericalGeography) -&gt; varchar</code><a href="#to_geojson_geometry" class="hash-link" aria-label="Direct link to to_geojson_geometry" title="Direct link to to_geojson_geometry" translate="no">​</a></h4>
+<p>Returns the GeoJSON encoding defined by the input spherical geography.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="to_geojson_geometrygeometry---varchar"><code>to_geojson_geometry(Geometry) -&gt; varchar</code><a href="#to_geojson_geometrygeometry---varchar" class="hash-link" aria-label="Direct link to to_geojson_geometrygeometry---varchar" title="Direct link to to_geojson_geometrygeometry---varchar" translate="no">​</a></h4>
+<p>Returns the GeoJSON encoding defined by the input geometry. GeoJSON output
+preserves coordinates, including Z coordinates, but does not include Trino SRID
+metadata.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="from_geojson_geometry"><code>from_geojson_geometry(varchar) -&gt; SphericalGeography</code><a href="#from_geojson_geometry" class="hash-link" aria-label="Direct link to from_geojson_geometry" title="Direct link to from_geojson_geometry" translate="no">​</a></h4>
+<p>Returns the spherical geography type object from the GeoJSON representation stripping non geometry key/values.
+Feature and FeatureCollection are not supported.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="aggregations">Aggregations<a href="#aggregations" class="hash-link" aria-label="Direct link to Aggregations" title="Direct link to Aggregations" translate="no">​</a></h2>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="convex_hull_agg"><code>convex_hull_agg(Geometry) -&gt; Geometry</code><a href="#convex_hull_agg" class="hash-link" aria-label="Direct link to convex_hull_agg" title="Direct link to convex_hull_agg" translate="no">​</a></h4>
+<p>Returns the minimum convex geometry that encloses all input geometries.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="geometry_collect_agg"><code>geometry_collect_agg(Geometry) -&gt; Geometry</code><a href="#geometry_collect_agg" class="hash-link" aria-label="Direct link to geometry_collect_agg" title="Direct link to geometry_collect_agg" translate="no">​</a></h4>
+<p>Returns a multi-geometry or geometry collection containing all input geometries.
+The returned geometry preserves input Z coordinates and uses the non-zero SRID
+from the input geometries. Inputs with different non-zero SRIDs fail.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="geometry_union_agg"><code>geometry_union_agg(Geometry) -&gt; Geometry</code><a href="#geometry_union_agg" class="hash-link" aria-label="Direct link to geometry_union_agg" title="Direct link to geometry_union_agg" translate="no">​</a></h4>
+<p>Returns a geometry that represents the point set union of all input geometries.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="spatial-partitioning">Spatial partitioning<a href="#spatial-partitioning" class="hash-link" aria-label="Direct link to Spatial partitioning" title="Direct link to Spatial partitioning" translate="no">​</a></h2>
+<p>These functions build and apply a KDB tree for spatial joins. They use the
+two-dimensional envelope of each geometry, based on X and Y coordinates. SRID
+and Z metadata do not affect partitioning.</p>
+<p>Optimized spatial joins apply the same SRID compatibility rule before spatial
+pruning. If the indexed side has no non-zero SRID, every probe SRID is allowed.
+If it has one non-zero SRID, a probe must have SRID <code>0</code> or that SRID. If it has
+multiple non-zero SRIDs, only probes with SRID <code>0</code> are allowed.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="spatial_partitioning"><code>spatial_partitioning(Geometry) -&gt; varchar</code><a href="#spatial_partitioning" class="hash-link" aria-label="Direct link to spatial_partitioning" title="Direct link to spatial_partitioning" translate="no">​</a></h4>
+<p>Returns a serialized KDB tree partitioning for the input geometries. The
+one-argument form is rewritten internally to
+<code>spatial_partitioning(geometry, 100)</code>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="spatial_partitioninggeometry-partition_count---varchar"><code>spatial_partitioning(Geometry, partition_count) -&gt; varchar</code><a href="#spatial_partitioninggeometry-partition_count---varchar" class="hash-link" aria-label="Direct link to spatial_partitioninggeometry-partition_count---varchar" title="Direct link to spatial_partitioninggeometry-partition_count---varchar" translate="no">​</a></h4>
+<p>Returns a serialized KDB tree partitioning for the input geometries using the
+specified partition count.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="spatial_partitions"><code>spatial_partitions(KdbTree, Geometry) -&gt; array(integer)</code><a href="#spatial_partitions" class="hash-link" aria-label="Direct link to spatial_partitions" title="Direct link to spatial_partitions" translate="no">​</a></h4>
+<p>Returns the IDs of spatial partitions whose extents intersect the
+two-dimensional envelope of the input geometry. Returns <code>NULL</code> if the input
+geometry is empty.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="spatial_partitionskdbtree-geometry-distance---arrayinteger"><code>spatial_partitions(KdbTree, Geometry, distance) -&gt; array(integer)</code><a href="#spatial_partitionskdbtree-geometry-distance---arrayinteger" class="hash-link" aria-label="Direct link to spatial_partitionskdbtree-geometry-distance---arrayinteger" title="Direct link to spatial_partitionskdbtree-geometry-distance---arrayinteger" translate="no">​</a></h4>
+<p>Returns the IDs of spatial partitions whose extents intersect the
+two-dimensional envelope of the input geometry expanded by <code>distance</code>. Returns
+<code>NULL</code> if the input geometry is empty.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing-tiles">Bing tiles<a href="#bing-tiles" class="hash-link" aria-label="Direct link to Bing tiles" title="Direct link to Bing tiles" translate="no">​</a></h2>
+<p>These functions convert between geometries and
+<a href="https://msdn.microsoft.com/library/bb259689.aspx" target="_blank" rel="noopener noreferrer" class="">Bing tiles</a>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing_tile"><code>bing_tile(x, y, zoom_level) -&gt; BingTile</code><a href="#bing_tile" class="hash-link" aria-label="Direct link to bing_tile" title="Direct link to bing_tile" translate="no">​</a></h4>
+<p>Creates a Bing tile object from XY coordinates and a zoom level.
+Zoom levels from 1 to 23 are supported.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing_tilequadkey---bingtile"><code>bing_tile(quadKey) -&gt; BingTile</code><a href="#bing_tilequadkey---bingtile" class="hash-link" aria-label="Direct link to bing_tilequadkey---bingtile" title="Direct link to bing_tilequadkey---bingtile" translate="no">​</a></h4>
+<p>Creates a Bing tile object from a quadkey.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing_tile_at"><code>bing_tile_at(latitude, longitude, zoom_level) -&gt; BingTile</code><a href="#bing_tile_at" class="hash-link" aria-label="Direct link to bing_tile_at" title="Direct link to bing_tile_at" translate="no">​</a></h4>
+<p>Returns a Bing tile at a given zoom level containing a point at a given latitude
+and longitude. Latitude must be within <code>[-85.05112878, 85.05112878]</code> range.
+Longitude must be within <code>[-180, 180]</code> range. Zoom levels from 1 to 23 are supported.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing_tiles_around"><code>bing_tiles_around(latitude, longitude, zoom_level) -&gt; array(BingTile)</code><a href="#bing_tiles_around" class="hash-link" aria-label="Direct link to bing_tiles_around" title="Direct link to bing_tiles_around" translate="no">​</a></h4>
+<p>Returns a collection of Bing tiles that surround the point specified
+by the latitude and longitude arguments at a given zoom level.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing_tiles_aroundlatitude-longitude-zoom_level-radius_in_km---arraybingtile"><code>bing_tiles_around(latitude, longitude, zoom_level, radius_in_km) -&gt; array(BingTile)</code><a href="#bing_tiles_aroundlatitude-longitude-zoom_level-radius_in_km---arraybingtile" class="hash-link" aria-label="Direct link to bing_tiles_aroundlatitude-longitude-zoom_level-radius_in_km---arraybingtile" title="Direct link to bing_tiles_aroundlatitude-longitude-zoom_level-radius_in_km---arraybingtile" translate="no">​</a></h4>
+<p>Returns a minimum set of Bing tiles at specified zoom level that cover a circle of specified
+radius in km around a specified (latitude, longitude) point.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing_tile_coordinates"><code>bing_tile_coordinates(tile) -&gt; row&lt;x, y&gt;</code><a href="#bing_tile_coordinates" class="hash-link" aria-label="Direct link to bing_tile_coordinates" title="Direct link to bing_tile_coordinates" translate="no">​</a></h4>
+<p>Returns the XY coordinates of a given Bing tile.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing_tile_polygon"><code>bing_tile_polygon(tile) -&gt; Geometry</code><a href="#bing_tile_polygon" class="hash-link" aria-label="Direct link to bing_tile_polygon" title="Direct link to bing_tile_polygon" translate="no">​</a></h4>
+<p>Returns the polygon representation of a given Bing tile as a 2D geometry with
+SRID <code>0</code>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing_tile_quadkey"><code>bing_tile_quadkey(tile) -&gt; varchar</code><a href="#bing_tile_quadkey" class="hash-link" aria-label="Direct link to bing_tile_quadkey" title="Direct link to bing_tile_quadkey" translate="no">​</a></h4>
+<p>Returns the quadkey of a given Bing tile.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="bing_tile_zoom_level"><code>bing_tile_zoom_level(tile) -&gt; tinyint</code><a href="#bing_tile_zoom_level" class="hash-link" aria-label="Direct link to bing_tile_zoom_level" title="Direct link to bing_tile_zoom_level" translate="no">​</a></h4>
+<p>Returns the zoom level of a given Bing tile.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="geometry_to_bing_tiles"><code>geometry_to_bing_tiles(geometry, zoom_level) -&gt; array(BingTile)</code><a href="#geometry_to_bing_tiles" class="hash-link" aria-label="Direct link to geometry_to_bing_tiles" title="Direct link to geometry_to_bing_tiles" translate="no">​</a></h4>
+<p>Returns the minimum set of Bing tiles that fully covers a given geometry at
+a given zoom level. Zoom levels from 1 to 23 are supported. The calculation
+uses the X and Y coordinates as longitude and latitude.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="encoded-polylines">Encoded polylines<a href="#encoded-polylines" class="hash-link" aria-label="Direct link to Encoded polylines" title="Direct link to Encoded polylines" translate="no">​</a></h2>
+<p>These functions convert between geometries and
+<a href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm" target="_blank" rel="noopener noreferrer" class="">encoded polylines</a>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="to_encoded_polyline"><code>to_encoded_polyline(Geometry) -&gt; varchar</code><a href="#to_encoded_polyline" class="hash-link" aria-label="Direct link to to_encoded_polyline" title="Direct link to to_encoded_polyline" translate="no">​</a></h4>
+<p>Encodes a linestring or multipoint to a polyline. Encoded polylines are a 2D
+format and only use the X and Y coordinates.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="from_encoded_polyline"><code>from_encoded_polyline(varchar) -&gt; Geometry</code><a href="#from_encoded_polyline" class="hash-link" aria-label="Direct link to from_encoded_polyline" title="Direct link to from_encoded_polyline" translate="no">​</a></h4>
+<p>Decodes a polyline to a 2D linestring with SRID <code>0</code>.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/trinodb/trino/edit/master/docs/docusaurus/docs/functions/geospatial.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/trino-docs/functions/decimal"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Decimal</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/trino-docs/functions/hyperloglog"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">HyperLogLog</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#constructors" class="table-of-contents__link toc-highlight">Constructors</a></li><li><a href="#relationship-tests" class="table-of-contents__link toc-highlight">Relationship tests</a></li><li><a href="#operations" class="table-of-contents__link toc-highlight">Operations</a></li><li><a href="#accessors" class="table-of-contents__link toc-highlight">Accessors</a></li><li><a href="#aggregations" class="table-of-contents__link toc-highlight">Aggregations</a></li><li><a href="#spatial-partitioning" class="table-of-contents__link toc-highlight">Spatial partitioning</a></li><li><a href="#bing-tiles" class="table-of-contents__link toc-highlight">Bing tiles</a></li><li><a href="#encoded-polylines" class="table-of-contents__link toc-highlight">Encoded polylines</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

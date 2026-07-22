@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-connector/mariadb" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">MariaDB connector | Trino documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://trino.io/trino-docs/connector/mariadb"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="MariaDB connector | Trino documentation"><meta data-rh="true" name="description" content="The MariaDB connector allows querying and creating tables in an external MariaDB"><meta data-rh="true" property="og:description" content="The MariaDB connector allows querying and creating tables in an external MariaDB"><link data-rh="true" rel="icon" href="/trino-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://trino.io/trino-docs/connector/mariadb"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/connector/mariadb" hreflang="en"><link data-rh="true" rel="alternate" href="https://trino.io/trino-docs/connector/mariadb" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Connectors","item":"https://trino.io/trino-docs/connector"},{"@type":"ListItem","position":2,"name":"MariaDB","item":"https://trino.io/trino-docs/connector/mariadb"}]}</script><link rel="stylesheet" href="/trino-docs/assets/css/styles.48b9a735.css">
+<script src="/trino-docs/assets/js/runtime~main.cae17608.js" defer="defer"></script>
+<script src="/trino-docs/assets/js/main.51814df2.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/trino-docs/img/trino.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/trino-docs/"><div class="navbar__logo"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/trino-docs/img/trino.svg" alt="Trino logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Trino dev Documentation</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">dev</a><ul class="dropdown__menu"><li><a href="https://trino.io/docs/" target="_blank" rel="noopener noreferrer" class="dropdown__link">All versions<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><a href="https://github.com/trinodb/trino" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/"><span class="linkLabel_WmDU">Home</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/overview"><span class="categoryLinkLabel_W154">Overview</span></a><button aria-label="Expand sidebar category &#x27;Overview&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/installation"><span class="categoryLinkLabel_W154">Installation</span></a><button aria-label="Expand sidebar category &#x27;Installation&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/client"><span class="categoryLinkLabel_W154">Clients</span></a><button aria-label="Expand sidebar category &#x27;Clients&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/security"><span class="categoryLinkLabel_W154">Security</span></a><button aria-label="Expand sidebar category &#x27;Security&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/admin"><span class="categoryLinkLabel_W154">Administration</span></a><button aria-label="Expand sidebar category &#x27;Administration&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/optimizer"><span class="categoryLinkLabel_W154">Query optimizer</span></a><button aria-label="Expand sidebar category &#x27;Query optimizer&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/trino-docs/connector"><span class="categoryLinkLabel_W154">Connectors</span></a><button aria-label="Collapse sidebar category &#x27;Connectors&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/bigquery"><span class="linkLabel_WmDU">BigQuery</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/blackhole"><span class="linkLabel_WmDU">Black Hole</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/cassandra"><span class="linkLabel_WmDU">Cassandra</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/clickhouse"><span class="linkLabel_WmDU">ClickHouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/delta-lake"><span class="linkLabel_WmDU">Delta Lake</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/druid"><span class="linkLabel_WmDU">Druid</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/duckdb"><span class="linkLabel_WmDU">DuckDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/exasol"><span class="linkLabel_WmDU">Exasol</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/faker"><span class="linkLabel_WmDU">Faker</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/googlesheets"><span class="linkLabel_WmDU">Google Sheets</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/hive"><span class="linkLabel_WmDU">Hive</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/hudi"><span class="linkLabel_WmDU">Hudi</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/iceberg"><span class="linkLabel_WmDU">Iceberg</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/ignite"><span class="linkLabel_WmDU">Ignite</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/jmx"><span class="linkLabel_WmDU">JMX</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/trino-docs/connector/kafka"><span class="categoryLinkLabel_W154">Kafka</span></a><button aria-label="Expand sidebar category &#x27;Kafka&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/lakehouse"><span class="linkLabel_WmDU">Lakehouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/loki"><span class="linkLabel_WmDU">Loki</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/trino-docs/connector/mariadb"><span class="linkLabel_WmDU">MariaDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/memory"><span class="linkLabel_WmDU">Memory</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/opensearch"><span class="linkLabel_WmDU">OpenSearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/oracle"><span class="linkLabel_WmDU">Oracle</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/pinot"><span class="linkLabel_WmDU">Pinot</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/postgresql"><span class="linkLabel_WmDU">PostgreSQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/prometheus"><span class="linkLabel_WmDU">Prometheus</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/redshift"><span class="linkLabel_WmDU">Redshift</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/singlestore"><span class="linkLabel_WmDU">SingleStore</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/snowflake"><span class="linkLabel_WmDU">Snowflake</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/sqlserver"><span class="linkLabel_WmDU">SQL Server</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/system"><span class="linkLabel_WmDU">System</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/thrift"><span class="linkLabel_WmDU">Thrift</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/tpcds"><span class="linkLabel_WmDU">TPC-DS</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/tpch"><span class="linkLabel_WmDU">TPC-H</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/trino-docs/connector/removed"><span class="linkLabel_WmDU">404 - Connector removed</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/object-storage"><span class="categoryLinkLabel_W154">Object storage</span></a><button aria-label="Expand sidebar category &#x27;Object storage&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/functions"><span class="categoryLinkLabel_W154">Functions and operators</span></a><button aria-label="Expand sidebar category &#x27;Functions and operators&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/udf"><span class="categoryLinkLabel_W154">User-defined functions</span></a><button aria-label="Expand sidebar category &#x27;User-defined functions&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/language"><span class="categoryLinkLabel_W154">SQL language</span></a><button aria-label="Expand sidebar category &#x27;SQL language&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/sql"><span class="categoryLinkLabel_W154">SQL statement syntax</span></a><button aria-label="Expand sidebar category &#x27;SQL statement syntax&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/develop"><span class="categoryLinkLabel_W154">Developer guide</span></a><button aria-label="Expand sidebar category &#x27;Developer guide&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/trino-docs/glossary"><span class="linkLabel_WmDU">Glossary</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/appendix"><span class="categoryLinkLabel_W154">Appendix</span></a><button aria-label="Expand sidebar category &#x27;Appendix&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/trino-docs/release"><span class="categoryLinkLabel_W154">Release notes</span></a><button aria-label="Expand sidebar category &#x27;Release notes&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/trino-docs/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/trino-docs/connector"><span>Connectors</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">MariaDB</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>MariaDB connector</h1></header>
+<img decoding="async" loading="lazy" src="../images/mariadb.png" class="connector-logo img_ev3q">
+<p>The MariaDB connector allows querying and creating tables in an external MariaDB
+database.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="requirements">Requirements<a href="#requirements" class="hash-link" aria-label="Direct link to Requirements" title="Direct link to Requirements" translate="no">​</a></h2>
+<p>To connect to MariaDB, you need:</p>
+<ul>
+<li class="">MariaDB version 10.10 or higher.</li>
+<li class="">Network access from the Trino coordinator and workers to MariaDB. Port
+3306 is the default port.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuration">Configuration<a href="#configuration" class="hash-link" aria-label="Direct link to Configuration" title="Direct link to Configuration" translate="no">​</a></h2>
+<p>To configure the MariaDB connector, create a catalog properties file in
+<code>etc/catalog</code> named, for example, <code>example.properties</code>, to mount the MariaDB
+connector as the <code>example</code> catalog. Create the file with the following
+contents, replacing the connection properties as appropriate for your setup:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">connector.name=mariadb</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">connection-url=jdbc:mariadb://example.net:3306</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">connection-user=root</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">connection-password=secret</span><br></div></code></pre></div></div>
+<p>The <code>connection-user</code> and <code>connection-password</code> are typically required and
+determine the user credentials for the connection, often a service user. You can
+use <a class="" href="/trino-docs/security/secrets">secrets</a> to avoid actual values in the catalog
+properties files.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="data-source-authentication">Data source authentication<a href="#data-source-authentication" class="hash-link" aria-label="Direct link to Data source authentication" title="Direct link to Data source authentication" translate="no">​</a></h3>
+<p>The connector can provide credentials for the data source connection
+in multiple ways:</p>
+<ul>
+<li class="">inline, in the connector configuration file</li>
+<li class="">in a separate properties file</li>
+<li class="">in a key store file</li>
+<li class="">as extra credentials set when connecting to Trino</li>
+</ul>
+<p>You can use <a class="" href="/trino-docs/security/secrets">secrets</a> to avoid storing sensitive
+values in the catalog properties files.</p>
+<p>The following table describes configuration properties
+for connection credentials:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th></tr></thead><tbody><tr><td><code>credential-provider.type</code></td><td>Type of the credential provider. Must be one of <code>INLINE</code>, <code>FILE</code>, or <code>KEYSTORE</code>; defaults to <code>INLINE</code>.</td></tr><tr><td><code>connection-user</code></td><td>Connection user name.</td></tr><tr><td><code>connection-password</code></td><td>Connection password.</td></tr><tr><td><code>user-credential-name</code></td><td>Name of the extra credentials property, whose value to use as the user name. See <code>extraCredentials</code> in <a class="" href="/trino-docs/client/jdbc#jdbc-parameter-reference">Parameter reference</a>.</td></tr><tr><td><code>password-credential-name</code></td><td>Name of the extra credentials property, whose value to use as the password.</td></tr><tr><td><code>connection-credential-file</code></td><td>Location of the properties file where credentials are present. It must contain the <code>connection-user</code> and <code>connection-password</code> properties.</td></tr><tr><td><code>keystore-file-path</code></td><td>The location of the Java Keystore file, from which to read credentials.</td></tr><tr><td><code>keystore-type</code></td><td>File format of the keystore file, for example <code>JKS</code> or <code>PEM</code>.</td></tr><tr><td><code>keystore-password</code></td><td>Password for the key store.</td></tr><tr><td><code>keystore-user-credential-name</code></td><td>Name of the key store entity to use as the user name.</td></tr><tr><td><code>keystore-user-credential-password</code></td><td>Password for the user name key store entity.</td></tr><tr><td><code>keystore-password-credential-name</code></td><td>Name of the key store entity to use as the password.</td></tr><tr><td><code>keystore-password-credential-password</code></td><td>Password for the password key store entity.</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="general-configuration-properties">General configuration properties<a href="#general-configuration-properties" class="hash-link" aria-label="Direct link to General configuration properties" title="Direct link to General configuration properties" translate="no">​</a></h3>
+<p>The following table describes general catalog configuration properties for the
+connector:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th></tr></thead><tbody><tr><td><code>case-insensitive-name-matching</code></td><td>Support case insensitive schema and table names. Defaults to <code>false</code>.</td></tr><tr><td><code>case-insensitive-name-matching.cache-ttl</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-duration">Duration</a> for which case insensitive schema and table names are cached. Defaults to <code>1m</code>.</td></tr><tr><td><code>case-insensitive-name-matching.config-file</code></td><td>Path to a name mapping configuration file in JSON format that allows Trino to disambiguate between schemas and tables with similar names in different cases. Defaults to <code>null</code>.</td></tr><tr><td><code>case-insensitive-name-matching.config-file.refresh-period</code></td><td>Frequency with which Trino checks the name matching configuration file for changes. The <a class="" href="/trino-docs/admin/properties#prop-type-duration">duration value</a> defaults to <code>0s</code> (refresh disabled).</td></tr><tr><td><code>metadata.cache-ttl</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-duration">Duration</a> for which metadata, including table and column statistics, is cached. Defaults to <code>0s</code> (caching disabled).</td></tr><tr><td><code>metadata.cache-missing</code></td><td>Cache the fact that metadata, including table and column statistics, is not available. Defaults to <code>false</code>.</td></tr><tr><td><code>metadata.schemas.cache-ttl</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-duration">Duration</a> for which schema metadata is cached. Defaults to the value of <code>metadata.cache-ttl</code>.</td></tr><tr><td><code>metadata.tables.cache-ttl</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-duration">Duration</a> for which table metadata is cached. Defaults to the value of <code>metadata.cache-ttl</code>.</td></tr><tr><td><code>metadata.statistics.cache-ttl</code></td><td><a class="" href="/trino-docs/admin/properties#prop-type-duration">Duration</a> for which tables statistics are cached. Defaults to the value of <code>metadata.cache-ttl</code>.</td></tr><tr><td><code>metadata.cache-maximum-size</code></td><td>Maximum number of objects stored in the metadata cache. Defaults to <code>10000</code>.</td></tr><tr><td><code>write.batch-size</code></td><td>Maximum number of statements in a batched execution. Do not change this setting from the default. Non-default values may negatively impact performance. Defaults to <code>1000</code>.</td></tr><tr><td><code>dynamic-filtering.enabled</code></td><td>Push down dynamic filters into JDBC queries. Defaults to <code>true</code>.</td></tr><tr><td><code>dynamic-filtering.wait-timeout</code></td><td>Maximum <a class="" href="/trino-docs/admin/properties#prop-type-duration">duration</a> for which Trino waits for dynamic filters to be collected from the build side of joins before starting a JDBC query. Using a large timeout can potentially result in more detailed dynamic filters. However, it can also increase latency for some queries. Defaults to <code>20s</code>.</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="domain-compaction-threshold">Domain compaction threshold<a href="#domain-compaction-threshold" class="hash-link" aria-label="Direct link to Domain compaction threshold" title="Direct link to Domain compaction threshold" translate="no">​</a></h3>
+<p>Pushing down a large list of predicates to the data source can compromise
+performance. Trino compacts large predicates into a simpler range predicate
+by default to ensure a balance between performance and predicate pushdown.
+If necessary, the threshold for this compaction can be increased to improve
+performance when the data source is capable of taking advantage of large
+predicates. Increasing this threshold may improve pushdown of large
+<a class="" href="/trino-docs/admin/dynamic-filtering">dynamic filters</a>.
+The <code>domain-compaction-threshold</code> catalog configuration property or the
+<code>domain_compaction_threshold</code> <a class="" href="/trino-docs/sql/set-session#session-properties-definition">catalog session property</a> can be used to adjust the default value of
+{{default_domain_compaction_threshold}} for this threshold.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="case-insensitive-matching">Case insensitive matching<a href="#case-insensitive-matching" class="hash-link" aria-label="Direct link to Case insensitive matching" title="Direct link to Case insensitive matching" translate="no">​</a></h3>
+<p>When <code>case-insensitive-name-matching</code> is set to <code>true</code>, Trino
+is able to query non-lowercase schemas and tables by maintaining a mapping of
+the lowercase name to the actual name in the remote system. However, if two
+schemas and/or tables have names that differ only in case (such as &quot;customers&quot;
+and &quot;Customers&quot;) then Trino fails to query them due to ambiguity.</p>
+<p>In these cases, use the <code>case-insensitive-name-matching.config-file</code> catalog
+configuration property to specify a configuration file that maps these remote
+schemas and tables to their respective Trino schemas and tables. Additionally,
+the JSON file must include both the <code>schemas</code> and <code>tables</code> properties, even if
+only as empty arrays.</p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token punctuation" style="color:rgb(199, 146, 234)">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  </span><span class="token property">&quot;schemas&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(199, 146, 234)">[</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token punctuation" style="color:rgb(199, 146, 234)">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;remoteSchema&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;CaseSensitiveName&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;mapping&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;case_insensitive_1&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token punctuation" style="color:rgb(199, 146, 234)">}</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token punctuation" style="color:rgb(199, 146, 234)">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;remoteSchema&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;cASEsENSITIVEnAME&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;mapping&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;case_insensitive_2&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token punctuation" style="color:rgb(199, 146, 234)">}</span><span class="token punctuation" style="color:rgb(199, 146, 234)">]</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  </span><span class="token property">&quot;tables&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(199, 146, 234)">[</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token punctuation" style="color:rgb(199, 146, 234)">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;remoteSchema&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;CaseSensitiveName&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;remoteTable&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;tablex&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;mapping&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;table_1&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token punctuation" style="color:rgb(199, 146, 234)">}</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token punctuation" style="color:rgb(199, 146, 234)">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;remoteSchema&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;CaseSensitiveName&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;remoteTable&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;TABLEX&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token property">&quot;mapping&quot;</span><span class="token operator" style="color:rgb(137, 221, 255)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;table_2&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token punctuation" style="color:rgb(199, 146, 234)">}</span><span class="token punctuation" style="color:rgb(199, 146, 234)">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token punctuation" style="color:rgb(199, 146, 234)">}</span><br></div></code></pre></div></div>
+<p>Queries against one of the tables or schemes defined in the <code>mapping</code>
+attributes are run against the corresponding remote entity. For example, a query
+against tables in the <code>case_insensitive_1</code> schema is forwarded to the
+CaseSensitiveName schema and a query against <code>case_insensitive_2</code> is forwarded
+to the <code>cASEsENSITIVEnAME</code> schema.</p>
+<p>At the table mapping level, a query on <code>case_insensitive_1.table_1</code> as
+configured above is forwarded to <code>CaseSensitiveName.tablex</code>, and a query on
+<code>case_insensitive_1.table_2</code> is forwarded to <code>CaseSensitiveName.TABLEX</code>.</p>
+<p>By default, when a change is made to the mapping configuration file, Trino must
+be restarted to load the changes. Optionally, you can set the
+<code>case-insensitive-name-matching.config-file.refresh-period</code> to have Trino
+refresh the properties without requiring a restart:</p>
+<div class="language-properties codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-properties codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token key attr-name" style="color:rgb(255, 203, 107)">case-insensitive-name-matching.config-file.refresh-period</span><span class="token punctuation" style="color:rgb(199, 146, 234)">=</span><span class="token value attr-value">30s</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mariadb-fte-support">Fault-tolerant execution support<a href="#mariadb-fte-support" class="hash-link" aria-label="Direct link to Fault-tolerant execution support" title="Direct link to Fault-tolerant execution support" translate="no">​</a></h3>
+<p>The connector supports <a class="" href="/trino-docs/admin/fault-tolerant-execution">Fault-tolerant execution</a> of query
+processing. Read and write operations are both supported with any retry policy.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="querying-mariadb">Querying MariaDB<a href="#querying-mariadb" class="hash-link" aria-label="Direct link to Querying MariaDB" title="Direct link to Querying MariaDB" translate="no">​</a></h2>
+<p>The MariaDB connector provides a schema for every MariaDB <em>database</em>.
+You can see the available MariaDB databases by running <code>SHOW SCHEMAS</code>:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">SHOW</span><span class="token plain"> SCHEMAS </span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"> example</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><br></div></code></pre></div></div>
+<p>If you have a MariaDB database named <code>web</code>, you can view the tables
+in this database by running <code>SHOW TABLES</code>:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">SHOW</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">TABLES</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"> example</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">web</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><br></div></code></pre></div></div>
+<p>You can see a list of the columns in the <code>clicks</code> table in the <code>web</code>
+database using either of the following:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">DESCRIBE</span><span class="token plain"> example</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">web</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">clicks</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token keyword" style="font-style:italic">SHOW</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">COLUMNS</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"> example</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">web</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">clicks</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><br></div></code></pre></div></div>
+<p>Finally, you can access the <code>clicks</code> table in the <code>web</code> database:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">*</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"> example</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">web</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">clicks</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><br></div></code></pre></div></div>
+<p>If you used a different name for your catalog properties file, use
+that catalog name instead of <code>example</code> in the above examples.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-mapping">Type mapping<a href="#type-mapping" class="hash-link" aria-label="Direct link to Type mapping" title="Direct link to Type mapping" translate="no">​</a></h2>
+<p>Because Trino and MariaDB each support types that the other does not, this
+connector <a class="" href="/trino-docs/language/types#type-mapping-overview">modifies some types</a> when reading or
+writing data. Data types may not map the same way in both directions between
+Trino and the data source. Refer to the following sections for type mapping in
+each direction.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mariadb-type-to-trino-type-mapping">MariaDB type to Trino type mapping<a href="#mariadb-type-to-trino-type-mapping" class="hash-link" aria-label="Direct link to MariaDB type to Trino type mapping" title="Direct link to MariaDB type to Trino type mapping" translate="no">​</a></h3>
+<p>The connector maps MariaDB types to the corresponding Trino types according
+to the following table:</p>
+<p><strong>MariaDB type to Trino type mapping</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>MariaDB type</th><th>Trino type</th><th>Notes</th></tr></thead><tbody><tr><td><code>BOOLEAN</code></td><td><code>TINYINT</code></td><td><code>BOOL</code> and <code>BOOLEAN</code> are aliases of <code>TINYINT(1)</code></td></tr><tr><td><code>TINYINT</code></td><td><code>TINYINT</code></td><td></td></tr><tr><td><code>TINYINT UNSIGNED</code></td><td><code>SMALLINT</code></td><td></td></tr><tr><td><code>SMALLINT</code></td><td><code>SMALLINT</code></td><td></td></tr><tr><td><code>SMALLINT UNSIGNED</code></td><td><code>INTEGER</code></td><td></td></tr><tr><td><code>INT</code></td><td><code>INTEGER</code></td><td></td></tr><tr><td><code>INT UNSIGNED</code></td><td><code>BIGINT</code></td><td></td></tr><tr><td><code>BIGINT</code></td><td><code>BIGINT</code></td><td></td></tr><tr><td><code>BIGINT UNSIGNED</code></td><td><code>DECIMAL(20, 0)</code></td><td></td></tr><tr><td><code>FLOAT</code></td><td><code>REAL</code></td><td></td></tr><tr><td><code>DOUBLE</code></td><td><code>DOUBLE</code></td><td></td></tr><tr><td><code>DECIMAL(p, s)</code></td><td><code>DECIMAL(p, s)</code> or <code>NUMBER</code></td><td>Maps to Trino <code>DECIMAL</code> when <code>p ≤ 38</code>. Otherwise, maps to <code>NUMBER</code>.</td></tr><tr><td><code>CHAR(n)</code></td><td><code>CHAR(n)</code></td><td></td></tr><tr><td><code>TINYTEXT</code></td><td><code>VARCHAR(255)</code></td><td></td></tr><tr><td><code>TEXT</code></td><td><code>VARCHAR(65535)</code></td><td></td></tr><tr><td><code>MEDIUMTEXT</code></td><td><code>VARCHAR(16777215)</code></td><td></td></tr><tr><td><code>LONGTEXT</code></td><td><code>VARCHAR</code></td><td></td></tr><tr><td><code>VARCHAR(n)</code></td><td><code>VARCHAR(n)</code></td><td></td></tr><tr><td><code>TINYBLOB</code></td><td><code>VARBINARY</code></td><td></td></tr><tr><td><code>BLOB</code></td><td><code>VARBINARY</code></td><td></td></tr><tr><td><code>MEDIUMBLOB</code></td><td><code>VARBINARY</code></td><td></td></tr><tr><td><code>LONGBLOB</code></td><td><code>VARBINARY</code></td><td></td></tr><tr><td><code>VARBINARY(n)</code></td><td><code>VARBINARY</code></td><td></td></tr><tr><td><code>DATE</code></td><td><code>DATE</code></td><td></td></tr><tr><td><code>TIME(n)</code></td><td><code>TIME(n)</code></td><td></td></tr><tr><td><code>TIMESTAMP(n)</code></td><td><code>TIMESTAMP(n)</code></td><td>MariaDB stores the current timestamp by default. Enable <a href="https://mariadb.com/docs/reference/mdb/system-variables/explicit_defaults_for_timestamp/" target="_blank" rel="noopener noreferrer" class="">explicit_defaults_for_timestamp</a> to avoid implicit default values and use <code>NULL</code> as the default value.</td></tr><tr><td><code>DATETIME(n)</code></td><td><code>TIMESTAMP(n)</code></td><td></td></tr></tbody></table>
+<p>No other types are supported.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="trino-type-mapping-to-mariadb-type-mapping">Trino type mapping to MariaDB type mapping<a href="#trino-type-mapping-to-mariadb-type-mapping" class="hash-link" aria-label="Direct link to Trino type mapping to MariaDB type mapping" title="Direct link to Trino type mapping to MariaDB type mapping" translate="no">​</a></h3>
+<p>The connector maps Trino types to the corresponding MariaDB types according
+to the following table:</p>
+<p><strong>Trino type mapping to MariaDB type mapping</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Trino type</th><th>MariaDB type</th><th>Notes</th></tr></thead><tbody><tr><td><code>BOOLEAN</code></td><td><code>BOOLEAN</code></td><td></td></tr><tr><td><code>TINYINT</code></td><td><code>TINYINT</code></td><td></td></tr><tr><td><code>SMALLINT</code></td><td><code>SMALLINT</code></td><td></td></tr><tr><td><code>INTEGER</code></td><td><code>INT</code></td><td></td></tr><tr><td><code>BIGINT</code></td><td><code>BIGINT</code></td><td></td></tr><tr><td><code>REAL</code></td><td><code>FLOAT</code></td><td></td></tr><tr><td><code>DOUBLE</code></td><td><code>DOUBLE</code></td><td></td></tr><tr><td><code>DECIMAL(p,s)</code></td><td><code>DECIMAL(p,s)</code></td><td></td></tr><tr><td><code>CHAR(n)</code></td><td><code>CHAR(n)</code></td><td></td></tr><tr><td><code>VARCHAR(255)</code></td><td><code>TINYTEXT</code></td><td>Maps on <code>VARCHAR</code> of length 255 or less.</td></tr><tr><td><code>VARCHAR(65535)</code></td><td><code>TEXT</code></td><td>Maps on <code>VARCHAR</code> of length between 256 and 65535, inclusive.</td></tr><tr><td><code>VARCHAR(16777215)</code></td><td><code>MEDIUMTEXT</code></td><td>Maps on <code>VARCHAR</code> of length between 65536 and 16777215, inclusive.</td></tr><tr><td><code>VARCHAR</code></td><td><code>LONGTEXT</code></td><td><code>VARCHAR</code> of length greater than 16777215 and unbounded <code>VARCHAR</code> map to <code>LONGTEXT</code>.</td></tr><tr><td><code>VARBINARY</code></td><td><code>MEDIUMBLOB</code></td><td></td></tr><tr><td><code>DATE</code></td><td><code>DATE</code></td><td></td></tr><tr><td><code>TIME(n)</code></td><td><code>TIME(n)</code></td><td></td></tr><tr><td><code>TIMESTAMP(n)</code></td><td><code>TIMESTAMP(n)</code></td><td>MariaDB stores the current timestamp by default. Enable <code>explicit_defaults_for_timestamp &lt;https://mariadb.com/docs/reference/mdb/system-variables/explicit_defaults_for_timestamp/&gt;</code>_ to avoid implicit default values and use <code>NULL</code> as the default value.</td></tr></tbody></table>
+<p>No other types are supported.</p>
+<p>Complete list of <a href="https://mariadb.com/kb/en/data-types/" target="_blank" rel="noopener noreferrer" class="">MariaDB data types</a>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-mapping-configuration-properties">Type mapping configuration properties<a href="#type-mapping-configuration-properties" class="hash-link" aria-label="Direct link to Type mapping configuration properties" title="Direct link to Type mapping configuration properties" translate="no">​</a></h3>
+<p>The following properties can be used to configure how data types from the
+connected data source are mapped to Trino data types and how the metadata is
+cached in Trino.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property name</th><th>Description</th><th>Default value</th></tr></thead><tbody><tr><td><code>unsupported-type-handling</code></td><td>Configure how unsupported column data types are handled:<br>* <code>IGNORE</code>, column is not accessible. * <code>CONVERT_TO_VARCHAR</code>, column is converted to unbounded <code>VARCHAR</code>.<br>The respective catalog session property is <code>unsupported_type_handling</code>.</td><td><code>IGNORE</code></td></tr><tr><td><code>jdbc-types-mapped-to-varchar</code></td><td>Allow forced mapping of comma separated lists of data types to convert to unbounded <code>VARCHAR</code></td><td></td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mariadb-sql-support">SQL support<a href="#mariadb-sql-support" class="hash-link" aria-label="Direct link to SQL support" title="Direct link to SQL support" translate="no">​</a></h2>
+<p>The connector provides read access and write access to data and metadata in a
+MariaDB database. In addition to the <a class="" href="/trino-docs/language/sql-support#sql-globally-available">globally
+available</a> and <a class="" href="/trino-docs/language/sql-support#sql-read-operations">read operation</a>
+statements, the connector supports the following features:</p>
+<ul>
+<li class=""><a class="" href="/trino-docs/sql/insert">INSERT</a>, see also <a href="#mariadb-insert" class="">MariaDB connector</a></li>
+<li class=""><a class="" href="/trino-docs/sql/update">UPDATE</a>, see also <a href="#mariadb-update" class="">MariaDB connector</a></li>
+<li class=""><a class="" href="/trino-docs/sql/delete">DELETE</a>, see also <a href="#mariadb-delete" class="">MariaDB connector</a></li>
+<li class=""><a class="" href="/trino-docs/sql/truncate">TRUNCATE</a></li>
+<li class=""><a class="" href="/trino-docs/sql/create-table">CREATE TABLE</a></li>
+<li class=""><a class="" href="/trino-docs/sql/create-table-as">CREATE TABLE AS</a></li>
+<li class=""><a class="" href="/trino-docs/sql/drop-table">DROP TABLE</a></li>
+<li class=""><a class="" href="/trino-docs/sql/alter-table">ALTER TABLE</a></li>
+<li class=""><a class="" href="/trino-docs/sql/create-schema">CREATE SCHEMA</a></li>
+<li class=""><a class="" href="/trino-docs/sql/drop-schema">DROP SCHEMA</a></li>
+<li class=""><a href="#mariadb-procedures" class="">MariaDB connector</a></li>
+<li class=""><a href="#mariadb-table-functions" class="">MariaDB connector</a></li>
+</ul>
+<p><a id="mariadb-insert" class="anchorTargetStickyNavbar_Vzrq"></a></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="non-transactional-insert">Non-transactional INSERT<a href="#non-transactional-insert" class="hash-link" aria-label="Direct link to Non-transactional INSERT" title="Direct link to Non-transactional INSERT" translate="no">​</a></h3>
+<p>The connector supports adding rows using <a class="" href="/trino-docs/sql/insert">INSERT statements</a>.
+By default, data insertion is performed by writing data to a temporary table.
+You can skip this step to improve performance and write directly to the target
+table. Set the <code>insert.non-transactional-insert.enabled</code> catalog property
+or the corresponding <code>non_transactional_insert</code> catalog session property to
+<code>true</code>.</p>
+<p>Note that with this property enabled, data can be corrupted in rare cases where
+exceptions occur during the insert operation. With transactions disabled, no
+rollback can be performed.</p>
+<p><a id="mariadb-update" class="anchorTargetStickyNavbar_Vzrq"></a></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="update-limitation">UPDATE limitation<a href="#update-limitation" class="hash-link" aria-label="Direct link to UPDATE limitation" title="Direct link to UPDATE limitation" translate="no">​</a></h3>
+<p>Only <code>UPDATE</code> statements with constant assignments and predicates are
+supported. For example, the following statement is supported because the values
+assigned are constants:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">UPDATE</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">table</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">SET</span><span class="token plain"> col1 </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token number" style="color:rgb(247, 140, 108)">1</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">WHERE</span><span class="token plain"> col3 </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token number" style="color:rgb(247, 140, 108)">1</span><br></div></code></pre></div></div>
+<p>Arithmetic expressions, function calls, and other non-constant <code>UPDATE</code>
+statements are not supported. For example, the following statement is not
+supported because arithmetic expressions cannot be used with the <code>SET</code>
+command:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">UPDATE</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">table</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">SET</span><span class="token plain"> col1 </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> col2 </span><span class="token operator" style="color:rgb(137, 221, 255)">+</span><span class="token plain"> </span><span class="token number" style="color:rgb(247, 140, 108)">2</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">WHERE</span><span class="token plain"> col3 </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token number" style="color:rgb(247, 140, 108)">1</span><br></div></code></pre></div></div>
+<p>All column values of a table row cannot be updated simultaneously. For a three
+column table, the following statement is not supported:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">UPDATE</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">table</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">SET</span><span class="token plain"> col1 </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token number" style="color:rgb(247, 140, 108)">1</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"> col2 </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token number" style="color:rgb(247, 140, 108)">2</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"> col3 </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token number" style="color:rgb(247, 140, 108)">3</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">WHERE</span><span class="token plain"> col3 </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token number" style="color:rgb(247, 140, 108)">1</span><br></div></code></pre></div></div>
+<p><a id="mariadb-delete" class="anchorTargetStickyNavbar_Vzrq"></a></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="delete-limitation">DELETE limitation<a href="#delete-limitation" class="hash-link" aria-label="Direct link to DELETE limitation" title="Direct link to DELETE limitation" translate="no">​</a></h3>
+<p>If a <code>WHERE</code> clause is specified, the <code>DELETE</code> operation only works if the
+predicate in the clause can be fully pushed down to the data source.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mariadb-procedures">Procedures<a href="#mariadb-procedures" class="hash-link" aria-label="Direct link to Procedures" title="Direct link to Procedures" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="systemflush_metadata_cache"><code>system.flush_metadata_cache()</code><a href="#systemflush_metadata_cache" class="hash-link" aria-label="Direct link to systemflush_metadata_cache" title="Direct link to systemflush_metadata_cache" translate="no">​</a></h4>
+<p>Flush JDBC metadata caches. For example, the following system call
+flushes the metadata caches for all schemas in the <code>example</code> catalog</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">USE</span><span class="token plain"> example</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">example_schema</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token keyword" style="font-style:italic">CALL</span><span class="token plain"> system</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">flush_metadata_cache</span><span class="token punctuation" style="color:rgb(199, 146, 234)">(</span><span class="token punctuation" style="color:rgb(199, 146, 234)">)</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="systemexecutequery"><code>system.execute(&#x27;query&#x27;)</code><a href="#systemexecutequery" class="hash-link" aria-label="Direct link to systemexecutequery" title="Direct link to systemexecutequery" translate="no">​</a></h4>
+<p>The <code>execute</code> procedure allows you to execute a query in the underlying data
+source directly. The query must use supported syntax of the connected data
+source. Use the procedure to access features which are not available in Trino
+or to execute queries that return no result set and therefore can not be used
+with the <code>query</code> or <code>raw_query</code> pass-through table function. Typical use cases
+are statements that create or alter objects, and require native feature such
+as constraints, default values, automatic identifier creation, or indexes.
+Queries can also invoke statements that insert, update, or delete data, and do
+not return any data as a result.</p>
+<p>The query text is not parsed by Trino, only passed through, and therefore only
+subject to any security or access control of the underlying data source.</p>
+<p>The following example sets the current database to the <code>example_schema</code> of the
+<code>example</code> catalog. Then it calls the procedure in that schema to drop the
+default value from <code>your_column</code> on <code>your_table</code> table using the standard SQL
+syntax in the parameter value assigned for <code>query</code>:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">USE</span><span class="token plain"> example</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">example_schema</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token keyword" style="font-style:italic">CALL</span><span class="token plain"> system</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token keyword" style="font-style:italic">execute</span><span class="token punctuation" style="color:rgb(199, 146, 234)">(</span><span class="token plain">query </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token operator" style="color:rgb(137, 221, 255)">&gt;</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&#x27;ALTER TABLE your_table ALTER COLUMN your_column DROP DEFAULT&#x27;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">)</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><br></div></code></pre></div></div>
+<p>Verify that the specific database supports this syntax, and adapt as necessary
+based on the documentation for the specific connected database and database
+version.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mariadb-table-functions">Table functions<a href="#mariadb-table-functions" class="hash-link" aria-label="Direct link to Table functions" title="Direct link to Table functions" translate="no">​</a></h3>
+<p>The connector provides specific <a class="" href="/trino-docs/functions/table">table functions</a> to
+access MariaDB.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="mariadb-query-function"><code>query(varchar) -&gt; table</code><a href="#mariadb-query-function" class="hash-link" aria-label="Direct link to mariadb-query-function" title="Direct link to mariadb-query-function" translate="no">​</a></h4>
+<p>The <code>query</code> function allows you to query the underlying database directly. It
+requires syntax native to MariaDB, because the full query is pushed down and
+processed in MariaDB. This can be useful for accessing native features which are
+not available in Trino or for improving query performance in situations where
+running a query natively may be faster.</p>
+<p>The native query passed to the underlying data source is required to return a
+table as a result set. Only the data source performs validation or security
+checks for these queries using its own configuration. Trino does not perform
+these tasks. Only use passthrough queries to read data.</p>
+<p>As an example, query the <code>example</code> catalog and select the age of employees by
+using <code>TIMESTAMPDIFF</code> and <code>CURDATE</code>:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">SELECT</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  age</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  </span><span class="token keyword" style="font-style:italic">TABLE</span><span class="token punctuation" style="color:rgb(199, 146, 234)">(</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    example</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">system</span><span class="token punctuation" style="color:rgb(199, 146, 234)">.</span><span class="token plain">query</span><span class="token punctuation" style="color:rgb(199, 146, 234)">(</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      query </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token operator" style="color:rgb(137, 221, 255)">&gt;</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&#x27;SELECT</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token string" style="color:rgb(195, 232, 141)">        TIMESTAMPDIFF(</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token string" style="color:rgb(195, 232, 141)">          YEAR,</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token string" style="color:rgb(195, 232, 141)">          date_of_birth,</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token string" style="color:rgb(195, 232, 141)">          CURDATE()</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token string" style="color:rgb(195, 232, 141)">        ) AS age</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token string" style="color:rgb(195, 232, 141)">      FROM</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token string" style="color:rgb(195, 232, 141)">        tiny.employees&#x27;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token punctuation" style="color:rgb(199, 146, 234)">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">  </span><span class="token punctuation" style="color:rgb(199, 146, 234)">)</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><br></div></code></pre></div></div>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>The query engine does not preserve the order of the results of this
+function. If the passed query contains an <code>ORDER BY</code> clause, the
+function result may not be ordered as expected.</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="performance">Performance<a href="#performance" class="hash-link" aria-label="Direct link to Performance" title="Direct link to Performance" translate="no">​</a></h2>
+<p>The connector includes a number of performance improvements, detailed in the
+following sections.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mariadb-table-statistics">Table statistics<a href="#mariadb-table-statistics" class="hash-link" aria-label="Direct link to Table statistics" title="Direct link to Table statistics" translate="no">​</a></h3>
+<p>The MariaDB connector can use <a class="" href="/trino-docs/optimizer/statistics">table and column
+statistics</a> for <a class="" href="/trino-docs/optimizer/cost-based-optimizations">cost based
+optimizations</a> to improve query processing
+performance based on the actual data in the data source.</p>
+<p>The statistics are collected by MariaDB and retrieved by the connector.</p>
+<p>To collect statistics for a table, execute the following statement in
+MariaDB.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">ANALYZE TABLE table_name;</span><br></div></code></pre></div></div>
+<p>Refer to <a href="https://mariadb.com/kb/en/analyze-table/" target="_blank" rel="noopener noreferrer" class="">MariaDB documentation</a> for
+additional information.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mariadb-pushdown">Pushdown<a href="#mariadb-pushdown" class="hash-link" aria-label="Direct link to Pushdown" title="Direct link to Pushdown" translate="no">​</a></h3>
+<p>The connector supports pushdown for a number of operations:</p>
+<ul>
+<li class=""><a class="" href="/trino-docs/optimizer/pushdown#join-pushdown">Pushdown</a></li>
+<li class=""><a class="" href="/trino-docs/optimizer/pushdown#limit-pushdown">Pushdown</a></li>
+<li class=""><a class="" href="/trino-docs/optimizer/pushdown#topn-pushdown">Pushdown</a></li>
+</ul>
+<p><a class="" href="/trino-docs/optimizer/pushdown#aggregation-pushdown">Aggregate pushdown</a> for the following functions:</p>
+<ul>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#avg"><code>avg()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#count"><code>count()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#max"><code>max()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#min"><code>min()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#sum"><code>sum()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#stddev"><code>stddev()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#stddev_pop"><code>stddev_pop()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#stddev_samp"><code>stddev_samp()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#variance"><code>variance()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#var_pop"><code>var_pop()</code></a></li>
+<li class=""><a class="" href="/trino-docs/functions/aggregate#var_samp"><code>var_samp()</code></a></li>
+</ul>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>The connector performs pushdown where performance may be improved, but in
+order to preserve correctness an operation may not be pushed down. When
+pushdown of an operation may result in better performance but risks
+correctness, the connector prioritizes correctness.</p></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="predicate-pushdown-support">Predicate pushdown support<a href="#predicate-pushdown-support" class="hash-link" aria-label="Direct link to Predicate pushdown support" title="Direct link to Predicate pushdown support" translate="no">​</a></h4>
+<p>The connector does not support pushdown of any predicates on columns with
+<a class="" href="/trino-docs/language/types#string-data-types">textual types</a> like <code>CHAR</code> or <code>VARCHAR</code>.
+This ensures correctness of results since the data source may compare strings
+case-insensitively.</p>
+<p>In the following example, the predicate is not pushed down for either query
+since <code>name</code> is a column of type <code>VARCHAR</code>:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">*</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"> nation </span><span class="token keyword" style="font-style:italic">WHERE</span><span class="token plain"> name </span><span class="token operator" style="color:rgb(137, 221, 255)">&gt;</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&#x27;CANADA&#x27;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token keyword" style="font-style:italic">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">*</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">FROM</span><span class="token plain"> nation </span><span class="token keyword" style="font-style:italic">WHERE</span><span class="token plain"> name </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&#x27;CANADA&#x27;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">;</span><br></div></code></pre></div></div></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/trinodb/trino/edit/master/docs/docusaurus/docs/connector/mariadb.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/trino-docs/connector/loki"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Loki</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/trino-docs/connector/memory"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Memory</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#requirements" class="table-of-contents__link toc-highlight">Requirements</a></li><li><a href="#configuration" class="table-of-contents__link toc-highlight">Configuration</a><ul><li><a href="#data-source-authentication" class="table-of-contents__link toc-highlight">Data source authentication</a></li><li><a href="#general-configuration-properties" class="table-of-contents__link toc-highlight">General configuration properties</a></li><li><a href="#domain-compaction-threshold" class="table-of-contents__link toc-highlight">Domain compaction threshold</a></li><li><a href="#case-insensitive-matching" class="table-of-contents__link toc-highlight">Case insensitive matching</a></li><li><a href="#mariadb-fte-support" class="table-of-contents__link toc-highlight">Fault-tolerant execution support</a></li></ul></li><li><a href="#querying-mariadb" class="table-of-contents__link toc-highlight">Querying MariaDB</a></li><li><a href="#type-mapping" class="table-of-contents__link toc-highlight">Type mapping</a><ul><li><a href="#mariadb-type-to-trino-type-mapping" class="table-of-contents__link toc-highlight">MariaDB type to Trino type mapping</a></li><li><a href="#trino-type-mapping-to-mariadb-type-mapping" class="table-of-contents__link toc-highlight">Trino type mapping to MariaDB type mapping</a></li><li><a href="#type-mapping-configuration-properties" class="table-of-contents__link toc-highlight">Type mapping configuration properties</a></li></ul></li><li><a href="#mariadb-sql-support" class="table-of-contents__link toc-highlight">SQL support</a><ul><li><a href="#non-transactional-insert" class="table-of-contents__link toc-highlight">Non-transactional INSERT</a></li><li><a href="#update-limitation" class="table-of-contents__link toc-highlight">UPDATE limitation</a></li><li><a href="#delete-limitation" class="table-of-contents__link toc-highlight">DELETE limitation</a></li><li><a href="#mariadb-procedures" class="table-of-contents__link toc-highlight">Procedures</a></li><li><a href="#mariadb-table-functions" class="table-of-contents__link toc-highlight">Table functions</a></li></ul></li><li><a href="#performance" class="table-of-contents__link toc-highlight">Performance</a><ul><li><a href="#mariadb-table-statistics" class="table-of-contents__link toc-highlight">Table statistics</a></li><li><a href="#mariadb-pushdown" class="table-of-contents__link toc-highlight">Pushdown</a></li></ul></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>
