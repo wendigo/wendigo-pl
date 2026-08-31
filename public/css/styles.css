@@ -1,99 +1,210 @@
-@media all {
-	body {
-		min-width: 400px;
-	}
+:root {
+	color-scheme: light dark;
+	--bg: #fdfcfb;
+	--text: #23222b;
+	--text-muted: #6d6a78;
+	--accent: #1a56c9;
+	--accent-soft: rgba(37, 99, 235, 0.08);
+	--gold: #f5b301;
+	--rule: #e8e5e1;
+}
 
-	.site {
-		display: grid;
-		grid-template-columns: minmax(1em, 2fr) 12fr minmax(1em, 2fr);
-		grid-template-rows: minmax(1em, 1fr) 3em auto minmax(8em, 15em) minmax(1em, 1fr) minmax(2em, 5em);
-		grid-template-areas:
-												". . ."
-												". header ."
-												". main ."
-												". aside ."
-												". . ."
-												". footer .";
-		min-height: 100%;
-		line-height: 1.8em;
-		background: url(../images/blurred.jpg) no-repeat center center fixed;
-		background-size: cover;
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
-
-		font-family: 'Merriweather Sans', sans-serif;
-		text-shadow: 1px 1px rgb(110, 110, 110);
-		font-size: 1.05em;
-		color: white;
-		min-height: 100%;
-	}
-
-	body, html {
-		margin: 0px;
-		height: 100%;
-	}
-
-	main {
-		grid-area: main;
-	}
-
-	header {
-		grid-area: header;
-		line-height: 200%;
-	}
-
-	aside {
-		grid-area: aside;
-	}
-
-	footer {
-		grid-area: footer;
-		color: rgb(170, 170, 170);
-		text-align: center;
-		margin-bottom: 1em;
-	}
-
-	footer a {
-		color: rgb(130, 130, 130);
-	}
-
-	a {
-		color: rgb(210, 210, 210);
-		text-decoration: none;
-		background-color: rgba(165, 165, 165, 0.25);
-	}
-
-	a:hover {
-		background-color: rgba(165, 165, 165, 0.7);
-	}
-
-	/* latin-ext */
-	@font-face {
-		font-family: 'Merriweather Sans';
-		font-style: normal;
-		font-weight: 300;
-		src: local('Merriweather Sans Light'), local('MerriweatherSans-Light'), url(../fonts/font.woff2) format('woff2');
-		unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-	}
-	/* latin */
-	@font-face {
-		font-family: 'Merriweather Sans';
-		font-style: normal;
-		font-weight: 300;
-		src: local('Merriweather Sans Light'), local('MerriweatherSans-Light'), url(../fonts/font-base.woff2) format('woff2');
-		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: #12121a;
+		--text: #e6e4ee;
+		--text-muted: #918da0;
+		--accent: #6ea8ff;
+		--accent-soft: rgba(110, 168, 255, 0.12);
+		--gold: #f7c948;
+		--rule: #2b2a38;
 	}
 }
 
-@media screen and (max-width: 450px) {
-	.site {
-		grid-template-columns: 1em auto 1em;
-		grid-template-rows: 3em auto auto auto 5em;
-		grid-template-areas:
-												". header ."
-												". main ."
-												". aside ."
-												". footer .";
+* {
+	box-sizing: border-box;
+}
+
+body,
+html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: var(--bg);
+	color: var(--text);
+	font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, sans-serif;
+	font-size: 1.0625rem;
+	line-height: 1.7;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+.site {
+	max-width: 42rem;
+	margin: 0 auto;
+	padding: clamp(2.5rem, 8vh, 6rem) 1.5rem 3rem;
+}
+
+/* Header */
+
+header {
+	margin-bottom: 3rem;
+}
+
+.avatar {
+	display: block;
+	width: 72px;
+	height: 72px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-bottom: 1.25rem;
+	box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--gold);
+}
+
+::selection {
+	background: var(--gold);
+	color: #1c1a12;
+}
+
+h1 {
+	margin: 0;
+	font-size: clamp(1.6rem, 5vw, 2.1rem);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	line-height: 1.2;
+}
+
+.tagline {
+	margin: 0.35rem 0 1.25rem;
+	color: var(--text-muted);
+	font-size: 1rem;
+}
+
+.links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.links a {
+	display: inline-block;
+	padding: 0.25rem 0.8rem;
+	border: 1px solid var(--rule);
+	border-radius: 999px;
+	font-size: 0.875rem;
+	color: var(--text);
+	text-decoration: none;
+	transition: border-color 0.15s ease, background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.links a:hover {
+	border-color: var(--accent);
+	background: var(--accent-soft);
+	color: var(--accent);
+}
+
+/* Content */
+
+section {
+	margin-bottom: 2.75rem;
+}
+
+h2 {
+	margin: 0 0 0.75rem;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--text-muted);
+}
+
+p {
+	margin: 0 0 1rem;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+main a {
+	color: var(--accent);
+	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
+	text-underline-offset: 0.2em;
+	transition: text-decoration-color 0.15s ease;
+}
+
+main a:hover {
+	text-decoration-color: var(--accent);
+}
+
+.projects {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.projects li {
+	padding: 0.75rem 0;
+	border-bottom: 1px solid var(--rule);
+}
+
+.projects li:first-child {
+	border-top: 1px solid var(--rule);
+}
+
+.projects a {
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.projects a:hover {
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-underline-offset: 0.2em;
+}
+
+.projects span {
+	display: block;
+	color: var(--text-muted);
+	font-size: 0.9375rem;
+}
+
+.muted {
+	color: var(--text-muted);
+}
+
+/* Footer */
+
+footer {
+	margin-top: 4rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--rule);
+	color: var(--text-muted);
+	font-size: 0.875rem;
+}
+
+footer p {
+	margin: 0 0 0.35rem;
+}
+
+footer a {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+}
+
+footer a:hover {
+	color: var(--accent);
+}
+
+@media print {
+	.links a {
+		border: none;
+		padding: 0;
 	}
 }
